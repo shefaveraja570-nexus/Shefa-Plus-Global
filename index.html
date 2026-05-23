@@ -381,9 +381,18 @@
                 <label for="check-legal">Confirmo que he leído y acepto íntegramente los <span class="link-legal" style="margin:0;" onclick="abrirModal('modal-terminos')">Términos y Condiciones</span> y las <span class="link-legal" style="margin:0;" onclick="abrirModal('modal-privacidad')">Políticas de Privacidad</span>.</label>
             </div>
 
-            <div style="display: flex; gap: 10px;">
-                <button onclick="cerrarModalCompra()" style="flex: 1; padding: 12px; background: transparent; border: 1px solid var(--gris-texto); color: white; border-radius: 8px;">Cancelar</button>
-                <button onclick="ejecutarCompra()" style="flex: 1; padding: 12px; background: var(--azul-facebook); border: none; color: white; font-weight: bold; border-radius: 8px;">Firmar e Invertir</button>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+                <a href="#" target="_blank" onclick="ejecutarCompra()" style="text-decoration: none; text-align: center; padding: 14px; background: linear-gradient(135deg, var(--oro-sagrado) 0%, #aa7c11 100%); color: var(--azul-noche); font-weight: bold; border-radius: 8px; font-size: 1rem; cursor: pointer; display: block; box-shadow: 0 4px 15px rgba(212,175,55,0.3);">
+                    💳 Pagar con PSE / Tarjeta ($50.000)
+                </a>
+
+                <button onclick="enviarComprobanteWhatsApp()" style="padding: 12px; background: #25D366; border: none; color: white; font-weight: bold; border-radius: 8px; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    🟩 Reportar Transferencia Bancaria
+                </button>
+
+                <button onclick="cerrarModalCompra()" style="padding: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gris-texto); border-radius: 8px; cursor: pointer; font-size: 0.85rem;">
+                    Cancelar
+                </button>
             </div>
         </div>
     </div>
@@ -403,6 +412,17 @@
             <div style="text-align: center; border-top: 1px solid black; width: 40%; padding-top: 5px; color: #1877F2; font-weight: bold;">Shefa Plus Shefa S.A.S.<br>Representación Legal<br>Sargento Steven Padaui</div>
         </div>
     </div>
+
+    <a href="https://wa.me/573000000000?text=Hola%20Shefa%20Plus,%20deseo%20recibir%20asesoría%20sobre%20la%20inversión%20en%20flotas." 
+       target="_blank" 
+       style="position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); z-index: 99; transition: transform 0.3s; cursor: pointer;"
+       onmouseover="this.style.transform='scale(1.1)'" 
+       onmouseout="this.style.transform='scale(1)'">
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="white">
+            <path d="M12.004 2c-5.525 0-10 4.477-10 10 0 1.777.463 3.448 1.277 4.907L2.03 21.97a.75.75 0 0 0 .944.944l5.06-1.252A9.935 9.935 0 0 0 12.004 22c5.523 0 10-4.477 10-10s-4.477-10-10-10zm0 1.5c4.697 0 8.5 3.803 8.5 8.5s-3.803 8.5-8.5 8.5c-1.623 0-3.14-.455-4.436-1.246a.75.75 0 0 0-.585-.074l-3.538.875.875-3.538a.748.748 0 0 0-.073-.585A8.449 8.449 0 0 1 3.504 12c0-4.697 3.803-8.5 8.5-8.5z"/>
+            <path d="M15.45 13.725c-.295-.148-1.743-.86-2.01-.958-.268-.098-.463-.148-.658.148-.195.295-.756.958-.927 1.154-.17.196-.341.22-.636.073a7.994 7.994 0 0 1-2.364-1.458 8.816 8.816 0 0 1-1.636-2.037c-.171-.295-.018-.454.13-.601.132-.132.294-.344.442-.516.147-.172.196-.294.294-.49.098-.197.049-.369-.025-.517-.073-.147-.658-1.583-.902-2.172-.238-.574-.479-.496-.658-.505-.17-.009-.365-.01-.56-.01a1.08 1.08 0 0 0-.78.368c-.269.294-1.025 1.006-1.025 2.451 0 1.446 1.05 2.844 1.196 3.041.147.196 2.067 3.156 5.007 4.43 1.022.443 1.83.693 2.447.889.62.197 1.185.169 1.631.103.498-.074 1.743-.712 1.987-1.4 1.182-.688.244-1.301.244-1.423-.024-.123-.17-.196-.464-.344z"/>
+        </svg>
+    </a>
 
     <script>
         // 1. INICIALIZACIÓN (PRELOADER Y GRÁFICA)
@@ -521,6 +541,25 @@
             document.getElementById('saldo-nav').innerHTML = `💰 $50.000 COP`;
             document.getElementById('cifra-portafolio').innerHTML = `$50.000`;
             animarGrafica();
+        }
+
+        // FUNCIÓN DE WHATSAPP CON VALIDACIÓN
+        function enviarComprobanteWhatsApp() {
+            if (!document.getElementById('check-legal').checked) { 
+                alert("⚠️ Acepte los Términos y Políticas para continuar."); 
+                return; 
+            }
+            
+            const nombreM = document.getElementById('moto-nombre').innerText;
+            const numContrato = "FRAC-" + Math.floor(Math.random() * 9000 + 1000);
+            const telefonoAsesor = "573202367565"; // <-- IMPORTANTE: Cambia esto por tu número
+            
+            const mensaje = encodeURIComponent(`✨ *Shefa Plus - Nueva Inversión RWA*\n\nHola Asesor, acabo de firmar el contrato digital para adquirir una fracción de:\n🏍️ *${nombreM}*\n🆔 Código provisional: *${numContrato}*\n💰 Monto: *$50.000 COP*\n\nAquí adjunto mi comprobante de transferencia (Nequi/Bancolombia) para activar mis rendimientos de Parnasá.`);
+            
+            const urlWhatsApp = `https://wa.me/${telefonoAsesor}?text=${mensaje}`;
+            
+            ejecutarCompra(); 
+            window.open(urlWhatsApp, '_blank');
         }
 
         // GENERADOR DE PDF INTELIGENTE
