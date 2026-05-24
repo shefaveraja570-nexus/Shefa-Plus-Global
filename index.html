@@ -85,8 +85,9 @@
         .dato-columna p { font-size: 0.8rem; color: var(--gris-texto); }
         .dato-columna strong { font-size: 1rem; color: var(--oro-sagrado); }
         .barra-progreso-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: var(--f-13) 0; overflow: hidden; }
-        .barra-progreso-fill { height: 100%; background: linear-gradient(90deg, var(--azul-facebook), var(--oro-sagrado)); border-radius: 4px; }
+        .barra-progreso-fill { height: 100%; background: linear-gradient(90deg, var(--azul-facebook), var(--oro-sagrado)); border-radius: 4px; transition: width 1s ease-in-out; }
         .btn-inversor { width: 100%; padding: var(--f-13); background: var(--azul-facebook); color: white; border: none; border-radius: var(--f-8); font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: var(--f-13); }
+        .btn-inversor:hover { background: #1461c7; }
         .btn-pdf { width: 100%; padding: 10px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--oro-sagrado); color: var(--oro-sagrado); border-radius: var(--f-8); font-weight: bold; font-size: 0.85rem; cursor: pointer; margin-top: 10px; transition: 0.3s; }
         .btn-pdf:hover { background: var(--oro-sagrado); color: var(--azul-noche); }
 
@@ -118,7 +119,7 @@
         .form-grupo input, .form-grupo select { width: 100%; padding: 12px; background: var(--azul-profundo); border: 1px solid rgba(24, 119, 242, 0.3); border-radius: 8px; color: white; font-size: 1rem; }
         
         footer { background: rgba(5, 9, 16, 0.9); padding: var(--f-21); text-align: center; border-top: 1px solid rgba(24, 119, 242, 0.1); margin-top: auto; }
-        .link-legal { color: var(--oro-sagrado); font-size: 0.85rem; text-decoration: underline; cursor: pointer; margin: 0 10px; }
+        .link-legal { color: var(--oro-sagrado); font-size: 0.85rem; text-decoration: underline; cursor: pointer; margin: 0 10px; background: none; border: none; font-family: inherit; }
 
         /* MODALES LEGALES EXPANDIDOS Y BLINDADOS */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
@@ -156,11 +157,11 @@
     <header>
         <div class="top-bar">
             <div class="logo">
-                <div class="logo-icon" id="amuleto-secreto" onclick="activarPanelAdmin()">🧿</div>
+                <div class="logo-icon" id="amuleto-secreto" onclick="abrirModalPin()">🧿</div>
                 Shefa Plus<span>Shefa</span>
             </div>
             <div class="saldo-usuario">
-                <span id="saldo-nav">💰 $0.00 COP</span>
+                <span id="saldo-nav">💰 $0 COP</span>
             </div>
         </div>
         <nav class="tab-menu">
@@ -172,6 +173,7 @@
     </header>
 
     <main>
+        <!-- SECCIÓN: INICIO -->
         <section id="inicio" class="seccion-contenido activa hero">
             <div class="geometria-central"></div>
             <h1>Conectando Caminos, Asegurando tu <span>Sustento</span></h1>
@@ -189,24 +191,29 @@
             </div>
         </section>
 
+        <!-- SECCIÓN: OPERACIONES -->
         <section id="operaciones" class="seccion-contenido">
             <div class="encabezado-seccion">
                 <h2>Mercado de <span>Cripto-Fracciones</span></h2>
                 <p>Invierte desde $50.000 COP y comienza la multiplicación.</p>
             </div>
-            <div class="grid-activos" id="contenedor-motos"></div>
+            <div class="grid-activos" id="contenedor-motos">
+                <!-- Los activos se inyectan dinámicamente mediante JS -->
+            </div>
         </section>
 
+        <!-- SECCIÓN: GESTIÓN -->
         <section id="gestion" class="seccion-contenido">
             <div class="encabezado-seccion" style="margin-bottom: 20px;">
                 <h2>Gestión y <span>Transparencia</span></h2>
             </div>
             
             <div class="dashboard-gestion">
+                <!-- Panel Izquierdo: Gráfica y Portafolio -->
                 <div class="panel-glass">
                     <h3 style="color: var(--gris-texto); font-size: 1rem;">Crecimiento del Portafolio</h3>
                     <div class="cifra-gigante" id="cifra-portafolio">$0.00</div>
-                    <p style="color: var(--verde-exito); font-weight: bold; font-size: 0.9rem;">+ $0.00 Rendimiento Hoy (Parnasá)</p>
+                    <p style="color: var(--verde-exito); font-weight: bold; font-size: 0.9rem;">+ $<span id="rendimiento-hoy">0.00</span> Rendimiento Hoy (Parnasá)</p>
                     <div class="chart-container"><canvas id="graficaParnasa"></canvas></div>
                     <div style="display: flex; gap: 10px; margin-top: 15px; font-size: 0.8rem;">
                         <span class="chip-legal ok">✓ SOAT Vigente</span>
@@ -214,6 +221,7 @@
                     </div>
                 </div>
 
+                <!-- Panel Derecho: Herramientas -->
                 <div style="display: flex; flex-direction: column; gap: 21px;">
                     <div class="panel-glass" style="padding: 15px;">
                         <h3 style="color: var(--oro-sagrado); margin-bottom: 10px; font-size: 1.1rem;">Billetera de Liquidez 🏦</h3>
@@ -233,404 +241,508 @@
                     </div>
 
                     <div class="panel-glass" style="padding: 15px;">
-                        <h3 style="color: var(--oro-sagrado); margin-bottom: 10px; font-size: 1.1rem;">Smart Contracts</h3>
+                        <h3 style="color: var(--oro-sagrado); font-size: 1.1rem; margin-bottom: 10px;">Mis Contratos 📜</h3>
                         <div id="lista-contratos">
-                            <p style="color: var(--gris-texto); font-size: 0.9rem; text-align: center; padding: 20px 0;">No tienes fracciones activas aún.</p>
+                            <p style="color: var(--gris-texto); font-size: 0.85rem;">No tienes contratos activos aún.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- SECCIÓN: ADMIN BÓVEDA (Oculta por defecto) -->
         <section id="admin" class="seccion-contenido">
             <div class="encabezado-seccion">
-                <h2>Centro de <span>Mando</span></h2>
-                <p style="color: var(--rojo-alerta);">Acceso Restringido - Bóveda de Inyección</p>
+                <h2>Bóveda <span>Maestra</span></h2>
+                <p>Gestión de creación de activos y liquidez.</p>
             </div>
-            <div class="admin-panel" style="max-width: 600px; margin: 0 auto;">
-                <form id="form-nueva-moto" onsubmit="guardarMoto(event)">
-                    <div class="form-grupo"><label>Nombre de Flota</label><input type="text" id="admin-nombre" placeholder="Ej: Yamaha NMAX" required></div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div class="form-grupo"><label>Valor Total</label><input type="text" id="admin-valor" placeholder="$14.500.000" required></div>
-                        <div class="form-grupo"><label>Rendimiento</label><input type="text" id="admin-rendimiento" placeholder="+1.5%" required></div>
-                    </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <div class="form-grupo"><label>Financiado (%)</label><input type="number" id="admin-porcentaje" placeholder="45" min="0" max="100" required></div>
-                        <div class="form-grupo"><label>Faltan (Frac.)</label><input type="number" id="admin-faltan" placeholder="120" required></div>
-                    </div>
-                    <div class="form-grupo">
-                        <label>Estado Inicial</label>
-                        <select id="admin-estado">
-                            <option value="ok">Produciendo 🛵</option>
-                            <option value="pendiente">En Preventa ⭐</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-guardar">Inyectar al Mercado</button>
-                </form>
+            <div class="admin-panel panel-glass">
+                <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Emitir Nuevo Activo (Moto)</h3>
+                <div class="form-grupo">
+                    <label>Nombre/Modelo de la Moto</label>
+                    <input type="text" id="admin-nombre-moto" placeholder="Ej: Yamaha NMAX 2024">
+                </div>
+                <div class="form-grupo">
+                    <label>Total de Acciones a Emitir</label>
+                    <input type="number" id="admin-acciones" placeholder="Ej: 100">
+                </div>
+                <div class="form-grupo">
+                    <label>Precio por Acción (COP)</label>
+                    <input type="number" id="admin-precio" placeholder="Ej: 50000">
+                </div>
+                <div class="form-grupo">
+                    <label>Rentabilidad Mensual (%)</label>
+                    <input type="number" id="admin-rentabilidad" placeholder="Ej: 5.5">
+                </div>
+                <button class="btn-inversor" onclick="crearActivoAdmin()">Crear y Listar Activo en Mercado</button>
             </div>
         </section>
     </main>
 
+    <!-- FOOTER LEGAL -->
     <footer>
-        <p style="color: var(--gris-texto); font-size: 0.8rem; margin-bottom: 5px;">&copy; 2026 Shefa Plus Shefa S.A.S.</p>
-        <div style="margin-top: 10px;">
-            <span class="link-legal" onclick="abrirModal('modal-terminos')">Términos Legales</span> | 
-            <span class="link-legal" onclick="abrirModal('modal-privacidad')">Políticas de Privacidad</span>
+        <p style="color: var(--gris-texto); font-size: 0.85rem; margin-bottom: 10px;">© 2024-2026 Shefa Plus Shefa. Todos los derechos reservados.</p>
+        <div>
+            <button class="link-legal" onclick="abrirModalLegal('privacidad')">Política de Privacidad Completa</button> | 
+            <button class="link-legal" onclick="abrirModalLegal('terminos')">Términos y Condiciones (Smart Contract)</button>
         </div>
     </footer>
 
-    <div id="modal-terminos" class="modal-overlay">
-        <div class="modal-content modal-legal">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-terminos')">&times;</button>
-            <h3>Términos y Condiciones de Uso e Inversión</h3>
-            <p style="text-align: center; color: var(--azul-facebook); font-style: italic; margin-bottom: 25px;">Documento Legal Vinculante - Fecha de vigencia: Mayo de 2026<br>Jurisdicción aplicable: Bogotá, D.C., República de Colombia.</p>
-            
-            <h4>1. Naturaleza del Acuerdo y Aceptación</h4>
-            <p>Al acceder, navegar, registrarse y utilizar el sitio web y la infraestructura tecnológica de Shefa Plus Shefa S.A.S. (en adelante, "La Plataforma"), operada y representada legalmente por el Sargento Steven Padaui, el usuario (en adelante, "El Aliado Comercial" o "Inversor") acepta de manera irrevocable, plena y sin reservas los presentes Términos y Condiciones. Este documento constituye un contrato legalmente vinculante entre las partes. En caso de no estar de acuerdo con la totalidad de estas estipulaciones, el usuario debe abstenerse de utilizar el ecosistema digital.</p>
+    <!-- ==========================================
+         MODALES DEL ECOSISTEMA
+         ========================================== -->
 
-            <h4>2. Modelo de Negocio, Figura Jurídica y SARLAFT</h4>
-            <p>Se deja constancia expresa de que La Plataforma <strong>NO</strong> es una entidad financiera, banco, fiduciaria o fondo de inversión colectiva, y no realiza actividades de intermediación o captación masiva y habitual de dinero del público bajo las leyes colombianas. El modelo de negocio opera estrictamente bajo la figura comercial de <strong>Contrato de Cuentas en Participación</strong>, consagrado en los Artículos 507 y siguientes del Código de Comercio de Colombia.</p>
-            <ul>
-                <li>El Aliado Comercial, en su calidad de partícipe inactivo, aporta un capital determinado para adquirir "Cripto-Fracciones" o cuotas partes digitales representativas de un Activo del Mundo Real (RWA), específicamente vehículos automotores tipo motocicleta destinados a fines comerciales.</li>
-                <li>Shefa Plus Shefa S.A.S. actúa en calidad de Socio Gestor, asumiendo la administración exclusiva, mantenimiento preventivo y correctivo, gestión logística, y operación directa de las flotas bajo modelos de mototaxismo regulado, delivery de última milla o renta vehicular de alta gama.</li>
-                <li><strong>SARLAFT (Prevención de Lavado de Activos):</strong> El Aliado Comercial declara bajo la gravedad de juramento que el origen de los fondos aportados es totalmente lícito y no proviene de, ni será destinado a, actividades tipificadas como lavado de activos, financiación del terrorismo, u otros delitos afines. La Plataforma se reserva el derecho de reportar operaciones sospechosas a la UIAF (Unidad de Información y Análisis Financiero).</li>
-            </ul>
-
-            <h4>3. Adquisición de Fracciones y Liquidación de Rendimientos (Parnasá)</h4>
-            <p><strong>Proyecciones y Rendimientos:</strong> Los porcentajes de rendimiento, tanto diarios como mensuales, exhibidos en la interfaz de La Plataforma constituyen proyecciones financieras estructuradas con base en el flujo de caja histórico y el trabajo real de las motocicletas en circulación. Shefa Plus Shefa S.A.S. distribuirá las utilidades netas generadas por la explotación comercial del vehículo de manera estrictamente proporcional a la cantidad de fracciones digitales titularizadas por cada Aliado Comercial.</p>
-            <p><strong>Acreditación y Billetera:</strong> Los rendimientos líquidos se verán reflejados en el "Portafolio Activo" del panel de Gestión del usuario, pudiendo ser reinvertidos para capitalización compuesta (Multiplicación/Verajá) o retirados hacia las pasarelas bancarias autorizadas (ej. Nequi, Bancolombia) sujetas a los tiempos de procesamiento de la red financiera nacional.</p>
-
-            <h4>4. Sustento Protegido: Esquema de Garantías y Seguros</h4>
-            <p>Shefa Plus Shefa S.A.S. diseña e implementa una arquitectura de mitigación de riesgo para salvaguardar la integridad del capital aportado. La totalidad de los activos (motocicletas) vinculados al ecosistema se encuentran amparados bajo:</p>
-            <ul>
-                <li>Seguro Obligatorio de Accidentes de Tránsito (SOAT) vigente.</li>
-                <li>Póliza de Seguro Todo Riesgo emitida por aseguradoras legalmente constituidas en Colombia, con cobertura contra pérdida total por daños y pérdida total por hurto.</li>
-                <li>Auditoría telemática ininterrumpida mediante sistemas de Geolocalización Satelital (GPS) 24/7.</li>
-            </ul>
-            <p><strong>Siniestros:</strong> Ante la eventualidad de un siniestro que derive en la pérdida total o hurto del activo, Shefa Plus Shefa S.A.S. procederá con la reclamación formal ante la entidad aseguradora. La restitución del capital a los tenedores de fracciones estará supeditada estrictamente a la aprobación, liquidación y los tiempos procesales de la compañía de seguros (constituyendo fuerza mayor o caso fortuito).</p>
-
-            <h4>5. Declaración de Riesgos Asumidos</h4>
-            <p>El Aliado Comercial comprende, acepta y asume que toda operación de índole comercial y mercantil conlleva riesgos inherentes. La inversión se encuentra respaldada por el desempeño operativo de un activo físico expuesto a dinámicas viales y de mercado. Shefa Plus Shefa S.A.S. no garantiza ni promete retornos fijos que puedan asimilarse a tasas de interés bancarias, garantizando exclusivamente la participación transparente y auditable en las utilidades reales que genere el vehículo.</p>
-
-            <h4>6. Propiedad Intelectual, Código Sagrado y Arquitectura Digital</h4>
-            <p>La totalidad del código fuente, arquitectura de software, bases de datos, diseño de interfaz (UI/UX), paleta cromática, logotipos, algoritmos de distribución financiera, y la integración metodológica de proporciones armónicas (Proporción Áurea - Phi 1.618) constituyen propiedad intelectual y secretos industriales de Shefa Plus Shefa S.A.S., protegidos por las leyes de derechos de autor y propiedad industrial de Colombia y tratados internacionales. Queda terminantemente prohibida la copia, reproducción, ingeniería inversa, alteración o uso no autorizado de La Plataforma. El ecosistema opera fundamentado en principios rectores de geometría sagrada y frecuencias de abundancia (Shefa, Parnasá y Verajá), principios inquebrantables de nuestra ética corporativa.</p>
-
-            <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-                <button class="btn-inversor" style="width: auto; padding: 15px 40px; font-size: 1.1rem;" onclick="cerrarModal('modal-terminos')">HE LEÍDO Y ACEPTO ESTOS TÉRMINOS</button>
-            </div>
+    <!-- Modal PIN Admin -->
+    <div id="modal-pin" class="modal-overlay">
+        <div class="modal-content">
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-pin')">&times;</button>
+            <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Acceso Restringido</h3>
+            <p style="color: var(--gris-texto); margin-bottom: 15px;">Introduce el código de vibración maestro.</p>
+            <input type="password" id="input-pin" class="pin-input" maxlength="4">
+            <button class="btn-inversor" onclick="verificarPin()">Desbloquear Bóveda</button>
         </div>
     </div>
 
+    <!-- Modal de Inversión / Contrato -->
+    <div id="modal-inversion" class="modal-overlay">
+        <div class="modal-content modal-legal" style="max-width: 500px;">
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-inversion')">&times;</button>
+            <h3 style="color: var(--oro-sagrado); font-size: 1.3rem;">Adquisición de Participación</h3>
+            <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <p style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span style="color: var(--gris-texto);">Activo:</span>
+                    <strong id="inv-nombre-moto" style="color: white;">---</strong>
+                </p>
+                <p style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <span style="color: var(--gris-texto);">Precio x Acción:</span>
+                    <strong id="inv-precio-accion" style="color: var(--oro-sagrado);">---</strong>
+                </p>
+                <p style="display: flex; justify-content: space-between;">
+                    <span style="color: var(--gris-texto);">Rentabilidad Estimada:</span>
+                    <strong id="inv-rentabilidad" style="color: var(--verde-exito);">---</strong>
+                </p>
+            </div>
+            
+            <div class="form-grupo">
+                <label>Cantidad de Acciones a adquirir</label>
+                <input type="number" id="inv-cantidad" min="1" value="1" oninput="calcularTotalInversion()">
+            </div>
+            
+            <h4 style="text-align: center; color: var(--blanco-puro); font-size: 1.5rem; margin: 15px 0;">
+                Total: <span id="inv-total-pagar" style="color: var(--oro-sagrado);">$0 COP</span>
+            </h4>
+
+            <div class="checkbox-legal">
+                <input type="checkbox" id="check-terminos-inv">
+                <label for="check-terminos-inv">Acepto los <a href="#" onclick="abrirModalLegal('terminos')" style="color: var(--azul-facebook);">Términos y Condiciones</a> y confirmo que los fondos provienen de fuentes lícitas.</label>
+            </div>
+
+            <button class="btn-inversor" onclick="ejecutarInversion()">Firmar y Adquirir (Shefa)</button>
+        </div>
+    </div>
+
+    <!-- MODAL: POLÍTICA DE PRIVACIDAD COMPLETA E INTACTA -->
     <div id="modal-privacidad" class="modal-overlay">
         <div class="modal-content modal-legal">
             <button class="btn-cerrar-modal" onclick="cerrarModal('modal-privacidad')">&times;</button>
-            <h3>Política de Tratamiento de Datos Personales y Privacidad Financiera</h3>
-            <p style="text-align: center; color: var(--azul-facebook); font-style: italic; margin-bottom: 25px;">En estricto cumplimiento de la Constitución Política, la Ley Estatutaria 1581 de 2012 (Ley de Habeas Data), el Decreto Reglamentario 1377 de 2013 y las directrices de la Superintendencia de Industria y Comercio (SIC) de la República de Colombia.</p>
-
-            <h4>1. Identificación del Responsable del Tratamiento</h4>
-            <p>Shefa Plus Shefa S.A.S., sociedad comercial legalmente constituida en Colombia, representada por el Sargento Steven Padaui, con domicilio principal en la ciudad de Bogotá D.C., actúa como RESPONSABLE del tratamiento de los datos personales y financieros suministrados por los usuarios (Titulares) dentro del ecosistema digital.</p>
-
-            <h4>2. Alcance, Finalidad y Recolección (KYC/KYT)</h4>
-            <p>La recolección, almacenamiento, uso, circulación y procesamiento de los datos personales, de contacto y de trazabilidad financiera de los usuarios se realizará con los siguientes propósitos exclusivos y limitados:</p>
-            <ul>
-                <li><strong>KYC (Know Your Customer - Conoce a tu Cliente):</strong> Validar y verificar la identidad real del Aliado Comercial para la formalización y emisión de los Contratos Inteligentes de Participación y los respectivos documentos en formato PDF.</li>
-                <li><strong>KYT (Know Your Transaction):</strong> Monitorear la legitimidad de las transacciones, procesar de forma segura la recepción de capital y ejecutar con precisión técnica los desembolsos de liquidez (rendimientos/Parnasá) hacia los productos financieros designados por el usuario (Cuentas de Ahorro, Nequi, Bancolombia, etc.).</li>
-                <li>Enviar notificaciones operativas, alertas de seguridad, reportes de estado de los activos (motos) y actualizaciones sustanciales de La Plataforma.</li>
-            </ul>
-
-            <h4>3. Datos Recopilados</h4>
-            <p>Shefa Plus Shefa S.A.S. recopila únicamente la información estrictamente necesaria para la correcta prestación de sus servicios financieros y operativos. Esto incluye, de manera enunciativa más no limitativa: nombres completos, documentos de identidad, correos electrónicos, números de contacto, información de cuentas bancarias receptoras de rendimientos, direcciones IP, y trazas de geolocalización de conexión por motivos de prevención de fraude cibernético.</p>
-
-            <h4>4. Bóveda Criptográfica y Seguridad de la Información</h4>
-            <p>La infraestructura tecnológica de Shefa Plus Shefa S.A.S. se rige por los más altos estándares de ciberseguridad. Los datos sensibles, contraseñas, saldos de portafolio y contratos digitales se encuentran resguardados mediante arquitecturas de cifrado avanzado (Ej. protocolos AES-256) y transmisión segura SSL/TLS. La plataforma prohíbe y bloquea activamente la minería de datos, inyecciones de código y accesos no autorizados a nuestra bóveda administrativa.</p>
-
-            <h4>5. Derechos de los Titulares (Derechos ARCO)</h4>
-            <p>De conformidad con la Ley 1581 de 2012, usted como titular legítimo de su información posee en todo momento el derecho a:</p>
-            <ul>
-                <li><strong>Conocer (Acceder):</strong> Consultar de forma gratuita qué datos suyos se encuentran en nuestra base de datos criptográfica.</li>
-                <li><strong>Actualizar y Rectificar:</strong> Solicitar la corrección de información que se encuentre parcial, inexacta, incompleta, fraccionada o que induzca a error.</li>
-                <li><strong>Revocar y Suprimir:</strong> Retirar el consentimiento otorgado y solicitar la eliminación definitiva de sus datos de nuestros servidores, siempre y cuando no exista un deber legal o un contrato activo (fracciones vigentes) que exija la retención de los mismos.</li>
-            </ul>
-
-            <h4>6. Confidencialidad Absoluta y No Transferencia a Terceros</h4>
-            <p>Shefa Plus Shefa S.A.S. asume un compromiso ético y legal inquebrantable: <strong>NUNCA</strong> comercializará, venderá, permutará, alquilará ni entregará la base de datos de sus Aliados Comerciales a empresas de marketing, publicidad o entidades de terceros. La información financiera es un secreto sagrado entre el inversor y La Plataforma. Excepcionalmente, los datos solo podrán ser revelados ante la solicitud expresa, formal y fundamentada de autoridades judiciales o administrativas competentes de la República de Colombia, mediante orden legal debidamente expedida.</p>
-
-            <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
-                <button class="btn-inversor" style="width: auto; padding: 15px 40px; font-size: 1.1rem;" onclick="cerrarModal('modal-privacidad')">AUTORIZO EL TRATAMIENTO DE MIS DATOS</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-pin" class="modal-overlay">
-        <div class="modal-content">
-            <button class="btn-cerrar-modal" style="font-size: 1.5rem;" onclick="cerrarModal('modal-pin')">&times;</button>
-            <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Bóveda Administrativa</h3>
-            <input type="password" id="input-pin" class="pin-input" maxlength="3" autocomplete="off"><br>
-            <button class="btn-inversor" onclick="verificarPIN()">Desbloquear</button>
-        </div>
-    </div>
-
-    <div id="modal-compra" class="modal-overlay">
-        <div class="modal-content">
-            <h2 style="color: var(--oro-sagrado); margin-bottom: 10px;">Transacción RWA</h2>
-            <p>Adquiriendo fracción de: <br><strong id="moto-nombre" style="color: white; font-size: 1.1rem;"></strong></p>
-            <h3 style="font-size: 2rem; margin: 15px 0;">$50.000 COP</h3>
+            <h3>Política de Privacidad Integral de Shefa Plus Shefa</h3>
             
-            <div class="checkbox-legal">
-                <input type="checkbox" id="check-legal">
-                <label for="check-legal">Confirmo que he leído y acepto íntegramente los <span class="link-legal" style="margin:0;" onclick="abrirModal('modal-terminos')">Términos y Condiciones</span> y las <span class="link-legal" style="margin:0;" onclick="abrirModal('modal-privacidad')">Políticas de Privacidad</span>.</label>
-            </div>
+            <p><strong>Última actualización: Noviembre 2024</strong></p>
+            <p>En <strong>Shefa Plus Shefa</strong>, no solo cuidamos tus activos financieros, sino que estructuramos nuestra arquitectura de datos con la misma precisión matemática y respeto que aplicamos a la multiplicación de tu Parnasá. Valoramos profundamente tu confianza, y esta Política de Privacidad describe de forma <strong>íntegra y sin recortes</strong> cómo recopilamos, protegemos, utilizamos y compartimos tu información personal y financiera dentro de nuestro Ecosistema Dinámico Pro.</p>
 
-            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
-                <a href="#" target="_blank" onclick="ejecutarCompra()" style="text-decoration: none; text-align: center; padding: 14px; background: linear-gradient(135deg, var(--oro-sagrado) 0%, #aa7c11 100%); color: var(--azul-noche); font-weight: bold; border-radius: 8px; font-size: 1rem; cursor: pointer; display: block; box-shadow: 0 4px 15px rgba(212,175,55,0.3);">
-                    💳 Pagar con PSE / Tarjeta ($50.000)
-                </a>
+            <h4>1. Información que Recopilamos (La Semilla de Datos)</h4>
+            <p>Para garantizar un ecosistema blindado y cumplir con las normativas internacionales de KYC (Know Your Customer) y AML (Anti-Money Laundering), recopilamos las siguientes categorías de datos:</p>
+            <ul>
+                <li><strong>Datos de Identidad:</strong> Nombre completo, número de documento de identidad (Cédula/Pasaporte), fecha de nacimiento y validación biométrica (cuando sea requerida para retiros).</li>
+                <li><strong>Datos de Contacto:</strong> Correo electrónico, número de teléfono móvil y dirección de residencia física.</li>
+                <li><strong>Datos Financieros:</strong> Información de cuentas bancarias (Nequi, Bancolombia, Daviplata), historial de transacciones dentro de Shefa Plus, origen de fondos y recibos de transferencias.</li>
+                <li><strong>Datos Técnicos:</strong> Dirección IP, tipo de navegador, sistema operativo, identificadores de dispositivo, y registros de actividad dentro de la plataforma (Trazabilidad criptográfica).</li>
+            </ul>
 
-                <button onclick="enviarComprobanteWhatsApp()" style="padding: 12px; background: #25D366; border: none; color: white; font-weight: bold; border-radius: 8px; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    🟩 Reportar Transferencia Bancaria
-                </button>
+            <h4>2. Uso de la Información (Sintonizando la Frecuencia Correcta)</h4>
+            <p>Tu información no es comercializada. Se utiliza exclusivamente para las siguientes finalidades esenciales para el flujo de abundancia:</p>
+            <ul>
+                <li><strong>Ejecución del Contrato:</strong> Crear y gestionar tu cuenta de inversor, procesar la compra de Cripto-Fracciones, calcular rendimientos matemáticos basados en el número Phi (1.618), y emitir los contratos en formato PDF.</li>
+                <li><strong>Seguridad y Prevención de Fraude:</strong> Monitorear transacciones para detectar actividades sospechosas, proteger la liquidez del pool y asegurar que los fondos de todos los usuarios estén resguardados de ataques cibernéticos.</li>
+                <li><strong>Comunicación:</strong> Notificarte sobre la disponibilidad de nuevos activos, confirmación de retiros, y actualizaciones críticas de la plataforma o de la normativa legal.</li>
+                <li><strong>Cumplimiento Legal:</strong> Mantener registros exigidos por la legislación financiera y tributaria vigente en Colombia y regulaciones internacionales aplicables.</li>
+            </ul>
 
-                <button onclick="cerrarModalCompra()" style="padding: 10px; background: transparent; border: 1px solid rgba(255,255,255,0.2); color: var(--gris-texto); border-radius: 8px; cursor: pointer; font-size: 0.85rem;">
-                    Cancelar
-                </button>
+            <h4>3. Protección y Criptografía de Datos</h4>
+            <p>Implementamos medidas de seguridad de grado militar y arquitectura de alta frecuencia. Todos los datos sensibles en tránsito están protegidos mediante cifrado TLS 1.3. Los datos en reposo, incluyendo tus documentos de identidad y números de cuenta, se almacenan utilizando algoritmos de encriptación AES-256 en servidores con certificación ISO 27001. Nuestro compromiso es que tu información permanezca tan segura como la bóveda de tus rendimientos.</p>
+
+            <h4>4. Compartir Datos con Terceros (Red de Confianza)</h4>
+            <p>Shefa Plus Shefa <strong>no vende ni alquila</strong> tus datos a terceros bajo ninguna circunstancia. Solo compartimos información estrictamente necesaria con:</p>
+            <ul>
+                <li><strong>Pasarelas de Pago y Entidades Bancarias:</strong> Para procesar tus aportes y liquidar tus retiros (ej. integración con APIs bancarias).</li>
+                <li><strong>Proveedores de Verificación KYC:</strong> Sistemas automatizados de terceros utilizados exclusivamente para validar la autenticidad de tus documentos para prevenir la suplantación de identidad.</li>
+                <li><strong>Autoridades Gubernamentales:</strong> Únicamente cuando exista un requerimiento legal formal y vinculante por parte de un juez o entidad reguladora competente.</li>
+            </ul>
+
+            <h4>5. Tus Derechos (Derechos ARCO y Soberanía de Datos)</h4>
+            <p>Como dueño de tu información, tienes soberanía total sobre ella, alineado con las leyes de protección de datos (Ley 1581 de 2012 en Colombia):</p>
+            <ul>
+                <li><strong>Acceso y Rectificación:</strong> Puedes solicitar una copia de todos los datos que tenemos sobre ti y corregir cualquier información inexacta desde el panel de gestión.</li>
+                <li><strong>Cancelación (Derecho al Olvido):</strong> Puedes solicitar la eliminación de tu cuenta y datos, siempre y cuando no mantengas contratos activos ni existan obligaciones legales de retención de historial financiero.</li>
+                <li><strong>Oposición:</strong> Tienes derecho a solicitar que dejemos de usar tus datos para comunicaciones de marketing.</li>
+            </ul>
+            <p>Para ejercer estos derechos, debes enviar una solicitud formal a <strong>privacidad@shefaplus.com</strong> desde tu correo electrónico registrado.</p>
+
+            <h4>6. Cookies, Rastreo y Analítica de Comportamiento</h4>
+            <p>Utilizamos cookies de sesión esenciales para mantener tu sesión activa y segura. También utilizamos cookies analíticas para entender cómo interactúas con la plataforma, optimizar el rendimiento del código y mejorar tu experiencia de usuario (UI/UX). Puedes configurar tu navegador para bloquear estas cookies, pero algunas funciones de la plataforma de inversión podrían dejar de operar correctamente.</p>
+
+            <h4>7. Cambios en esta Política</h4>
+            <p>El ecosistema Shefa es dinámico y evoluciona. Nos reservamos el derecho de modificar esta Política de Privacidad para adaptarla a nuevas tecnologías o regulaciones legales. Cualquier cambio sustancial será notificado a tu correo electrónico registrado y a través de un aviso destacado en tu dashboard principal al menos 15 días antes de su entrada en vigor.</p>
+
+            <p style="text-align: center; color: var(--oro-sagrado); margin-top: 30px; font-weight: bold;">
+                Al utilizar Shefa Plus Shefa, reconoces que has leído, entendido y aceptado esta Política de Privacidad de forma íntegra, permitiendo que la energía y los datos fluyan con transparencia y seguridad.
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL: TÉRMINOS Y CONDICIONES (SMART CONTRACT) -->
+    <div id="modal-terminos" class="modal-overlay">
+        <div class="modal-content modal-legal">
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-terminos')">&times;</button>
+            <h3>Términos y Condiciones (Smart Contract Legal)</h3>
+            <p>Al adquirir una Cripto-Fracción en Shefa Plus Shefa, aceptas los siguientes términos operativos vinculantes:</p>
+            
+            <h4>1. Naturaleza de la Inversión</h4>
+            <p>La adquisición de fracciones representa un derecho de participación sobre los rendimientos generados por la flota de transporte (motos) administrada por Shefa Plus. No constituye título de propiedad física sobre el vehículo, sino un contrato de cuentas en participación para usufructo de los dividendos diarios.</p>
+            
+            <h4>2. Rendimientos y Parnasá</h4>
+            <p>Los rendimientos ("Shefa") publicados son estimaciones basadas en el rendimiento histórico y la gestión logística actual. Se acreditan diariamente al balance del usuario. Shefa Plus se compromete a mantener la flota operativa, asegurada (SOAT y Todo Riesgo) y monitoreada (GPS) para maximizar la rentabilidad, asumiendo los costos operativos antes de la distribución de dividendos.</p>
+            
+            <h4>3. Liquidez y Retiros</h4>
+            <p>Los retiros de capital y rendimientos pueden solicitarse en cualquier momento a través del módulo "Billetera de Liquidez", con tiempos de procesamiento que oscilan entre 24 y 48 horas hábiles, según la entidad bancaria seleccionada. Se aplicará una tarifa transaccional estándar del ecosistema bancario (si aplica).</p>
+
+            <h4>4. Riesgos del Ecosistema</h4>
+            <p>Si bien operamos bajo estrictos protocolos de mitigación de riesgo (seguros contra robo y daño total), toda inversión en activos del mundo real (RWA) conlleva riesgos inherentes. El usuario declara entender que los rendimientos pueden fluctuar por condiciones de fuerza mayor ajenas al control operativo.</p>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn-oro" onclick="cerrarModal('modal-terminos')">He leído y Comprendo</button>
             </div>
         </div>
     </div>
 
-    <div id="plantilla-pdf" style="position: absolute; left: -9999px; background: white; color: black; padding: 40px; width: 600px; font-family: Arial, sans-serif;">
-        <h1 style="color: #1877F2; text-align: center; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">SHEFA PLUS SHEFA S.A.S.</h1>
-        <h2 style="text-align: center; margin-top: 20px;">CONTRATO DE PARTICIPACIÓN DIGITAL</h2>
-        <p><strong>ID de Contrato:</strong> <span id="pdf-id"></span></p>
-        <p><strong>Fecha de Expedición:</strong> <span id="pdf-fecha"></span></p>
-        <p><strong>Activo Respaldado (RWA):</strong> <span id="pdf-moto"></span></p>
-        <p><strong>Inversión de Capital:</strong> $50.000 COP</p>
-        <div style="margin-top: 30px; padding: 15px; border: 1px solid #ccc; font-size: 12px; text-align: justify; line-height: 1.5;">
-            El presente documento certifica la titularidad del inversor sobre la fracción digital del activo mercantil mencionado. El capital está respaldado operativamente por Shefa Plus Shefa S.A.S. y asegurado mediante pólizas de seguro físicas obligatorias y extracontractuales. Los rendimientos generados por la operación comercial de la flota serán liquidados directamente en la interfaz de la plataforma, conforme a los Términos, Condiciones y Políticas de Privacidad vigentes.
-        </div>
-        <div style="margin-top: 50px; display: flex; justify-content: space-between;">
-            <div style="text-align: center; border-top: 1px solid black; width: 40%; padding-top: 5px;">Firma Digital Aliado</div>
-            <div style="text-align: center; border-top: 1px solid black; width: 40%; padding-top: 5px; color: #1877F2; font-weight: bold;">Shefa Plus Shefa S.A.S.<br>Representación Legal<br>Sargento Steven Padaui</div>
-        </div>
-    </div>
-
-    <a href="https://wa.me/573202367565?text=Hola%20Shefa%20Plus,%20deseo%20recibir%20asesoría%20sobre%20la%20inversión%20en%20flotas." 
-       target="_blank" 
-       style="position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); z-index: 99; transition: transform 0.3s; cursor: pointer;"
-       onmouseover="this.style.transform='scale(1.1)'" 
-       onmouseout="this.style.transform='scale(1)'">
-        <svg width="35" height="35" viewBox="0 0 24 24" fill="white">
-            <path d="M12.004 2c-5.525 0-10 4.477-10 10 0 1.777.463 3.448 1.277 4.907L2.03 21.97a.75.75 0 0 0 .944.944l5.06-1.252A9.935 9.935 0 0 0 12.004 22c5.523 0 10-4.477 10-10s-4.477-10-10-10zm0 1.5c4.697 0 8.5 3.803 8.5 8.5s-3.803 8.5-8.5 8.5c-1.623 0-3.14-.455-4.436-1.246a.75.75 0 0 0-.585-.074l-3.538.875.875-3.538a.748.748 0 0 0-.073-.585A8.449 8.449 0 0 1 3.504 12c0-4.697 3.803-8.5 8.5-8.5z"/>
-            <path d="M15.45 13.725c-.295-.148-1.743-.86-2.01-.958-.268-.098-.463-.148-.658.148-.195.295-.756.958-.927 1.154-.17.196-.341.22-.636.073a7.994 7.994 0 0 1-2.364-1.458 8.816 8.816 0 0 1-1.636-2.037c-.171-.295-.018-.454.13-.601.132-.132.294-.344.442-.516.147-.172.196-.294.294-.49.098-.197.049-.369-.025-.517-.073-.147-.658-1.583-.902-2.172-.238-.574-.479-.496-.658-.505-.17-.009-.365-.01-.56-.01a1.08 1.08 0 0 0-.78.368c-.269.294-1.025 1.006-1.025 2.451 0 1.446 1.05 2.844 1.196 3.041.147.196 2.067 3.156 5.007 4.43 1.022.443 1.83.693 2.447.889.62.197 1.185.169 1.631.103.498-.074 1.743-.712 1.987-1.4 1.182-.688.244-1.301.244-1.423-.024-.123-.17-.196-.464-.344z"/>
-        </svg>
-    </a>
-
+    <!-- ==========================================
+         LÓGICA DEL ECOSISTEMA (JAVASCRIPT)
+         ========================================== -->
     <script>
-        // 1. INICIALIZACIÓN (PRELOADER Y GRÁFICA)
-        let graficaRendimientos;
+        // ESTADO GLOBAL DE LA APLICACIÓN (Arquitectura Phi)
+        const STATE = {
+            saldoPortafolio: 0,
+            rendimientoHoy: 0,
+            contratos: [],
+            motos: [
+                { id: 1, nombre: "Yamaha NMAX Connected", totalAcciones: 100, accionesDisponibles: 45, precio: 50000, rentabilidad: 5.5, estado: "activo" },
+                { id: 2, nombre: "Honda PCX 160", totalAcciones: 120, accionesDisponibles: 12, precio: 65000, rentabilidad: 6.2, estado: "activo" },
+                { id: 3, nombre: "Suzuki Gixxer 150", totalAcciones: 80, accionesDisponibles: 80, precio: 45000, rentabilidad: 5.0, estado: "pendiente" }
+            ],
+            motoSeleccionada: null,
+            grafica: null
+        };
+
+        const PHI = 1.618;
+
+        // INICIALIZACIÓN Y PRELOADER
         window.addEventListener('load', () => {
             setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800);
-                renderizarMercado();
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                setTimeout(() => { preloader.style.display = 'none'; }, 800);
+                
+                renderMotos();
+                actualizarDashboard();
                 inicializarGrafica();
-            }, 2000);
+            }, 1500); // Sintonizando frecuencias
         });
 
-        // SISTEMA DE PESTAÑAS Y MODALES
-        function abrirPestana(idSeccion, elementoBtn) {
+        // NAVEGACIÓN
+        function abrirPestana(id, btn) {
             document.querySelectorAll('.seccion-contenido').forEach(sec => sec.classList.remove('activa'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('activa'));
-            document.getElementById(idSeccion).classList.add('activa');
-            elementoBtn.classList.add('activa');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
-        function cerrarModalCompra() { cerrarModal('modal-compra'); document.getElementById('check-legal').checked = false; }
-
-        // BÓVEDA ADMIN
-        let contadorToques = 0; let temporizadorToques; const PIN_MAESTRO = "777";
-        function activarPanelAdmin() {
-            contadorToques++; clearTimeout(temporizadorToques);
-            if (contadorToques === 5) {
-                abrirModal('modal-pin'); document.getElementById('input-pin').value = '';
-                contadorToques = 0;
-            } else { temporizadorToques = setTimeout(() => { contadorToques = 0; }, 1500); }
-        }
-        function verificarPIN() {
-            if (document.getElementById('input-pin').value === PIN_MAESTRO) {
-                cerrarModal('modal-pin'); document.getElementById('btn-admin').style.display = 'block'; 
-                alert("🧿 Acceso Autorizado. Bóveda abierta."); document.getElementById('btn-admin').click();
-            } else { alert("❌ PIN Incorrecto."); document.getElementById('input-pin').value = ''; }
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('activo'));
+            
+            document.getElementById(id).classList.add('activa');
+            btn.classList.add('activo');
         }
 
-        // MERCADO DINÁMICO
-        const motosSemilla = [
-            { nombre: "Flota Delivery - Yamaha FZ", valor: "$8.500.000", rendimiento: "+1.2%", financiado: 85, faltan: 25, estado: "Produciendo 🛵", claseEstado: "badge-ok" },
-            { nombre: "Renta Lujo - BMW R1250 GS", valor: "$125.000.000", rendimiento: "+4.5%", financiado: 30, faltan: 1400, estado: "En Preventa ⭐", claseEstado: "badge-pendiente" }
-        ];
-        let inventarioMotos = motosSemilla;
-        try { const d = localStorage.getItem('BaseMotosPro'); if(d) inventarioMotos = JSON.parse(d); } catch(e){}
+        // RENDERIZADO DEL MERCADO DE ACTIVOS
+        function renderMotos() {
+            const contenedor = document.getElementById('contenedor-motos');
+            contenedor.innerHTML = '';
 
-        function renderizarMercado() {
-            const cont = document.getElementById('contenedor-motos'); cont.innerHTML = ''; 
-            inventarioMotos.forEach(moto => {
-                cont.innerHTML += `
-                <div class="tarjeta-activo">
-                    <div class="badge-estado ${moto.claseEstado}">${moto.estado}</div>
+            STATE.motos.forEach(moto => {
+                const porcentaje = ((moto.totalAcciones - moto.accionesDisponibles) / moto.totalAcciones) * 100;
+                const claseBadge = moto.estado === 'activo' ? 'badge-ok' : 'badge-pendiente';
+                const textoBadge = moto.estado === 'activo' ? 'EN OPERACIÓN' : 'RECAUDO';
+                const formatPrecio = new Intl.NumberFormat('es-CO').format(moto.precio);
+
+                const div = document.createElement('div');
+                div.className = 'tarjeta-activo';
+                div.innerHTML = `
+                    <div class="badge-estado ${claseBadge}">${textoBadge}</div>
                     <h3 class="activo-titulo">${moto.nombre}</h3>
+                    
                     <div class="activo-datos">
-                        <div class="dato-columna"><p>Valor Total</p><strong>${moto.valor}</strong></div>
-                        <div class="dato-columna" style="text-align: right;"><p>Rendimiento</p><strong style="color: var(--verde-exito);">${moto.rendimiento}</strong></div>
+                        <div class="dato-columna">
+                            <p>Precio x Acción</p>
+                            <strong>$${formatPrecio} COP</strong>
+                        </div>
+                        <div class="dato-columna" style="text-align: right;">
+                            <p>Rentabilidad</p>
+                            <strong style="color: var(--verde-exito);">+${moto.rentabilidad}% / mes</strong>
+                        </div>
                     </div>
-                    <div style="font-size: 0.85rem; color: var(--gris-texto); display: flex; justify-content: space-between;">
-                        <span>Financiación: ${moto.financiado}%</span><span>Faltan: ${moto.faltan} frac.</span>
+                    
+                    <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 10px;">Fracciones: ${moto.totalAcciones - moto.accionesDisponibles} / ${moto.totalAcciones}</p>
+                    <div class="barra-progreso-bg">
+                        <div class="barra-progreso-fill" style="width: ${porcentaje}%"></div>
                     </div>
-                    <div class="barra-progreso-bg"><div class="barra-progreso-fill" style="width: ${moto.financiado}%;"></div></div>
-                    <button class="btn-inversor" onclick="simularCompra('${moto.nombre}')">Invertir $50.000 COP</button>
-                </div>`;
+                    
+                    <button class="btn-inversor" onclick="prepararInversion(${moto.id})" ${moto.accionesDisponibles === 0 ? 'disabled style="background:gray;"' : ''}>
+                        ${moto.accionesDisponibles === 0 ? 'VENDIDO (SOLD OUT)' : 'Adquirir Fracción'}
+                    </button>
+                `;
+                contenedor.appendChild(div);
             });
         }
 
-        function guardarMoto(e) {
-            e.preventDefault(); 
-            const sel = document.getElementById('admin-estado').value;
-            inventarioMotos.push({
-                nombre: document.getElementById('admin-nombre').value, valor: document.getElementById('admin-valor').value,
-                rendimiento: document.getElementById('admin-rendimiento').value, financiado: document.getElementById('admin-porcentaje').value,
-                faltan: document.getElementById('admin-faltan').value,
-                estado: sel === 'ok' ? 'Produciendo 🛵' : 'En Preventa ⭐', claseEstado: sel === 'ok' ? 'badge-ok' : 'badge-pendiente'
+        // SISTEMA DE INVERSIÓN
+        function prepararInversion(idMoto) {
+            STATE.motoSeleccionada = STATE.motos.find(m => m.id === idMoto);
+            document.getElementById('inv-nombre-moto').innerText = STATE.motoSeleccionada.nombre;
+            document.getElementById('inv-precio-accion').innerText = `$${new Intl.NumberFormat('es-CO').format(STATE.motoSeleccionada.precio)}`;
+            document.getElementById('inv-rentabilidad').innerText = `+${STATE.motoSeleccionada.rentabilidad}% Mes`;
+            document.getElementById('inv-cantidad').value = 1;
+            
+            calcularTotalInversion();
+            abrirModal('modal-inversion');
+        }
+
+        function calcularTotalInversion() {
+            const cant = parseInt(document.getElementById('inv-cantidad').value) || 0;
+            const total = cant * STATE.motoSeleccionada.precio;
+            document.getElementById('inv-total-pagar').innerText = `$${new Intl.NumberFormat('es-CO').format(total)} COP`;
+        }
+
+        function ejecutarInversion() {
+            const cant = parseInt(document.getElementById('inv-cantidad').value);
+            const check = document.getElementById('check-terminos-inv').checked;
+
+            if (!check) {
+                alert("Debes aceptar los Términos y Condiciones para inyectar Parnasá.");
+                return;
+            }
+            if (cant > STATE.motoSeleccionada.accionesDisponibles) {
+                alert("No hay suficientes fracciones disponibles en este activo.");
+                return;
+            }
+
+            // Matemática de inversión
+            const montoInvertido = cant * STATE.motoSeleccionada.precio;
+            STATE.motoSeleccionada.accionesDisponibles -= cant;
+            STATE.saldoPortafolio += montoInvertido;
+            
+            // Simular un primer rendimiento instantáneo basado en Phi
+            const gananciaAura = (montoInvertido * (STATE.motoSeleccionada.rentabilidad/100) / 30) * PHI; 
+            STATE.rendimientoHoy += gananciaAura;
+
+            // Registrar contrato
+            const fecha = new Date().toLocaleDateString();
+            const idContrato = 'SHF-' + Math.floor(Math.random() * 9000 + 1000) + '-PRO';
+            STATE.contratos.push({
+                id: idContrato,
+                moto: STATE.motoSeleccionada.nombre,
+                acciones: cant,
+                monto: montoInvertido,
+                fecha: fecha
             });
-            localStorage.setItem('BaseMotosPro', JSON.stringify(inventarioMotos));
-            renderizarMercado(); document.getElementById('form-nueva-moto').reset();
-            alert("✅ Flota inyectada al ecosistema."); document.getElementById('btn-operaciones').click();
+
+            cerrarModal('modal-inversion');
+            renderMotos();
+            actualizarDashboard();
+            renderContratos();
+            alert("¡Transacción exitosa! Has inyectado capital de forma segura. El contrato se ha generado.");
         }
 
-        // LÓGICA DE INVERSIÓN Y NEURO-DISEÑO
-        function simularCompra(nombreMoto) {
-            document.getElementById('moto-nombre').innerText = nombreMoto;
-            abrirModal('modal-compra');
-        }
+        // PANEL DE GESTIÓN Y FINANZAS
+        function actualizarDashboard() {
+            const formateador = new Intl.NumberFormat('es-CO');
+            document.getElementById('cifra-portafolio').innerText = `$${formateador.format(STATE.saldoPortafolio)}`;
+            document.getElementById('rendimiento-hoy').innerText = formateador.format(STATE.rendimientoHoy.toFixed(0));
+            document.getElementById('saldo-nav').innerText = `💰 $${formateador.format(STATE.saldoPortafolio)} COP`;
 
-        function ejecutarCompra() {
-            if (!document.getElementById('check-legal').checked) { alert("⚠️ Acepte los Términos y Políticas para continuar."); return; }
-            cerrarModalCompra(); alert("¡Shefa Activada! Tu capital comienza a multiplicarse.");
-            document.getElementById('btn-gestion').click();
-            
-            const numContrato = "FRAC-" + Math.floor(Math.random() * 9000 + 1000);
-            const nombreM = document.getElementById('moto-nombre').innerText;
-            
-            const htmlContrato = `
-                <div class="item-contrato">
-                    <div style="flex:1;">
-                        <h4 style="color: var(--blanco-puro); font-size:1rem;">${numContrato}</h4>
-                        <p style="font-size: 0.8rem; color: var(--gris-texto);">${nombreM}</p>
-                    </div>
-                    <div style="text-align: right; width:100px;">
-                        <strong style="color: var(--oro-sagrado);">$50.000</strong>
-                        <button class="btn-pdf" onclick="generarPDF('${numContrato}', '${nombreM}')">Descargar PDF</button>
-                    </div>
-                </div>
-            `;
-            if(document.getElementById('lista-contratos').innerHTML.includes('No tienes fracciones')) {
-                document.getElementById('lista-contratos').innerHTML = htmlContrato;
-            } else {
-                document.getElementById('lista-contratos').innerHTML += htmlContrato;
+            if(STATE.grafica && STATE.saldoPortafolio > 0) {
+                // Actualizar gráfica simulando crecimiento constante
+                const base = STATE.saldoPortafolio;
+                STATE.grafica.data.datasets[0].data = [
+                    base * 0.8, base * 0.85, base * 0.9, base * 0.95, base, base * 1.01, base * 1.05
+                ];
+                STATE.grafica.update();
             }
-            
-            document.getElementById('saldo-nav').innerHTML = `💰 $50.000 COP`;
-            document.getElementById('cifra-portafolio').innerHTML = `$50.000`;
-            animarGrafica();
         }
 
-        // FUNCIÓN DE WHATSAPP CON VALIDACIÓN
-        function enviarComprobanteWhatsApp() {
-            if (!document.getElementById('check-legal').checked) { 
-                alert("⚠️ Acepte los Términos y Políticas para continuar."); 
-                return; 
-            }
+        function renderContratos() {
+            const lista = document.getElementById('lista-contratos');
+            if (STATE.contratos.length === 0) return;
             
-            const nombreM = document.getElementById('moto-nombre').innerText;
-            const numContrato = "FRAC-" + Math.floor(Math.random() * 9000 + 1000);
-            const telefonoAsesor = "573202367565"; // <-- IMPORTANTE:3202367565
-            
-            const mensaje = encodeURIComponent(`✨ *Shefa Plus - Nueva Inversión RWA*\n\nHola Asesor, acabo de firmar el contrato digital para adquirir una fracción de:\n🏍️ *${nombreM}*\n🆔 Código provisional: *${numContrato}*\n💰 Monto: *$50.000 COP*\n\nAquí adjunto mi comprobante de transferencia (Nequi/Bancolombia) para activar mis rendimientos de Parnasá.`);
-            
-            const urlWhatsApp = `https://wa.me/${telefonoAsesor}?text=${mensaje}`;
-            
-            ejecutarCompra(); 
-            window.open(urlWhatsApp, '_blank');
+            lista.innerHTML = '';
+            STATE.contratos.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'item-contrato';
+                div.innerHTML = `
+                    <div style="display:flex; justify-content: space-between;">
+                        <strong style="color:var(--blanco-puro); font-size: 0.9rem;">${c.moto}</strong>
+                        <span style="color:var(--oro-sagrado); font-size: 0.8rem;">${c.id}</span>
+                    </div>
+                    <p style="color:var(--gris-texto); font-size: 0.8rem; margin: 5px 0;">Inversión: $${new Intl.NumberFormat('es-CO').format(c.monto)} | ${c.acciones} Fracciones</p>
+                    <button class="btn-pdf" onclick="generarPDF('${c.id}')">Descargar Certificado (PDF)</button>
+                `;
+                lista.appendChild(div);
+            });
         }
 
-        // GENERADOR DE PDF INTELIGENTE
-        function generarPDF(id, moto) {
-            alert("Generando firma digital y empaquetando PDF. Un momento...");
-            const hoy = new Date().toLocaleDateString('es-CO');
-            document.getElementById('pdf-id').innerText = id;
-            document.getElementById('pdf-fecha').innerText = hoy;
-            document.getElementById('pdf-moto').innerText = moto;
-            
-            const elementoPDF = document.getElementById('plantilla-pdf');
-            html2pdf().set({
-                margin: 10, filename: `Contrato_${id}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(elementoPDF).save();
-        }
-
-        // BILLETERA (RETIROS)
-        function procesarRetiro() {
-            const monto = document.getElementById('monto-retiro').value;
-            const banco = document.getElementById('banco-retiro').value;
-            if(!monto || monto < 10000) { alert("⚠️ El monto mínimo de retiro es $10.000 COP"); return; }
-            
-            alert(`⏳ Conectando con pasarela bancaria de ${banco}... Procesando transferencia segura.`);
-            setTimeout(() => {
-                alert(`✅ ¡Transacción Exitosa! Se ha programado un desembolso de $${monto} COP a tu cuenta ${banco}. Verás el dinero en las próximas 2 horas hábiles.`);
-                document.getElementById('monto-retiro').value = '';
-            }, 2500);
-        }
-
-        // SISTEMA REFERIDOS
-        function copiarReferido() {
-            navigator.clipboard.writeText("SHEFA-777-PRO");
-            alert("✨ ¡Código Sagrado Copiado! Compártelo y multiplica tus ganancias.");
-        }
-
-        // MOTOR DE GRÁFICAS (CHART.JS)
+        // Gráfica Chart.js (Curva de Abundancia)
         function inicializarGrafica() {
             const ctx = document.getElementById('graficaParnasa').getContext('2d');
-            let gradient = ctx.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, 'rgba(212, 175, 55, 0.5)'); 
-            gradient.addColorStop(1, 'rgba(24, 119, 242, 0.0)'); 
-            
-            graficaRendimientos = new Chart(ctx, {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+            gradient.addColorStop(0, 'rgba(212, 175, 55, 0.4)');
+            gradient.addColorStop(1, 'rgba(24, 119, 242, 0.0)');
+
+            STATE.grafica = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Día 1', 'Día 2', 'Día 3', 'Día 4', 'Día 5', 'Día 6', 'Hoy'],
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
                     datasets: [{
-                        label: 'Proyección Parnasá (COP)',
+                        label: 'Proyección (COP)',
                         data: [0, 0, 0, 0, 0, 0, 0],
-                        borderColor: '#D4AF37', borderWidth: 3,
-                        backgroundColor: gradient, fill: true, tension: 0.4 
+                        borderColor: '#D4AF37',
+                        backgroundColor: gradient,
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#1877F2',
+                        pointBorderColor: '#fff'
                     }]
                 },
                 options: {
-                    responsive: true, maintainAspectRatio: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { display: false, color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#A0ABC0' } },
-                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#A0ABC0' } }
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#A0ABC0' } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#A0ABC0', maxTicksLimit: 5 } }
                     }
                 }
             });
         }
 
-        function animarGrafica() {
-            graficaRendimientos.data.datasets[0].data = [50000, 50400, 50850, 51200, 51700, 52100, 52500];
-            graficaRendimientos.update();
-            document.querySelector('.panel-glass p').innerText = "+ $2.500 Rendimiento Hoy (Parnasá)";
+        function procesarRetiro() {
+            const monto = document.getElementById('monto-retiro').value;
+            const banco = document.getElementById('banco-retiro').value;
+            if (!monto || monto < 10000) {
+                alert("El retiro mínimo es de $10.000 COP");
+                return;
+            }
+            alert(`Solicitud de retiro a ${banco} por $${monto} enrutada exitosamente. La liquidez llegará en las próximas horas.`);
+            document.getElementById('monto-retiro').value = '';
+        }
+
+        function copiarReferido() {
+            navigator.clipboard.writeText("SHEFA-777-PRO");
+            alert("Código Sagrado copiado al portapapeles. ¡Expande la Verajá (bendición)!");
+        }
+
+        // GENERACIÓN DE PDF
+        function generarPDF(idContrato) {
+            const contrato = STATE.contratos.find(c => c.id === idContrato);
+            const elementoContrato = document.createElement('div');
+            elementoContrato.innerHTML = `
+                <div style="padding: 40px; font-family: Helvetica, sans-serif; color: #000; background: #fff;">
+                    <h1 style="color: #1877F2; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">Shefa Plus Shefa</h1>
+                    <h2>Certificado de Participación Digital</h2>
+                    <p><strong>Contrato ID:</strong> ${contrato.id}</p>
+                    <p><strong>Fecha de Emisión:</strong> ${contrato.fecha}</p>
+                    <hr style="margin: 20px 0;">
+                    <h3>Detalles del Activo</h3>
+                    <p><strong>Activo Vinculado (Moto):</strong> ${contrato.moto}</p>
+                    <p><strong>Fracciones Adquiridas:</strong> ${contrato.acciones} Unidades</p>
+                    <p><strong>Inyección de Capital:</strong> $${new Intl.NumberFormat('es-CO').format(contrato.monto)} COP</p>
+                    <br><br>
+                    <p style="font-size: 10px; color: #666; text-align: justify;">Este documento valida criptográficamente la participación del usuario en la flota operativa de Shefa Plus Shefa. Almacenado y verificado en la base de datos principal. "Conectando caminos, asegurando el sustento".</p>
+                    <div style="margin-top: 50px; border-top: 1px solid #000; width: 200px; text-align: center;">Firma Digital Master</div>
+                </div>
+            `;
+            html2pdf().set({
+                margin: 1,
+                filename: `Contrato_${idContrato}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            }).from(elementoContrato).save();
+        }
+
+        // SISTEMA ADMIN (BÓVEDA)
+        function abrirModalPin() { abrirModal('modal-pin'); }
+        
+        function verificarPin() {
+            const pin = document.getElementById('input-pin').value;
+            // PIN Secreto para activar Parnasá Admin (7777)
+            if (pin === "7777") {
+                cerrarModal('modal-pin');
+                document.getElementById('btn-admin').style.display = 'block';
+                document.getElementById('input-pin').value = '';
+                document.getElementById('btn-admin').click();
+                alert("Frecuencia Maestra Sintonizada. Bóveda Abierta.");
+            } else {
+                alert("Frecuencia incorrecta. Acceso denegado.");
+            }
+        }
+
+        function crearActivoAdmin() {
+            const nombre = document.getElementById('admin-nombre-moto').value;
+            const acciones = parseInt(document.getElementById('admin-acciones').value);
+            const precio = parseInt(document.getElementById('admin-precio').value);
+            const renta = parseFloat(document.getElementById('admin-rentabilidad').value);
+
+            if(!nombre || !acciones || !precio || !renta) {
+                alert("Complete todos los campos matemáticos para emitir el activo.");
+                return;
+            }
+
+            const nuevaMoto = {
+                id: STATE.motos.length + 1,
+                nombre: nombre,
+                totalAcciones: acciones,
+                accionesDisponibles: acciones,
+                precio: precio,
+                rentabilidad: renta,
+                estado: 'activo'
+            };
+
+            STATE.motos.push(nuevaMoto);
+            renderMotos();
+            
+            document.getElementById('admin-nombre-moto').value = '';
+            document.getElementById('admin-acciones').value = '';
+            document.getElementById('admin-precio').value = '';
+            document.getElementById('admin-rentabilidad').value = '';
+            
+            alert(`Activo ${nombre} listado exitosamente en el mercado.`);
+            document.getElementById('btn-operaciones').click();
+        }
+
+        // CONTROL DE MODALES
+        function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
+        function abrirModalLegal(tipo) { abrirModal(`modal-${tipo}`); }
+
+        // Cerrar modales al hacer clic fuera
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+            }
         }
     </script>
 </body>
