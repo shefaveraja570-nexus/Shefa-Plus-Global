@@ -40,7 +40,7 @@
         .logo { display: flex; align-items: center; gap: var(--f-8); font-weight: 700; font-size: 1.3rem; user-select: none; }
         @keyframes pulso-divino { 0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); } 50% { box-shadow: 0 0 34px rgba(212, 175, 55, 0.6); } 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); } }
         .logo-icon { color: var(--oro-sagrado); font-size: 1.6rem; cursor: pointer; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-        .logo span { color: var(--azul-facebook); }
+       .logo span { color: var(--azul-facebook); }
         .saldo-usuario { background: rgba(24, 119, 242, 0.1); border: 1px solid var(--azul-facebook); padding: 6px var(--f-13); border-radius: var(--f-21); font-weight: bold; font-size: 0.9rem; }
         .tab-menu { display: flex; justify-content: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .tab-btn { background: none; border: none; color: var(--gris-texto); padding: var(--f-13) var(--f-21); font-size: 0.95rem; font-weight: 600; cursor: pointer; position: relative; }
@@ -75,21 +75,21 @@
         .encabezado-seccion span { color: var(--azul-facebook); }
         .grid-activos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--f-34); }
         
-        .tarjeta-activo { background: rgba(12, 20, 33, 0.8); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: var(--f-13); padding: var(--f-21); position: relative; overflow: hidden; transition: 0.3s; }
+        /* NUEVO DISEÑO TARJETA ACTIVO CON FOTO */
+        .tarjeta-activo { background: rgba(12, 20, 33, 0.8); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: var(--f-13); overflow: hidden; position: relative; transition: 0.3s; display: flex; flex-direction: column; }
         .tarjeta-activo:hover { border-color: var(--oro-sagrado); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); }
-        .badge-estado { position: absolute; top: var(--f-21); right: var(--f-21); padding: 4px var(--f-8); border-radius: var(--f-8); font-size: 0.75rem; font-weight: bold; border: 1px solid; }
-        .badge-ok { background: rgba(0, 200, 83, 0.2); color: var(--verde-exito); border-color: var(--verde-exito); }
-        .badge-pendiente { background: rgba(212, 175, 55, 0.2); color: var(--oro-sagrado); border-color: var(--oro-sagrado); }
-        .activo-titulo { font-size: 1.3rem; margin-bottom: var(--f-8); color: var(--blanco-puro); padding-right: 80px; }
-        .activo-datos { display: flex; justify-content: space-between; margin-bottom: var(--f-13); padding-bottom: var(--f-13); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .activo-imagen-contenedor { width: 100%; height: 200px; overflow: hidden; position: relative; }
+        .activo-imagen-contenedor img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .tarjeta-activo:hover .activo-imagen-contenedor img { transform: scale(1.05); }
+        .badge-ubicacion { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); color: var(--oro-sagrado); padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--oro-sagrado); display: flex; align-items: center; gap: 5px; text-decoration: none; transition: 0.3s; }
+        .badge-ubicacion:hover { background: var(--oro-sagrado); color: var(--azul-noche); }
+        .activo-info { padding: var(--f-21); flex: 1; display: flex; flex-direction: column; }
+        .activo-titulo { font-size: 1.3rem; margin-bottom: var(--f-8); color: var(--blanco-puro); }
+        .activo-datos { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--f-13); padding-bottom: var(--f-13); border-bottom: 1px solid rgba(255,255,255,0.05); }
         .dato-columna p { font-size: 0.8rem; color: var(--gris-texto); }
-        .dato-columna strong { font-size: 1rem; color: var(--oro-sagrado); }
-        .barra-progreso-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.1); border-radius: 4px; margin: var(--f-13) 0; overflow: hidden; }
-        .barra-progreso-fill { height: 100%; background: linear-gradient(90deg, var(--azul-facebook), var(--oro-sagrado)); border-radius: 4px; transition: width 1s ease-in-out; }
-        .btn-inversor { width: 100%; padding: var(--f-13); background: var(--azul-facebook); color: white; border: none; border-radius: var(--f-8); font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: var(--f-13); }
-        .btn-inversor:hover { background: #1461c7; }
-        .btn-pdf { width: 100%; padding: 10px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--oro-sagrado); color: var(--oro-sagrado); border-radius: var(--f-8); font-weight: bold; font-size: 0.85rem; cursor: pointer; margin-top: 10px; transition: 0.3s; }
-        .btn-pdf:hover { background: var(--oro-sagrado); color: var(--azul-noche); }
+        .dato-columna strong { font-size: 1.2rem; color: var(--oro-sagrado); }
+        .btn-inversor { width: 100%; padding: var(--f-13); background: var(--azul-facebook); color: white; border: none; border-radius: var(--f-8); font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: auto; }
+        .btn-inversor:hover { background: #155db8; }
 
         /* MÓDULOS DE GESTIÓN */
         .dashboard-gestion { display: grid; grid-template-columns: 1fr 1fr; gap: var(--f-21); align-items: start; }
@@ -97,8 +97,6 @@
         
         .panel-glass { background: linear-gradient(135deg, rgba(24, 119, 242, 0.05), rgba(12, 20, 33, 0.9)); border: 1px solid rgba(24, 119, 242, 0.2); border-radius: var(--f-13); padding: var(--f-21); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .cifra-gigante { font-size: 2.2rem; color: var(--oro-sagrado); font-weight: 800; margin: 10px 0; }
-        
-        /* Gráfica Container */
         .chart-container { width: 100%; height: 200px; margin-top: 15px; }
 
         /* Billetera */
@@ -107,45 +105,56 @@
         /* Referidos */
         .codigo-referido { background: rgba(0, 200, 83, 0.1); border: 1px dashed var(--verde-exito); color: var(--verde-exito); padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; border-radius: 8px; letter-spacing: 2px; margin: 15px 0; cursor: pointer; transition: 0.3s; }
         .codigo-referido:hover { background: rgba(0, 200, 83, 0.2); }
-
-        .item-contrato { background: rgba(255,255,255,0.03); border-left: 4px solid var(--oro-sagrado); padding: var(--f-13); margin-bottom: 10px; border-radius: 0 var(--f-8) var(--f-8) 0; }
         .chip-legal { font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; display: inline-block; }
         .chip-legal.ok { background: rgba(0, 200, 83, 0.2); color: var(--verde-exito); }
 
         /* BÓVEDA ADMIN */
-        .admin-panel { background: rgba(255,255,255,0.02); border: 2px dashed var(--oro-sagrado); border-radius: var(--f-13); padding: var(--f-21); }
+        .admin-panel { background: rgba(12, 20, 33, 0.9); border: 1px solid var(--oro-sagrado); border-radius: var(--f-13); padding: var(--f-21); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
         .form-grupo { margin-bottom: 15px; }
-        .form-grupo label { display: block; margin-bottom: 5px; color: var(--gris-texto); font-size: 0.9rem; }
-        .form-grupo input, .form-grupo select { width: 100%; padding: 12px; background: var(--azul-profundo); border: 1px solid rgba(24, 119, 242, 0.3); border-radius: 8px; color: white; font-size: 1rem; }
-        
-        footer { background: rgba(5, 9, 16, 0.9); padding: var(--f-21); text-align: center; border-top: 1px solid rgba(24, 119, 242, 0.1); margin-top: auto; }
-        .link-legal { color: var(--oro-sagrado); font-size: 0.85rem; text-decoration: underline; cursor: pointer; margin: 0 10px; background: none; border: none; font-family: inherit; }
+        .form-grupo label { display: block; margin-bottom: 5px; color: var(--oro-sagrado); font-size: 0.9rem; font-weight: bold; }
+        .form-grupo input, .form-grupo select { width: 100%; padding: 12px; background: var(--azul-noche); border: 1px solid rgba(24, 119, 242, 0.3); border-radius: 8px; color: white; font-size: 1rem; }
+        .btn-accion-admin { background: var(--verde-exito); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-peligro { background: rgba(255, 61, 0, 0.2); color: var(--rojo-alerta); border: 1px solid var(--rojo-alerta); padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .lista-flotas-admin { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .item-flota-admin { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; border-left: 3px solid var(--azul-facebook); }
 
-        /* MODALES LEGALES EXPANDIDOS Y BLINDADOS */
+        /* ALARMA ROJA */
+        #alarma-roja { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 0, 0, 0.95); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
+        .texto-alarma { color: white; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; text-shadow: 2px 2px 10px black; margin-bottom: 20px; animation: parpadeo 0.5s infinite; }
+        .sub-alarma { color: yellow; font-size: 1.5rem; font-weight: bold; background: black; padding: 20px; border-radius: 10px; border: 2px solid yellow; max-width: 600px; }
+
+        footer { background: rgba(5, 9, 16, 0.9); padding: var(--f-21); text-align: center; border-top: 1px solid rgba(24, 119, 242, 0.1); margin-top: auto; }
+        .link-legal { color: var(--oro-sagrado); font-size: 0.85rem; text-decoration: underline; cursor: pointer; margin: 0 10px; }
+
+        /* MODALES */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: var(--azul-profundo); border: 1px solid var(--oro-sagrado); padding: var(--f-21); border-radius: var(--f-13); text-align: center; max-width: 400px; width: 100%; position: relative; }
+        .modal-legal { max-width: 850px; max-height: 85vh; overflow-y: auto; text-align: left; padding: var(--f-34); }
+        .modal-legal h3 { color: var(--oro-sagrado); margin-bottom: 10px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 15px; font-size: 1.6rem; text-align: center; }
+        .modal-legal p { color: var(--gris-texto); font-size: 0.95rem; margin-bottom: 15px; line-height: 1.8; text-align: justify; }
         
-        .modal-legal { max-width: 850px; max-height: 85vh; overflow-y: auto; text-align: left; padding: var(--f-34); box-shadow: 0 0 50px rgba(0,0,0,0.8); }
-        .modal-legal h3 { color: var(--oro-sagrado); margin-bottom: 10px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 15px; font-size: 1.6rem; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
-        .modal-legal h4 { color: var(--azul-facebook); margin-top: 25px; margin-bottom: 10px; font-size: 1.15rem; border-left: 3px solid var(--oro-sagrado); padding-left: 10px; }
-        .modal-legal p, .modal-legal li { color: var(--gris-texto); font-size: 0.95rem; margin-bottom: 15px; line-height: 1.8; text-align: justify; }
-        .modal-legal ul { padding-left: 20px; margin-bottom: 20px; }
-        
-        .checkbox-legal { display: flex; align-items: flex-start; gap: 10px; text-align: left; margin: 20px 0; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border: 1px solid rgba(24,119,242,0.3); }
-        .checkbox-legal input { margin-top: 5px; transform: scale(1.2); cursor: pointer; }
-        .checkbox-legal label { font-size: 0.85rem; color: var(--gris-texto); cursor: pointer; }
         .btn-cerrar-modal { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: white; font-size: 2.2rem; cursor: pointer; z-index: 10; transition: 0.3s; }
         .btn-cerrar-modal:hover { color: var(--rojo-alerta); transform: scale(1.1); }
-        .pin-input { font-size: 2rem; padding: 10px; text-align: center; width: 150px; background: rgba(255,255,255,0.05); border: 2px solid var(--oro-sagrado); color: white; border-radius: 8px; margin-bottom: 15px; letter-spacing: 5px; }
+        .pin-input { font-size: 1.5rem; padding: 15px; text-align: center; width: 100%; background: rgba(255,255,255,0.05); border: 2px solid var(--oro-sagrado); color: white; border-radius: 8px; margin-bottom: 15px; letter-spacing: 2px; outline: none; }
+        .pin-input:focus { border-color: var(--azul-facebook); }
 
-        /* SCROLLBAR PERSONALIZADO PARA TEXTOS LEGALES */
-        .modal-legal::-webkit-scrollbar { width: 8px; }
-        .modal-legal::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
-        .modal-legal::-webkit-scrollbar-thumb { background: var(--oro-sagrado); border-radius: 4px; }
-        .modal-legal::-webkit-scrollbar-thumb:hover { background: #aa7c11; }
+        /* ESTILOS DE PASARELAS QR */
+        .btn-banco { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 15px 20px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; cursor: pointer; margin-bottom: 15px; border: none; transition: 0.3s; }
+        .btn-bancolombia { background: #FFD700; color: black; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
+        .btn-nequi { background: #1A0033; color: #FF00A6; border: 1px solid #FF00A6; }
+        .btn-daviplata { background: #ED1C24; color: white; }
+        .btn-banco:hover { transform: scale(1.02); }
+        
+        .qr-display { background: white; padding: 20px; border-radius: 15px; display: inline-block; margin: 20px 0; border: 4px solid; }
+
     </style>
 </head>
 <body>
+
+    <div id="alarma-roja">
+        <div class="texto-alarma">🚨 😡 🚫<br>¡FRECUENCIA, SHEFA PLUS SHEFA INCORRECTA!</div>
+        <div class="sub-alarma">⚠️ ADVERTENCIA MÁXIMA: Intento de intrusión detectado. Su posición está siendo rastreada vía satelital para las autoridades competentes.</div>
+    </div>
 
     <div id="preloader">
         <div class="preloader-rombo"></div>
@@ -157,29 +166,28 @@
     <header>
         <div class="top-bar">
             <div class="logo">
-                <div class="logo-icon" id="amuleto-secreto" onclick="abrirModalPin()">🧿</div>
+                <div class="logo-icon" id="amuleto-secreto">🧿</div>
                 Shefa Plus<span>Shefa</span>
             </div>
             <div class="saldo-usuario">
-                <span id="saldo-nav">💰 $0 COP</span>
+                <span id="saldo-nav">💰 $0.00 COP</span>
             </div>
         </div>
         <nav class="tab-menu">
-            <button class="tab-btn activo" id="btn-inicio" onclick="abrirPestana('inicio', this)">Inicio</button>
-            <button class="tab-btn" id="btn-operaciones" onclick="abrirPestana('operaciones', this)">Operaciones</button>
-            <button class="tab-btn" id="btn-gestion" onclick="abrirPestana('gestion', this)">Gestión</button>
-            <button class="tab-btn" id="btn-admin" style="display: none; color: var(--rojo-alerta);" onclick="abrirPestana('admin', this)">⚙️ Admin</button>
+            <button class="tab-btn activo" onclick="abrirPestana('inicio', this)">Inicio</button>
+            <button class="tab-btn" onclick="abrirPestana('operaciones', this)">Operaciones</button>
+            <button class="tab-btn" onclick="abrirPestana('gestion', this)">Gestión</button>
+            <button class="tab-btn" id="btn-admin-tab" style="display: none; color: var(--oro-sagrado);" onclick="abrirPestana('admin', this)">Bóveda Admin</button>
         </nav>
     </header>
 
     <main>
-        <!-- SECCIÓN: INICIO -->
         <section id="inicio" class="seccion-contenido activa hero">
             <div class="geometria-central"></div>
             <h1>Conectando Caminos, Asegurando tu <span>Sustento</span></h1>
             <p>Arquitectura Fintech de alta gama. Democratizamos la inversión en flotas. Sé dueño de fracciones de activos y recibe rendimientos diarios (Shefa).</p>
             <div class="hero-botones">
-                <a href="#operaciones" onclick="document.getElementById('btn-operaciones').click()" class="btn-playstore">
+                <a href="#operaciones" onclick="abrirPestana('operaciones', document.querySelectorAll('.tab-btn')[1])" class="btn-playstore">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 2.5V21.5L19.5 12L4 2.5Z" fill="url(#paint0_linear)"/>
                         <path d="M4 2.5L14 12L4 21.5" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
@@ -187,33 +195,29 @@
                     </svg>
                     <div class="playstore-text"><small>Disponible pronto en App</small><strong>Shefa Plus</strong></div>
                 </a>
-                <button class="btn-oro" onclick="document.getElementById('btn-operaciones').click()">Abrir Mercado</button>
+                <button class="btn-oro" onclick="abrirPestana('operaciones', document.querySelectorAll('.tab-btn')[1])">Abrir Mercado</button>
             </div>
         </section>
 
-        <!-- SECCIÓN: OPERACIONES -->
         <section id="operaciones" class="seccion-contenido">
             <div class="encabezado-seccion">
                 <h2>Mercado de <span>Cripto-Fracciones</span></h2>
                 <p>Invierte desde $50.000 COP y comienza la multiplicación.</p>
             </div>
             <div class="grid-activos" id="contenedor-motos">
-                <!-- Los activos se inyectan dinámicamente mediante JS -->
-            </div>
+                </div>
         </section>
 
-        <!-- SECCIÓN: GESTIÓN -->
         <section id="gestion" class="seccion-contenido">
             <div class="encabezado-seccion" style="margin-bottom: 20px;">
                 <h2>Gestión y <span>Transparencia</span></h2>
             </div>
             
             <div class="dashboard-gestion">
-                <!-- Panel Izquierdo: Gráfica y Portafolio -->
                 <div class="panel-glass">
                     <h3 style="color: var(--gris-texto); font-size: 1rem;">Crecimiento del Portafolio</h3>
                     <div class="cifra-gigante" id="cifra-portafolio">$0.00</div>
-                    <p style="color: var(--verde-exito); font-weight: bold; font-size: 0.9rem;">+ $<span id="rendimiento-hoy">0.00</span> Rendimiento Hoy (Parnasá)</p>
+                    <p style="color: var(--verde-exito); font-weight: bold; font-size: 0.9rem;">+ $0.00 Rendimiento Hoy (Parnasá)</p>
                     <div class="chart-container"><canvas id="graficaParnasa"></canvas></div>
                     <div style="display: flex; gap: 10px; margin-top: 15px; font-size: 0.8rem;">
                         <span class="chip-legal ok">✓ SOAT Vigente</span>
@@ -221,7 +225,6 @@
                     </div>
                 </div>
 
-                <!-- Panel Derecho: Herramientas -->
                 <div style="display: flex; flex-direction: column; gap: 21px;">
                     <div class="panel-glass" style="padding: 15px;">
                         <h3 style="color: var(--oro-sagrado); margin-bottom: 10px; font-size: 1.1rem;">Billetera de Liquidez 🏦</h3>
@@ -231,518 +234,396 @@
                             <option value="Daviplata">Daviplata</option>
                         </select>
                         <input type="number" id="monto-retiro" class="input-billetera" placeholder="Monto a retirar (Ej: 20000)">
-                        <button class="btn-inversor" style="margin-top: 0; padding: 10px;" onclick="procesarRetiro()">Solicitar Transferencia</button>
+                        <button class="btn-inversor" style="margin-top: 0; padding: 10px;" onclick="alert('Solicitud enviada a procesamiento central.')">Solicitar Transferencia</button>
                     </div>
 
                     <div class="panel-glass" style="padding: 15px;">
                         <h3 style="color: var(--blanco-puro); font-size: 1.1rem;">Red de Multiplicación (Verajá)</h3>
                         <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 5px;">Comparte tu código sagrado y obtén +0.5% extra por cada aliado.</p>
-                        <div class="codigo-referido" onclick="copiarReferido()">SHEFA-777-PRO 📋</div>
-                    </div>
-
-                    <div class="panel-glass" style="padding: 15px;">
-                        <h3 style="color: var(--oro-sagrado); font-size: 1.1rem; margin-bottom: 10px;">Mis Contratos 📜</h3>
-                        <div id="lista-contratos">
-                            <p style="color: var(--gris-texto); font-size: 0.85rem;">No tienes contratos activos aún.</p>
-                        </div>
+                        <div class="codigo-referido" onclick="alert('Código copiado al portapapeles.')">SHEFA-777-PRO 📋</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN: ADMIN BÓVEDA (Oculta por defecto) -->
         <section id="admin" class="seccion-contenido">
             <div class="encabezado-seccion">
-                <h2>Bóveda <span>Maestra</span></h2>
-                <p>Gestión de creación de activos y liquidez.</p>
+                <h2>Bóveda de Frecuencia <span>Shefa Plus Shefa</span> Administrativa</h2>
+                <p style="color: var(--oro-sagrado);">Panel de Control Maestro</p>
             </div>
-            <div class="admin-panel panel-glass">
-                <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Emitir Nuevo Activo (Moto)</h3>
-                <div class="form-grupo">
-                    <label>Nombre/Modelo de la Moto</label>
-                    <input type="text" id="admin-nombre-moto" placeholder="Ej: Yamaha NMAX 2024">
+            
+            <div class="admin-panel">
+                <h3 style="color: white; margin-bottom: 15px; border-bottom: 1px solid var(--azul-facebook); padding-bottom: 10px;">Inyectar Nueva Flota</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-grupo">
+                        <label>Nombre del Vehículo (Ej. Moto Negra PADAUI)</label>
+                        <input type="text" id="admin-nombre" placeholder="Nombre descriptivo">
+                    </div>
+                    <div class="form-grupo">
+                        <label>Precio Fracción ($ COP)</label>
+                        <input type="number" id="admin-precio" placeholder="Ej: 50000">
+                    </div>
+                    <div class="form-grupo" style="grid-column: 1 / -1;">
+                        <label>Ubicación Exacta (Para Google Maps)</label>
+                        <input type="text" id="admin-ubicacion" placeholder="Ej: Bogotá, Chapinero, Cra 13">
+                    </div>
+                    <div class="form-grupo" style="grid-column: 1 / -1;">
+                        <label>URL de la Fotografía</label>
+                        <input type="text" id="admin-foto" placeholder="https://ejemplo.com/mifoto.jpg">
+                    </div>
                 </div>
-                <div class="form-grupo">
-                    <label>Total de Acciones a Emitir</label>
-                    <input type="number" id="admin-acciones" placeholder="Ej: 100">
+                <button class="btn-accion-admin" onclick="agregarFlota()">+ Materializar Flota en Mercado</button>
+                
+                <h3 style="color: white; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid var(--azul-facebook); padding-bottom: 10px;">Flotas Activas (Edición Rápida)</h3>
+                <div class="lista-flotas-admin" id="lista-flotas-admin">
+                    </div>
+
+                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--rojo-alerta);">
+                    <h3 style="color: var(--rojo-alerta); margin-bottom: 10px;">Seguridad: Cambiar PIN de Acceso</h3>
+                    <input type="text" id="nuevo-pin" class="input-billetera" placeholder="Nuevo PIN (Admite letras, tildes, símbolos, puntos...)">
+                    <button class="btn-accion-admin" style="background: var(--rojo-alerta);" onclick="cambiarPin()">Actualizar PIN de Seguridad</button>
                 </div>
-                <div class="form-grupo">
-                    <label>Precio por Acción (COP)</label>
-                    <input type="number" id="admin-precio" placeholder="Ej: 50000">
-                </div>
-                <div class="form-grupo">
-                    <label>Rentabilidad Mensual (%)</label>
-                    <input type="number" id="admin-rentabilidad" placeholder="Ej: 5.5">
-                </div>
-                <button class="btn-inversor" onclick="crearActivoAdmin()">Crear y Listar Activo en Mercado</button>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER LEGAL -->
     <footer>
-        <p style="color: var(--gris-texto); font-size: 0.85rem; margin-bottom: 10px;">© 2024-2026 Shefa Plus Shefa. Todos los derechos reservados.</p>
-        <div>
-            <button class="link-legal" onclick="abrirModalLegal('privacidad')">Política de Privacidad Completa</button> | 
-            <button class="link-legal" onclick="abrirModalLegal('terminos')">Términos y Condiciones (Smart Contract)</button>
+        <p>&copy; 2026 Shefa Plus Shefa S.A.S.</p>
+        <div style="margin-top: 10px;">
+            <span class="link-legal" onclick="abrirModal('modal-terminos')">Términos y Condiciones</span>
+            <span class="link-legal" onclick="abrirModal('modal-terminos')">Política de Privacidad</span>
         </div>
     </footer>
 
-    <!-- ==========================================
-         MODALES DEL ECOSISTEMA
-         ========================================== -->
-
-    <!-- Modal PIN Admin -->
-    <div id="modal-pin" class="modal-overlay">
+    <div class="modal-overlay" id="modal-pin">
         <div class="modal-content">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-pin')">&times;</button>
-            <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Acceso Restringido</h3>
-            <p style="color: var(--gris-texto); margin-bottom: 15px;">Introduce el código de vibración maestro.</p>
-            <input type="password" id="input-pin" class="pin-input" maxlength="4">
-            <button class="btn-inversor" onclick="verificarPin()">Desbloquear Bóveda</button>
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-pin')">×</button>
+            <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Frecuencia Administrativa</h3>
+            <p style="color: var(--gris-texto); margin-bottom: 20px; font-size: 0.9rem;">Ingrese el código de acceso alfanumérico.</p>
+            <input type="password" id="input-pin" class="pin-input" placeholder="••••••">
+            <button class="btn-inversor" onclick="verificarPin()">Acceder a la Bóveda</button>
         </div>
     </div>
 
-    <!-- Modal de Inversión / Contrato -->
-    <div id="modal-inversion" class="modal-overlay">
-        <div class="modal-content modal-legal" style="max-width: 500px;">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-inversion')">&times;</button>
-            <h3 style="color: var(--oro-sagrado); font-size: 1.3rem;">Adquisición de Participación</h3>
-            <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <p style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                    <span style="color: var(--gris-texto);">Activo:</span>
-                    <strong id="inv-nombre-moto" style="color: white;">---</strong>
-                </p>
-                <p style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                    <span style="color: var(--gris-texto);">Precio x Acción:</span>
-                    <strong id="inv-precio-accion" style="color: var(--oro-sagrado);">---</strong>
-                </p>
-                <p style="display: flex; justify-content: space-between;">
-                    <span style="color: var(--gris-texto);">Rentabilidad Estimada:</span>
-                    <strong id="inv-rentabilidad" style="color: var(--verde-exito);">---</strong>
-                </p>
-            </div>
+    <div class="modal-overlay" id="modal-compra">
+        <div class="modal-content">
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-compra')">×</button>
+            <h3 style="color: var(--oro-sagrado); margin-bottom: 5px;">Transacción RWA</h3>
+            <p style="color: var(--gris-texto); margin-bottom: 20px;">Adquiriendo fracción de activo productivo.</p>
             
-            <div class="form-grupo">
-                <label>Cantidad de Acciones a adquirir</label>
-                <input type="number" id="inv-cantidad" min="1" value="1" oninput="calcularTotalInversion()">
-            </div>
-            
-            <h4 style="text-align: center; color: var(--blanco-puro); font-size: 1.5rem; margin: 15px 0;">
-                Total: <span id="inv-total-pagar" style="color: var(--oro-sagrado);">$0 COP</span>
-            </h4>
-
-            <div class="checkbox-legal">
-                <input type="checkbox" id="check-terminos-inv">
-                <label for="check-terminos-inv">Acepto los <a href="#" onclick="abrirModalLegal('terminos')" style="color: var(--azul-facebook);">Términos y Condiciones</a> y confirmo que los fondos provienen de fuentes lícitas.</label>
+            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 id="compra-nombre" style="color: white; font-size: 1.2rem;">Vehículo</h4>
+                <div id="compra-precio" style="color: var(--oro-sagrado); font-size: 2rem; font-weight: bold; margin-top: 10px;">$0</div>
             </div>
 
-            <button class="btn-inversor" onclick="ejecutarInversion()">Firmar y Adquirir (Shefa)</button>
+            <div style="text-align: left; margin-bottom: 20px; background: rgba(24, 119, 242, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--azul-facebook);">
+                <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
+                    <input type="checkbox" id="check-terminos" style="margin-top: 5px;">
+                    <span style="color: var(--gris-texto); font-size: 0.85rem;">Confirmo que he leído y acepto los <a href="#" style="color: var(--oro-sagrado);" onclick="abrirModal('modal-terminos'); return false;">Términos, Condiciones y Políticas de Privacidad</a>.</span>
+                </label>
+            </div>
+
+            <button class="btn-inversor" style="background: var(--oro-sagrado); color: black;" onclick="procederPago()">Seleccionar Método de Pago</button>
         </div>
     </div>
 
-    <!-- MODAL: POLÍTICA DE PRIVACIDAD COMPLETA E INTACTA -->
-    <div id="modal-privacidad" class="modal-overlay">
+    <div class="modal-overlay" id="modal-qr">
+        <div class="modal-content" style="max-width: 500px;">
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-qr')">×</button>
+            
+            <div id="seleccion-banco">
+                <h3 style="color: white; margin-bottom: 20px;">Paga tu Fracción</h3>
+                <button class="btn-banco btn-bancolombia" onclick="mostrarQR('bancolombia')">Transferencia BANCOLOMBIA <span> QR</span></button>
+                <button class="btn-banco btn-nequi" onclick="mostrarQR('nequi')">Pago con NEQUI <span> QR</span></button>
+                <button class="btn-banco btn-daviplata" onclick="mostrarQR('daviplata')">Pago con DAVIPLATA <span> QR</span></button>
+            </div>
+
+            <div id="vista-qr" style="display: none;">
+                <button onclick="volverBancos()" style="background: none; border: none; color: var(--azul-facebook); font-size: 0.9rem; cursor: pointer; margin-bottom: 15px;">← Cambiar método</button>
+                <h3 id="titulo-qr" style="color: white;">Escanea para pagar</h3>
+                
+                <div class="qr-display" id="caja-qr">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PagoShefaPlus" alt="QR Code">
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                    <p style="color: var(--gris-texto); font-size: 0.8rem;">Titular: Shefa Plus Shefa S.A.S</p>
+                    <p style="color: var(--oro-sagrado); font-weight: bold; font-family: monospace;" id="referencia-pago">REF: RWA-001</p>
+                </div>
+                
+                <button class="btn-inversor" style="background: var(--verde-exito);" onclick="alert('Pago reportado. Verificando en sistema...'); cerrarModal('modal-qr');">Ya realicé el pago</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-terminos">
         <div class="modal-content modal-legal">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-privacidad')">&times;</button>
-            <h3>Política de Privacidad Integral de Shefa Plus Shefa</h3>
+            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-terminos')">×</button>
+            <h3>Términos y Política de Privacidad</h3>
             
-            <p><strong>Última actualización: Noviembre 2024</strong></p>
-            <p>En <strong>Shefa Plus Shefa</strong>, no solo cuidamos tus activos financieros, sino que estructuramos nuestra arquitectura de datos con la misma precisión matemática y respeto que aplicamos a la multiplicación de tu Parnasá. Valoramos profundamente tu confianza, y esta Política de Privacidad describe de forma <strong>íntegra y sin recortes</strong> cómo recopilamos, protegemos, utilizamos y compartimos tu información personal y financiera dentro de nuestro Ecosistema Dinámico Pro.</p>
-
-            <h4>1. Información que Recopilamos (La Semilla de Datos)</h4>
-            <p>Para garantizar un ecosistema blindado y cumplir con las normativas internacionales de KYC (Know Your Customer) y AML (Anti-Money Laundering), recopilamos las siguientes categorías de datos:</p>
-            <ul>
-                <li><strong>Datos de Identidad:</strong> Nombre completo, número de documento de identidad (Cédula/Pasaporte), fecha de nacimiento y validación biométrica (cuando sea requerida para retiros).</li>
-                <li><strong>Datos de Contacto:</strong> Correo electrónico, número de teléfono móvil y dirección de residencia física.</li>
-                <li><strong>Datos Financieros:</strong> Información de cuentas bancarias (Nequi, Bancolombia, Daviplata), historial de transacciones dentro de Shefa Plus, origen de fondos y recibos de transferencias.</li>
-                <li><strong>Datos Técnicos:</strong> Dirección IP, tipo de navegador, sistema operativo, identificadores de dispositivo, y registros de actividad dentro de la plataforma (Trazabilidad criptográfica).</li>
-            </ul>
-
-            <h4>2. Uso de la Información (Sintonizando la Frecuencia Correcta)</h4>
-            <p>Tu información no es comercializada. Se utiliza exclusivamente para las siguientes finalidades esenciales para el flujo de abundancia:</p>
-            <ul>
-                <li><strong>Ejecución del Contrato:</strong> Crear y gestionar tu cuenta de inversor, procesar la compra de Cripto-Fracciones, calcular rendimientos matemáticos basados en el número Phi (1.618), y emitir los contratos en formato PDF.</li>
-                <li><strong>Seguridad y Prevención de Fraude:</strong> Monitorear transacciones para detectar actividades sospechosas, proteger la liquidez del pool y asegurar que los fondos de todos los usuarios estén resguardados de ataques cibernéticos.</li>
-                <li><strong>Comunicación:</strong> Notificarte sobre la disponibilidad de nuevos activos, confirmación de retiros, y actualizaciones críticas de la plataforma o de la normativa legal.</li>
-                <li><strong>Cumplimiento Legal:</strong> Mantener registros exigidos por la legislación financiera y tributaria vigente en Colombia y regulaciones internacionales aplicables.</li>
-            </ul>
-
-            <h4>3. Protección y Criptografía de Datos</h4>
-            <p>Implementamos medidas de seguridad de grado militar y arquitectura de alta frecuencia. Todos los datos sensibles en tránsito están protegidos mediante cifrado TLS 1.3. Los datos en reposo, incluyendo tus documentos de identidad y números de cuenta, se almacenan utilizando algoritmos de encriptación AES-256 en servidores con certificación ISO 27001. Nuestro compromiso es que tu información permanezca tan segura como la bóveda de tus rendimientos.</p>
-
-            <h4>4. Compartir Datos con Terceros (Red de Confianza)</h4>
-            <p>Shefa Plus Shefa <strong>no vende ni alquila</strong> tus datos a terceros bajo ninguna circunstancia. Solo compartimos información estrictamente necesaria con:</p>
-            <ul>
-                <li><strong>Pasarelas de Pago y Entidades Bancarias:</strong> Para procesar tus aportes y liquidar tus retiros (ej. integración con APIs bancarias).</li>
-                <li><strong>Proveedores de Verificación KYC:</strong> Sistemas automatizados de terceros utilizados exclusivamente para validar la autenticidad de tus documentos para prevenir la suplantación de identidad.</li>
-                <li><strong>Autoridades Gubernamentales:</strong> Únicamente cuando exista un requerimiento legal formal y vinculante por parte de un juez o entidad reguladora competente.</li>
-            </ul>
-
-            <h4>5. Tus Derechos (Derechos ARCO y Soberanía de Datos)</h4>
-            <p>Como dueño de tu información, tienes soberanía total sobre ella, alineado con las leyes de protección de datos (Ley 1581 de 2012 en Colombia):</p>
-            <ul>
-                <li><strong>Acceso y Rectificación:</strong> Puedes solicitar una copia de todos los datos que tenemos sobre ti y corregir cualquier información inexacta desde el panel de gestión.</li>
-                <li><strong>Cancelación (Derecho al Olvido):</strong> Puedes solicitar la eliminación de tu cuenta y datos, siempre y cuando no mantengas contratos activos ni existan obligaciones legales de retención de historial financiero.</li>
-                <li><strong>Oposición:</strong> Tienes derecho a solicitar que dejemos de usar tus datos para comunicaciones de marketing.</li>
-            </ul>
-            <p>Para ejercer estos derechos, debes enviar una solicitud formal a <strong>privacidad@shefaplus.com</strong> desde tu correo electrónico registrado.</p>
-
-            <h4>6. Cookies, Rastreo y Analítica de Comportamiento</h4>
-            <p>Utilizamos cookies de sesión esenciales para mantener tu sesión activa y segura. También utilizamos cookies analíticas para entender cómo interactúas con la plataforma, optimizar el rendimiento del código y mejorar tu experiencia de usuario (UI/UX). Puedes configurar tu navegador para bloquear estas cookies, pero algunas funciones de la plataforma de inversión podrían dejar de operar correctamente.</p>
-
-            <h4>7. Cambios en esta Política</h4>
-            <p>El ecosistema Shefa es dinámico y evoluciona. Nos reservamos el derecho de modificar esta Política de Privacidad para adaptarla a nuevas tecnologías o regulaciones legales. Cualquier cambio sustancial será notificado a tu correo electrónico registrado y a través de un aviso destacado en tu dashboard principal al menos 15 días antes de su entrada en vigor.</p>
-
-            <p style="text-align: center; color: var(--oro-sagrado); margin-top: 30px; font-weight: bold;">
-                Al utilizar Shefa Plus Shefa, reconoces que has leído, entendido y aceptado esta Política de Privacidad de forma íntegra, permitiendo que la energía y los datos fluyan con transparencia y seguridad.
-            </p>
-        </div>
-    </div>
-
-    <!-- MODAL: TÉRMINOS Y CONDICIONES (SMART CONTRACT) -->
-    <div id="modal-terminos" class="modal-overlay">
-        <div class="modal-content modal-legal">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-terminos')">&times;</button>
-            <h3>Términos y Condiciones (Smart Contract Legal)</h3>
-            <p>Al adquirir una Cripto-Fracción en Shefa Plus Shefa, aceptas los siguientes términos operativos vinculantes:</p>
-            
-            <h4>1. Naturaleza de la Inversión</h4>
-            <p>La adquisición de fracciones representa un derecho de participación sobre los rendimientos generados por la flota de transporte (motos) administrada por Shefa Plus. No constituye título de propiedad física sobre el vehículo, sino un contrato de cuentas en participación para usufructo de los dividendos diarios.</p>
-            
-            <h4>2. Rendimientos y Parnasá</h4>
-            <p>Los rendimientos ("Shefa") publicados son estimaciones basadas en el rendimiento histórico y la gestión logística actual. Se acreditan diariamente al balance del usuario. Shefa Plus se compromete a mantener la flota operativa, asegurada (SOAT y Todo Riesgo) y monitoreada (GPS) para maximizar la rentabilidad, asumiendo los costos operativos antes de la distribución de dividendos.</p>
-            
-            <h4>3. Liquidez y Retiros</h4>
-            <p>Los retiros de capital y rendimientos pueden solicitarse en cualquier momento a través del módulo "Billetera de Liquidez", con tiempos de procesamiento que oscilan entre 24 y 48 horas hábiles, según la entidad bancaria seleccionada. Se aplicará una tarifa transaccional estándar del ecosistema bancario (si aplica).</p>
-
-            <h4>4. Riesgos del Ecosistema</h4>
-            <p>Si bien operamos bajo estrictos protocolos de mitigación de riesgo (seguros contra robo y daño total), toda inversión en activos del mundo real (RWA) conlleva riesgos inherentes. El usuario declara entender que los rendimientos pueden fluctuar por condiciones de fuerza mayor ajenas al control operativo.</p>
-            
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-oro" onclick="cerrarModal('modal-terminos')">He leído y Comprendo</button>
+            <div style="background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--oro-sagrado); padding: 15px; margin-bottom: 20px;">
+                <h4 style="color: var(--oro-sagrado); margin: 0 0 10px 0; border: none; padding: 0;">PROPIEDAD Y DESARROLLO</h4>
+                <p style="color: white; margin: 0; font-weight: bold;">
+                    La infraestructura tecnológica, software, hardware de avanzada y los derechos de operación de esta plataforma pertenecen exclusivamente a Johanna Medina, propietaria y desarrolladora de software y hardware de infraestructura avanzada.
+                </p>
             </div>
+            
+            <p><strong>1. Frecuencia y Rendimientos:</strong> Las inversiones en activos productivos están sujetas a la operación del mercado físico (Parnasá). Los rendimientos son proyectados basados en la analítica de la plataforma Shefa Plus Shefa.</p>
+            <p><strong>2. Privacidad de Datos:</strong> Toda información recopilada está encriptada. No se compartirá información con terceros sin requerimiento legal explícito.</p>
+            <p><strong>3. Condiciones de Uso:</strong> El acceso no autorizado a la Bóveda Administrativa será tratado como una brecha de seguridad y reportado a las autoridades mediante geolocalización satelital (Análisis Preventivo Activo).</p>
         </div>
     </div>
 
-    <!-- ==========================================
-         LÓGICA DEL ECOSISTEMA (JAVASCRIPT)
-         ========================================== -->
     <script>
-        // ESTADO GLOBAL DE LA APLICACIÓN (Arquitectura Phi)
-        const STATE = {
-            saldoPortafolio: 0,
-            rendimientoHoy: 0,
-            contratos: [],
-            motos: [
-                { id: 1, nombre: "Yamaha NMAX Connected", totalAcciones: 100, accionesDisponibles: 45, precio: 50000, rentabilidad: 5.5, estado: "activo" },
-                { id: 2, nombre: "Honda PCX 160", totalAcciones: 120, accionesDisponibles: 12, precio: 65000, rentabilidad: 6.2, estado: "activo" },
-                { id: 3, nombre: "Suzuki Gixxer 150", totalAcciones: 80, accionesDisponibles: 80, precio: 45000, rentabilidad: 5.0, estado: "pendiente" }
-            ],
-            motoSeleccionada: null,
-            grafica: null
-        };
+        // ==========================================
+        // LÓGICA CORE: SHEFA PLUS SHEFA
+        // ==========================================
 
-        const PHI = 1.618;
-
-        // INICIALIZACIÓN Y PRELOADER
+        // Ocultar Preloader
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const preloader = document.getElementById('preloader');
-                preloader.style.opacity = '0';
-                setTimeout(() => { preloader.style.display = 'none'; }, 800);
-                
-                renderMotos();
-                actualizarDashboard();
-                inicializarGrafica();
-            }, 1500); // Sintonizando frecuencias
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800);
+            }, 1000);
+            renderizarFlotas();
+            renderizarListaAdmin();
         });
 
-        // NAVEGACIÓN
-        function abrirPestana(id, btn) {
+        // Navegación de Pestañas
+        function abrirPestana(id, elemento) {
             document.querySelectorAll('.seccion-contenido').forEach(sec => sec.classList.remove('activa'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('activo'));
-            
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('activo'));
             document.getElementById(id).classList.add('activa');
-            btn.classList.add('activo');
+            elemento.classList.add('activo');
         }
 
-        // RENDERIZADO DEL MERCADO DE ACTIVOS
-        function renderMotos() {
+        // ==========================================
+        // BASE DE DATOS (ESTADO DE FLOTAS)
+        // ==========================================
+        let flotas = [
+            {
+                id: 1,
+                nombre: 'Yamaha FZ Negra - Flota Delivery',
+                precio: 50000,
+                ubicacion: 'Bogotá, Chapinero',
+                foto: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80'
+            }
+        ];
+
+        function renderizarFlotas() {
             const contenedor = document.getElementById('contenedor-motos');
             contenedor.innerHTML = '';
-
-            STATE.motos.forEach(moto => {
-                const porcentaje = ((moto.totalAcciones - moto.accionesDisponibles) / moto.totalAcciones) * 100;
-                const claseBadge = moto.estado === 'activo' ? 'badge-ok' : 'badge-pendiente';
-                const textoBadge = moto.estado === 'activo' ? 'EN OPERACIÓN' : 'RECAUDO';
-                const formatPrecio = new Intl.NumberFormat('es-CO').format(moto.precio);
-
-                const div = document.createElement('div');
-                div.className = 'tarjeta-activo';
-                div.innerHTML = `
-                    <div class="badge-estado ${claseBadge}">${textoBadge}</div>
-                    <h3 class="activo-titulo">${moto.nombre}</h3>
-                    
-                    <div class="activo-datos">
-                        <div class="dato-columna">
-                            <p>Precio x Acción</p>
-                            <strong>$${formatPrecio} COP</strong>
+            
+            flotas.forEach(flota => {
+                const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(flota.ubicacion)}`;
+                
+                contenedor.innerHTML += `
+                    <div class="tarjeta-activo">
+                        <div class="activo-imagen-contenedor">
+                            <img src="${flota.foto}" alt="${flota.nombre}">
+                            <a href="${mapLink}" target="_blank" class="badge-ubicacion">
+                                📍 ${flota.ubicacion}
+                            </a>
                         </div>
-                        <div class="dato-columna" style="text-align: right;">
-                            <p>Rentabilidad</p>
-                            <strong style="color: var(--verde-exito);">+${moto.rentabilidad}% / mes</strong>
+                        <div class="activo-info">
+                            <h3 class="activo-titulo">${flota.nombre}</h3>
+                            <div class="activo-datos">
+                                <div class="dato-columna">
+                                    <p>Valor de Fracción</p>
+                                    <strong>$${flota.precio.toLocaleString()} COP</strong>
+                                </div>
+                            </div>
+                            <button class="btn-inversor" onclick="iniciarCompra(${flota.id})">Adquirir Fracción</button>
                         </div>
                     </div>
-                    
-                    <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 10px;">Fracciones: ${moto.totalAcciones - moto.accionesDisponibles} / ${moto.totalAcciones}</p>
-                    <div class="barra-progreso-bg">
-                        <div class="barra-progreso-fill" style="width: ${porcentaje}%"></div>
-                    </div>
-                    
-                    <button class="btn-inversor" onclick="prepararInversion(${moto.id})" ${moto.accionesDisponibles === 0 ? 'disabled style="background:gray;"' : ''}>
-                        ${moto.accionesDisponibles === 0 ? 'VENDIDO (SOLD OUT)' : 'Adquirir Fracción'}
-                    </button>
                 `;
-                contenedor.appendChild(div);
             });
         }
 
-        // SISTEMA DE INVERSIÓN
-        function prepararInversion(idMoto) {
-            STATE.motoSeleccionada = STATE.motos.find(m => m.id === idMoto);
-            document.getElementById('inv-nombre-moto').innerText = STATE.motoSeleccionada.nombre;
-            document.getElementById('inv-precio-accion').innerText = `$${new Intl.NumberFormat('es-CO').format(STATE.motoSeleccionada.precio)}`;
-            document.getElementById('inv-rentabilidad').innerText = `+${STATE.motoSeleccionada.rentabilidad}% Mes`;
-            document.getElementById('inv-cantidad').value = 1;
+        // ==========================================
+        // BÓVEDA ADMINISTRATIVA (SEGURIDAD DE FRECUENCIA)
+        // ==========================================
+        let toquesSecretos = 0;
+        let timerToques;
+        let pinActual = "Shefa-2026!"; // Admite letras, símbolos, etc.
+        let intentosFallidos = 0;
+
+        document.getElementById('amuleto-secreto').addEventListener('click', () => {
+            toquesSecretos++;
+            clearTimeout(timerToques);
             
-            calcularTotalInversion();
-            abrirModal('modal-inversion');
-        }
-
-        function calcularTotalInversion() {
-            const cant = parseInt(document.getElementById('inv-cantidad').value) || 0;
-            const total = cant * STATE.motoSeleccionada.precio;
-            document.getElementById('inv-total-pagar').innerText = `$${new Intl.NumberFormat('es-CO').format(total)} COP`;
-        }
-
-        function ejecutarInversion() {
-            const cant = parseInt(document.getElementById('inv-cantidad').value);
-            const check = document.getElementById('check-terminos-inv').checked;
-
-            if (!check) {
-                alert("Debes aceptar los Términos y Condiciones para inyectar Parnasá.");
-                return;
-            }
-            if (cant > STATE.motoSeleccionada.accionesDisponibles) {
-                alert("No hay suficientes fracciones disponibles en este activo.");
-                return;
-            }
-
-            // Matemática de inversión
-            const montoInvertido = cant * STATE.motoSeleccionada.precio;
-            STATE.motoSeleccionada.accionesDisponibles -= cant;
-            STATE.saldoPortafolio += montoInvertido;
-            
-            // Simular un primer rendimiento instantáneo basado en Phi
-            const gananciaAura = (montoInvertido * (STATE.motoSeleccionada.rentabilidad/100) / 30) * PHI; 
-            STATE.rendimientoHoy += gananciaAura;
-
-            // Registrar contrato
-            const fecha = new Date().toLocaleDateString();
-            const idContrato = 'SHF-' + Math.floor(Math.random() * 9000 + 1000) + '-PRO';
-            STATE.contratos.push({
-                id: idContrato,
-                moto: STATE.motoSeleccionada.nombre,
-                acciones: cant,
-                monto: montoInvertido,
-                fecha: fecha
-            });
-
-            cerrarModal('modal-inversion');
-            renderMotos();
-            actualizarDashboard();
-            renderContratos();
-            alert("¡Transacción exitosa! Has inyectado capital de forma segura. El contrato se ha generado.");
-        }
-
-        // PANEL DE GESTIÓN Y FINANZAS
-        function actualizarDashboard() {
-            const formateador = new Intl.NumberFormat('es-CO');
-            document.getElementById('cifra-portafolio').innerText = `$${formateador.format(STATE.saldoPortafolio)}`;
-            document.getElementById('rendimiento-hoy').innerText = formateador.format(STATE.rendimientoHoy.toFixed(0));
-            document.getElementById('saldo-nav').innerText = `💰 $${formateador.format(STATE.saldoPortafolio)} COP`;
-
-            if(STATE.grafica && STATE.saldoPortafolio > 0) {
-                // Actualizar gráfica simulando crecimiento constante
-                const base = STATE.saldoPortafolio;
-                STATE.grafica.data.datasets[0].data = [
-                    base * 0.8, base * 0.85, base * 0.9, base * 0.95, base, base * 1.01, base * 1.05
-                ];
-                STATE.grafica.update();
-            }
-        }
-
-        function renderContratos() {
-            const lista = document.getElementById('lista-contratos');
-            if (STATE.contratos.length === 0) return;
-            
-            lista.innerHTML = '';
-            STATE.contratos.forEach(c => {
-                const div = document.createElement('div');
-                div.className = 'item-contrato';
-                div.innerHTML = `
-                    <div style="display:flex; justify-content: space-between;">
-                        <strong style="color:var(--blanco-puro); font-size: 0.9rem;">${c.moto}</strong>
-                        <span style="color:var(--oro-sagrado); font-size: 0.8rem;">${c.id}</span>
-                    </div>
-                    <p style="color:var(--gris-texto); font-size: 0.8rem; margin: 5px 0;">Inversión: $${new Intl.NumberFormat('es-CO').format(c.monto)} | ${c.acciones} Fracciones</p>
-                    <button class="btn-pdf" onclick="generarPDF('${c.id}')">Descargar Certificado (PDF)</button>
-                `;
-                lista.appendChild(div);
-            });
-        }
-
-        // Gráfica Chart.js (Curva de Abundancia)
-        function inicializarGrafica() {
-            const ctx = document.getElementById('graficaParnasa').getContext('2d');
-            const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, 'rgba(212, 175, 55, 0.4)');
-            gradient.addColorStop(1, 'rgba(24, 119, 242, 0.0)');
-
-            STATE.grafica = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-                    datasets: [{
-                        label: 'Proyección (COP)',
-                        data: [0, 0, 0, 0, 0, 0, 0],
-                        borderColor: '#D4AF37',
-                        backgroundColor: gradient,
-                        borderWidth: 2,
-                        tension: 0.4,
-                        fill: true,
-                        pointBackgroundColor: '#1877F2',
-                        pointBorderColor: '#fff'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#A0ABC0' } },
-                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#A0ABC0', maxTicksLimit: 5 } }
-                    }
-                }
-            });
-        }
-
-        function procesarRetiro() {
-            const monto = document.getElementById('monto-retiro').value;
-            const banco = document.getElementById('banco-retiro').value;
-            if (!monto || monto < 10000) {
-                alert("El retiro mínimo es de $10.000 COP");
-                return;
-            }
-            alert(`Solicitud de retiro a ${banco} por $${monto} enrutada exitosamente. La liquidez llegará en las próximas horas.`);
-            document.getElementById('monto-retiro').value = '';
-        }
-
-        function copiarReferido() {
-            navigator.clipboard.writeText("SHEFA-777-PRO");
-            alert("Código Sagrado copiado al portapapeles. ¡Expande la Verajá (bendición)!");
-        }
-
-        // GENERACIÓN DE PDF
-        function generarPDF(idContrato) {
-            const contrato = STATE.contratos.find(c => c.id === idContrato);
-            const elementoContrato = document.createElement('div');
-            elementoContrato.innerHTML = `
-                <div style="padding: 40px; font-family: Helvetica, sans-serif; color: #000; background: #fff;">
-                    <h1 style="color: #1877F2; border-bottom: 2px solid #D4AF37; padding-bottom: 10px;">Shefa Plus Shefa</h1>
-                    <h2>Certificado de Participación Digital</h2>
-                    <p><strong>Contrato ID:</strong> ${contrato.id}</p>
-                    <p><strong>Fecha de Emisión:</strong> ${contrato.fecha}</p>
-                    <hr style="margin: 20px 0;">
-                    <h3>Detalles del Activo</h3>
-                    <p><strong>Activo Vinculado (Moto):</strong> ${contrato.moto}</p>
-                    <p><strong>Fracciones Adquiridas:</strong> ${contrato.acciones} Unidades</p>
-                    <p><strong>Inyección de Capital:</strong> $${new Intl.NumberFormat('es-CO').format(contrato.monto)} COP</p>
-                    <br><br>
-                    <p style="font-size: 10px; color: #666; text-align: justify;">Este documento valida criptográficamente la participación del usuario en la flota operativa de Shefa Plus Shefa. Almacenado y verificado en la base de datos principal. "Conectando caminos, asegurando el sustento".</p>
-                    <div style="margin-top: 50px; border-top: 1px solid #000; width: 200px; text-align: center;">Firma Digital Master</div>
-                </div>
-            `;
-            html2pdf().set({
-                margin: 1,
-                filename: `Contrato_${idContrato}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-            }).from(elementoContrato).save();
-        }
-
-        // SISTEMA ADMIN (BÓVEDA)
-        function abrirModalPin() { abrirModal('modal-pin'); }
-        
-        function verificarPin() {
-            const pin = document.getElementById('input-pin').value;
-            // PIN Secreto para activar Parnasá Admin (7777)
-            if (pin === "7777") {
-                cerrarModal('modal-pin');
-                document.getElementById('btn-admin').style.display = 'block';
-                document.getElementById('input-pin').value = '';
-                document.getElementById('btn-admin').click();
-                alert("Frecuencia Maestra Sintonizada. Bóveda Abierta.");
+            if (toquesSecretos === 5) {
+                abrirModal('modal-pin');
+                toquesSecretos = 0;
             } else {
-                alert("Frecuencia incorrecta. Acceso denegado.");
+                timerToques = setTimeout(() => { toquesSecretos = 0; }, 2000);
+            }
+        });
+
+        function verificarPin() {
+            const input = document.getElementById('input-pin').value;
+            if (input === pinActual) {
+                cerrarModal('modal-pin');
+                document.getElementById('input-pin').value = '';
+                intentosFallidos = 0;
+                document.getElementById('btn-admin-tab').style.display = 'block';
+                document.getElementById('btn-admin-tab').click();
+            } else {
+                intentosFallidos++;
+                document.getElementById('input-pin').value = '';
+                if (intentosFallidos >= 3) {
+                    cerrarModal('modal-pin');
+                    dispararAlarmaRoja();
+                } else {
+                    alert('Frecuencia Incorrecta. Intento ' + intentosFallidos + ' de 3.');
+                }
             }
         }
 
-        function crearActivoAdmin() {
-            const nombre = document.getElementById('admin-nombre-moto').value;
-            const acciones = parseInt(document.getElementById('admin-acciones').value);
-            const precio = parseInt(document.getElementById('admin-precio').value);
-            const renta = parseFloat(document.getElementById('admin-rentabilidad').value);
+        function cambiarPin() {
+            const nuevoPin = document.getElementById('nuevo-pin').value;
+            if(nuevoPin.length >= 4) {
+                pinActual = nuevoPin;
+                alert('PIN de bóveda actualizado exitosamente.');
+                document.getElementById('nuevo-pin').value = '';
+            } else {
+                alert('El PIN debe tener al menos 4 caracteres (letras, números, puntos, etc).');
+            }
+        }
 
-            if(!nombre || !acciones || !precio || !renta) {
-                alert("Complete todos los campos matemáticos para emitir el activo.");
+        function dispararAlarmaRoja() {
+            document.getElementById('alarma-roja').style.display = 'flex';
+            // Bloquea el sistema obligando a recargar la página
+        }
+
+        // ==========================================
+        // GESTIÓN DE FLOTAS (ADMIN CRUD)
+        // ==========================================
+        function agregarFlota() {
+            const nombre = document.getElementById('admin-nombre').value;
+            const precio = document.getElementById('admin-precio').value;
+            const ubicacion = document.getElementById('admin-ubicacion').value;
+            const foto = document.getElementById('admin-foto').value;
+
+            if(!nombre || !precio || !ubicacion) return alert('Completa los campos principales.');
+
+            flotas.push({
+                id: Date.now(),
+                nombre: nombre,
+                precio: parseInt(precio),
+                ubicacion: ubicacion,
+                foto: foto || 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc' // Fallback
+            });
+
+            alert('Flota materializada con éxito en el mercado.');
+            // Limpiar campos
+            document.getElementById('admin-nombre').value = '';
+            document.getElementById('admin-precio').value = '';
+            document.getElementById('admin-ubicacion').value = '';
+            document.getElementById('admin-foto').value = '';
+
+            renderizarFlotas();
+            renderizarListaAdmin();
+        }
+
+        function renderizarListaAdmin() {
+            const lista = document.getElementById('lista-flotas-admin');
+            lista.innerHTML = '';
+            flotas.forEach(flota => {
+                lista.innerHTML += `
+                    <div class="item-flota-admin">
+                        <div style="color: white;">
+                            <strong>${flota.nombre}</strong><br>
+                            <small style="color: var(--gris-texto);">$${flota.precio.toLocaleString()} - ${flota.ubicacion}</small>
+                        </div>
+                        <button class="btn-peligro" onclick="eliminarFlota(${flota.id})">Eliminar</button>
+                    </div>
+                `;
+            });
+        }
+
+        function eliminarFlota(id) {
+            if(confirm('¿Confirmas que deseas retirar esta flota del mercado?')) {
+                flotas = flotas.filter(f => f.id !== id);
+                renderizarFlotas();
+                renderizarListaAdmin();
+            }
+        }
+
+        // ==========================================
+        // FLUJO DE COMPRA Y PASARELAS QR
+        // ==========================================
+        let flotaSeleccionada = null;
+
+        function iniciarCompra(id) {
+            flotaSeleccionada = flotas.find(f => f.id === id);
+            document.getElementById('compra-nombre').innerText = flotaSeleccionada.nombre;
+            document.getElementById('compra-precio').innerText = `$${flotaSeleccionada.precio.toLocaleString()} COP`;
+            document.getElementById('check-terminos').checked = false;
+            abrirModal('modal-compra');
+        }
+
+        function procederPago() {
+            const terms = document.getElementById('check-terminos').checked;
+            if(!terms) {
+                alert('Debes aceptar los Términos y Condiciones, y Políticas de Privacidad.');
                 return;
             }
-
-            const nuevaMoto = {
-                id: STATE.motos.length + 1,
-                nombre: nombre,
-                totalAcciones: acciones,
-                accionesDisponibles: acciones,
-                precio: precio,
-                rentabilidad: renta,
-                estado: 'activo'
-            };
-
-            STATE.motos.push(nuevaMoto);
-            renderMotos();
-            
-            document.getElementById('admin-nombre-moto').value = '';
-            document.getElementById('admin-acciones').value = '';
-            document.getElementById('admin-precio').value = '';
-            document.getElementById('admin-rentabilidad').value = '';
-            
-            alert(`Activo ${nombre} listado exitosamente en el mercado.`);
-            document.getElementById('btn-operaciones').click();
+            cerrarModal('modal-compra');
+            volverBancos(); // Resetea vista del modal QR
+            document.getElementById('referencia-pago').innerText = `REF: RWA-${flotaSeleccionada.id}-${Math.floor(Math.random()*1000)}`;
+            abrirModal('modal-qr');
         }
 
-        // CONTROL DE MODALES
+        function mostrarQR(banco) {
+            document.getElementById('seleccion-banco').style.display = 'none';
+            document.getElementById('vista-qr').style.display = 'block';
+            
+            const cajaQR = document.getElementById('caja-qr');
+            let colorBorde = '';
+            
+            if(banco === 'bancolombia') colorBorde = '#FFD700';
+            if(banco === 'nequi') colorBorde = '#FF00A6';
+            if(banco === 'daviplata') colorBorde = '#ED1C24';
+            
+            cajaQR.style.borderColor = colorBorde;
+            document.getElementById('titulo-qr').innerText = `Escanea en la App de ${banco.toUpperCase()}`;
+        }
+
+        function volverBancos() {
+            document.getElementById('vista-qr').style.display = 'none';
+            document.getElementById('seleccion-banco').style.display = 'block';
+        }
+
+        // ==========================================
+        // UTILIDADES DE MODALES
+        // ==========================================
         function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
         function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
-        function abrirModalLegal(tipo) { abrirModal(`modal-${tipo}`); }
-
+        
         // Cerrar modales al hacer clic fuera
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
                 event.target.style.display = "none";
             }
+        }
+
+        // Init Gráfica vacía para que no lance error
+        const ctx = document.getElementById('graficaParnasa');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [{
+                        label: 'Rendimiento (Shefa)',
+                        data: [0, 0, 0, 0, 0, 0, 0],
+                        borderColor: '#D4AF37', tension: 0.4
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
         }
     </script>
 </body>
