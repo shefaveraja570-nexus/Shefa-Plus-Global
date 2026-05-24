@@ -3,627 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shefa Plus Shefa - Tokenización de transporte y ganancias pasivas seguras.">
-    <meta name="theme-color" content="#1877F2">
-    <title>Shefa Plus Shefa | Ecosistema Dinámico Pro</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
+    <title>Shefa Plus Global - Ecosistema Automotriz</title>
     <style>
-        /* ========================================================
-           ARQUITECTURA DE FRECUENCIAS Y PALETA DE COLORES
-           ======================================================== */
+        /* Variables de Neuro-Diseño: Colores de alta gama y enfoque visual */
         :root {
-            --azul-facebook: #1877F2; --azul-profundo: #0c1421; --azul-noche: #050910;
-            --oro-sagrado: #D4AF37; --blanco-puro: #FFFFFF; --gris-texto: #A0ABC0;
-            --verde-exito: #00C853; --rojo-alerta: #FF3D00;
-            --f-8: 8px; --f-13: 13px; --f-21: 21px; --f-34: 34px; --f-55: 55px; --f-89: 89px; --f-144: 144px;
-            --phi: 1.618;
+            --bg-principal: #0a0d14;
+            --bg-tarjeta: #121824;
+            --texto-principal: #f0f2f5;
+            --texto-secundario: #8a99ad;
+            --acento-metalico: #e2e8f0;
+            --acento-dorado: #d4af37;
+            --exito: #10b981;
+            --error: #ef4444;
+            --fuente: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--azul-noche); color: var(--blanco-puro); overflow-x: hidden; line-height: var(--phi); display: flex; flex-direction: column; min-height: 100vh; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--fuente);
+        }
 
-        .fondo-sacro { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background-image: radial-gradient(circle at center, rgba(24, 119, 242, 0.05) 0%, transparent 50%), radial-gradient(circle at 0% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 40%), radial-gradient(circle at 100% 50%, rgba(24, 119, 242, 0.03) 0%, transparent 40%); background-size: 100% 100%; }
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-principal);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-        /* PORTAL DE ACTIVACIÓN (PRE-LOADER) */
-        #preloader { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--azul-noche); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.8s ease; }
-        .preloader-rombo { width: 55px; height: 55px; border: 2px solid var(--oro-sagrado); transform: rotate(45deg); animation: girar-sagrado 2s infinite linear, pulso-divino 2s infinite alternate; margin-bottom: 21px; }
-        @keyframes girar-sagrado { 100% { transform: rotate(405deg); } }
-        .preloader-texto { color: var(--oro-sagrado); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; animation: parpadeo 1.5s infinite; }
-        @keyframes parpadeo { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        /* Encabezado Institucional */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-top: 10px;
+        }
 
-        /* NAVEGACIÓN DINÁMICA */
-        header { background: rgba(5, 9, 16, 0.9); backdrop-filter: blur(13px); border-bottom: 1px solid rgba(24, 119, 242, 0.1); position: fixed; width: 100%; top: 0; z-index: 100; }
-        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: var(--f-13) var(--f-21); }
-        .logo { display: flex; align-items: center; gap: var(--f-8); font-weight: 700; font-size: 1.3rem; user-select: none; }
-        @keyframes pulso-divino { 0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); } 50% { box-shadow: 0 0 34px rgba(212, 175, 55, 0.6); } 100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); } }
-        .logo-icon { color: var(--oro-sagrado); font-size: 1.6rem; cursor: pointer; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-       .logo span { color: var(--azul-facebook); }
-        .saldo-usuario { background: rgba(24, 119, 242, 0.1); border: 1px solid var(--azul-facebook); padding: 6px var(--f-13); border-radius: var(--f-21); font-weight: bold; font-size: 0.9rem; }
-        .tab-menu { display: flex; justify-content: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .tab-btn { background: none; border: none; color: var(--gris-texto); padding: var(--f-13) var(--f-21); font-size: 0.95rem; font-weight: 600; cursor: pointer; position: relative; }
-        .tab-btn.activo { color: var(--oro-sagrado); }
-        .tab-btn.activo::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: var(--oro-sagrado); box-shadow: 0 0 10px var(--oro-sagrado); }
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--acento-metalico);
+            text-transform: uppercase;
+        }
 
-        /* CONTENEDORES */
-        main { padding-top: 150px; flex: 1; padding-bottom: 50px; }
-        .seccion-contenido { display: none; padding: 0 var(--f-21) var(--f-89); max-width: 1200px; margin: 0 auto; animation: fadeIn 0.5s ease; }
-        .seccion-contenido.activa { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        header h1 span {
+            color: var(--acento-dorado);
+        }
 
-        /* UI ELEMENTOS */
-        .hero { display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .geometria-central { width: var(--f-89); height: var(--f-89); margin: 0 auto var(--f-34); border: 2px solid var(--oro-sagrado); border-radius: 4px; transform: rotate(45deg); display: flex; align-items: center; justify-content: center; animation: pulso-divino 4s infinite alternate; position: relative; }
-        .geometria-central::before { content: ''; position: absolute; width: 70%; height: 70%; border: 1px solid var(--azul-facebook); transform: rotate(45deg); }
-        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; margin-bottom: var(--f-21); letter-spacing: -1px; }
-        .hero h1 span { color: var(--azul-facebook); }
-        .hero p { font-size: 1.1rem; color: var(--gris-texto); margin-bottom: var(--f-55); max-width: 600px; }
-        .hero-botones { display: flex; gap: var(--f-21); justify-content: center; flex-wrap: wrap; width: 100%; }
-        
-        .btn-playstore { background-color: #000; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; gap: 10px; padding: 10px var(--f-21); border-radius: 8px; text-align: left; transition: all 0.3s; cursor: pointer; text-decoration: none; }
-        .btn-playstore:hover { border-color: var(--azul-facebook); background-color: #111; }
-        .btn-playstore svg { width: 30px; height: 30px; }
-        .playstore-text small { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gris-texto); }
-        .playstore-text strong { font-size: 1.1rem; color: white; }
-        .btn-oro { display: inline-flex; align-items: center; justify-content: center; padding: var(--f-13) var(--f-34); border-radius: var(--f-8); font-weight: 600; text-decoration: none; transition: all 0.3s ease; cursor: pointer; border: none; background: linear-gradient(135deg, var(--oro-sagrado) 0%, #aa7c11 100%); color: var(--azul-noche); box-shadow: 0 var(--f-8) var(--f-21) rgba(212, 175, 55, 0.2); }
-        .btn-oro:hover { transform: translateY(-2px); box-shadow: 0 var(--f-13) var(--f-34) rgba(212, 175, 55, 0.4); }
+        header p {
+            color: var(--texto-secundario);
+            font-size: 12px;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
 
-        .encabezado-seccion { text-align: center; margin-bottom: var(--f-34); }
-        .encabezado-seccion h2 { font-size: 2rem; }
-        .encabezado-seccion span { color: var(--azul-facebook); }
-        .grid-activos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--f-34); }
-        
-        /* NUEVO DISEÑO TARJETA ACTIVO CON FOTO */
-        .tarjeta-activo { background: rgba(12, 20, 33, 0.8); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: var(--f-13); overflow: hidden; position: relative; transition: 0.3s; display: flex; flex-direction: column; }
-        .tarjeta-activo:hover { border-color: var(--oro-sagrado); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15); }
-        .activo-imagen-contenedor { width: 100%; height: 200px; overflow: hidden; position: relative; }
-        .activo-imagen-contenedor img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .tarjeta-activo:hover .activo-imagen-contenedor img { transform: scale(1.05); }
-        .badge-ubicacion { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); color: var(--oro-sagrado); padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; border: 1px solid var(--oro-sagrado); display: flex; align-items: center; gap: 5px; text-decoration: none; transition: 0.3s; }
-        .badge-ubicacion:hover { background: var(--oro-sagrado); color: var(--azul-noche); }
-        .activo-info { padding: var(--f-21); flex: 1; display: flex; flex-direction: column; }
-        .activo-titulo { font-size: 1.3rem; margin-bottom: var(--f-8); color: var(--blanco-puro); }
-        .activo-datos { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--f-13); padding-bottom: var(--f-13); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .dato-columna p { font-size: 0.8rem; color: var(--gris-texto); }
-        .dato-columna strong { font-size: 1.2rem; color: var(--oro-sagrado); }
-        .btn-inversor { width: 100%; padding: var(--f-13); background: var(--azul-facebook); color: white; border: none; border-radius: var(--f-8); font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; margin-top: auto; }
-        .btn-inversor:hover { background: #155db8; }
+        /* Buscador Central */
+        .contenedor-busqueda {
+            background: var(--bg-tarjeta);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(226, 232, 240, 0.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 25px;
+        }
 
-        /* MÓDULOS DE GESTIÓN */
-        .dashboard-gestion { display: grid; grid-template-columns: 1fr 1fr; gap: var(--f-21); align-items: start; }
-        @media (max-width: 768px) { .dashboard-gestion { grid-template-columns: 1fr; } main { padding-top: 170px; } }
-        
-        .panel-glass { background: linear-gradient(135deg, rgba(24, 119, 242, 0.05), rgba(12, 20, 33, 0.9)); border: 1px solid rgba(24, 119, 242, 0.2); border-radius: var(--f-13); padding: var(--f-21); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .cifra-gigante { font-size: 2.2rem; color: var(--oro-sagrado); font-weight: 800; margin: 10px 0; }
-        .chart-container { width: 100%; height: 200px; margin-top: 15px; }
+        .grupo-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-        /* Billetera */
-        .input-billetera { width: 100%; padding: 12px; background: var(--azul-noche); border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 8px; color: white; font-size: 1rem; margin-bottom: 10px; }
-        
-        /* Referidos */
-        .codigo-referido { background: rgba(0, 200, 83, 0.1); border: 1px dashed var(--verde-exito); color: var(--verde-exito); padding: 15px; text-align: center; font-size: 1.2rem; font-weight: bold; border-radius: 8px; letter-spacing: 2px; margin: 15px 0; cursor: pointer; transition: 0.3s; }
-        .codigo-referido:hover { background: rgba(0, 200, 83, 0.2); }
-        .chip-legal { font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; display: inline-block; }
-        .chip-legal.ok { background: rgba(0, 200, 83, 0.2); color: var(--verde-exito); }
+        label {
+            font-size: 12px;
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        /* BÓVEDA ADMIN */
-        .admin-panel { background: rgba(12, 20, 33, 0.9); border: 1px solid var(--oro-sagrado); border-radius: var(--f-13); padding: var(--f-21); box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        .form-grupo { margin-bottom: 15px; }
-        .form-grupo label { display: block; margin-bottom: 5px; color: var(--oro-sagrado); font-size: 0.9rem; font-weight: bold; }
-        .form-grupo input, .form-grupo select { width: 100%; padding: 12px; background: var(--azul-noche); border: 1px solid rgba(24, 119, 242, 0.3); border-radius: 8px; color: white; font-size: 1rem; }
-        .btn-accion-admin { background: var(--verde-exito); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .btn-peligro { background: rgba(255, 61, 0, 0.2); color: var(--rojo-alerta); border: 1px solid var(--rojo-alerta); padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-        .lista-flotas-admin { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .item-flota-admin { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; border-left: 3px solid var(--azul-facebook); }
+        input {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(226, 232, 240, 0.1);
+            padding: 14px;
+            border-radius: 8px;
+            color: var(--texto-principal);
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
 
-        /* ALARMA ROJA */
-        #alarma-roja { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 0, 0, 0.95); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 20px; }
-        .texto-alarma { color: white; font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; text-shadow: 2px 2px 10px black; margin-bottom: 20px; animation: parpadeo 0.5s infinite; }
-        .sub-alarma { color: yellow; font-size: 1.5rem; font-weight: bold; background: black; padding: 20px; border-radius: 10px; border: 2px solid yellow; max-width: 600px; }
+        input:focus {
+            outline: none;
+            border-color: var(--acento-dorado);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+        }
 
-        footer { background: rgba(5, 9, 16, 0.9); padding: var(--f-21); text-align: center; border-top: 1px solid rgba(24, 119, 242, 0.1); margin-top: auto; }
-        .link-legal { color: var(--oro-sagrado); font-size: 0.85rem; text-decoration: underline; cursor: pointer; margin: 0 10px; }
+        button {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--acento-dorado);
+            color: var(--acento-dorado);
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+        }
 
-        /* MODALES */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: var(--azul-profundo); border: 1px solid var(--oro-sagrado); padding: var(--f-21); border-radius: var(--f-13); text-align: center; max-width: 400px; width: 100%; position: relative; }
-        .modal-legal { max-width: 850px; max-height: 85vh; overflow-y: auto; text-align: left; padding: var(--f-34); }
-        .modal-legal h3 { color: var(--oro-sagrado); margin-bottom: 10px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 15px; font-size: 1.6rem; text-align: center; }
-        .modal-legal p { color: var(--gris-texto); font-size: 0.95rem; margin-bottom: 15px; line-height: 1.8; text-align: justify; }
-        
-        .btn-cerrar-modal { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: white; font-size: 2.2rem; cursor: pointer; z-index: 10; transition: 0.3s; }
-        .btn-cerrar-modal:hover { color: var(--rojo-alerta); transform: scale(1.1); }
-        .pin-input { font-size: 1.5rem; padding: 15px; text-align: center; width: 100%; background: rgba(255,255,255,0.05); border: 2px solid var(--oro-sagrado); color: white; border-radius: 8px; margin-bottom: 15px; letter-spacing: 2px; outline: none; }
-        .pin-input:focus { border-color: var(--azul-facebook); }
+        button:active {
+            transform: scale(0.98);
+            background: var(--acento-dorado);
+            color: var(--bg-principal);
+        }
 
-        /* ESTILOS DE PASARELAS QR */
-        .btn-banco { display: flex; justify-content: space-between; align-items: center; width: 100%; padding: 15px 20px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; cursor: pointer; margin-bottom: 15px; border: none; transition: 0.3s; }
-        .btn-bancolombia { background: #FFD700; color: black; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
-        .btn-nequi { background: #1A0033; color: #FF00A6; border: 1px solid #FF00A6; }
-        .btn-daviplata { background: #ED1C24; color: white; }
-        .btn-banco:hover { transform: scale(1.02); }
-        
-        .qr-display { background: white; padding: 20px; border-radius: 15px; display: inline-block; margin: 20px 0; border: 4px solid; }
+        /* Estado de Carga (Reduce la ansiedad del usuario) */
+        .cargando {
+            display: none;
+            text-align: center;
+            color: var(--acento-dorado);
+            font-size: 14px;
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
 
+        /* Panel de Resultados Estructurado */
+        .panel-resultados {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tarjeta {
+            background: var(--bg-tarjeta);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--acento-metalico);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .tarjeta.destacada {
+            border-left-color: var(--acento-dorado);
+        }
+
+        .tarjeta h2 {
+            font-size: 14px;
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .fila-dato {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.05);
+        }
+
+        .fila-dato:last-child {
+            border-bottom: none;
+        }
+
+        .dato-titulo {
+            color: var(--texto-secundario);
+            font-size: 14px;
+        }
+
+        .dato-valor {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .valor-resaltado {
+            color: var(--exito);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Mensajes del Sistema */
+        .feedback {
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            text-align: center;
+            display: none;
+            margin-bottom: 15px;
+        }
+        .feedback.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
     </style>
 </head>
 <body>
 
-    <div id="alarma-roja">
-        <div class="texto-alarma">🚨 😡 🚫<br>¡FRECUENCIA, SHEFA PLUS SHEFA INCORRECTA!</div>
-        <div class="sub-alarma">⚠️ ADVERTENCIA MÁXIMA: Intento de intrusión detectado. Su posición está siendo rastreada vía satelital para las autoridades competentes.</div>
-    </div>
-
-    <div id="preloader">
-        <div class="preloader-rombo"></div>
-        <div class="preloader-texto">Sintonizando Parnasá...</div>
-    </div>
-
-    <div class="fondo-sacro"></div>
-
     <header>
-        <div class="top-bar">
-            <div class="logo">
-                <div class="logo-icon" id="amuleto-secreto">🧿</div>
-                Shefa Plus<span>Shefa</span>
-            </div>
-            <div class="saldo-usuario">
-                <span id="saldo-nav">💰 $0.00 COP</span>
-            </div>
-        </div>
-        <nav class="tab-menu">
-            <button class="tab-btn activo" onclick="abrirPestana('inicio', this)">Inicio</button>
-            <button class="tab-btn" onclick="abrirPestana('operaciones', this)">Operaciones</button>
-            <button class="tab-btn" onclick="abrirPestana('gestion', this)">Gestión</button>
-            <button class="tab-btn" id="btn-admin-tab" style="display: none; color: var(--oro-sagrado);" onclick="abrirPestana('admin', this)">Bóveda Admin</button>
-        </nav>
+        <h1>Shefa <span>Plus</span> Global</h1>
+        <p>Módulo de Inteligencia Automotriz en Tiempo Real</p>
     </header>
 
     <main>
-        <section id="inicio" class="seccion-contenido activa hero">
-            <div class="geometria-central"></div>
-            <h1>Conectando Caminos, Asegurando tu <span>Sustento</span></h1>
-            <p>Arquitectura Fintech de alta gama. Democratizamos la inversión en flotas. Sé dueño de fracciones de activos y recibe rendimientos diarios (Shefa).</p>
-            <div class="hero-botones">
-                <a href="#operaciones" onclick="abrirPestana('operaciones', document.querySelectorAll('.tab-btn')[1])" class="btn-playstore">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 2.5V21.5L19.5 12L4 2.5Z" fill="url(#paint0_linear)"/>
-                        <path d="M4 2.5L14 12L4 21.5" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-                        <defs><linearGradient id="paint0_linear" x1="4" y1="2.5" x2="19.5" y2="12" gradientUnits="userSpaceOnUse"><stop stop-color="#1877F2"/><stop offset="1" stop-color="#D4AF37"/></linearGradient></defs>
-                    </svg>
-                    <div class="playstore-text"><small>Disponible pronto en App</small><strong>Shefa Plus</strong></div>
-                </a>
-                <button class="btn-oro" onclick="abrirPestana('operaciones', document.querySelectorAll('.tab-btn')[1])">Abrir Mercado</button>
-            </div>
-        </section>
-
-        <section id="operaciones" class="seccion-contenido">
-            <div class="encabezado-seccion">
-                <h2>Mercado de <span>Cripto-Fracciones</span></h2>
-                <p>Invierte desde $50.000 COP y comienza la multiplicación.</p>
-            </div>
-            <div class="grid-activos" id="contenedor-motos">
-                </div>
-        </section>
-
-        <section id="gestion" class="seccion-contenido">
-            <div class="encabezado-seccion" style="margin-bottom: 20px;">
-                <h2>Gestión y <span>Transparencia</span></h2>
-            </div>
+        <div class="contenedor-busqueda">
+            <div id="mensaje-error" class="feedback error"></div>
             
-            <div class="dashboard-gestion">
-                <div class="panel-glass">
-                    <h3 style="color: var(--gris-texto); font-size: 1rem;">Crecimiento del Portafolio</h3>
-                    <div class="cifra-gigante" id="cifra-portafolio">$0.00</div>
-                    <p style="color: var(--verde-exito); font-weight: bold; font-size: 0.9rem;">+ $0.00 Rendimiento Hoy (Parnasá)</p>
-                    <div class="chart-container"><canvas id="graficaParnasa"></canvas></div>
-                    <div style="display: flex; gap: 10px; margin-top: 15px; font-size: 0.8rem;">
-                        <span class="chip-legal ok">✓ SOAT Vigente</span>
-                        <span class="chip-legal ok">✓ GPS Activo</span>
-                    </div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 21px;">
-                    <div class="panel-glass" style="padding: 15px;">
-                        <h3 style="color: var(--oro-sagrado); margin-bottom: 10px; font-size: 1.1rem;">Billetera de Liquidez 🏦</h3>
-                        <select id="banco-retiro" class="input-billetera">
-                            <option value="Nequi">Nequi</option>
-                            <option value="Bancolombia">Bancolombia</option>
-                            <option value="Daviplata">Daviplata</option>
-                        </select>
-                        <input type="number" id="monto-retiro" class="input-billetera" placeholder="Monto a retirar (Ej: 20000)">
-                        <button class="btn-inversor" style="margin-top: 0; padding: 10px;" onclick="alert('Solicitud enviada a procesamiento central.')">Solicitar Transferencia</button>
-                    </div>
-
-                    <div class="panel-glass" style="padding: 15px;">
-                        <h3 style="color: var(--blanco-puro); font-size: 1.1rem;">Red de Multiplicación (Verajá)</h3>
-                        <p style="font-size: 0.8rem; color: var(--gris-texto); margin-top: 5px;">Comparte tu código sagrado y obtén +0.5% extra por cada aliado.</p>
-                        <div class="codigo-referido" onclick="alert('Código copiado al portapapeles.')">SHEFA-777-PRO 📋</div>
-                    </div>
-                </div>
+            <div class="grupo-input">
+                <label for="input-vrm">Identificador del Vehículo (VRM / VIN)</label>
+                <input type="text" id="input-vrm" placeholder="Ej: BR36O o Número VIN" autocomplete="off">
+                <button id="btn-consultar" onclick="ejecutarAnalisisPreventivo()">Consultar Mercado</button>
             </div>
-        </section>
+        </div>
 
-        <section id="admin" class="seccion-contenido">
-            <div class="encabezado-seccion">
-                <h2>Bóveda de Frecuencia <span>Shefa Plus Shefa</span> Administrativa</h2>
-                <p style="color: var(--oro-sagrado);">Panel de Control Maestro</p>
-            </div>
+        <div id="loader" class="cargando">Procesando flujos de datos...</div>
+
+        <div id="resultados" class="panel-resultados">
             
-            <div class="admin-panel">
-                <h3 style="color: white; margin-bottom: 15px; border-bottom: 1px solid var(--azul-facebook); padding-bottom: 10px;">Inyectar Nueva Flota</h3>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div class="form-grupo">
-                        <label>Nombre del Vehículo (Ej. Moto Negra PADAUI)</label>
-                        <input type="text" id="admin-nombre" placeholder="Nombre descriptivo">
-                    </div>
-                    <div class="form-grupo">
-                        <label>Precio Fracción ($ COP)</label>
-                        <input type="number" id="admin-precio" placeholder="Ej: 50000">
-                    </div>
-                    <div class="form-grupo" style="grid-column: 1 / -1;">
-                        <label>Ubicación Exacta (Para Google Maps)</label>
-                        <input type="text" id="admin-ubicacion" placeholder="Ej: Bogotá, Chapinero, Cra 13">
-                    </div>
-                    <div class="form-grupo" style="grid-column: 1 / -1;">
-                        <label>URL de la Fotografía</label>
-                        <input type="text" id="admin-foto" placeholder="https://ejemplo.com/mifoto.jpg">
-                    </div>
+            <div class="tarjeta">
+                <h2>Especificaciones del Vehículo</h2>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Marca / Modelo</span>
+                    <span class="dato-valor" id="res-modelo">-</span>
                 </div>
-                <button class="btn-accion-admin" onclick="agregarFlota()">+ Materializar Flota en Mercado</button>
-                
-                <h3 style="color: white; margin-top: 30px; margin-bottom: 15px; border-bottom: 1px solid var(--azul-facebook); padding-bottom: 10px;">Flotas Activas (Edición Rápida)</h3>
-                <div class="lista-flotas-admin" id="lista-flotas-admin">
-                    </div>
-
-                <div style="margin-top: 40px; padding-top: 20px; border-top: 1px dashed var(--rojo-alerta);">
-                    <h3 style="color: var(--rojo-alerta); margin-bottom: 10px;">Seguridad: Cambiar PIN de Acceso</h3>
-                    <input type="text" id="nuevo-pin" class="input-billetera" placeholder="Nuevo PIN (Admite letras, tildes, símbolos, puntos...)">
-                    <button class="btn-accion-admin" style="background: var(--rojo-alerta);" onclick="cambiarPin()">Actualizar PIN de Seguridad</button>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Año de Fabricación</span>
+                    <span class="dato-valor" id="res-anio">-</span>
+                </div>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Transmisión</span>
+                    <span class="dato-valor" id="res-transmision">-</span>
                 </div>
             </div>
-        </section>
+
+            <div class="tarjeta destacada">
+                <h2>Análisis de Valoración Activa</h2>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Precio de Mercado Actual</span>
+                    <span class="dato-valor valor-resaltado" id="res-precio">-</span>
+                </div>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Margen de Variación</span>
+                    <span class="dato-valor" id="res-margen">-</span>
+                </div>
+            </div>
+
+            <div class="tarjeta">
+                <h2>Tendencias y Depreciación Futura</h2>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Valor Estimado (12 Meses)</span>
+                    <span class="dato-valor" id="res-futuro-12">-</span>
+                </div>
+                <div class="fila-dato">
+                    <span class="dato-titulo">Costo de Mantenimiento Anual</span>
+                    <span class="dato-valor" id="res-costo-mantenimiento">-</span>
+                </div>
+            </div>
+
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Shefa Plus Shefa S.A.S.</p>
-        <div style="margin-top: 10px;">
-            <span class="link-legal" onclick="abrirModal('modal-terminos')">Términos y Condiciones</span>
-            <span class="link-legal" onclick="abrirModal('modal-terminos')">Política de Privacidad</span>
-        </div>
-    </footer>
-
-    <div class="modal-overlay" id="modal-pin">
-        <div class="modal-content">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-pin')">×</button>
-            <h3 style="color: var(--oro-sagrado); margin-bottom: 15px;">Frecuencia Administrativa</h3>
-            <p style="color: var(--gris-texto); margin-bottom: 20px; font-size: 0.9rem;">Ingrese el código de acceso alfanumérico.</p>
-            <input type="password" id="input-pin" class="pin-input" placeholder="••••••">
-            <button class="btn-inversor" onclick="verificarPin()">Acceder a la Bóveda</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-compra">
-        <div class="modal-content">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-compra')">×</button>
-            <h3 style="color: var(--oro-sagrado); margin-bottom: 5px;">Transacción RWA</h3>
-            <p style="color: var(--gris-texto); margin-bottom: 20px;">Adquiriendo fracción de activo productivo.</p>
-            
-            <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
-                <h4 id="compra-nombre" style="color: white; font-size: 1.2rem;">Vehículo</h4>
-                <div id="compra-precio" style="color: var(--oro-sagrado); font-size: 2rem; font-weight: bold; margin-top: 10px;">$0</div>
-            </div>
-
-            <div style="text-align: left; margin-bottom: 20px; background: rgba(24, 119, 242, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--azul-facebook);">
-                <label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer;">
-                    <input type="checkbox" id="check-terminos" style="margin-top: 5px;">
-                    <span style="color: var(--gris-texto); font-size: 0.85rem;">Confirmo que he leído y acepto los <a href="#" style="color: var(--oro-sagrado);" onclick="abrirModal('modal-terminos'); return false;">Términos, Condiciones y Políticas de Privacidad</a>.</span>
-                </label>
-            </div>
-
-            <button class="btn-inversor" style="background: var(--oro-sagrado); color: black;" onclick="procederPago()">Seleccionar Método de Pago</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-qr">
-        <div class="modal-content" style="max-width: 500px;">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-qr')">×</button>
-            
-            <div id="seleccion-banco">
-                <h3 style="color: white; margin-bottom: 20px;">Paga tu Fracción</h3>
-                <button class="btn-banco btn-bancolombia" onclick="mostrarQR('bancolombia')">Transferencia BANCOLOMBIA <span> QR</span></button>
-                <button class="btn-banco btn-nequi" onclick="mostrarQR('nequi')">Pago con NEQUI <span> QR</span></button>
-                <button class="btn-banco btn-daviplata" onclick="mostrarQR('daviplata')">Pago con DAVIPLATA <span> QR</span></button>
-            </div>
-
-            <div id="vista-qr" style="display: none;">
-                <button onclick="volverBancos()" style="background: none; border: none; color: var(--azul-facebook); font-size: 0.9rem; cursor: pointer; margin-bottom: 15px;">← Cambiar método</button>
-                <h3 id="titulo-qr" style="color: white;">Escanea para pagar</h3>
-                
-                <div class="qr-display" id="caja-qr">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=PagoShefaPlus" alt="QR Code">
-                </div>
-                
-                <div style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-                    <p style="color: var(--gris-texto); font-size: 0.8rem;">Titular: Shefa Plus Shefa S.A.S</p>
-                    <p style="color: var(--oro-sagrado); font-weight: bold; font-family: monospace;" id="referencia-pago">REF: RWA-001</p>
-                </div>
-                
-                <button class="btn-inversor" style="background: var(--verde-exito);" onclick="alert('Pago reportado. Verificando en sistema...'); cerrarModal('modal-qr');">Ya realicé el pago</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-terminos">
-        <div class="modal-content modal-legal">
-            <button class="btn-cerrar-modal" onclick="cerrarModal('modal-terminos')">×</button>
-            <h3>Términos y Política de Privacidad</h3>
-            
-            <div style="background: rgba(212, 175, 55, 0.1); border-left: 4px solid var(--oro-sagrado); padding: 15px; margin-bottom: 20px;">
-                <h4 style="color: var(--oro-sagrado); margin: 0 0 10px 0; border: none; padding: 0;">PROPIEDAD Y DESARROLLO</h4>
-                <p style="color: white; margin: 0; font-weight: bold;">
-                    La infraestructura tecnológica, software, hardware de avanzada y los derechos de operación de esta plataforma pertenecen exclusivamente a Johanna Medina, propietaria y desarrolladora de software y hardware de infraestructura avanzada.
-                </p>
-            </div>
-            
-            <p><strong>1. Frecuencia y Rendimientos:</strong> Las inversiones en activos productivos están sujetas a la operación del mercado físico (Parnasá). Los rendimientos son proyectados basados en la analítica de la plataforma Shefa Plus Shefa.</p>
-            <p><strong>2. Privacidad de Datos:</strong> Toda información recopilada está encriptada. No se compartirá información con terceros sin requerimiento legal explícito.</p>
-            <p><strong>3. Condiciones de Uso:</strong> El acceso no autorizado a la Bóveda Administrativa será tratado como una brecha de seguridad y reportado a las autoridades mediante geolocalización satelital (Análisis Preventivo Activo).</p>
-        </div>
-    </div>
-
     <script>
-        // ==========================================
-        // LÓGICA CORE: SHEFA PLUS SHEFA
-        // ==========================================
+        // CONFIGURACIÓN DE CREDENCIALES
+        // Una vez que Brego apruebe la solicitud, reemplaza este valor con la llave asignada.
+        const BREGO_API_KEY = 'TU_API_KEY_AQUÍ';
+        const BASE_URL = 'https://api.brego.io/v1'; // Ajustar según la documentación oficial final
 
-        // Ocultar Preloader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => { document.getElementById('preloader').style.display = 'none'; }, 800);
-            }, 1000);
-            renderizarFlotas();
-            renderizarListaAdmin();
-        });
-
-        // Navegación de Pestañas
-        function abrirPestana(id, elemento) {
-            document.querySelectorAll('.seccion-contenido').forEach(sec => sec.classList.remove('activa'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('activo'));
-            document.getElementById(id).classList.add('activa');
-            elemento.classList.add('activo');
-        }
-
-        // ==========================================
-        // BASE DE DATOS (ESTADO DE FLOTAS)
-        // ==========================================
-        let flotas = [
-            {
-                id: 1,
-                nombre: 'Yamaha FZ Negra - Flota Delivery',
-                precio: 50000,
-                ubicacion: 'Bogotá, Chapinero',
-                foto: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80'
-            }
-        ];
-
-        function renderizarFlotas() {
-            const contenedor = document.getElementById('contenedor-motos');
-            contenedor.innerHTML = '';
+        // PROTOCOLO DE ANÁLISIS PREVENTIVO: Valida el entorno antes de lanzar peticiones inseguras
+        function ejecutarAnalisisPreventivo() {
+            const vrmInput = document.getElementById('input-vrm').value.trim();
+            const errorDiv = document.getElementById('mensaje-error');
             
-            flotas.forEach(flota => {
-                const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(flota.ubicacion)}`;
-                
-                contenedor.innerHTML += `
-                    <div class="tarjeta-activo">
-                        <div class="activo-imagen-contenedor">
-                            <img src="${flota.foto}" alt="${flota.nombre}">
-                            <a href="${mapLink}" target="_blank" class="badge-ubicacion">
-                                📍 ${flota.ubicacion}
-                            </a>
-                        </div>
-                        <div class="activo-info">
-                            <h3 class="activo-titulo">${flota.nombre}</h3>
-                            <div class="activo-datos">
-                                <div class="dato-columna">
-                                    <p>Valor de Fracción</p>
-                                    <strong>$${flota.precio.toLocaleString()} COP</strong>
-                                </div>
-                            </div>
-                            <button class="btn-inversor" onclick="iniciarCompra(${flota.id})">Adquirir Fracción</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
+            errorDiv.style.display = 'none';
+            errorDiv.innerText = '';
 
-        // ==========================================
-        // BÓVEDA ADMINISTRATIVA (SEGURIDAD DE FRECUENCIA)
-        // ==========================================
-        let toquesSecretos = 0;
-        let timerToques;
-        let pinActual = "Shefa-2026!"; // Admite letras, símbolos, etc.
-        let intentosFallidos = 0;
-
-        document.getElementById('amuleto-secreto').addEventListener('click', () => {
-            toquesSecretos++;
-            clearTimeout(timerToques);
-            
-            if (toquesSecretos === 5) {
-                abrirModal('modal-pin');
-                toquesSecretos = 0;
-            } else {
-                timerToques = setTimeout(() => { toquesSecretos = 0; }, 2000);
-            }
-        });
-
-        function verificarPin() {
-            const input = document.getElementById('input-pin').value;
-            if (input === pinActual) {
-                cerrarModal('modal-pin');
-                document.getElementById('input-pin').value = '';
-                intentosFallidos = 0;
-                document.getElementById('btn-admin-tab').style.display = 'block';
-                document.getElementById('btn-admin-tab').click();
-            } else {
-                intentosFallidos++;
-                document.getElementById('input-pin').value = '';
-                if (intentosFallidos >= 3) {
-                    cerrarModal('modal-pin');
-                    dispararAlarmaRoja();
-                } else {
-                    alert('Frecuencia Incorrecta. Intento ' + intentosFallidos + ' de 3.');
-                }
-            }
-        }
-
-        function cambiarPin() {
-            const nuevoPin = document.getElementById('nuevo-pin').value;
-            if(nuevoPin.length >= 4) {
-                pinActual = nuevoPin;
-                alert('PIN de bóveda actualizado exitosamente.');
-                document.getElementById('nuevo-pin').value = '';
-            } else {
-                alert('El PIN debe tener al menos 4 caracteres (letras, números, puntos, etc).');
-            }
-        }
-
-        function dispararAlarmaRoja() {
-            document.getElementById('alarma-roja').style.display = 'flex';
-            // Bloquea el sistema obligando a recargar la página
-        }
-
-        // ==========================================
-        // GESTIÓN DE FLOTAS (ADMIN CRUD)
-        // ==========================================
-        function agregarFlota() {
-            const nombre = document.getElementById('admin-nombre').value;
-            const precio = document.getElementById('admin-precio').value;
-            const ubicacion = document.getElementById('admin-ubicacion').value;
-            const foto = document.getElementById('admin-foto').value;
-
-            if(!nombre || !precio || !ubicacion) return alert('Completa los campos principales.');
-
-            flotas.push({
-                id: Date.now(),
-                nombre: nombre,
-                precio: parseInt(precio),
-                ubicacion: ubicacion,
-                foto: foto || 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc' // Fallback
-            });
-
-            alert('Flota materializada con éxito en el mercado.');
-            // Limpiar campos
-            document.getElementById('admin-nombre').value = '';
-            document.getElementById('admin-precio').value = '';
-            document.getElementById('admin-ubicacion').value = '';
-            document.getElementById('admin-foto').value = '';
-
-            renderizarFlotas();
-            renderizarListaAdmin();
-        }
-
-        function renderizarListaAdmin() {
-            const lista = document.getElementById('lista-flotas-admin');
-            lista.innerHTML = '';
-            flotas.forEach(flota => {
-                lista.innerHTML += `
-                    <div class="item-flota-admin">
-                        <div style="color: white;">
-                            <strong>${flota.nombre}</strong><br>
-                            <small style="color: var(--gris-texto);">$${flota.precio.toLocaleString()} - ${flota.ubicacion}</small>
-                        </div>
-                        <button class="btn-peligro" onclick="eliminarFlota(${flota.id})">Eliminar</button>
-                    </div>
-                `;
-            });
-        }
-
-        function eliminarFlota(id) {
-            if(confirm('¿Confirmas que deseas retirar esta flota del mercado?')) {
-                flotas = flotas.filter(f => f.id !== id);
-                renderizarFlotas();
-                renderizarListaAdmin();
-            }
-        }
-
-        // ==========================================
-        // FLUJO DE COMPRA Y PASARELAS QR
-        // ==========================================
-        let flotaSeleccionada = null;
-
-        function iniciarCompra(id) {
-            flotaSeleccionada = flotas.find(f => f.id === id);
-            document.getElementById('compra-nombre').innerText = flotaSeleccionada.nombre;
-            document.getElementById('compra-precio').innerText = `$${flotaSeleccionada.precio.toLocaleString()} COP`;
-            document.getElementById('check-terminos').checked = false;
-            abrirModal('modal-compra');
-        }
-
-        function procederPago() {
-            const terms = document.getElementById('check-terminos').checked;
-            if(!terms) {
-                alert('Debes aceptar los Términos y Condiciones, y Políticas de Privacidad.');
+            // 1. Validación de entrada estructural
+            if (!vrmInput) {
+                errorDiv.innerText = 'Error: Por favor, ingrese un identificador válido (VRM o VIN).';
+                errorDiv.style.display = 'block';
                 return;
             }
-            cerrarModal('modal-compra');
-            volverBancos(); // Resetea vista del modal QR
-            document.getElementById('referencia-pago').innerText = `REF: RWA-${flotaSeleccionada.id}-${Math.floor(Math.random()*1000)}`;
-            abrirModal('modal-qr');
+
+            // 2. Validación de credencial activa
+            if (BREGO_API_KEY === 'TU_API_KEY_AQUÍ') {
+                // Modo simulación controlado para pruebas de interfaz (Fase de Desarrollo)
+                simularFlujoDatos(vrmInput);
+                return;
+            }
+
+            // 3. Conexión Real si pasa los filtros previos
+            consultarApiEnTiempoReal(vrmInput);
         }
 
-        function mostrarQR(banco) {
-            document.getElementById('seleccion-banco').style.display = 'none';
-            document.getElementById('vista-qr').style.display = 'block';
+        // CONEXIÓN ASÍNCRONA REAL
+        async function consultarApiEnTiempoReal(vrm) {
+            const loader = document.getElementById('loader');
+            const resultados = document.getElementById('resultados');
             
-            const cajaQR = document.getElementById('caja-qr');
-            let colorBorde = '';
-            
-            if(banco === 'bancolombia') colorBorde = '#FFD700';
-            if(banco === 'nequi') colorBorde = '#FF00A6';
-            if(banco === 'daviplata') colorBorde = '#ED1C24';
-            
-            cajaQR.style.borderColor = colorBorde;
-            document.getElementById('titulo-qr').innerText = `Escanea en la App de ${banco.toUpperCase()}`;
-        }
+            loader.style.display = 'block';
+            resultados.style.display = 'none';
 
-        function volverBancos() {
-            document.getElementById('vista-qr').style.display = 'none';
-            document.getElementById('seleccion-banco').style.display = 'block';
-        }
+            try {
+                // Construcción de la petición HTTP siguiendo los estándares de Brego
+                const respuesta = await fetch(`${BASE_URL}/vehicle/${vrm}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${BREGO_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-        // ==========================================
-        // UTILIDADES DE MODALES
-        // ==========================================
-        function abrirModal(id) { document.getElementById(id).style.display = 'flex'; }
-        function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
-        
-        // Cerrar modales al hacer clic fuera
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = "none";
+                if (!respuesta.ok) {
+                    throw new Error(`Error de servidor: ${respuesta.status} - No se pudo extraer la información.`);
+                }
+
+                const datos = await respuesta.json();
+                inyectarDatosEnPantalla(datos);
+
+            } catch (error) {
+                const errorDiv = document.getElementById('mensaje-error');
+                errorDiv.innerText = error.message;
+                errorDiv.style.display = 'block';
+            } finally {
+                loader.style.display = 'none';
             }
         }
 
-        // Init Gráfica vacía para que no lance error
-        const ctx = document.getElementById('graficaParnasa');
-        if (ctx) {
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
-                    datasets: [{
-                        label: 'Rendimiento (Shefa)',
-                        data: [0, 0, 0, 0, 0, 0, 0],
-                        borderColor: '#D4AF37', tension: 0.4
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
+        // INYECCIÓN VISUAL DE INFORMACIÓN EN LA INTERFAZ
+        function inyectarDatosEnPantalla(datos) {
+            // Mapeo dinámico de campos basados en la respuesta JSON estructurada de la API
+            document.getElementById('res-modelo').innerText = datos.vehicle.make_model || 'No disponible';
+            document.getElementById('res-anio').innerText = datos.vehicle.year || '-';
+            document.getElementById('res-transmision').innerText = datos.vehicle.transmission || '-';
+            
+            // Formateo numérico para reflejar el valor económico real
+            document.getElementById('res-precio').innerText = `$${Number(datos.valuation.market_value).toLocaleString()}`;
+            document.getElementById('res-margen').innerText = `+/- $${Number(datos.valuation.margin || 0).toLocaleString()}`;
+            
+            document.getElementById('res-futuro-12').innerText = `$${Number(datos.forecasting.future_value_12).toLocaleString()}`;
+            document.getElementById('res-costo-mantenimiento').innerText = `$${Number(datos.analytics.maintenance_cost).toLocaleString()}/año`;
+
+            // Despliegue del panel con transiciones suaves
+            document.getElementById('resultados').style.display = 'flex';
+        }
+
+        // SIMULADOR DE FLUJO DE DATOS: Permite verificar los estilos y respuestas visuales antes de tener la llave
+        function simularFlujoDatos(vrm) {
+            const loader = document.getElementById('loader');
+            const resultados = document.getElementById('resultados');
+            
+            loader.style.display = 'block';
+            resultados.style.display = 'none';
+
+            setTimeout(() => {
+                // Estructura mock idéntica a la que entrega un servicio RESTful automotriz
+                const datosSimulados = {
+                    vehicle: { make_model: "Audi A4 Ultra Tech", year: 2023, transmission: "Automática S-Tronic" },
+                    valuation: { market_value: 38500, margin: 450 },
+                    forecasting: { future_value_12: 34200 },
+                    analytics: { maintenance_cost: 850 }
+                };
+                
+                inyectarDatosEnPantalla(datosSimulados);
+                loader.style.display = 'none';
+            }, 1200); // Retraso artificial para validar comportamiento del loader
         }
     </script>
 </body>
