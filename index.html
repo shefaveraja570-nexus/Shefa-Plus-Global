@@ -3,203 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefa Plus Global - Ecosistema Automotriz</title>
+    <title>Shefa Plus Global - Plataforma de Motos Premium</title>
     <style>
-        /* Variables de Neuro-Diseño: Colores de alta gama y enfoque visual */
+        /* Variables de Neuro-Diseño: La Frecuencia del Éxito */
         :root {
-            --bg-principal: #0a0d14;
-            --bg-tarjeta: #121824;
-            --texto-principal: #f0f2f5;
-            --texto-secundario: #8a99ad;
-            --acento-metalico: #e2e8f0;
-            --acento-dorado: #d4af37;
-            --exito: #10b981;
-            --error: #ef4444;
-            --fuente: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --titanio-azul-oscuro: #070f1e; /* Estructura Base, Seguridad */
+            --titanio-superficie: #111a2e; /* Contenedores */
+            --oro-premium: #d4af37; /* Valor, Shefá */
+            --verde-fluorescente: #39ff14; /* Éxito, Validación de Datos, Alto Impacto */
+            --texto-luz: #f8fafc;
+            --texto-sombra: #94a3b8;
+            --fuente-global: 'Segoe UI', Roboto, Helvetica, sans-serif;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: var(--fuente);
+            font-family: var(--fuente-global);
         }
 
         body {
-            background-color: var(--bg-principal);
-            color: var(--texto-principal);
-            display: flex;
-            flex-direction: column;
+            background-color: var(--titanio-azul-oscuro);
+            color: var(--texto-luz);
             min-height: 100vh;
-            padding: 20px;
+            padding: 40px 20px;
+            background-image: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
         }
 
-        /* Encabezado Institucional */
+        /* Encabezado: El Ojo de la Visión */
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-top: 10px;
+            margin-bottom: 40px;
+            text-align: left;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            border-left: 3px solid var(--oro-premium);
+            padding-left: 15px;
         }
 
         header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--acento-metalico);
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--texto-luz);
             text-transform: uppercase;
         }
 
         header h1 span {
-            color: var(--acento-dorado);
+            color: var(--oro-premium);
         }
 
         header p {
-            color: var(--texto-secundario);
-            font-size: 12px;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
+            color: var(--verde-fluorescente);
+            font-size: 14px;
+            margin-top: 8px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-        /* Buscador Central */
-        .contenedor-busqueda {
-            background: var(--bg-tarjeta);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(226, 232, 240, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            margin-bottom: 25px;
+        /* Ecosistema Áureo: Asimetría Fibonacci (1 : 1.618) */
+        .ecosistema-aureo {
+            display: grid;
+            grid-template-columns: 1fr 1.618fr; /* La Proporción Divina */
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .ecosistema-aureo {
+                grid-template-columns: 1fr; /* Colapsa en móviles orgánicamente */
+            }
+        }
+
+        /* Módulo Parnasá (Panel de Control - Base 1) */
+        .modulo-control {
+            background: var(--titanio-superficie);
+            padding: 30px;
+            border-radius: 0 20px 20px 0;
+            border-left: 2px solid var(--oro-premium);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            height: fit-content;
         }
 
         .grupo-input {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 15px;
         }
 
         label {
-            font-size: 12px;
-            color: var(--texto-secundario);
+            font-size: 11px;
+            color: var(--texto-sombra);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         input {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(226, 232, 240, 0.1);
-            padding: 14px;
-            border-radius: 8px;
-            color: var(--texto-principal);
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            background: rgba(7, 15, 30, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 16px;
+            border-radius: 4px;
+            color: var(--oro-premium);
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
             text-transform: uppercase;
             transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--acento-dorado);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+            border-color: var(--verde-fluorescente);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
         }
 
         button {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid var(--acento-dorado);
-            color: var(--acento-dorado);
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
+            background: transparent;
+            border: 1px solid var(--oro-premium);
+            color: var(--oro-premium);
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 5px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
         }
 
-        button:active {
-            transform: scale(0.98);
-            background: var(--acento-dorado);
-            color: var(--bg-principal);
+        button:hover {
+            background: var(--oro-premium);
+            color: var(--titanio-azul-oscuro);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
-        /* Estado de Carga (Reduce la ansiedad del usuario) */
-        .cargando {
-            display: none;
-            text-align: center;
-            color: var(--acento-dorado);
-            font-size: 14px;
-            margin: 20px 0;
-            letter-spacing: 1px;
-        }
-
-        /* Panel de Resultados Estructurado */
+        /* Módulo Shefá (Flujo de Datos - Base 1.618) */
         .panel-resultados {
             display: none;
-            flex-direction: column;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
+            align-content: start;
         }
 
         .tarjeta {
-            background: var(--bg-tarjeta);
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid var(--acento-metalico);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(17, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 25px;
+            border-top: 2px solid rgba(148, 163, 184, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
         }
 
         .tarjeta.destacada {
-            border-left-color: var(--acento-dorado);
+            background: linear-gradient(145deg, var(--titanio-superficie), rgba(212, 175, 55, 0.05));
+            border-top: 2px solid var(--verde-fluorescente);
         }
 
         .tarjeta h2 {
-            font-size: 14px;
-            color: var(--texto-secundario);
+            font-size: 12px;
+            color: var(--texto-sombra);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
         }
 
         .fila-dato {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.05);
-        }
-
-        .fila-dato:last-child {
-            border-bottom: none;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
 
         .dato-titulo {
-            color: var(--texto-secundario);
-            font-size: 14px;
+            color: var(--texto-sombra);
+            font-size: 13px;
         }
 
         .dato-valor {
-            font-weight: 600;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--texto-luz);
+            text-align: right;
         }
 
         .valor-resaltado {
-            color: var(--exito);
-            font-size: 18px;
-            font-weight: 700;
+            color: var(--verde-fluorescente);
+            font-size: 22px;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
         }
 
-        /* Mensajes del Sistema */
-        .feedback {
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            text-align: center;
+        /* Loader Orgánico */
+        .cargando {
             display: none;
-            margin-bottom: 15px;
+            grid-column: 1 / -1;
+            text-align: center;
+            color: var(--verde-fluorescente);
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulsoDivino 1.5s infinite;
         }
-        .feedback.error {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--error);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+
+        @keyframes pulsoDivino {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; text-shadow: 0 0 15px var(--verde-fluorescente); }
+            100% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -207,26 +226,27 @@
 
     <header>
         <h1>Shefa <span>Plus</span> Global</h1>
-        <p>Módulo de Inteligencia Automotriz en Tiempo Real</p>
+        <p>Red de Inteligencia de Mercado | Plataforma de Motos</p>
     </header>
 
-    <main>
-        <div class="contenedor-busqueda">
-            <div id="mensaje-error" class="feedback error"></div>
-            
+    <main class="ecosistema-aureo">
+        
+        <!-- BASE 1: Control (Parnasá) -->
+        <section class="modulo-control">
             <div class="grupo-input">
-                <label for="input-vrm">Identificador del Vehículo (VRM / VIN)</label>
-                <input type="text" id="input-vrm" placeholder="Ej: BR36O o Número VIN" autocomplete="off">
-                <button id="btn-consultar" onclick="ejecutarAnalisisPreventivo()">Consultar Mercado</button>
+                <label for="input-vrm">Matrícula o VIN (AKT / Yamaha)</label>
+                <input type="text" id="input-vrm" placeholder="Ej: MTO-999" autocomplete="off">
+                <button id="btn-consultar" onclick="ejecutarAnalisisPreventivo()">Materializar Datos</button>
             </div>
-        </div>
+            <div id="mensaje-error" style="color: #ef4444; margin-top: 15px; font-size: 12px; display: none;"></div>
+        </section>
 
-        <div id="loader" class="cargando">Procesando flujos de datos...</div>
+        <!-- BASE 1.618: Expansión (Verajá y Shefá) -->
+        <section id="loader" class="cargando">Abriendo Portal de Datos...</section>
 
-        <div id="resultados" class="panel-resultados">
-            
+        <section id="resultados" class="panel-resultados">
             <div class="tarjeta">
-                <h2>Especificaciones del Vehículo</h2>
+                <h2>Ficha Técnica Premium</h2>
                 <div class="fila-dato">
                     <span class="dato-titulo">Marca / Modelo</span>
                     <span class="dato-valor" id="res-modelo">-</span>
@@ -236,123 +256,73 @@
                     <span class="dato-valor" id="res-anio">-</span>
                 </div>
                 <div class="fila-dato">
-                    <span class="dato-titulo">Transmisión</span>
+                    <span class="dato-titulo">Cilindraje / Transmisión</span>
                     <span class="dato-valor" id="res-transmision">-</span>
                 </div>
             </div>
 
             <div class="tarjeta destacada">
-                <h2>Análisis de Valoración Activa</h2>
+                <h2>Proyección de Capital</h2>
                 <div class="fila-dato">
-                    <span class="dato-titulo">Precio de Mercado Actual</span>
+                    <span class="dato-titulo">Valor Real (Mercado)</span>
                     <span class="dato-valor valor-resaltado" id="res-precio">-</span>
                 </div>
                 <div class="fila-dato">
-                    <span class="dato-titulo">Margen de Variación</span>
-                    <span class="dato-valor" id="res-margen">-</span>
+                    <span class="dato-titulo">Margen de Negociación</span>
+                    <span class="dato-valor" id="res-margen" style="color: var(--oro-premium);">-</span>
                 </div>
             </div>
 
             <div class="tarjeta">
-                <h2>Tendencias y Depreciación Futura</h2>
+                <h2>Auditoría de Crecimiento</h2>
                 <div class="fila-dato">
                     <span class="dato-titulo">Valor Estimado (12 Meses)</span>
                     <span class="dato-valor" id="res-futuro-12">-</span>
                 </div>
                 <div class="fila-dato">
-                    <span class="dato-titulo">Costo de Mantenimiento Anual</span>
+                    <span class="dato-titulo">Costo de Operación (Anual)</span>
                     <span class="dato-valor" id="res-costo-mantenimiento">-</span>
                 </div>
             </div>
+        </section>
 
-        </div>
     </main>
 
     <script>
-        // CONFIGURACIÓN DE CREDENCIALES
-        // Una vez que Brego apruebe la solicitud, reemplaza este valor con la llave asignada.
         const BREGO_API_KEY = 'TU_API_KEY_AQUÍ';
-        const BASE_URL = 'https://api.brego.io/v1'; // Ajustar según la documentación oficial final
+        
+        function formatearCOP(valor) {
+            return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(valor);
+        }
 
-        // PROTOCOLO DE ANÁLISIS PREVENTIVO: Valida el entorno antes de lanzar peticiones inseguras
         function ejecutarAnalisisPreventivo() {
             const vrmInput = document.getElementById('input-vrm').value.trim();
             const errorDiv = document.getElementById('mensaje-error');
-            
             errorDiv.style.display = 'none';
-            errorDiv.innerText = '';
 
-            // 1. Validación de entrada estructural
             if (!vrmInput) {
-                errorDiv.innerText = 'Error: Por favor, ingrese un identificador válido (VRM o VIN).';
+                errorDiv.innerText = '⚠️ Ingrese un identificador para abrir el flujo.';
                 errorDiv.style.display = 'block';
                 return;
             }
 
-            // 2. Validación de credencial activa
-            if (BREGO_API_KEY === 'TU_API_KEY_AQUÍ') {
-                // Modo simulación controlado para pruebas de interfaz (Fase de Desarrollo)
-                simularFlujoDatos(vrmInput);
-                return;
-            }
-
-            // 3. Conexión Real si pasa los filtros previos
-            consultarApiEnTiempoReal(vrmInput);
+            simularFlujoDatos(vrmInput);
         }
 
-        // CONEXIÓN ASÍNCRONA REAL
-        async function consultarApiEnTiempoReal(vrm) {
-            const loader = document.getElementById('loader');
-            const resultados = document.getElementById('resultados');
-            
-            loader.style.display = 'block';
-            resultados.style.display = 'none';
-
-            try {
-                // Construcción de la petición HTTP siguiendo los estándares de Brego
-                const respuesta = await fetch(`${BASE_URL}/vehicle/${vrm}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${BREGO_API_KEY}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!respuesta.ok) {
-                    throw new Error(`Error de servidor: ${respuesta.status} - No se pudo extraer la información.`);
-                }
-
-                const datos = await respuesta.json();
-                inyectarDatosEnPantalla(datos);
-
-            } catch (error) {
-                const errorDiv = document.getElementById('mensaje-error');
-                errorDiv.innerText = error.message;
-                errorDiv.style.display = 'block';
-            } finally {
-                loader.style.display = 'none';
-            }
-        }
-
-        // INYECCIÓN VISUAL DE INFORMACIÓN EN LA INTERFAZ
         function inyectarDatosEnPantalla(datos) {
-            // Mapeo dinámico de campos basados en la respuesta JSON estructurada de la API
-            document.getElementById('res-modelo').innerText = datos.vehicle.make_model || 'No disponible';
-            document.getElementById('res-anio').innerText = datos.vehicle.year || '-';
-            document.getElementById('res-transmision').innerText = datos.vehicle.transmission || '-';
+            document.getElementById('res-modelo').innerText = datos.vehicle.make_model;
+            document.getElementById('res-anio').innerText = datos.vehicle.year;
+            document.getElementById('res-transmision').innerText = datos.vehicle.transmission;
             
-            // Formateo numérico para reflejar el valor económico real
-            document.getElementById('res-precio').innerText = `$${Number(datos.valuation.market_value).toLocaleString()}`;
-            document.getElementById('res-margen').innerText = `+/- $${Number(datos.valuation.margin || 0).toLocaleString()}`;
-            
-            document.getElementById('res-futuro-12').innerText = `$${Number(datos.forecasting.future_value_12).toLocaleString()}`;
-            document.getElementById('res-costo-mantenimiento').innerText = `$${Number(datos.analytics.maintenance_cost).toLocaleString()}/año`;
+            // Flujo económico proyectado en COP para la economía real
+            document.getElementById('res-precio').innerText = formatearCOP(datos.valuation.market_value);
+            document.getElementById('res-margen').innerText = `+/- ${formatearCOP(datos.valuation.margin)}`;
+            document.getElementById('res-futuro-12').innerText = formatearCOP(datos.forecasting.future_value_12);
+            document.getElementById('res-costo-mantenimiento').innerText = formatearCOP(datos.analytics.maintenance_cost);
 
-            // Despliegue del panel con transiciones suaves
-            document.getElementById('resultados').style.display = 'flex';
+            document.getElementById('resultados').style.display = 'grid';
         }
 
-        // SIMULADOR DE FLUJO DE DATOS: Permite verificar los estilos y respuestas visuales antes de tener la llave
         function simularFlujoDatos(vrm) {
             const loader = document.getElementById('loader');
             const resultados = document.getElementById('resultados');
@@ -361,18 +331,25 @@
             resultados.style.display = 'none';
 
             setTimeout(() => {
-                // Estructura mock idéntica a la que entrega un servicio RESTful automotriz
+                // Simulación enrutada hacia la especialidad de la plataforma
                 const datosSimulados = {
-                    vehicle: { make_model: "Audi A4 Ultra Tech", year: 2023, transmission: "Automática S-Tronic" },
-                    valuation: { market_value: 38500, margin: 450 },
-                    forecasting: { future_value_12: 34200 },
-                    analytics: { maintenance_cost: 850 }
+                    vehicle: { make_model: "Yamaha MT-09 SP", year: 2026, transmission: "Manual 6 Vel" },
+                    valuation: { market_value: 62500000, margin: 1500000 },
+                    forecasting: { future_value_12: 58000000 },
+                    analytics: { maintenance_cost: 1200000 }
                 };
+                
+                // Si el usuario introduce una placa distinta, alternar datos de flujo a AKT
+                if(vrm.toLowerCase().includes('akt')) {
+                     datosSimulados.vehicle.make_model = "AKT TT 250 Adventour";
+                     datosSimulados.valuation.market_value = 14500000;
+                     datosSimulados.forecasting.future_value_12 = 12000000;
+                }
                 
                 inyectarDatosEnPantalla(datosSimulados);
                 loader.style.display = 'none';
-            }, 1200); // Retraso artificial para validar comportamiento del loader
+            }, 1618); // Retraso sincronizado con la proporción áurea (1.618s)
         }
     </script>
 </body>
-</html>
+    </html>
