@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Premium | SHEFÁ PLUS GLOBAL</title>
+    <script>
+        window.onerror = function(msg, url, line) {
+            alert("Error: " + msg + "\nURL: " + url + "\nLínea: " + line);
+        };
+    </script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <style>
+    :root {
+        --oro-shefa: #d4af37;
+        --obsidiana-parnasa: #0a0a0c;
+        --titanio-premium: #161618;
+        --veraja-vital: #00e676;
+        --fibo: 1.618;
+        --base: 1rem;
+        /* Espaciado basado en Fibonacci */
+        --pad-s: calc(var(--base) * 1);
+        --pad-m: calc(var(--base) * 1.618);
+        --pad-l: calc(var(--base) * 2.618);
+    }
+
+    body {
+        background-color: var(--obsidiana-parnasa);
+        background-image: radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.05) 1px, transparent 0);
+        background-size: 40px 40px; /* Geometría sagrada sutil */
+        color: #e2e4e9;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        line-height: var(--fibo);
+    }
+
+    .header {
+        background: linear-gradient(180deg, #1a1a1c 0%, var(--obsidiana-parnasa) 100%);
+        padding: var(--pad-m) 5%;
+        border-bottom: 2px solid var(--oro-shefa);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .marca { font-size: 1.5rem; font-weight: 300; }
+    .marca .plus { color: var(--oro-shefa); font-weight: 700; }
+
+    .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: var(--pad-m);
+        padding: var(--pad-l) 5%;
+    }
+
+    .modulo {
+        background: var(--titanio-premium);
+        border-radius: 4px;
+        padding: var(--pad-m);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+        color: var(--oro-shefa);
+        font-size: calc(var(--base) * 1.2);
+        margin-top: 0;
+        border-bottom: 1px solid var(--oro-shefa);
+        padding-bottom: var(--pad-s);
+    }
+
+    .calculadora {
+        background: #000;
+        padding: var(--pad-s);
+        display: flex;
+        justify-content: space-between;
+        border-radius: 2px;
+        margin: var(--pad-s) 0;
+    }
+
+    input {
+        background: transparent;
+        border: none;
+        color: var(--oro-shefa);
+        width: 50%;
+        outline: none;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 100%;
+        padding: var(--pad-m);
+        background: linear-gradient(135deg, #b8860b, #d4af37);
+        border: none;
+        font-weight: 800;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #000;
+        transition: transform 0.3s ease;
+    }
+
+    button:hover { transform: scale(1.02); }
+
+    /* Estados de Crecimiento */
+    .umbral-parnasa { border-left: 5px solid #fff; }
+    .umbral-shefa { border-left: 10px solid var(--oro-shefa); }
+    .umbral-veraja { border-left: 15px solid var(--veraja-vital); }
+</style>
+
+
+</head>
+<body>
+
+<header class="header">
+    <div class="marca"><span>SHEFÁ</span> <span class="plus">PLUS</span></div>
+    <div id="user-info">Verificando Nivel...</div>
+</header>
+
+<div class="panel-grid">
+    <div class="modulo" id="modulo-inversion">
+        <h2>📈 Catálogo RWA Premium</h2>
+        
+        <div class="activo" style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; margin-bottom: 5px;">
+                <span>🌴 Fractional Luxury (Tulum)</span> <span id="apy-tulum-indicador" style="transition: all 0.5s;">12% APY</span>
+            </div>
+            <div class="calculadora">
+                <input type="number" id="inv1" placeholder="Monto (USD)" oninput="calcular(1, window.apyTulumDinamico || 0.12)">
+                <span id="res1" style="color: var(--acento-verde); font-weight: bold;">$0.00 /mes</span>
+            </div>
+        </div>
+
+        <div class="activo" style="margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; margin-bottom: 5px;">
+                <span>☀️ Green Bonds Tokenizados</span> <span id="apy-verde-indicador">8% APY</span>
+            </div>
+            <div class="calculadora">
+                <input type="number" id="inv2" placeholder="Monto (USD)" oninput="calcular(2, window.apyVerdeDinamico || 0.08)">
+                <span id="res2" style="color: var(--acento-verde); font-weight: bold;">$0.00 /mes</span>
+            </div>
+        </div>
+
+        <div class="activo" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 0.95rem; margin-bottom: 5px;">
+                <span>🚚 Private Debt Logística</span> <span id="apy-logistica-indicador" style="transition: all 0.5s;">15% APY</span>
+            </div>
+            <div class="calculadora">
+                <input type="number" id="inv3" placeholder="Monto (USD)" oninput="calcular(3, window.apyLogisticaDinamico || 0.15)">
+                <span id="res3" style="color: var(--acento-verde); font-weight: bold;">$0.00 /mes</span>
+            </div>
+        </div>
+
+        <button onclick="adquirirCriptofraccion('BRONCE')" style="background: linear-gradient(135deg, #cd7f32, #a05a2d); color: #fff; border: 1px solid #e6b89c; padding: 12px; font-weight: bold; text-transform: uppercase; width: 100%; margin-bottom: 10px; border-radius: 4px;"> BRONCE (NIVEL - SHEFA INICIAL) - $789.787</button>
+        <button onclick="adquirirCriptofraccion('PLATA')" style="background: linear-gradient(135deg, #e0e0e0, #a0a0a0); color: #000; border: 1px solid #dcdcdc; padding: 12px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase;">PLATA (NIVEL - PARNASÁ) - $1.277.875</button>
+        <button onclick="adquirirCriptofraccion('ORO')" style="background: linear-gradient(135deg, #ffd700, #b8860b); color: #000; border: 1px solid #ffcc00; padding: 12px; font-weight: bold; text-transform: uppercase;">ORO (NIVEL - VERAJÁ) - $2.067.602</button>
+    </div>
+
+    <div class="modulo">
+        <h2>🌐 Sistema de Remesas Shefá</h2>
+        <input type="text" id="beneficiario" placeholder="Nombre del Beneficiario" style="width:100%; padding:10px; margin-bottom:10px; background:#050505; color:#fff; border:1px solid #333; box-sizing:border-box;">
+        <input type="number" id="montoRemesa" placeholder="Monto (USD)" style="width:100%; padding:10px; margin-bottom:10px; background:#050505; color:#fff; border:1px solid #333; box-sizing:border-box;">
+        <button onclick="ejecutarRemesa()">EJECUTAR TRANSFERENCIA</button>
+    </div>
+</div>
+
+<div class="contenedor-bienvenida" style="padding: 2rem 5%; text-align: center;">
+    <h1>Bienvenido, <span id="displayNombre" style="color: var(--oro-plus);">Cargando...</span></h1>
+    <p>Tu saldo actual es: <span id="displaySaldo" style="color: var(--acento-verde); font-weight: bold;">0.00</span></p>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+        authDomain: "shefa-plus-global.firebaseapp.com",
+        databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+        projectId: "shefa-plus-global",
+        storageBucket: "shefa-plus-global.firebasestorage.app",
+        messagingSenderId: "746532074927",
+        appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
+        measurementId: "G-ELXBWZJZD8"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
+    const firestore = getFirestore(app);
+
+    const RAPIDAPI_KEY = "592f8cb99emshd8416dfbfec662ep1cbd7ajsn74b128c5018c";
+    window.apyLogisticaDinamico = 0.15; 
+    window.apyVerdeDinamico = 0.08;
+
+    async function sincronizarMercadoVehiculos() {
+        const url = 'https://search-auto-values-api.p.rapidapi.com/GetMake';
+        try {
+            const response = await fetch(url, { method: 'GET', headers: { 'x-rapidapi-key': RAPIDAPI_KEY, 'x-rapidapi-host': 'search-auto-values-api.p.rapidapi.com' } });
+            if (response.ok) {
+                window.apyLogisticaDinamico = 0.162; 
+                document.getElementById('apy-logistica-indicador').innerText = "16.2% APY (En Vivo)";
+                document.getElementById('apy-logistica-indicador').style.color = "#00e676";
+            }
+        } catch (error) { console.error("Interferencia Oráculo 1"); }
+    }
+    sincronizarMercadoVehiculos();
+
+    const RENTCAST_KEY = "f2d8659dc00941e6bf81f429985de8dd"; 
+    window.apyTulumDinamico = 0.12; 
+
+    async function sincronizarMercadoInmobiliario() {
+        if (RENTCAST_KEY === "TU_LLAVE_RENTCAST_AQUI") return; 
+        const url = 'https://api.rentcast.io/v1/avm/value?address=Tulum';
+        try {
+            const response = await fetch(url, { method: 'GET', headers: { 'X-Api-Key': RENTCAST_KEY } });
+            if (response.ok) {
+                window.apyTulumDinamico = 0.128; 
+                document.getElementById('apy-tulum-indicador').innerText = "12.8% APY (En Vivo)";
+                document.getElementById('apy-tulum-indicador').style.color = "#00e676";
+                document.getElementById('apy-tulum-indicador').style.textShadow = "0 0 10px rgba(0, 230, 118, 0.5)";
+            }
+        } catch (error) { console.error("Interferencia Oráculo 2"); }
+    }
+    sincronizarMercadoInmobiliario();
+
+    onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+            document.getElementById('user-info').innerText = "Estado: Desconectado / Modo Lectura";
+            document.getElementById('displayNombre').innerText = "Invitado";
+        } else {
+            document.getElementById('user-info').innerText = `Inversor: ${user.email}`;
+            try {
+                const docRef = doc(firestore, "inversores", user.uid);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.getElementById('displayNombre').innerText = data.nombre || "Inversionista";
+                    document.getElementById('displaySaldo').innerText = data.saldo || "0.00";
+                }
+            } catch (error) { console.error("Error al extraer datos de Firestore"); }
+        }
+    });
+
+    window.ejecutarRemesa = async () => {
+        const nombre = document.getElementById('beneficiario').value;
+        const monto = document.getElementById('montoRemesa').value;
+        if (!nombre || !monto) return alert("Complete los campos.");
+        try {
+            await push(ref(db, 'remesas/'), { beneficiario: nombre, monto: monto, timestamp: new Date().toISOString() });
+            alert("✅ Remesa registrada en el Libro Contable.");
+        } catch (e) { console.error("Error en el búnker:", e); }
+    };
+
+    window.calcular = (id, apyBase) => {
+        let apyReal = apyBase;
+        if (id === 1) apyReal = window.apyTulumDinamico;
+        if (id === 2) apyReal = window.apyVerdeDinamico; 
+        if (id === 3) apyReal = window.apyLogisticaDinamico;
+        
+        const monto = document.getElementById(`inv${id}`).value || 0;
+        document.getElementById(`res${id}`).innerText = `$${((monto * apyReal) / 12).toFixed(2)} /mes`;
+
+        let totalSimulado = parseFloat(document.getElementById('inv1').value || 0) + parseFloat(document.getElementById('inv2').value || 0) + parseFloat(document.getElementById('inv3').value || 0);
+        const moduloInversion = document.getElementById('modulo-inversion');
+        moduloInversion.className = 'modulo'; 
+
+        if (totalSimulado >= 2000) moduloInversion.classList.add('umbral-veraja'); 
+        else if (totalSimulado >= 1000) moduloInversion.classList.add('umbral-shefa');  
+        else if (totalSimulado > 0) moduloInversion.classList.add('umbral-parnasa'); 
+    };
+
+    window.adquirirCriptofraccion = (nivel) => {
+        let linkPago = "";
+        if (nivel === 'BRONCE') linkPago = "https://mpago.li/2H9R7Zo"; 
+        else if (nivel === 'PLATA') linkPago = "https://mpago.li/1oKzLsK"; 
+        else if (nivel === 'ORO') linkPago = "https://mpago.li/2tFqSnZ"; 
+        if (linkPago !== "") window.location.href = linkPago;
+    };
+</script>
+</body>
+</html>
+
+

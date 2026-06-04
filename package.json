@@ -1,7 +1,7 @@
 {
   "name": "shefaplusglobal",
   "version": "1.0.0",
-  "description": "",
+  "description": "Desarrolladora de software y emprendedora colombiana con una visión inquebrantable de expansión global. Como creadora y Lead Developer de un ecosistema de criptofracciones a escala mundial, fusiono una sólida base multidisciplinaria con la arquitectura tecnológica de alto nivel. de Hardware &amp; Software | CEO en SHEFA PLUS. Especialista en optimización de infraestructura de señales (RF) y despliegue de sistemas inteligentes con ESP32. Impulsando la vanguardia tecnológica con visión global y propósito consciente. Construyendo el futuro de la conectividad desde la excelencia.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,13 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mercadopago": "^3.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shefaveraja570-nexus/Shefa-Plus-Global.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shefaveraja570-nexus/Shefa-Plus-Global/issues"
+  },
+  "homepage": "https://github.com/shefaveraja570-nexus/Shefa-Plus-Global#readme"
 }

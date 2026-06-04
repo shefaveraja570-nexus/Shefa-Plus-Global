@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shefa Plus Global - Ecosistema Automotriz</title>
     <style>
+/* Gradiente de Oro Shefá para el botón */
+#btn-consultar {
+    background: linear-gradient(135deg, #d4af37, #f3e5ab);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px; /* Proporción sutil */
+    color: #0a0d14;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    transition: transform 0.3s ease;
+}
+
+#btn-consultar:hover {
+    transform: scale(1.05); /* Expansión áurea */
+}
+
+/* Panel de Resultados con resplandor Titanio */
+.panel-resultados {
+    border-left: 5px solid var(--acento-dorado);
+    background: rgba(18, 24, 36, 0.8);
+    backdrop-filter: blur(10px); /* Efecto de inmersión */
+    padding: 25px;
+    margin-top: 20px;
+    border-radius: 0 20px 20px 0;
+}
+
         /* Variables de Neuro-Diseño: Colores de alta gama originales y enfoque visual */
         :root {
             --bg-principal: #0a0d14; /* Azul Titanio profundo */
@@ -214,6 +241,17 @@
     </style>
 </head>
 <body>
+<div class="espiral-fondo"></div>
+.espiral-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
 
     <header>
         <h1>Shefa <span>Plus</span> Global</h1>
@@ -227,7 +265,8 @@
             <div class="grupo-input">
                 <label for="input-vrm">Identificador del Vehículo (Matrícula / VIN)</label>
                 <input type="text" id="input-vrm" placeholder="Ej: AKT-123 o Número VIN" autocomplete="off">
-                <button id="btn-consultar" onclick="ejecutarAnalisisPreventivo()">Consultar Mercado</button>
+                <button id="btn-consultar" onclick="consultarApiVehiculo()">Consultar Mercado</button>
+
             </div>
         </div>
 
@@ -262,6 +301,9 @@
                     <span class="dato-valor" id="res-margen">-</span>
                 </div>
             </div>
+
+
+
 
             <div class="tarjeta">
                 <h2>Tendencias y Depreciación Futura</h2>
@@ -344,52 +386,46 @@
                 loader.style.display = 'none';
             }
         }
+<script>
+    // PASO A: Define tus credenciales (Justo aquí)
+    const BASE_URL = 'https://marketcheck-api.com/v1'; 
+    const BEARER_TOKEN = 'mc_live_3giakEHb8ZXtIW91qPMaOGgoY7BcjAaX'; 
 
-        // INYECCIÓN VISUAL DE INFORMACIÓN OPTIMIZADA
-        function inyectarDatosEnPantalla(datos) {
-            document.getElementById('res-modelo').innerText = datos.vehicle.make_model || 'No disponible';
-            document.getElementById('res-anio').innerText = datos.vehicle.year || '-';
-            document.getElementById('res-transmision').innerText = datos.vehicle.transmission || '-';
-            
-            // Formateo numérico para reflejar el valor económico real en COP
-            document.getElementById('res-precio').innerText = formatoCOP.format(datos.valuation.market_value);
-            document.getElementById('res-margen').innerText = `+/- ${formatoCOP.format(datos.valuation.margin || 0)}`;
-            
-            document.getElementById('res-futuro-12').innerText = formatoCOP.format(datos.forecasting.future_value_12);
-            document.getElementById('res-costo-mantenimiento').innerText = `${formatoCOP.format(datos.analytics.maintenance_cost)}/año`;
+    // PASO B: Lógica de consulta real
+    async function consultarApiVehiculo() {
+        const vin = document.getElementById('input-vrm').value;
+        const loader = document.getElementById('loader');
+        const resultados = document.getElementById('resultados');
+        const errorDiv = document.getElementById('mensaje-error');
 
-            // Despliegue del panel con transiciones fluidas de la bóveda
-            document.getElementById('resultados').style.display = 'flex';
+        loader.style.display = 'block';
+        resultados.style.display = 'none';
+
+        try {5
+            const respuesta = await fetch(`${BASE_URL}/search?vin=${vin}`, {
+                method: 'GET',
+                headers: { 'Authorization': `Bearer ${BEARER_TOKEN}` }
+            });
+            const datos = await respuesta.json();
+            inyectarDatosEnPantalla(datos);
+        } catch (e) {
+            errorDiv.innerText = "Error de conexión";
+            errorDiv.style.display = 'block';
+        } finally {
+            loader.style.display = 'none';
         }
+    }
 
-        // SIMULADOR DE FLUJO DE DATOS CALIBRADO
-        function simularFlujoDatos(vrm) {
-            const loader = document.getElementById('loader');
-            const resultados = document.getElementById('resultados');
-            
-            loader.style.display = 'block';
-            resultados.style.display = 'none';
-
-            setTimeout(() => {
-                let datosSimulados = {
-                    vehicle: { make_model: "Yamaha MT-09", year: 2026, transmission: "Manual" },
-                    valuation: { market_value: 62500000, margin: 1500000 },
-                    forecasting: { future_value_12: 58000000 },
-                    analytics: { maintenance_cost: 1200000 }
-                };
-                
-                if(vrm.toLowerCase().includes('akt')) {
-                     datosSimulados.vehicle.make_model = "AKT TT 250 Adventour";
-                     datosSimulados.valuation.market_value = 14500000;
-                     datosSimulados.valuation.margin = 500000;
-                     datosSimulados.forecasting.future_value_12 = 12000000;
-                     datosSimulados.analytics.maintenance_cost = 800000;
-                }
-                
-                inyectarDatosEnPantalla(datosSimulados);
-                loader.style.display = 'none';
-            }, 1200); 
+    // PASO C: Lógica de visualización
+    function inyectarDatosEnPantalla(datos) {
+        if (datos && datos.listings) {
+            const v = datos.listings[0];
+            document.getElementById('res-modelo').innerText = v.build.make + " " + v.build.model;
+            document.getElementById('res-precio').innerText = "$ " + v.price;
+            document.getElementById('resultados').style.display = 'block';
         }
-    </script>
+    }
+</script>
+
 </body>
                         </html>
