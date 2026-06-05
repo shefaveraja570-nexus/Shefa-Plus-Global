@@ -139,9 +139,10 @@
 </div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+  // Usamos la misma versión de Firebase que tienes en tu Dashboard (10.8.0) para que no haya conflictos
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
@@ -163,40 +164,25 @@
     botonIngresar.innerText = "DESBLOQUEANDO...";
     botonIngresar.classList.add('desbloqueando');
 
-    // 2. Extraemos los datos (tus líneas actuales)
+    // 2. Extraemos los datos de tus inputs
     const nombre = document.getElementById('nombre').value;
     const email = document.getElementById('email').value;
     const pass = document.getElementById('pass').value;
     const codigo = document.getElementById('codigo').value;
 
-    // 3. Validación de acceso (tu búnker)
+    // 3. Validación de acceso (tu búnker de criptofracción)
     if (codigo !== "SHEFA2026") {
         alert("Acceso denegado: El umbral requiere un código de criptofracción válido.");
-        botonIngresar.innerText = "Ingresar al Catálogo"; // Reset
+        botonIngresar.innerText = "Ingresar al Catálogo"; 
         botonIngresar.classList.remove('desbloqueando');
         return;
     }
 
     try {
-        // 4. Proceso de registro/acceso
-        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-        await setDoc(doc(firestore, "inversores", userCredential.user.uid), { nombre: nombre });
-        
-        // 5. Éxito
-        botonIngresar.innerText = "ACCESO CONCEDIDO";
-        window.location.href = "dashboard.html";
-    } catch (error) {
-        botonIngresar.innerText = "ERROR DE FIRMA";
-        botonIngresar.classList.remove('desbloqueando');
-        alert("La firma no coincide con el búnker.");
-    }
-};
-
-
-    try {
+        // 4. Proceso de REGISTRO para nuevos usuarios
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
         
-        // Optimización de sincronía: Agregado saldo inicial para enlace perfecto con el Dashboard
+        // 5. Guardar en tu base de datos Firestore (Respetando tu optimización de sincronía)
         await setDoc(doc(db, "inversores", userCredential.user.uid), {
             nombre: nombre,
             rol: "inversionista_premium",
@@ -205,25 +191,33 @@
             fecha: new Date().toISOString()
         });
         
+        // 6. Éxito: Llevar al Dashboard
+        botonIngresar.innerText = "ACCESO CONCEDIDO";
         alert("Autenticación exitosa. Bienvenido a la frecuencia de la abundancia, Inversionista.");
-        window.location.href = 'dashboard.html'; 
-    } catch (e) {
-        if (e.code === 'auth/email-already-in-use') {
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+        // 7. Tu lógica maestra: Si da error porque YA ESTÁ REGISTRADO, lo iniciamos sesión automáticamente
+        if (error.code === 'auth/email-already-in-use') {
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
+                botonIngresar.innerText = "ACCESO CONCEDIDO";
                 alert("Acceso reactivado: Bienvenido de nuevo, Inversionista.");
                 window.location.href = 'dashboard.html';
             } catch (loginError) {
-                alert("Error al intentar ingresar: " + loginError.message);
+                botonIngresar.innerText = "Ingresar al Catálogo";
+                botonIngresar.classList.remove('desbloqueando');
+                alert("Error al intentar ingresar: Contraseña incorrecta.");
             }
         } else {
-            alert("Interferencia en la conexión: " + e.message);
+            // Si el error es otro (ej. contraseña muy corta)
+            botonIngresar.innerText = "Ingresar al Catálogo";
+            botonIngresar.classList.remove('desbloqueando');
+            alert("Interferencia en la conexión: " + error.message);
         }
     }
   };
 </script>
 </body>
-</html>
-
-
-      
+    </html>
+    
