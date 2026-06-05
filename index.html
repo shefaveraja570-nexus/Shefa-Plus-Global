@@ -3,419 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefa Plus Global - Ecosistema Automotriz</title>
+    <title>Shefa Plus Global - Inicio Premium</title>
+    <link rel="stylesheet" href="estilos.css">
     <style>
-/* Gradiente de Oro Shefá para el botón */
-#btn-consultar {
-    background: linear-gradient(135deg, #d4af37, #f3e5ab);
-    border: none;
-    padding: 15px 30px;
-    border-radius: 8px; /* Proporción sutil */
-    color: #0a0d14;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    transition: transform 0.3s ease;
-}
-
-#btn-consultar:hover {
-    transform: scale(1.05); /* Expansión áurea */
-}
-
-/* Panel de Resultados con resplandor Titanio */
-.panel-resultados {
-    border-left: 5px solid var(--acento-dorado);
-    background: rgba(18, 24, 36, 0.8);
-    backdrop-filter: blur(10px); /* Efecto de inmersión */
-    padding: 25px;
-    margin-top: 20px;
-    border-radius: 0 20px 20px 0;
-}
-
-        /* Variables de Neuro-Diseño: Colores de alta gama originales y enfoque visual */
         :root {
-            --bg-principal: #0a0d14; /* Azul Titanio profundo */
-            --bg-tarjeta: #121824;   /* Bóveda administrativa */
+            --bg-principal: #0a0d14;
+            --bg-tarjeta: #121824;
+            --acento-dorado: #d4af37;
             --texto-principal: #f0f2f5;
             --texto-secundario: #8a99ad;
-            --acento-metalico: #e2e8f0;
-            --acento-dorado: #d4af37; /* Oro - Valor Premium */
-            --exito: #10b981;         /* Verde éxito original */
-            --error: #ef4444;
-            --fuente: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--fuente);
-        }
-
         body {
             background-color: var(--bg-principal);
             color: var(--texto-principal);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Restauración del flujo centralizado */
-            min-height: 100vh;
+            align-items: center;
             padding: 20px;
+            margin: 0;
         }
-
-        /* Encabezado Institucional Original */
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-top: 10px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--acento-metalico);
-            text-transform: uppercase;
-        }
-
-        header h1 span {
-            color: var(--acento-dorado);
-        }
-
-        header p {
-            color: var(--texto-secundario);
-            font-size: 12px;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
-        }
-
-        main {
-            width: 100%;
-            max-width: 600px; /* Bóveda administrativa centralizada */
-        }
-
-        /* Buscador Central Restaurado */
-        .contenedor-busqueda {
+        .tarjeta-menu {
             background: var(--bg-tarjeta);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(226, 232, 240, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            margin-bottom: 25px;
-        }
-
-        .grupo-input {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        label {
-            font-size: 12px;
-            color: var(--texto-secundario);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        input {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(226, 232, 240, 0.1);
-            padding: 14px;
-            border-radius: 8px;
-            color: var(--texto-principal);
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--acento-dorado);
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
-        }
-
-        button {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid var(--acento-dorado);
-            color: var(--acento-dorado);
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 5px;
-        }
-
-        button:active {
-            transform: scale(0.98);
-            background: var(--acento-dorado);
-            color: var(--bg-principal);
-        }
-
-        /* Estado de Carga Original */
-        .cargando {
-            display: none;
+            border-radius: 15px;
+            padding: 30px;
             text-align: center;
-            color: var(--acento-dorado);
-            font-size: 14px;
-            margin: 20px 0;
-            letter-spacing: 1px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        /* Panel de Resultados Estructurado Original */
-        .panel-resultados {
-            display: none;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .tarjeta {
-            background: var(--bg-tarjeta);
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid var(--acento-metalico);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .tarjeta.destacada {
-            border-left-color: var(--acento-dorado);
-        }
-
-        .tarjeta h2 {
-            font-size: 14px;
-            color: var(--texto-secundario);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .logo-shefa {
+            width: 100px;
             margin-bottom: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
-
-        .fila-dato {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(226, 232, 240, 0.05);
-        }
-
-        .fila-dato:last-child {
-            border-bottom: none;
-        }
-
-        .dato-titulo {
-            color: var(--texto-secundario);
-            font-size: 14px;
-        }
-
-        .dato-valor {
-            font-weight: 600;
-            font-size: 14px;
-            text-align: right;
-        }
-
-        .valor-resaltado {
-            color: var(--exito);
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        /* Mensajes del Sistema */
-        .feedback {
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            text-align: center;
-            display: none;
-            margin-bottom: 15px;
-        }
+        h1 { font-size: 26px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;}
+        h1 span { color: var(--acento-dorado); }
+        p.subtitulo { color: var(--texto-secundario); font-size: 13px; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase;}
         
-        .feedback.error {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--error);
-            border: 1px solid rgba(239, 68, 68, 0.2);
+        .btn-dorado {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #f3e5ab);
+            color: #000;
+            padding: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.2s;
         }
+        .btn-dorado:hover { transform: scale(1.05); }
+        
+        .btn-azul {
+            display: block;
+            width: 100%;
+            background: #2563eb;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .btn-oscuro {
+            display: block;
+            width: 100%;
+            background: var(--bg-principal);
+            border: 1px solid #334155;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .tarjeta-secundaria {
+            background: transparent;
+            border: 1px solid rgba(226, 232, 240, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .tarjeta-secundaria h3 { color: var(--acento-dorado); font-size: 16px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+        .tarjeta-secundaria p { color: var(--texto-secundario); font-size: 13px; margin-bottom: 15px; line-height: 1.5;}
+        .footer { text-align: center; font-size: 10px; color: var(--texto-secundario); margin-top: 20px;}
     </style>
 </head>
 <body>
-<div class="espiral-fondo"></div>
+    <div class="espiral-fondo"></div>
     
-    <header>
-        <h1>Shefa <span>Plus</span> Global</h1>
-        <p>Módulo de Inteligencia Automotriz en Tiempo Real</p>
-    </header>
+    <!-- TARJETA PRINCIPAL (NÚCLEO) -->
+    <div class="tarjeta-menu">
+        <h1>SHEFA<span>PLUS</span></h1>
+        <p class="subtitulo">Frecuencia Global 800 HZ</p>
+        
+        <!-- ESTE BOTÓN LLEVA AL LOGIN (UMBRAL) -->
+        <a href="umbral.html" class="btn-dorado">Ingresar al Núcleo</a>
+    </div>
 
-    <main>
-        <div class="contenedor-busqueda">
-            <div id="mensaje-error" class="feedback error"></div>
-            
-            <div class="grupo-input">
-                <label for="input-vrm">Identificador del Vehículo (Matrícula / VIN)</label>
-                <input type="text" id="input-vrm" placeholder="Ej: AKT-123 o Número VIN" autocomplete="off">
-                <button id="btn-consultar" onclick="consultarApiVehiculo()">Consultar Mercado</button>
+    <!-- TARJETA CRIPTOFRACCIONES -->
+    <div class="tarjeta-secundaria">
+        <h3>Fondo de Criptofracciones</h3>
+        <p>Sintoniza tu capital con la frecuencia de la abundancia. Sistema de inversión automatizado.</p>
+        <p style="color: #60a5fa; font-size: 12px; font-weight: bold; margin-bottom: 15px;">Mastercard • Visa • Nequi • Daviplata • Efecty</p>
+        <p style="font-size: 11px; font-style: italic; margin-bottom: 20px;">Convenio internacional habilitado. Se generará Ref. Única por inversor.</p>
+        
+        <!-- ESTE BOTÓN LLEVA AL DASHBOARD -->
+        <a href="dashboard.html" class="btn-dorado">Iniciar Inversión</a>
 
-            </div>
-        </div>
+        <!-- ENLACE A TU BUSCADOR DE VIN -->
+        <a href="vin.html" class="btn-oscuro" style="border-color: var(--acento-dorado); color: var(--acento-dorado); margin-top: 15px;">🔎 Módulo Automotriz (VIN)</a>
+    </div>
 
-        <div id="loader" class="cargando">Procesando flujos de datos...</div>
+    <!-- TARJETA COMANDO -->
+    <div class="tarjeta-secundaria">
+        <h3>Centro de Comando Global</h3>
+        <p>Comunicación directa, encriptada y bajo los pilares de Parnasá y Verajá.</p>
+        
+        <a href="mailto:shefa.veraja.570@gmail.com" class="btn-azul">✉ Correo Oficial</a>
+        <a href="#" class="btn-oscuro">🛡 Enlace de Seguridad Whatsapp</a>
+    </div>
 
-        <div id="resultados" class="panel-resultados">
-            
-            <div class="tarjeta">
-                <h2>Especificaciones del Vehículo</h2>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Marca / Modelo</span>
-                    <span class="dato-valor" id="res-modelo">-</span>
-                </div>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Año de Fabricación</span>
-                    <span class="dato-valor" id="res-anio">-</span>
-                </div>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Transmisión</span>
-                    <span class="dato-valor" id="res-transmision">-</span>
-                </div>
-            </div>
-
-            <div class="tarjeta destacada">
-                <h2>Análisis de Valoración Activa</h2>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Precio de Mercado Actual</span>
-                    <span class="dato-valor valor-resaltado" id="res-precio">-</span>
-                </div>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Margen de Variación</span>
-                    <span class="dato-valor" id="res-margen">-</span>
-                </div>
-            </div>
-
-
-
-
-            <div class="tarjeta">
-                <h2>Tendencias y Depreciación Futura</h2>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Valor Estimado (12 Meses)</span>
-                    <span class="dato-valor" id="res-futuro-12">-</span>
-                </div>
-                <div class="fila-dato">
-                    <span class="dato-titulo">Costo de Mantenimiento Anual</span>
-                    <span class="dato-valor" id="res-costo-mantenimiento">-</span>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <script>
-        // CONFIGURACIÓN DE CREDENCIALES Y CONSTANTES (Núcleo Parnasá)
-        const BREGO_API_KEY = 'TU_API_KEY_AQUÍ';
-        const BASE_URL = 'https://api.brego.io/v1';
-
-        // Utilidad de formateo económico puro (COP)
-        const formatoCOP = new Intl.NumberFormat('es-CO', { 
-            style: 'currency', 
-            currency: 'COP', 
-            maximumFractionDigits: 0 
-        });
-
-        // PROTOCOLO DE ANÁLISIS PREVENTIVO MANTENIDO
-        function ejecutarAnalisisPreventivo() {
-            const vrmInput = document.getElementById('input-vrm').value.trim();
-            const errorDiv = document.getElementById('mensaje-error');
-            
-            errorDiv.style.display = 'none';
-            errorDiv.innerText = '';
-
-            if (!vrmInput) {
-                errorDiv.innerText = 'Error: Por favor, ingrese un identificador válido (VRM o VIN).';
-                errorDiv.style.display = 'block';
-                return;
-            }
-
-            if (BREGO_API_KEY === 'TU_API_KEY_AQUÍ') {
-                simularFlujoDatos(vrmInput);
-                return;
-            }
-
-            consultarApiEnTiempoReal(vrmInput);
-        }
-
-        // CONEXIÓN ASÍNCRONA REAL BLINDADA
-        async function consultarApiEnTiempoReal(vrm) {
-            const loader = document.getElementById('loader');
-            const resultados = document.getElementById('resultados');
-            
-            loader.style.display = 'block';
-            resultados.style.display = 'none';
-
-            try {
-                const respuesta = await fetch(`${BASE_URL}/vehicle/${vrm}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${BREGO_API_KEY}`,
-                        'Content-Type': 'application/json'
-                    }
-                });
-
-                if (!respuesta.ok) {
-                    throw new Error(`Error de servidor: ${respuesta.status} - No se pudo extraer la información.`);
-                }
-
-                const datos = await respuesta.json();
-                inyectarDatosEnPantalla(datos);
-
-            } catch (error) {
-                const errorDiv = document.getElementById('mensaje-error');
-                errorDiv.innerText = error.message;
-                errorDiv.style.display = 'block';
-            } finally {
-                loader.style.display = 'none';
-            }
-        }
-<script>
-    // PASO A: Define tus credenciales (Justo aquí)
-    const BASE_URL = 'https://marketcheck-api.com/v1'; 
-    const BEARER_TOKEN = 'mc_live_3giakEHb8ZXtIW91qPMaOGgoY7BcjAaX'; 
-
-    // PASO B: Lógica de consulta real
-    async function consultarApiVehiculo() {
-        const vin = document.getElementById('input-vrm').value;
-        const loader = document.getElementById('loader');
-        const resultados = document.getElementById('resultados');
-        const errorDiv = document.getElementById('mensaje-error');
-
-        loader.style.display = 'block';
-        resultados.style.display = 'none';
-
-        try {5
-            const respuesta = await fetch(`${BASE_URL}/search?vin=${vin}`, {
-                method: 'GET',
-                headers: { 'Authorization': `Bearer ${BEARER_TOKEN}` }
-            });
-            const datos = await respuesta.json();
-            inyectarDatosEnPantalla(datos);
-        } catch (e) {
-            errorDiv.innerText = "Error de conexión";
-            errorDiv.style.display = 'block';
-        } finally {
-            loader.style.display = 'none';
-        }
-    }
-
-    // PASO C: Lógica de visualización
-    function inyectarDatosEnPantalla(datos) {
-        if (datos && datos.listings) {
-            const v = datos.listings[0];
-            document.getElementById('res-modelo').innerText = v.build.make + " " + v.build.model;
-            document.getElementById('res-precio').innerText = "$ " + v.price;
-            document.getElementById('resultados').style.display = 'block';
-        }
-    }
-</script>
-
+    <!-- PIE DE PÁGINA -->
+    <div class="footer">
+        <p>© 2026 SHEFA PLUS GLOBAL S.A.S. | Arquitectura de Sustento Blindado</p>
+        <p style="color: var(--acento-dorado); font-weight: bold; margin-top: 5px;">🛡 POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS</p>
+    </div>
 </body>
-                        </html>
+            </html>
+            
