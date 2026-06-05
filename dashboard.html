@@ -43,6 +43,54 @@
         /* VALORES SHEFA */
         .manifiesto { text-align: center; color: #777; font-size: 0.8rem; letter-spacing: 2px; margin-top: 20px; text-transform: uppercase; }
         .manifiesto span { color: var(--oro-shefa); font-weight: bold; }
+
+                /* 🌟 BOTONES FIBONACCI - DESTELLO VERAJÁ 🌟 */
+        .btn-veraja-fibo {
+            background: linear-gradient(135deg, #0a0a0c, #1a1a1c); /* Fondo obsidiana */
+            color: var(--oro-shefa); /* Letras en Oro */
+            border: 1px solid rgba(0, 230, 118, 0.382); /* Borde Verajá Fibo 0.382 */
+            
+            /* Padding Áureo: Alto 0.618, Ancho 1.618 */
+            padding: calc(var(--base) * 0.618) calc(var(--base) * 1.618); 
+            margin-top: calc(10px * 1.618);
+            width: 100%;
+            
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 1.618px; /* Espaciado Fibonacci */
+            text-transform: uppercase;
+            border-radius: calc(10px / 1.618);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            
+            /* Animación del Destello: Dura exactamente 1.618 segundos */
+            animation: pulso-veraja 1.618s infinite alternate ease-in-out;
+        }
+
+        /* Efecto al pasar el dedo/mouse (Expansión) */
+        .btn-veraja-fibo:hover {
+            transform: scale(1.02);
+            background: linear-gradient(135deg, var(--oro-shefa), #b8860b);
+            color: #000;
+            box-shadow: 0 0 calc(20px * 1.618) rgba(212, 175, 55, 0.8);
+            border-color: var(--oro-shefa);
+        }
+
+        /* El Destello Vivo (Verajá + Shefá) */
+        @keyframes pulso-veraja {
+            0% { 
+                box-shadow: 0 0 5px rgba(212, 175, 55, 0.2), 
+                            inset 0 0 2px rgba(0, 230, 118, 0.1); 
+            }
+            100% { 
+                /* Brillo que se expande matemáticamente */
+                box-shadow: 0 0 calc(15px * 1.618) rgba(212, 175, 55, 0.618), 
+                            inset 0 0 calc(8px * 1.618) rgba(0, 230, 118, 0.618); 
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -69,7 +117,8 @@
                 <input type="number" id="inv1" placeholder="Monto (USD)" oninput="calcular(1, window.apyTulumDinamico || 0.12)">
                 <span id="res1" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
             </div>
-            <button class="btn-inversion" onclick="alert('Conectando con Pasarela RWA...')">INVERTIR EN LUXURY</button>
+            !-- Botón en Fractional Luxury -->
+        <button class="btn-veraja-fibo" onclick="abrirPasarelaLibre('LUXURY (Tulum)')">✨ INVERTIR EN LUXURY ✨</button>
         </div>
 
         <!-- ACTIVO 2: BONOS VERDES -->
@@ -82,7 +131,8 @@
                 <input type="number" id="inv2" placeholder="Monto (USD)" oninput="calcular(2, window.apyVerdeDinamico || 0.08)">
                 <span id="res2" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
             </div>
-            <button class="btn-inversion" onclick="alert('Conectando con Pasarela RWA...')">INVERTIR EN CARBONO</button>
+             <!-- Botón en Green Bonds -->
+        <button class="btn-veraja-fibo" onclick="abrirPasarelaLibre('CARBONO')">✨ INVERTIR EN CARBONO ✨</button>
         </div>
 
         <!-- ACTIVO 3: FLOTAS ELÉCTRICAS -->
@@ -95,7 +145,8 @@
                 <input type="number" id="inv3" placeholder="Monto (USD)" oninput="calcular(3, window.apyLogisticaDinamico || 0.15)">
                 <span id="res3" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
             </div>
-            <button class="btn-inversion" onclick="alert('Conectando con Pasarela RWA...')">INVERTIR EN FLOTAS ELÉCTRICAS</button>
+            <!-- Botón en Flotas Eléctricas -->
+        <button class="btn-veraja-fibo" onclick="abrirPasarelaLibre('FLOTAS ELÉCTRICAS')">✨ INVERTIR EN FLOTAS ✨</button>
         </div>
         
         <hr style="border-color: #333; margin: 20px 0;">
