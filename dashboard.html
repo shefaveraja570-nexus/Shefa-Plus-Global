@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Premium | SHEFÁ PLUS GLOBAL</title>
-    <script>window.onerror = function(msg, url, line) { alert("Error: " + msg + "\nURL: " + url + "\nLínea: " + line); };</script>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>window.onerror = function(msg, url, line) { console.error("Error: " + msg + "\nURL: " + url + "\nLínea: " + line); };</script>
     <style>
         :root {
             --oro-shefa: #d4af37; --obsidiana-parnasa: #0a0a0c; --titanio-premium: #161618;
@@ -14,50 +13,144 @@
         }
         body { background-color: var(--obsidiana-parnasa); background-image: radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.05) 1px, transparent 0); background-size: 40px 40px; color: #e2e4e9; font-family: 'Montserrat', sans-serif; margin: 0; line-height: var(--fibo); }
         .header { background: linear-gradient(180deg, #1a1a1c 0%, var(--obsidiana-parnasa) 100%); padding: var(--pad-m) 5%; border-bottom: 2px solid var(--oro-shefa); display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 2px; }
-        .marca { font-size: 1.5rem; font-weight: 300; }
+        
+        /* LOGO RESTAURADO */
+        .marca { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; font-weight: 300; }
+        .marca-logo { width: 40px; height: 40px; background: url('TU_LOGO_AQUI.png') center/cover; border-radius: 50%; border: 1px solid var(--oro-shefa); } /* Reemplaza TU_LOGO_AQUI.png con tu imagen */
         .marca .plus { color: var(--oro-shefa); font-weight: 700; }
+        
         .panel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--pad-m); padding: var(--pad-l) 5%; }
         .modulo { background: var(--titanio-premium); border-radius: 4px; padding: var(--pad-m); border: 1px solid rgba(212, 175, 55, 0.3); box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-        h2 { color: var(--oro-shefa); font-size: calc(var(--base) * 1.2); margin-top: 0; border-bottom: 1px solid var(--oro-shefa); padding-bottom: var(--pad-s); }
+        h2 { color: var(--oro-shefa); font-size: calc(var(--base) * 1.2); margin-top: 0; border-bottom: 1px solid var(--oro-shefa); padding-bottom: var(--pad-s); text-transform: uppercase; letter-spacing: 1px;}
+        
         .calculadora { background: #000; padding: var(--pad-s); display: flex; justify-content: space-between; border-radius: 2px; margin: var(--pad-s) 0; }
         input { background: transparent; border: none; color: var(--oro-shefa); width: 50%; outline: none; font-weight: 600; font-size: 1rem; }
-        button { width: 100%; padding: var(--pad-m); background: linear-gradient(135deg, #b8860b, #d4af37); border: none; font-weight: 800; text-transform: uppercase; cursor: pointer; color: #000; transition: transform 0.3s ease; }
+        .input-remesa { width: 100%; padding: 12px; margin-bottom: 10px; background: #050505; color: #fff; border: 1px solid #333; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        .input-remesa:focus { border-color: var(--oro-shefa); }
+        
+        button { width: 100%; padding: var(--pad-m); border: none; font-weight: 800; text-transform: uppercase; cursor: pointer; transition: transform 0.3s ease; }
         button:hover { transform: scale(1.02); }
-        .umbral-parnasa { border-left: 5px solid #fff; }
-        .umbral-shefa { border-left: 10px solid var(--oro-shefa); }
-        .umbral-veraja { border-left: 15px solid var(--veraja-vital); }
+        
+        .btn-accion { background: linear-gradient(135deg, #b8860b, #d4af37); color: #000; }
+        .btn-inversion { background: #fff; color: #000; padding: 10px; margin-top: 10px; border-radius: 2px; font-size: 0.9rem;}
+        
+        /* IMÁGENES PUBLICITARIAS REALES */
+        .publicidad-rwa { width: 100%; height: 150px; background-color: #000; border-radius: 4px; margin-bottom: 10px; background-size: cover; background-position: center; border: 1px solid #333; position: relative;}
+        .publi-tulum { background-image: url('ruta/edificio_tulum.jpg'); } /* PON AQUÍ LA FOTO DEL EDIFICIO */
+        .publi-carbono { background-image: url('ruta/planta_energia.jpg'); } /* PON AQUÍ LA FOTO DE LA PLANTA */
+        .publi-flotas { background-image: url('ruta/flota_electrica.jpg'); } /* PON AQUÍ LA FOTO DE LOS VEHÍCULOS */
+
+        /* VALORES SHEFA */
+        .manifiesto { text-align: center; color: #777; font-size: 0.8rem; letter-spacing: 2px; margin-top: 20px; text-transform: uppercase; }
+        .manifiesto span { color: var(--oro-shefa); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <header class="header">
-    <div class="marca"><span>SHEFÁ</span> <span class="plus">PLUS</span></div>
-    <div id="user-info">Verificando Nivel...</div>
+    <div class="marca">
+        <div class="marca-logo"></div>
+        <span>SHEFÁ</span> <span class="plus">PLUS</span>
+    </div>
+    <div id="user-info">Verificando...</div>
 </header>
 
 <div class="panel-grid">
     <div class="modulo" id="modulo-inversion">
         <h2>📈 Catálogo RWA Premium</h2>
-        <div class="activo"><div style="display: flex; justify-content: space-between;"><span>🌴 Fractional Luxury (Tulum)</span> <span id="apy-tulum-indicador">12% APY</span></div><div class="calculadora"><input type="number" id="inv1" placeholder="Monto (USD)" oninput="calcular(1, window.apyTulumDinamico || 0.12)"><span id="res1" style="color: var(--veraja-vital);"> $0.00 /mes</span></div></div>
-        <div class="activo"><div style="display: flex; justify-content: space-between;"><span>☀️ Green Bonds Tokenizados</span> <span id="apy-verde-indicador">8% APY</span></div><div class="calculadora"><input type="number" id="inv2" placeholder="Monto (USD)" oninput="calcular(2, window.apyVerdeDinamico || 0.08)"><span id="res2" style="color: var(--veraja-vital);"> $0.00 /mes</span></div></div>
-        <div class="activo"><div style="display: flex; justify-content: space-between;"><span>🚚 Private Debt Logística</span> <span id="apy-logistica-indicador">15% APY</span></div><div class="calculadora"><input type="number" id="inv3" placeholder="Monto (USD)" oninput="calcular(3, window.apyLogisticaDinamico || 0.15)"><span id="res3" style="color: var(--veraja-vital);"> $0.00 /mes</span></div></div>
         
-        <button onclick="adquirirCriptofraccion('BRONCE')">BRONCE - $789.787</button>
-        <button onclick="adquirirCriptofraccion('PLATA')" style="margin-top:10px;">PLATA - $1.277.875</button>
-        <button onclick="adquirirCriptofraccion('ORO')" style="margin-top:10px;">ORO - $2.067.602</button>
+        <!-- ACTIVO 1: TULUM -->
+        <div class="activo" style="margin-bottom: 25px;">
+            <div class="publicidad-rwa publi-tulum"></div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                <span>Fractional Luxury (Tulum)</span> <span id="apy-tulum-indicador">12% APY</span>
+            </div>
+            <div class="calculadora">
+                <input type="number" id="inv1" placeholder="Monto (USD)" oninput="calcular(1, window.apyTulumDinamico || 0.12)">
+                <span id="res1" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
+            </div>
+            <button class="btn-inversion" onclick="alert('Conectando con Pasarela RWA...')">INVERTIR EN LUXURY</button>
+        </div>
+
+        <!-- ACTIVO 2: BONOS VERDES -->
+        <div class="activo" style="margin-bottom: 25px;">
+            <div class="publicidad-rwa publi-carbono"></div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                <span>Green Bonds Tokenizados</span> <span id="apy-verde-indicador">8% APY</span>
+            </div>
+            <div class="calculadora">
+                <input type="number" id="inv2" placeholder="Monto (USD)" oninput="calcular(2, window.apyVerdeDinamico || 0.08)">
+                <span id="res2" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
+            </div>
+            <button class="btn-inversion" onclick="alert('Conectando con Pasarela RWA...')">INVERTIR EN CARBONO</button>
+        </div>
+
+        <!-- ACTIVO 3: FLOTAS ELÉCTRICAS -->
+        <div class="activo" style="margin-bottom: 25px;">
+            <div class="publicidad-rwa publi-flotas"></div>
+            <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                <span>Private Debt Logística</span> <span id="apy-logistica-indicador">15% APY</span>
+            </div>
+            <div class="calculadora">
+                <input type="number" id="inv3" placeholder="Monto (USD)" oninput="calcular(3, window.apyLogisticaDinamico || 0.15)">
+                <span id="res3" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
+            </div>
+            <button class="btn-inversion" onclick="alert('Conectando con Pasarela RWA...')">INVERTIR EN FLOTAS ELÉCTRICAS</button>
+        </div>
+        
+        <hr style="border-color: #333; margin: 20px 0;">
+        <h3 style="text-align:center; color:#fff;">NIVELES DE EXPANSIÓN GLOBAL</h3>
+        <!-- BOTONES ORIGINALES RESTAURADOS -->
+        <button onclick="adquirirCriptofraccion('BRONCE')" style="background: linear-gradient(135deg, #cd7f32, #a05a2d); color: #fff; border: 1px solid #e6b89c; padding: 12px; font-weight: bold; text-transform: uppercase; width: 100%; margin-bottom: 10px; border-radius: 4px;"> BRONCE (NIVEL - SHEFA INICIAL) - $789.787</button>
+        <button onclick="adquirirCriptofraccion('PLATA')" style="background: linear-gradient(135deg, #e0e0e0, #a0a0a0); color: #000; border: 1px solid #dcdcdc; padding: 12px; margin-bottom: 10px; font-weight: bold; text-transform: uppercase; width: 100%; border-radius: 4px;">PLATA (NIVEL - PARNASÁ) - $1.277.875</button>
+        <button onclick="adquirirCriptofraccion('ORO')" style="background: linear-gradient(135deg, #ffd700, #b8860b); color: #000; border: 1px solid #ffcc00; padding: 12px; font-weight: bold; text-transform: uppercase; width: 100%; border-radius: 4px;">ORO (NIVEL - VERAJÁ) - $2.067.602</button>
     </div>
 
+    <!-- SISTEMA DE REMESAS OPTIMIZADO -->
     <div class="modulo">
-        <h2>🌐 Sistema de Remesas Shefá</h2>
-        <input type="text" id="beneficiario" placeholder="Nombre del Beneficiario" style="width:100%; padding:10px; margin-bottom:10px; background:#050505; color:#fff; border:1px solid #333;">
-        <input type="number" id="montoRemesa" placeholder="Monto (USD)" style="width:100%; padding:10px; margin-bottom:10px; background:#050505; color:#fff; border:1px solid #333;">
-        <button onclick="ejecutarRemesa()">EJECUTAR TRANSFERENCIA</button>
+        <h2>🌐 Sistema Global de Remesas</h2>
+        <div style="background: #111; padding: 15px; border-left: 3px solid var(--oro-shefa); margin-bottom: 15px; font-size: 0.85rem;">
+            <strong>CUENTA MATRIZ RECEPTORA:</strong><br>
+            SHEFA-PLUS-GLOBAL<br>
+            <span style="color:#888;">(Pasarela de pagos en integración para desembolso automático)</span>
+        </div>
+
+        <h4 style="margin: 0 0 10px 0; color: #aaa;">DATOS DEL REMITENTE (ORIGEN)</h4>
+        <input type="text" id="remitente-nombre" class="input-remesa" placeholder="Nombre completo del Inversor">
+        <input type="text" id="remitente-id" class="input-remesa" placeholder="Número de Documento / ID">
+        <input type="text" id="remitente-banco" class="input-remesa" placeholder="Banco de Origen y País">
+
+        <h4 style="margin: 15px 0 10px 0; color: #aaa;">DATOS DEL DESTINATARIO (DESTINO)</h4>
+        <input type="text" id="destinatario-nombre" class="input-remesa" placeholder="Nombre del Beneficiario">
+        <input type="text" id="destinatario-id" class="input-remesa" placeholder="Documento del Beneficiario">
+        <input type="text" id="destinatario-pais" class="input-remesa" placeholder="País de Destino / Banco">
+        
+        <h4 style="margin: 15px 0 10px 0; color: var(--oro-shefa);">MONTO DE TRANSFERENCIA</h4>
+        <input type="number" id="montoRemesa" class="input-remesa" placeholder="Monto a enviar (USD)" oninput="calcularFeeRemesa()">
+        
+        <div style="background: #000; padding: 10px; margin-bottom: 15px; border-radius: 2px;">
+            <div style="display:flex; justify-content:space-between; font-size: 0.9rem;"><span>Comisión de Red (3.82% Fibonacci):</span> <span id="fee-remesa" style="color:var(--oro-shefa);">$0.00</span></div>
+            <div style="display:flex; justify-content:space-between; font-weight:bold; margin-top:5px; border-top:1px solid #333; padding-top:5px;"><span>TOTAL A DEPOSITAR:</span> <span id="total-remesa" style="color:var(--veraja-vital);">$0.00</span></div>
+        </div>
+
+        <button class="btn-accion" onclick="ejecutarRemesa()">EJECUTAR TRANSFERENCIA</button>
     </div>
 </div>
 
 <div class="contenedor-bienvenida" style="text-align: center; padding: 20px;">
-    <h1>Bienvenido, <span id="displayNombre" style="color: var(--oro-shefa);">Cargando...</span></h1>
-    <p>Tu saldo actual es: <span id="displaySaldo" style="color: var(--veraja-vital); font-weight: bold;">0.00</span></p>
+    <h1>Bienvenido, <span id="displayNombre" style="color: var(--oro-shefa);">Inversionista VIP</span></h1>
+    <p>Tu liquidez de Verajá actual es: <span id="displaySaldo" style="color: var(--veraja-vital); font-weight: bold;">0.00</span></p>
+    
+    <div class="manifiesto">
+        Reestructuración Económica Global | Riqueza | Abundancia<br>
+        <span>PARNASÁ</span> • <span>SHEFA</span> • <span>VERAJÁ</span><br>
+        Sustento para todos - Bendiciones de lo alto
+    </div>
+</div>
+
+<!-- CENTRO DE MANDO OCULTO -->
+<div style="text-align: center; padding-bottom: 20px;">
+    <a href="comando_shefa.html" style="text-decoration: none; font-size: 1.5rem; opacity: 0.1;">🕹️</a>
 </div>
 
 <script type="module">
@@ -81,21 +174,28 @@
     const auth = getAuth(app);
     const firestore = getFirestore(app);
 
-    // PORTERO DE SEGURIDAD
+    // PORTERO CON FIX DEL "CARGANDO"
     onAuthStateChanged(auth, async (user) => {
         if (!user) { window.location.href = "acceso_inversores.html"; }
         else {
             document.getElementById('user-info').innerText = `Inversor: ${user.email}`;
-            const docSnap = await getDoc(doc(firestore, "inversores", user.uid));
-            if (docSnap.exists()) {
-                const data = docSnap.data();
-                document.getElementById('displayNombre').innerText = data.nombre;
-                document.getElementById('displaySaldo').innerText = data.saldo || "0.00";
+            try {
+                const docSnap = await getDoc(doc(firestore, "inversores", user.uid));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    document.getElementById('displayNombre').innerText = data.nombre || "Inversionista VIP";
+                    document.getElementById('displaySaldo').innerText = data.saldo || "0.00";
+                } else {
+                    document.getElementById('displayNombre').innerText = "Inversionista VIP";
+                }
+            } catch (error) {
+                document.getElementById('displayNombre').innerText = "Inversionista VIP";
+                document.getElementById('displaySaldo').innerText = "0.00";
             }
         }
     });
 
-    // LÓGICA DE API Y CÁLCULOS
+    // LÓGICA DE API
     window.apyLogisticaDinamico = 0.15; window.apyVerdeDinamico = 0.08; window.apyTulumDinamico = 0.12;
     const RAPIDAPI_KEY = "592f8cb99emshd8416dfbfec662ep1cbd7ajsn74b128c5018c";
     
@@ -103,7 +203,7 @@
         try {
             const resp = await fetch('https://search-auto-values-api.p.rapidapi.com/GetMake', { headers: { 'x-rapidapi-key': RAPIDAPI_KEY } });
             if (resp.ok) { window.apyLogisticaDinamico = 0.162; document.getElementById('apy-logistica-indicador').innerText = "16.2% APY"; }
-        } catch(e) { console.log("Oráculo 1 esperando señal"); }
+        } catch(e) {}
     }
     sincronizarMercadoVehiculos();
 
@@ -113,43 +213,43 @@
         document.getElementById(`res${id}`).innerText = `$${((monto * apy) / 12).toFixed(2)} /mes`;
     };
 
-    window.ejecutarRemesa = async () => {
-    const nombre = document.getElementById('beneficiario').value;
-    const monto = document.getElementById('montoRemesa').value;
-    
-    if (!nombre || !monto) {
-        alert("Por favor, completa el nombre y el monto.");
-        return;
-    }
-
-    // GENERADOR DE ID ÚNICO (ejemplo: SHEFA-8A2F9)
-    const generarID = () => {
-        return 'SHEFA-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+    // CÁLCULO DE REMESAS CON PROPORCIÓN FIBONACCI (3.82%)
+    window.calcularFeeRemesa = () => {
+        const monto = parseFloat(document.getElementById('montoRemesa').value) || 0;
+        const fee = monto * 0.0382; // 3.82%
+        const total = monto + fee;
+        document.getElementById('fee-remesa').innerText = `$${fee.toFixed(2)}`;
+        document.getElementById('total-remesa').innerText = `$${total.toFixed(2)}`;
     };
 
-    const idTransaccion = generarID();
-
-    try {
-        await push(ref(db, 'remesas/'), {
-            id: idTransaccion,
-            beneficiario: nombre,
-            monto: monto,
-            timestamp: new Date().toISOString()
-        });
-
-        // Mostramos el mensaje con el ID para el usuario
-        alert("✅ Remesa procesada con éxito.\nID de referencia: " + idTransaccion);
+    window.ejecutarRemesa = async () => {
+        const remNombre = document.getElementById('remitente-nombre').value;
+        const remId = document.getElementById('remitente-id').value;
+        const remBanco = document.getElementById('remitente-banco').value;
+        const destNombre = document.getElementById('destinatario-nombre').value;
+        const destId = document.getElementById('destinatario-id').value;
+        const destPais = document.getElementById('destinatario-pais').value;
+        const monto = parseFloat(document.getElementById('montoRemesa').value);
         
-        // Limpiamos los campos después de enviar
-        document.getElementById('beneficiario').value = "";
-        document.getElementById('montoRemesa').value = "";
+        if (!remNombre || !destNombre || !monto) return alert("Faltan datos en la orden de transferencia.");
 
-    } catch (e) {
-        console.error("Error en el búnker:", e);
-        alert("Hubo un error al procesar, intenta de nuevo manito.");
-    }
-};
+        const idTransaccion = 'SHEFA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        const fee = monto * 0.0382;
 
+        try {
+            await push(ref(db, 'remesas/'), {
+                id: idTransaccion,
+                remitente: { nombre: remNombre, id: remId, banco: remBanco },
+                destinatario: { nombre: destNombre, id: destId, pais: destPais },
+                monto: monto,
+                fee_fibonacci: fee.toFixed(2),
+                total_depositado: (monto + fee).toFixed(2),
+                estado: "Pendiente de Desembolso",
+                timestamp: new Date().toISOString()
+            });
+            alert(`✅ TRANSFERENCIA REGISTRADA\nID de Rastreo: ${idTransaccion}\n\nFavor depositar el Total en la cuenta SHEFA-PLUS-GLOBAL para liberar los fondos.`);
+        } catch (e) { alert("Interferencia en la red cuántica."); }
+    };
 
     window.adquirirCriptofraccion = (nivel) => {
         const links = { 'BRONCE': "https://mpago.li/2H9R7Zo", 'PLATA': "https://mpago.li/1oKzLsK", 'ORO': "https://mpago.li/2tFqSnZ" };
@@ -157,5 +257,5 @@
     };
 </script>
 </body>
-    </html>
+                    </html>
     
