@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefa Plus Global - Buscador VIN</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        /* Variables y diseño base */
+        :root {
+            --bg-principal: #0a0d14;
+            --bg-tarjeta: #121824;
+            --texto-principal: #f0f2f5;
+            --texto-secundario: #8a99ad;
+            --acento-metalico: #e2e8f0;
+            --acento-dorado: #d4af37;
+            --exito: #10b981;
+            --error: #ef4444;
+            --fuente: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--fuente); }
+        body { background-color: var(--bg-principal); color: var(--texto-principal); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+        header { text-align: center; margin-bottom: 30px; padding-top: 10px; width: 100%; max-width: 600px; }
+        header h1 { font-size: 24px; font-weight: 700; color: var(--acento-metalico); text-transform: uppercase; }
+        header h1 span { color: var(--acento-dorado); }
+        header p { color: var(--texto-secundario); font-size: 12px; margin-top: 5px; }
+        main { width: 100%; max-width: 600px; }
+        .contenedor-busqueda { background: var(--bg-tarjeta); padding: 20px; border-radius: 12px; border: 1px solid rgba(226, 232, 240, 0.05); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); margin-bottom: 25px; }
+        .grupo-input { display: flex; flex-direction: column; gap: 10px; }
+        label { font-size: 12px; color: var(--texto-secundario); text-transform: uppercase; }
+        input { background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(226, 232, 240, 0.1); padding: 14px; border-radius: 8px; color: var(--texto-principal); font-size: 16px; font-weight: 600; text-transform: uppercase; }
+        input:focus { outline: none; border-color: var(--acento-dorado); }
+        #btn-consultar { background: linear-gradient(135deg, #d4af37, #f3e5ab); border: none; padding: 15px 30px; border-radius: 8px; color: #0a0d14; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-top: 10px;}
+        .cargando { display: none; text-align: center; color: var(--acento-dorado); font-size: 14px; margin: 20px 0; }
+        .panel-resultados { display: none; flex-direction: column; gap: 20px; border-left: 5px solid var(--acento-dorado); background: rgba(18, 24, 36, 0.8); padding: 25px; border-radius: 0 20px 20px 0; }
+        .tarjeta { background: var(--bg-tarjeta); border-radius: 12px; padding: 20px; border-left: 4px solid var(--acento-metalico); }
+        .tarjeta.destacada { border-left-color: var(--acento-dorado); }
+        .tarjeta h2 { font-size: 14px; color: var(--texto-secundario); margin-bottom: 15px; }
+        .fila-dato { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(226, 232, 240, 0.05); }
+        .dato-titulo { color: var(--texto-secundario); font-size: 14px; }
+        .dato-valor { font-weight: 600; font-size: 14px; }
+        .valor-resaltado { color: var(--exito); font-size: 18px; font-weight: 700; }
+        .feedback { padding: 12px; border-radius: 8px; font-size: 13px; text-align: center; display: none; margin-bottom: 15px; }
+        .feedback.error { background: rgba(239, 68, 68, 0.1); color: var(--error); border: 1px solid rgba(239, 68, 68, 0.2); }
+    </style>
+</head>
+<body>
+    <div class="espiral-fondo"></div>
+    <header>
+        <h1>Shefa <span>Plus</span> Global</h1>
+        <p>Módulo de Inteligencia Automotriz</p>
+    </header>
+    <main>
+        <div class="contenedor-busqueda">
+            <div id="mensaje-error" class="feedback error"></div>
+            <div class="grupo-input">
+                <label>Identificador del Vehículo (Matrícula / VIN)</label>
+                <input type="text" id="input-vrm" placeholder="Ej: AKT-123 o Número VIN">
+                <button id="btn-consultar" onclick="consultarApiVehiculo()">Consultar Mercado</button>
+                <a href="index.html" style="text-align: center; display: block; margin-top: 15px; color: var(--texto-secundario); text-decoration: none; font-size: 12px;">Volver al Inicio</a>
+            </div>
+        </div>
+        <div id="loader" class="cargando">Procesando flujos de datos...</div>
+        <div id="resultados" class="panel-resultados">
+            <div class="tarjeta destacada">
+                <h2>Resultados del Mercado</h2>
+                <div class="fila-dato"><span class="dato-titulo">Marca / Modelo</span><span class="dato-valor" id="res-modelo">-</span></div>
+                <div class="fila-dato"><span class="dato-titulo">Precio de Mercado</span><span class="dato-valor valor-resaltado" id="res-precio">-</span></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const BASE_URL = 'https://marketcheck-api.com/v1'; 
+        const BEARER_TOKEN = 'mc_live_3giakEHb8ZXtIW91qPMaOGgoY7BcjAaX'; 
+
+        async function consultarApiVehiculo() {
+            const vin = document.getElementById('input-vrm').value;
+            const loader = document.getElementById('loader');
+            const resultados = document.getElementById('resultados');
+            const errorDiv = document.getElementById('mensaje-error');
+
+            loader.style.display = 'block';
+            resultados.style.display = 'none';
+            errorDiv.style.display = 'none';
+
+            try {
+                const respuesta = await fetch(`${BASE_URL}/search?vin=${vin}`, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${BEARER_TOKEN}` }
+                });
+                const datos = await respuesta.json();
+                inyectarDatosEnPantalla(datos);
+            } catch (e) {
+                errorDiv.innerText = "Error de conexión. Verifique el VIN.";
+                errorDiv.style.display = 'block';
+            } finally {
+                loader.style.display = 'none';
+            }
+        }
+
+        function inyectarDatosEnPantalla(datos) {
+            if (datos && datos.listings && datos.listings.length > 0) {
+                const v = datos.listings[0];
+                document.getElementById('res-modelo').innerText = v.build.make + " " + v.build.model;
+                document.getElementById('res-precio').innerText = "$ " + v.price;
+                document.getElementById('resultados').style.display = 'flex';
+            } else {
+                document.getElementById('mensaje-error').innerText = "No se encontraron datos para este VIN.";
+                document.getElementById('mensaje-error').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+                                         </html>
+                                         
