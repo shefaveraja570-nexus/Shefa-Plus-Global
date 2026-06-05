@@ -184,7 +184,7 @@
         
         // 5. Éxito
         botonIngresar.innerText = "ACCESO CONCEDIDO";
-        window.location.href = "dashboard_ganancias.html";
+        window.location.href = "dashboard.html";
     } catch (error) {
         botonIngresar.innerText = "ERROR DE FIRMA";
         botonIngresar.classList.remove('desbloqueando');
@@ -206,13 +206,13 @@
         });
         
         alert("Autenticación exitosa. Bienvenido a la frecuencia de la abundancia, Inversionista.");
-        window.location.href = 'dashboard_ganancias.html'; 
+        window.location.href = 'dashboard.html'; 
     } catch (e) {
         if (e.code === 'auth/email-already-in-use') {
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
                 alert("Acceso reactivado: Bienvenido de nuevo, Inversionista.");
-                window.location.href = 'dashboard_ganancias.html';
+                window.location.href = 'dashboard.html';
             } catch (loginError) {
                 alert("Error al intentar ingresar: " + loginError.message);
             }
