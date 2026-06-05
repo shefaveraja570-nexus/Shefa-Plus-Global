@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umbral Premium | Shefá Plus Global</title>
+    <style>
+        /* NÚCLEO DE NEURO-DISEÑO & PROPORCIÓN FIBONACCI */
+        :root {
+            --oro-plus: #d4af37;
+            --titanio-fondo: #1c1c1e;
+            --titanio-superficie: #2c2c2e;
+            --fibonacci-base: 1.618rem;
+        }
+
+        body { 
+            background: radial-gradient(circle at top center, var(--titanio-superficie) 0%, #050505 100%); 
+            color: #ffffff; 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .boveda-cuantica { 
+            background: linear-gradient(144deg, rgba(28,28,30,0.85) 0%, rgba(44,44,46,0.95) 100%);
+            padding: calc(var(--fibonacci-base) * 2); 
+            border-radius: 5px; 
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 0 34px rgba(0, 0, 0, 0.8), inset 0 0 13px rgba(255, 255, 255, 0.03);
+            width: 89%; 
+            max-width: 420px; 
+            backdrop-filter: blur(12px);
+        }
+
+        .identidad-corporativa {
+            text-align: center;
+            margin-bottom: calc(var(--fibonacci-base) * 0.5);
+            letter-spacing: 2px;
+        }
+
+        .shefa {
+            color: #e2e4e9;
+            text-shadow: 0px 2px 5px rgba(0,0,0,0.9);
+            font-size: 2.2rem;
+            font-weight: 300;
+        }
+
+        .plus {
+            color: var(--oro-plus);
+            font-weight: 800;
+            text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5);
+            font-size: 2.2rem;
+        }
+
+        .mantra {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #777;
+            letter-spacing: 4px;
+            margin-bottom: calc(var(--fibonacci-base) * 1.5);
+            text-transform: uppercase;
+        }
+
+        .mantra span { color: var(--oro-plus); font-weight: bold; }
+
+        input { 
+            width: 100%; 
+            padding: 1rem; 
+            margin-bottom: calc(var(--fibonacci-base) * 0.618); 
+            background: rgba(0, 0, 0, 0.6); 
+            border: 1px solid #444; 
+            color: #d4af37; 
+            box-sizing: border-box; 
+            border-radius: 2px; 
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        input::placeholder { color: #666; letter-spacing: 0px; }
+
+        input:focus {
+            border-color: var(--oro-plus);
+            outline: none;
+            box-shadow: 0 0 13px rgba(212, 175, 55, 0.2);
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .input-validador {
+            border-bottom: 2px solid var(--oro-plus);
+            text-align: center;
+            font-weight: bold;
+        }
+
+        button { 
+            width: 100%; 
+            padding: calc(var(--fibonacci-base) * 0.8); 
+            margin-top: calc(var(--fibonacci-base) * 0.5);
+            background: linear-gradient(90deg, #a67c00 0%, #d4af37 50%, #a67c00 100%);
+            border: none; 
+            border-radius: 2px; 
+            font-weight: 800; 
+            letter-spacing: 2px;
+            cursor: pointer; 
+            color: #111; 
+            font-size: 1rem;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="boveda-cuantica">
+    <div class="identidad-corporativa">
+        <span class="shefa">SHEFA</span> <span class="plus">PLUS</span>
+    </div>
+    <div class="mantra">
+        PARNASÁ <span>•</span> SHEFA <span>•</span> VERAJÁ
+    </div>
+    
+    <input type="text" id="nombre" placeholder="Nombre del Inversionista">
+    <input type="email" id="email" placeholder="Correo Corporativo">
+    <input type="password" id="pass" placeholder="Firma de Seguridad (Contraseña)">
+    <input type="text" id="codigo" class="input-validador" placeholder="CÓDIGO DE CRIPTOFRACCIÓN">
+    
+    <button onclick="registrarInversor()" id="boton-ingresar">Ingresar al Catálogo</button>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+    authDomain: "shefa-plus-global.firebaseapp.com",
+    projectId: "shefa-plus-global",
+    storageBucket: "shefa-plus-global.firebasestorage.app",
+    messagingSenderId: "746532074927",
+    appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
+    measurementId: "G-ELXBWZJZD8"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.registrarInversor = async () => {
+    // 1. Iniciamos la animación de desbloqueo al hacer clic
+    const botonIngresar = document.getElementById('boton-ingresar');
+    botonIngresar.innerText = "DESBLOQUEANDO...";
+    botonIngresar.classList.add('desbloqueando');
+
+    // 2. Extraemos los datos (tus líneas actuales)
+    const nombre = document.getElementById('nombre').value;
+    const email = document.getElementById('email').value;
+    const pass = document.getElementById('pass').value;
+    const codigo = document.getElementById('codigo').value;
+
+    // 3. Validación de acceso (tu búnker)
+    if (codigo !== "SHEFA2026") {
+        alert("Acceso denegado: El umbral requiere un código de criptofracción válido.");
+        botonIngresar.innerText = "Ingresar al Catálogo"; // Reset
+        botonIngresar.classList.remove('desbloqueando');
+        return;
+    }
+
+    try {
+        // 4. Proceso de registro/acceso
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+        await setDoc(doc(firestore, "inversores", userCredential.user.uid), { nombre: nombre });
+        
+        // 5. Éxito
+        botonIngresar.innerText = "ACCESO CONCEDIDO";
+        window.location.href = "dashboard_ganancias.html";
+    } catch (error) {
+        botonIngresar.innerText = "ERROR DE FIRMA";
+        botonIngresar.classList.remove('desbloqueando');
+        alert("La firma no coincide con el búnker.");
+    }
+};
+
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+        
+        // Optimización de sincronía: Agregado saldo inicial para enlace perfecto con el Dashboard
+        await setDoc(doc(db, "inversores", userCredential.user.uid), {
+            nombre: nombre,
+            rol: "inversionista_premium",
+            frecuencia_ingreso: "Parnasá",
+            saldo: "0.00", 
+            fecha: new Date().toISOString()
+        });
+        
+        alert("Autenticación exitosa. Bienvenido a la frecuencia de la abundancia, Inversionista.");
+        window.location.href = 'dashboard_ganancias.html'; 
+    } catch (e) {
+        if (e.code === 'auth/email-already-in-use') {
+            try {
+                await signInWithEmailAndPassword(auth, email, pass);
+                alert("Acceso reactivado: Bienvenido de nuevo, Inversionista.");
+                window.location.href = 'dashboard_ganancias.html';
+            } catch (loginError) {
+                alert("Error al intentar ingresar: " + loginError.message);
+            }
+        } else {
+            alert("Interferencia en la conexión: " + e.message);
+        }
+    }
+  };
+</script>
+</body>
+</html>
+
+
+      
