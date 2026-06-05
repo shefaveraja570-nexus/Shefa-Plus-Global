@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Comando | SHEFÁ PLUS GLOBAL</title>
+    <style>
+        /* GEOMETRÍA SAGRADA & NEURO-DISEÑO DIVINO */
+        :root { 
+            --oro-plus: #d4af37; 
+            --titanio-fondo: #030303; 
+            --titanio-panel: #0d0d0f; 
+            --fibo-base: 1.618rem; 
+            --acento-verde: #00e676; 
+            --alerta-roja: #e53935;
+            --luz-divina: rgba(212, 175, 55, 0.3);
+        }
+
+        body { 
+            background: radial-gradient(circle at 50% 0%, #1a1a1c 0%, var(--titanio-fondo) 80%);
+            color: #e2e4e9; 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            min-height: 100vh;
+        }
+
+        /* ANIMACIONES DE FRECUENCIA VIBRATORIA */
+        @keyframes resplandor-divino {
+            0% { box-shadow: 0 0 13px var(--luz-divina), inset 0 0 5px rgba(212, 175, 55, 0.05); }
+            50% { box-shadow: 0 0 34px rgba(212, 175, 55, 0.4), inset 0 0 13px rgba(212, 175, 55, 0.1); }
+            100% { box-shadow: 0 0 13px var(--luz-divina), inset 0 0 5px rgba(212, 175, 55, 0.05); }
+        }
+
+        @keyframes brillo-fluido {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes latido-texto {
+            0% { text-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
+            50% { text-shadow: 0 0 21px rgba(212, 175, 55, 0.8); }
+            100% { text-shadow: 0 0 8px rgba(212, 175, 55, 0.4); }
+        }
+
+        /* HEADER ADMINISTRATIVO ILUMINADO */
+        .header-comando {
+            background: linear-gradient(180deg, rgba(5,5,5,0.9) 0%, rgba(13,13,15,0.9) 100%);
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 34px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .titulo-admin { margin: 0; font-size: 1.5rem; letter-spacing: 3px; font-weight: 300; }
+        .titulo-admin span { color: var(--oro-plus); font-weight: 800; animation: latido-texto 4s infinite alternate; }
+
+        /* GRID PROPORCIÓN ÁUREA INTACTA (1 : 1.618) */
+        .matriz-sagrada {
+            display: grid;
+            grid-template-columns: 1fr 1.618fr; 
+            gap: calc(var(--fibo-base) * 1.5);
+            padding: calc(var(--fibo-base) * 2) 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .matriz-sagrada { grid-template-columns: 1fr; }
+        }
+
+        /* PANELES CON AURA SAGRADA */
+        .panel-control {
+            background: linear-gradient(144deg, rgba(20,20,22,0.9) 0%, rgba(5,5,5,0.95) 100%);
+            border-radius: 8px;
+            padding: calc(var(--fibo-base) * 1);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            position: relative;
+            animation: resplandor-divino 6s infinite alternate; /* El Aura */
+            backdrop-filter: blur(13px);
+        }
+
+        .panel-control::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: linear-gradient(180deg, var(--oro-plus), var(--acento-verde), transparent);
+            border-radius: 8px 0 0 8px;
+            box-shadow: 2px 0 13px var(--oro-plus);
+        }
+
+        h2 { color: var(--oro-plus); font-size: 1.2rem; border-bottom: 1px solid rgba(212, 175, 55, 0.2); padding-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 13px rgba(212, 175, 55, 0.3);}
+
+        /* TABLAS DE DATOS BRILLANTES */
+        .registro-item {
+            background: rgba(10, 10, 12, 0.8);
+            margin-bottom: 13px;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 2px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+        .registro-item:hover { 
+            border-left-color: var(--oro-plus); 
+            background: rgba(22, 22, 24, 0.9); 
+            box-shadow: 0 4px 13px rgba(212, 175, 55, 0.15), inset 0 0 10px rgba(212, 175, 55, 0.05);
+            transform: translateX(5px);
+        }
+        
+        .datos-usuario { font-size: 0.9rem; }
+        .datos-usuario strong { color: #fff; font-size: 1.1rem; letter-spacing: 1px;}
+        .datos-usuario .email { color: #888; font-size: 0.8rem; }
+        
+        .saldo-usuario { color: var(--acento-verde); font-weight: 800; font-size: 1.2rem; text-shadow: 0 0 10px rgba(0, 230, 118, 0.4); }
+
+        /* FORMULARIO DE INYECCIÓN VERAJÁ */
+        .inyector-capital {
+            margin-top: 13px;
+            display: flex;
+            gap: 13px;
+        }
+        .inyector-capital input {
+            flex: 1; padding: 10px; background: rgba(0,0,0,0.7); border: 1px solid #444; color: var(--acento-verde); border-radius: 4px; font-weight: bold; letter-spacing: 1px; transition: all 0.3s ease;
+        }
+        .inyector-capital input:focus {
+            border-color: var(--oro-plus); outline: none; box-shadow: 0 0 13px rgba(212, 175, 55, 0.3);
+        }
+        .inyector-capital button {
+            background: linear-gradient(90deg, #a67c00, #d4af37, #a67c00);
+            background-size: 200% auto;
+            color: #000; border: none; padding: 10px 20px; font-weight: 900; cursor: pointer; border-radius: 4px; transition: all 0.3s ease; letter-spacing: 1px;
+            animation: brillo-fluido 3s linear infinite;
+            box-shadow: 0 4px 13px rgba(212, 175, 55, 0.3);
+        }
+        .inyector-capital button:active { transform: scale(0.95); }
+
+        /* PANTALLA DE BLOQUEO MAESTRO RADIANTES */
+        #pantalla-bloqueo {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(30, 25, 5, 0.95) 0%, rgba(3, 3, 3, 1) 70%);
+            z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        
+        #pantalla-bloqueo h1 {
+            color: #fff; font-weight: 300; letter-spacing: 5px; font-size: 2.5rem;
+            text-shadow: 0 10px 34px rgba(0,0,0,0.8); margin-bottom: 5px;
+        }
+        #pantalla-bloqueo h1 span { 
+            color: var(--oro-plus); font-weight: 900; 
+            animation: latido-texto 3s infinite alternate;
+        }
+        
+        #pantalla-bloqueo p {
+            color: #888; font-size: 0.85rem; letter-spacing: 3px; margin-bottom: calc(var(--fibo-base) * 2);
+        }
+
+        #pantalla-bloqueo input {
+            padding: 15px; font-size: 1.5rem; text-align: center; letter-spacing: 8px;
+            background: rgba(10, 10, 12, 0.8); 
+            border: 1px solid rgba(212, 175, 55, 0.4); 
+            color: var(--oro-plus);
+            margin-bottom: 21px; outline: none; width: 320px; border-radius: 4px;
+            box-shadow: inset 0 0 21px rgba(0,0,0,0.8);
+            transition: all 0.4s ease;
+        }
+        #pantalla-bloqueo input:focus {
+            border-color: var(--oro-plus);
+            box-shadow: 0 0 34px rgba(212, 175, 55, 0.3), inset 0 0 13px rgba(212, 175, 55, 0.1);
+        }
+
+        #pantalla-bloqueo button {
+            padding: 18px 30px; 
+            background: linear-gradient(90deg, #8a6300, #d4af37, #8a6300);
+            background-size: 200% auto;
+            color: #000; font-weight: 900;
+            border: none; cursor: pointer; font-size: 1.1rem; letter-spacing: 3px; width: 320px; border-radius: 4px;
+            box-shadow: 0 8px 34px rgba(212, 175, 55, 0.4);
+            animation: brillo-fluido 4s linear infinite;
+            transition: transform 0.2s ease;
+        }
+        #pantalla-bloqueo button:active { transform: scale(0.98); box-shadow: 0 4px 13px rgba(212, 175, 55, 0.4); }
+    </style>
+</head>
+<body>
+
+    <!-- PUERTA DE ACCESO MAESTRO DIVINO -->
+    <div id="pantalla-bloqueo">
+        <h1>OFICINA <span>CENTRAL</span></h1>
+        <p>INGRESE PIN DE GEOMETRÍA SAGRADA</p>
+        <input type="password" id="pin-acceso" placeholder="***">
+        <button onclick="desbloquearComando()">DESBLOQUEAR BÓVEDA</button>
+    </div>
+
+    <header class="header-comando">
+        <h1 class="titulo-admin">COMANDO <span>SHEFÁ</span></h1>
+        <div style="font-size: 0.85rem; color: #aaa; letter-spacing: 2px; font-weight:bold;">ESTADO: <span style="color: var(--acento-verde); text-shadow: 0 0 8px var(--acento-verde);">EN LÍNEA</span></div>
+    </header>
+
+    <!-- MATRIZ DE PROPORCIÓN ÁUREA -->
+    <div class="matriz-sagrada">
+        
+        <!-- COLUMNA 1 (1fr): FLUJO DE REMESAS -->
+        <div class="panel-control">
+            <h2>🌐 Libro Contable (Remesas)</h2>
+            <p style="font-size: 0.85rem; color: #888;">Historial de transferencias transfronterizas.</p>
+            <div id="lista-remesas">
+                <div style="text-align:center; color:#555; padding: 34px; letter-spacing:1px;">Cargando flujo de caja...</div>
+            </div>
+        </div>
+
+        <!-- COLUMNA 2 (1.618fr): INVERSORES & EXPANSIÓN -->
+        <div class="panel-control">
+            <h2>🥇 Red de Inversionistas RWA</h2>
+            <p style="font-size: 0.85rem; color: #888;">Gestione los saldos y asigne criptofracciones manualmente.</p>
+            <div id="lista-inversores">
+                <div style="text-align:center; color:#555; padding: 34px; letter-spacing:1px;">Desencriptando bóveda de usuarios...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- LÓGICA MAESTRA ADMINISTRATIVA INTACTA -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
+        import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            projectId: "shefa-plus-global",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            storageBucket: "shefa-plus-global.firebasestorage.app",
+            appId: "1:746532074927:web:70811deddc66ad88d5eb5a"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const dbRT = getDatabase(app);
+        const dbFS = getFirestore(app);
+
+        window.desbloquearComando = () => {
+            const pin = document.getElementById('pin-acceso').value;
+            if(pin === "777") { 
+                // Efecto de desvanecimiento sagrado al entrar
+                document.getElementById('pantalla-bloqueo').style.transition = "opacity 0.8s ease";
+                document.getElementById('pantalla-bloqueo').style.opacity = "0";
+                setTimeout(() => { document.getElementById('pantalla-bloqueo').style.display = 'none'; }, 800);
+                cargarDatos();
+            } else {
+                alert("Acceso Denegado. Frecuencia incorrecta.");
+            }
+        };
+
+        function cargarDatos() {
+            const remesasRef = ref(dbRT, 'remesas/');
+            onValue(remesasRef, (snapshot) => {
+                const data = snapshot.val();
+                let htmlRemesas = "";
+                if (data) {
+                    const keys = Object.keys(data).reverse(); 
+                    keys.forEach(k => {
+                        const r = data[k];
+                        const fecha = new Date(r.timestamp).toLocaleDateString();
+                        htmlRemesas += `
+                            <div class="registro-item">
+                                <div class="datos-usuario">
+                                    <strong>${r.beneficiario}</strong><br>
+                                    <span class="email">${fecha}</span>
+                                </div>
+                                <div class="saldo-usuario" style="color:var(--oro-plus); text-shadow: 0 0 10px rgba(212,175,55,0.4);">$${r.monto}</div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    htmlRemesas = "<div style='color:#555; text-align:center; padding: 21px;'>No hay remesas registradas.</div>";
+                }
+                document.getElementById('lista-remesas').innerHTML = htmlRemesas;
+            });
+
+            cargarInversores();
+        }
+
+        async function cargarInversores() {
+            const querySnapshot = await getDocs(collection(dbFS, "inversores"));
+            let htmlInversores = "";
+            
+            querySnapshot.forEach((documento) => {
+                const inv = documento.data();
+                const uid = documento.id;
+                
+                htmlInversores += `
+                    <div class="registro-item" style="flex-direction: column; align-items: flex-start;">
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <div class="datos-usuario">
+                                <strong>${inv.nombre}</strong><br>
+                                <span class="email" style="color: var(--oro-plus);">Frecuencia: ${inv.frecuencia_ingreso || 'Base'}</span> | <span class="email">UID: ${uid.substring(0,6)}...</span>
+                            </div>
+                            <div class="saldo-usuario" id="saldo-${uid}">$${inv.saldo || '0.00'}</div>
+                        </div>
+                        
+                        <div class="inyector-capital" style="width: 100%;">
+                            <input type="number" id="input-saldo-${uid}" placeholder="Inyectar Capital (USD)">
+                            <button onclick="actualizarSaldo('${uid}')">APLICAR VERAJÁ</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            if(htmlInversores === "") htmlInversores = "<div style='color:#555; text-align:center; padding: 21px;'>Bóveda vacía. Esperando inversores.</div>";
+            document.getElementById('lista-inversores').innerHTML = htmlInversores;
+        }
+
+        window.actualizarSaldo = async (uid) => {
+            const nuevoSaldo = document.getElementById(`input-saldo-${uid}`).value;
+            if(!nuevoSaldo) { alert("Ingrese un monto válido."); return; }
+
+            try {
+                const docRef = doc(dbFS, "inversores", uid);
+                await updateDoc(docRef, {
+                    saldo: parseFloat(nuevoSaldo).toFixed(2)
+                });
+                
+                document.getElementById(`saldo-${uid}`).innerText = `$${parseFloat(nuevoSaldo).toFixed(2)}`;
+                document.getElementById(`input-saldo-${uid}`).value = "";
+                alert("✅ Bendición aplicada. El inversor verá su nuevo saldo reflejado de inmediato.");
+                
+            } catch (error) {
+                console.error("Error al inyectar capital:", error);
+                alert("Error de conexión al actualizar la bóveda.");
+            }
+        };
+    </script>
+</body>
+  </html>
+  
