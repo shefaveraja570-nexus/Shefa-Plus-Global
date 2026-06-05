@@ -114,12 +114,42 @@
     };
 
     window.ejecutarRemesa = async () => {
-        const nombre = document.getElementById('beneficiario').value;
-        const monto = document.getElementById('montoRemesa').value;
-        if (!nombre || !monto) return alert("Complete los campos.");
-        await push(ref(db, 'remesas/'), { beneficiario: nombre, monto: monto, timestamp: new Date().toISOString() });
-        alert("✅ Remesa registrada.");
+    const nombre = document.getElementById('beneficiario').value;
+    const monto = document.getElementById('montoRemesa').value;
+    
+    if (!nombre || !monto) {
+        alert("Por favor, completa el nombre y el monto.");
+        return;
+    }
+
+    // GENERADOR DE ID ÚNICO (ejemplo: SHEFA-8A2F9)
+    const generarID = () => {
+        return 'SHEFA-' + Math.random().toString(36).substr(2, 5).toUpperCase();
     };
+
+    const idTransaccion = generarID();
+
+    try {
+        await push(ref(db, 'remesas/'), {
+            id: idTransaccion,
+            beneficiario: nombre,
+            monto: monto,
+            timestamp: new Date().toISOString()
+        });
+
+        // Mostramos el mensaje con el ID para el usuario
+        alert("✅ Remesa procesada con éxito.\nID de referencia: " + idTransaccion);
+        
+        // Limpiamos los campos después de enviar
+        document.getElementById('beneficiario').value = "";
+        document.getElementById('montoRemesa').value = "";
+
+    } catch (e) {
+        console.error("Error en el búnker:", e);
+        alert("Hubo un error al procesar, intenta de nuevo manito.");
+    }
+};
+
 
     window.adquirirCriptofraccion = (nivel) => {
         const links = { 'BRONCE': "https://mpago.li/2H9R7Zo", 'PLATA': "https://mpago.li/1oKzLsK", 'ORO': "https://mpago.li/2tFqSnZ" };
