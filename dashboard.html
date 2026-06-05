@@ -306,6 +306,13 @@
         const links = { 'BRONCE': "https://mpago.li/2H9R7Zo", 'PLATA': "https://mpago.li/1oKzLsK", 'ORO': "https://mpago.li/2tFqSnZ" };
         window.location.href = links[nivel];
     };
+        // INTEGRACIÓN MAESTRA DE PASARELA LIBRE
+    window.abrirPasarelaLibre = (activo) => {
+        const linkMontoLibre = "https://link.mercadopago.com.co/shefaplusglobal2026";
+        alert(`Iniciando conexión segura con PSE / Mercado Pago para tu inversión en ${activo}.`);
+        window.location.href = linkMontoLibre;
+    };
+    
 </script>
 </body>
                     </html>
