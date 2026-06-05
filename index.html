@@ -138,6 +138,14 @@
         <p>© 2026 SHEFA PLUS GLOBAL S.A.S. | Arquitectura de Sustento Blindado</p>
         <p style="color: var(--acento-dorado); font-weight: bold; margin-top: 5px;">🛡 POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS</p>
     </div>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+    .then(() => console.log('Escudo de seguridad activado.'))
+    .catch(err => console.log('Interferencia en el Escudo:', err));
+  }
+    </script>
+    
 </body>
             </html>
             
