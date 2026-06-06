@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+cc v<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -7,10 +7,50 @@
     <script>window.onerror = function(msg, url, line) { console.error("Error: " + msg + "\nURL: " + url + "\nLínea: " + line); };</script>
     <style>
         :root {
-            --oro-shefa: #d4af37; --obsidiana-parnasa: #0a0a0c; --titanio-premium: #161618;
-            --veraja-vital: #00e676; --fibo: 1.618; --base: 1rem;
-            --pad-s: calc(var(--base) * 1); --pad-m: calc(var(--base) * 1.618); --pad-l: calc(var(--base) * 2.618);
-        }
+    --oro-shefa: #d4af37; 
+    --obsidiana-parnasa: #0a0a0c; 
+    --titanio-premium: #161618;
+    --veraja-vital: #00e676; 
+    --fibo: 1.618; 
+    --base: 1rem;
+    --pad-s: calc(var(--base) * 1); 
+    --pad-m: calc(var(--base) * 1.618); 
+    --pad-l: calc(var(--base) * 2.618);
+    --fibo-base: 5px; /* Base matemática */
+    --oro-plus: #d4af37; 
+}
+
+/* CLASES DINÁMICAS DE EXPANSIÓN - VIBRACIÓN SHEFÁ */
+
+.umbral-parnasa {
+    border-left: calc(var(--fibo-base) * 1) solid #e2e4e9;
+    transition: all 0.5s ease-in-out;
+}
+
+.umbral-shefa {
+    border-left: calc(var(--fibo-base) * 1.618) solid var(--oro-plus);
+    box-shadow: 0 0 21px rgba(212, 175, 55, 0.3); /* 21: Fibo */
+    transform: scale(1.01); 
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.umbral-veraja {
+    border-left: calc(var(--fibo-base) * 2.618) solid #00e676;
+    box-shadow: 0 0 34px rgba(0, 230, 118, 0.4); /* 34: Fibo */
+    transform: scale(1.02);
+    transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body { 
+    background-color: var(--obsidiana-parnasa); 
+    background-image: radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.05) 1px, transparent 0); 
+    background-size: 40px 40px; 
+    color: #e2e4e9; 
+    font-family: 'Montserrat', sans-serif; 
+    margin: 0; 
+    line-height: var(--fibo); 
+}
+    
         body { background-color: var(--obsidiana-parnasa); background-image: radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.05) 1px, transparent 0); background-size: 40px 40px; color: #e2e4e9; font-family: 'Montserrat', sans-serif; margin: 0; line-height: var(--fibo); }
         .header { background: linear-gradient(180deg, #1a1a1c 0%, var(--obsidiana-parnasa) 100%); padding: var(--pad-m) 5%; border-bottom: 2px solid var(--oro-shefa); display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; letter-spacing: 2px; }
         
