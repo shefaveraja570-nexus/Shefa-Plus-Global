@@ -114,6 +114,41 @@
             align-items: center;
             width: 100%;
         }
+        window.ingresarAlNucleo = async () => {
+    console.log("🔍 Iniciando rastreo de entrada...");
+    const btn = document.getElementById('btn-acceso');
+    
+    if (!btn) {
+        console.error("❌ ERROR: ¡El botón 'btn-acceso' no existe en el HTML!");
+        alert("Botón no detectado. Revisa el ID en tu HTML.");
+        return;
+    }
+
+    try {
+        console.log("🛡️ Validando integridad del núcleo...");
+        // Verificamos si la función de ayer realmente existe
+        if (typeof window.initShefaEcosystem !== 'function') {
+            throw new Error("initShefaEcosystem no está definida.");
+        }
+
+        const db = await window.initShefaEcosystem();
+        console.log("✅ Ecosistema validado, procediendo a transición.");
+        
+        // Animación de salida
+        document.body.style.opacity = "0";
+        
+        // IMPORTANTE: Verifica que este archivo exista exactamente como está escrito aquí
+        const destino = "nucleo-shefa-pro.html"; 
+        console.log("🚀 Saltando a:", destino);
+        
+        window.location.href = destino; 
+        
+    } catch (error) {
+        console.error("🔥 Error crítico en el Núcleo:", error);
+        alert("Error: " + error.message);
+    }
+};
+            
     </style>
 </head>
 <body>
