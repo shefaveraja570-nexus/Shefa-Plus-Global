@@ -161,7 +161,17 @@ body {
                             inset 0 0 calc(8px * 1.618) rgba(0, 230, 118, 0.618); 
             }
         }
-        
+                /* 🌟 UMBRAL ÁUREO PARA CAMPOS DE TEXTO (ADIÓS BORDE AZUL) */
+        input:focus, select:focus {
+            outline: none !important; /* Esto elimina el azul barato por defecto */
+            border: 1px solid var(--oro-shefa) !important;
+            /* Resplandor Fibonacci: Expansión matemática del brillo */
+            box-shadow: 0 0 calc(8px * 1.618) rgba(212, 175, 55, 0.5), inset 0 0 calc(3px * 1.618) rgba(212, 175, 55, 0.2) !important;
+            border-radius: calc(4px * 1.618) !important; /* Curva áurea */
+            transform: scale(1.01); /* Pequeña expansión al tocar */
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+                         }
+                       
     </style>
 </head>
 <body>
