@@ -26,7 +26,38 @@ cc v<!DOCTYPE html>
     border-left: calc(var(--fibo-base) * 1) solid #e2e4e9;
     transition: all 0.5s ease-in-out;
 }
-
+    /* --- INICIO ESTILOS BÓVEDA SHEFA --- */
+    .boveda-shefa {
+        background: linear-gradient(145deg, #2b2b2b, #878681); /* Titanio Radiante */
+        padding: 34px; /* Fibonacci */
+        border-radius: 13px; /* Fibonacci */
+        box-shadow: 0 8px 21px rgba(0,0,0,0.5); /* Fibonacci */
+        font-family: 'Arial', sans-serif;
+    }
+    .titulo-parnasa {
+        margin: 0 0 21px 0; /* Fibonacci */
+        color: var(--oro-shefa); /* Usando tu variable global */
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+    .input-shefa {
+        width: 100%;
+        padding: 13px 21px; /* Fibonacci */
+        margin-bottom: 21px; /* Fibonacci */
+        background: var(--titanio-premium); /* Usando tu variable global */
+        color: #fff;
+        border: 2px solid #1877F2; /* Azul Facebook */
+        border-radius: 8px; /* Fibonacci */
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+    .input-shefa:focus {
+        outline: none;
+        box-shadow: 0 0 13px #1877F2; /* Fibonacci */
+    }
+    /* --- FIN ESTILOS BÓVEDA SHEFA --- */
+        
 .umbral-shefa {
     border-left: calc(var(--fibo-base) * 1.618) solid var(--oro-plus);
     box-shadow: 0 0 21px rgba(212, 175, 55, 0.3); /* 21: Fibo */
