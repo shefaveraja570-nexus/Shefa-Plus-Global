@@ -23,17 +23,140 @@
             padding: 20px;
             margin: 0;
         }
-                .contenedor-maestro {
-            width: 90%; /* Ajuste dinámico para móvil */
-            max-width: 400px; /* Mantiene la proporción aurea */
+        .tarjeta-menu {
+            background: var(--bg-tarjeta);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .logo-shefa {
+            width: 100px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        h1 { font-size: 26px; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px;}
+        h1 span { color: var(--acento-dorado); }
+        p.subtitulo { color: var(--texto-secundario); font-size: 13px; letter-spacing: 2px; margin-bottom: 30px; text-transform: uppercase;}
+        
+        .btn-dorado {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #f3e5ab);
+            color: #000;
+            padding: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-dorado:hover { transform: scale(1.05); }
+        
+        .btn-azul {
+            display: block;
+            width: 100%;
+            background: #2563eb;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .btn-oscuro {
+            display: block;
+            width: 100%;
+            background: var(--bg-principal);
+            border: 1px solid #334155;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .tarjeta-secundaria {
+            background: transparent;
+            border: 1px solid rgba(226, 232, 240, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+        .tarjeta-secundaria h3 { color: var(--acento-dorado); font-size: 16px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+        .tarjeta-secundaria p { color: var(--texto-secundario); font-size: 13px; margin-bottom: 15px; line-height: 1.5;}
+        .footer { text-align: center; font-size: 10px; color: var(--texto-secundario); margin-top: 20px;}
+        
+        /* Contenedor Maestro agregado */
+        .contenedor-maestro {
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Esto da espacio equitativo entre tarjetas automáticamente */
-            margin: 0 auto;
-            padding-bottom: 40px;
-                }
-        
-        .tarjeta-menu {
+            align-items: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="espiral-fondo"></div>
+    
+    <main class="contenedor-maestro">
+        <div class="tarjeta-menu">
+            <h1>SHEFA<span>PLUS</span></h1>
+            <p class="subtitulo">Frecuencia Global 800 HZ</p>
+            
+            <a href="umbral.html" class="btn-dorado">Ingresar al Núcleo</a>
+        </div>
+
+        <div class="tarjeta-secundaria">
+            <h3>Fondo de Criptofracciones</h3>
+            <p>Sintoniza tu capital con la frecuencia de la abundancia. Sistema de inversión automatizado.</p>
+            <p style="color: #60a5fa; font-size: 12px; font-weight: bold; margin-bottom: 15px;">Mastercard • Visa • Nequi • Daviplata • Efecty</p>
+            <p style="font-size: 11px; font-style: italic; margin-bottom: 20px;">Convenio internacional habilitado. Se generará Ref. Única por inversor.</p>
+            
+            <a href="dashboard.html" class="btn-dorado">Iniciar Inversión</a>
+
+            <a href="vin.html" class="btn-oscuro" style="border-color: var(--acento-dorado); color: var(--acento-dorado); margin-top: 15px;">🔎 Módulo Automotriz (VIN)</a>
+        </div>
+
+        <div class="tarjeta-secundaria">
+            <h3>Centro de Comando Global</h3>
+            <p>Comunicación directa, encriptada y bajo los pilares de Parnasá y Verajá.</p>
+            
+            <a href="mailto:shefa.veraja.570@gmail.com" class="btn-azul">✉ Correo Oficial</a>
+            <a href="#" class="btn-oscuro">🛡 Enlace de Seguridad Whatsapp</a>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 SHEFA PLUS GLOBAL S.A.S. | Arquitectura de Sustento Blindado</p>
+            
+            <a href="comando_shefa.html" style="color: #0a0d14; text-decoration: none; font-size: 1px;">.</a>
+            
+            <p style="color: var(--acento-dorado); font-weight: bold; margin-top: 5px;">
+                🛡 POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS
+            </p>
+        </div>
+    </main>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Escudo de seguridad activado.'))
+        .catch(err => console.log('Interferencia en el Escudo:', err));
+      }
+    </script>
+    
+</body>
+    </html>
             background: var(--bg-tarjeta);
             border-radius: 15px;
             padding: 30px;
