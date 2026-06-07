@@ -96,63 +96,65 @@
         .tarjeta-secundaria h3 { color: var(--acento-dorado); font-size: 16px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
         .tarjeta-secundaria p { color: var(--texto-secundario); font-size: 13px; margin-bottom: 15px; line-height: 1.5;}
         .footer { text-align: center; font-size: 10px; color: var(--texto-secundario); margin-top: 20px;}
+        
+        /* Contenedor Maestro agregado */
+        .contenedor-maestro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="espiral-fondo"></div>
     
-    <!-- TARJETA PRINCIPAL (NÚCLEO) -->
-    <div class="tarjeta-menu">
-        <h1>SHEFA<span>PLUS</span></h1>
-        <p class="subtitulo">Frecuencia Global 800 HZ</p>
-        
-        <!-- ESTE BOTÓN LLEVA AL LOGIN (UMBRAL) -->
-        <a href="umbral.html" class="btn-dorado">Ingresar al Núcleo</a>
-    </div>
+    <main class="contenedor-maestro">
+        <div class="tarjeta-menu">
+            <h1>SHEFA<span>PLUS</span></h1>
+            <p class="subtitulo">Frecuencia Global 800 HZ</p>
+            
+            <a href="umbral.html" class="btn-dorado">Ingresar al Núcleo</a>
+        </div>
 
-    <!-- TARJETA CRIPTOFRACCIONES -->
-    <div class="tarjeta-secundaria">
-        <h3>Fondo de Criptofracciones</h3>
-        <p>Sintoniza tu capital con la frecuencia de la abundancia. Sistema de inversión automatizado.</p>
-        <p style="color: #60a5fa; font-size: 12px; font-weight: bold; margin-bottom: 15px;">Mastercard • Visa • Nequi • Daviplata • Efecty</p>
-        <p style="font-size: 11px; font-style: italic; margin-bottom: 20px;">Convenio internacional habilitado. Se generará Ref. Única por inversor.</p>
-        
-        <!-- ESTE BOTÓN LLEVA AL DASHBOARD -->
-        <a href="dashboard.html" class="btn-dorado">Iniciar Inversión</a>
+        <div class="tarjeta-secundaria">
+            <h3>Fondo de Criptofracciones</h3>
+            <p>Sintoniza tu capital con la frecuencia de la abundancia. Sistema de inversión automatizado.</p>
+            <p style="color: #60a5fa; font-size: 12px; font-weight: bold; margin-bottom: 15px;">Mastercard • Visa • Nequi • Daviplata • Efecty</p>
+            <p style="font-size: 11px; font-style: italic; margin-bottom: 20px;">Convenio internacional habilitado. Se generará Ref. Única por inversor.</p>
+            
+            <a href="dashboard.html" class="btn-dorado">Iniciar Inversión</a>
 
-        <!-- ENLACE A TU BUSCADOR DE VIN -->
-        <a href="vin.html" class="btn-oscuro" style="border-color: var(--acento-dorado); color: var(--acento-dorado); margin-top: 15px;">🔎 Módulo Automotriz (VIN)</a>
-    </div>
+            <a href="vin.html" class="btn-oscuro" style="border-color: var(--acento-dorado); color: var(--acento-dorado); margin-top: 15px;">🔎 Módulo Automotriz (VIN)</a>
+        </div>
 
-    <!-- TARJETA COMANDO -->
-    <div class="tarjeta-secundaria">
-        <h3>Centro de Comando Global</h3>
-        <p>Comunicación directa, encriptada y bajo los pilares de Parnasá y Verajá.</p>
-        
-        <a href="mailto:shefa.veraja.570@gmail.com" class="btn-azul">✉ Correo Oficial</a>
-        <a href="#" class="btn-oscuro">🛡 Enlace de Seguridad Whatsapp</a>
-    </div>
+        <div class="tarjeta-secundaria">
+            <h3>Centro de Comando Global</h3>
+            <p>Comunicación directa, encriptada y bajo los pilares de Parnasá y Verajá.</p>
+            
+            <a href="mailto:shefa.veraja.570@gmail.com" class="btn-azul">✉ Correo Oficial</a>
+            <a href="#" class="btn-oscuro">🛡 Enlace de Seguridad Whatsapp</a>
+        </div>
 
-    <!-- PIE DE PÁGINA -->
-<div class="footer">
-    <p>© 2026 SHEFA PLUS GLOBAL S.A.S. | Arquitectura de Sustento Blindado</p>
-    
-    <!-- ENLACE SECRETO AL CENTRO DE COMANDO -->
-    <a href="comando_shefa.html" style="color: #0a0d14; text-decoration: none; font-size: 1px;">.</a>
-    
-    <p style="color: var(--acento-dorado); font-weight: bold; margin-top: 5px;">
-        🛡 POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS
-    </p>
-</div>
+        <div class="footer">
+            <p>© 2026 SHEFA PLUS GLOBAL S.A.S. | Arquitectura de Sustento Blindado</p>
+            
+            <a href="comando_shefa.html" style="color: #0a0d14; text-decoration: none; font-size: 1px;">.</a>
+            
+            <p style="color: var(--acento-dorado); font-weight: bold; margin-top: 5px;">
+                🛡 POLÍTICA DE PRIVACIDAD Y TRATAMIENTO DE DATOS
+            </p>
+        </div>
+    </main>
 
     <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-    .then(() => console.log('Escudo de seguridad activado.'))
-    .catch(err => console.log('Interferencia en el Escudo:', err));
-  }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Escudo de seguridad activado.'))
+        .catch(err => console.log('Interferencia en el Escudo:', err));
+      }
     </script>
     
 </body>
-            </html>
-            
+    </html>
+                
