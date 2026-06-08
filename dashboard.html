@@ -20,7 +20,7 @@
     --oro-plus: #d4af37; 
 }
 
-/* CLASES DINÁMICAS DE EXPANSIÓN - VIBRACIÓN SHEFÁ */
+/* CLASES DINÁMICAS DE EXPANSIÓN - VIBRACIÓN SHEFA */
 
 .umbral-parnasa {
     border-left: calc(var(--fibo-base) * 1) solid #e2e4e9;
@@ -42,7 +42,7 @@
         letter-spacing: 2px;
     }
     .input-shefa {
-        width: 100%;
+        width: 86%;
         padding: 13px 21px; /* Fibonacci */
         margin-bottom: 21px; /* Fibonacci */
         background: var(--titanio-premium); /* Usando tu variable global */
@@ -198,7 +198,6 @@ body {
                 <input type="number" id="inv1" placeholder="Monto (USD)" oninput="calcular(1, window.apyTulumDinamico || 0.12)">
                 <span id="res1" style="color: var(--veraja-vital); font-weight: bold;">$0.00 /mes</span>
             </div>
-            !-- Botón en Fractional Luxury -->
         <button class="btn-veraja-fibo" onclick="abrirPasarelaLibre('LUXURY (Tulum)')">✨ INVERTIR EN LUXURY ✨</button>
         </div>
 
@@ -364,127 +363,4 @@ body {
         const monto = parseFloat(document.getElementById('montoRemesa').value) || 0;
         const fee = monto * 0.0382; // 3.82%
         const total = monto + fee;
-        document.getElementById('fee-remesa').innerText = `$${fee.toFixed(2)}`;
-        document.getElementById('total-remesa').innerText = `$${total.toFixed(2)}`;
-    };
-
-    window.ejecutarRemesa = async () => {
-        const remNombre = document.getElementById('remitente-nombre').value;
-        const remId = document.getElementById('remitente-id').value;
-        const remBanco = document.getElementById('remitente-banco').value;
-        const destNombre = document.getElementById('destinatario-nombre').value;
-        const destId = document.getElementById('destinatario-id').value;
-        const destPais = document.getElementById('destinatario-pais').value;
-        const monto = parseFloat(document.getElementById('montoRemesa').value);
-        
-        if (!remNombre || !destNombre || !monto) return alert("Faltan datos en la orden de transferencia.");
-
-        const idTransaccion = 'SHEFA-' + Math.random().toString(36).substr(2, 6).toUpperCase();
-        const fee = monto * 0.0382;
-
-        try {
-            await push(ref(db, 'remesas/'), {
-                id: idTransaccion,
-                remitente: { nombre: remNombre, id: remId, banco: remBanco },
-                destinatario: { nombre: destNombre, id: destId, pais: destPais },
-                monto: monto,
-                fee_fibonacci: fee.toFixed(2),
-                total_depositado: (monto + fee).toFixed(2),
-                estado: "Pendiente de Desembolso",
-                timestamp: new Date().toISOString()
-            });
-            alert(`✅ TRANSFERENCIA REGISTRADA\nID de Rastreo: ${idTransaccion}\n\nFavor depositar el Total en la cuenta SHEFA-PLUS-GLOBAL para liberar los fondos.`);
-        } catch (e) { alert("Interferencia en la red cuántica."); }
-    };
-
-    window.adquirirCriptofraccion = (nivel) => {
-        const links = { 'BRONCE': "https://mpago.li/2H9R7Zo", 'PLATA': "https://mpago.li/1oKzLsK", 'ORO': "https://mpago.li/2tFqSnZ" };
-        window.location.href = links[nivel];
-    };
-        // INTEGRACIÓN MAESTRA DE PASARELA LIBRE
-    window.abrirPasarelaLibre = (activo) => {
-        const linkMontoLibre = "https://link.mercadopago.com.co/shefaplusglobal2026";
-        alert(`Iniciando conexión segura con PSE / Mercado Pago para tu inversión en ${activo}.`);
-        window.location.href = linkMontoLibre;
-    };
-        // =================================================================
-    // --- INTEGRACIÓN MAESTRA DE BACKEND ADAPTADO (PARNASÁ & SHEFA) ---
-    // =================================================================
-
-    // Base de datos de tasas y bancos compatibles globales
-    const datosFinancierosShefa = {
-        "COP": { tasa: 1, sugerencia: "Ej: Bancolombia, Davivienda, Nequi, Efecty" },
-        "USD_USA": { tasa: 3950, sugerencia: "Ej: Chase, Bank of America, Wells Fargo" },
-        "USD_ECU": { tasa: 3950, sugerencia: "Ej: Banco Pichincha, Banco Guayaquil" },
-        "MXN": { tasa: 220, sugerencia: "Ej: BBVA Bancomer, Santander, OXXO" },
-        "CLP": { tasa: 4.2, sugerencia: "Ej: BancoEstado (CuentaRUT), Santander" },
-        "GTQ": { tasa: 510, sugerencia: "Ej: Banco Industrial, Banrural" },
-        "CNY": { tasa: 545, sugerencia: "Ej: ICBC, Alipay, WeChat Pay" },
-        "RUB": { tasa: 44, sugerencia: "Ej: Sberbank, Tinkoff (Vía Red Cripto)" },
-        "EXT": { tasa: "CUÁNTICA", sugerencia: "Conexión Directa: Contactar a Soporte 👽" }
-    };
-
-    // Motor del selector de divisas y placeholders dinámicos
-    window.actualizarBancosCompatibles = () => {
-        const monedaActiva = document.getElementById("moneda-remesa").value;
-        const inputBanco = document.getElementById("remitente-banco");
-        
-        if (datosFinancierosShefa[monedaActiva]) {
-            inputBanco.placeholder = datosFinancierosShefa[monedaActiva].sugerencia;
-            inputBanco.style.borderBottom = "2px solid var(--oro-shefa)";
-            setTimeout(() => {
-                inputBanco.style.borderBottom = "1px solid #444";
-            }, 1000);
-            
-            if (document.getElementById("montoRemesa").value !== "") {
-                if (typeof calcularFeeRemesa === 'function') calcularFeeRemesa();
-            }
-        }
-    };
-
-    // Módulo: Núcleo de Parnasá (Inicialización Segura de Base de Datos)
-    window.initShefaEcosystem = async () => {
-      try {
-        console.log("🛡️ Ejecutando Análisis Preventivo en el arranque del ecosistema...");
-        
-        // Verificación de seguridad en el origen
-        if (typeof db === 'undefined') throw new Error("Falla de seguridad: Base de datos Firebase no mapeada.");
-        
-        console.log("🔥 Llama Base Encendida: Ecosistema conectado de forma segura en Frontend.");
-        return db;
-      } catch (error) {
-        console.error("🔒 Blindaje automático activado:", error.message);
-        alert("Acceso al ecosistema restringido por seguridad preventiva.");
-      }
-    };
-
-    // Módulo: Motor de Transacciones (Enrutamiento de Capital Seguro)
-    window.procesarAporteSustento = (usuarioId, monto) => {
-      console.log(`💼 Iniciando enrutamiento de sustento para el usuario: ${usuarioId}`);
-      
-      // Análisis Preventivo interno
-      if (!usuarioId || monto <= 0) {
-          throw new Error("Intento de transaccionalidad anómala detectada.");
-      }
-      
-      const fee = monto * 0.0382; // Comisión bajo la red de Fibonacci
-      
-      const transaccion = {
-        id: 'SHEFA-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
-        timestamp: new Date().toISOString(),
-        tipo: 'INGRESO_SHEFA',
-        monto_base: monto,
-        fee_fibonacci: fee.toFixed(2),
-        total_depositado: (monto + fee).toFixed(2),
-        estado: 'PROCESANDO'
-      };
-      
-      console.log("🚀 Transacción enrutada con éxito hacia la Bóveda Global:", transaccion);
-      return transaccion;
-    };
-            
-</script>
-<script src="nucleo-token.js"></script>    
-</body>
-</html>
-    
+        document.getElementById('fee-remesa').innerText 
