@@ -362,71 +362,39 @@ body {
         const monto = document.getElementById(`inv${id}`).value || 0;
         document.getElementById(`res${id}`).innerText = `$${((monto * apy) / 12).toFixed(2)} /mes`;
     };
-    // =================================================================
-    // 🏦 CONTROL DE 9 BANCOS COMPATIBLES (PEGAR AQUÍ - LÍNEA 365)
-    // =================================================================
-    
-    // Diccionario exacto con las 9 opciones de tu plataforma
-    const mapaBancosPorDivisa = {
-        COP: [
-            "Bancolombia (Cuenta Matriz Directa)",
-            "Banco de Bogotá",
-            "Davivienda",
-            "BBVA Colombia",
-            "Banco de Occidente",
-            "Nequi / Daviplata"
-        ],
-        USD_US: [
-            "Bank of America",
-            "CHASE (JPMorgan Chase)",
-            "Wells Fargo",
-            "Citibank",
-            "Capital One"
-        ],
-        USD_EC: [
-            "Banco Pichincha",
-            "Banco Guayaquil",
-            "Banco del Pacífico",
-            "Produbanco"
-        ],
-        MXN: [
-            "BBVA México",
-            "Santander México",
-            "Banorte",
-            "Citibanamex",
-            "HSBC México"
-        ],
-        CLP: [
-            "Banco de Chile",
-            "Banco Estado",
-            "Santander Chile",
-            "Banco BCI"
-        ],
-        GTQ: [
-            "Banco Industrial",
-            "Banrural",
-            "Banco G&T Continental",
-            "Banco Agromercantil (BAM)"
-        ],
-        CNY: [
-            "ICBC (Industrial and Commercial Bank of China)",
-            "China Construction Bank",
-            "Agricultural Bank of China",
-            "Bank of China"
-        ],
-        RUB: [
-            "Sberbank",
-            "VTB Bank",
-            "Gazprombank",
-            "Alfa-Bank"
-        ],
-        EXT: [
-            "Red de Nodos de Andrómeda (Protocolo de Soporte)",
-            "Banco de Frecuencias Sirio (Enlace Cuántico)",
-            "Reserva Federal Pleyadiana (Validación Requerida)",
-            "Consorcio Financiero de Orión (Contactar SOPORTE)"
-        ]
-    };
+            // ==========================================
+        // 🌐 MOTOR DE SINCRONIZACIÓN BANCARIA EXPANDIDO
+        // ==========================================
+        
+        const redBancariaGlobal = {
+            "COP": ["Bancolombia", "Davivienda", "Banco de Bogotá", "Nequi", "DaviPlata"],
+            "USD_EEUU": ["Bank of America", "JPMorgan Chase", "Wells Fargo", "Citibank"],
+            "USD_ECU": ["Banco Pichincha", "Banco Guayaquil", "Banco Bolivariano"],
+            "MXN": ["BBVA México", "Santander", "Banorte", "Citibanamex", "Banco Azteca"],
+            "CLP": ["Banco de Chile", "Banco Estado", "Santander Chile", "Scotiabank"],
+            "GTQ": ["Banco Industrial", "Banrural", "Banco G&T Continental", "InterBanco"],
+            "CNY": ["Bank of China", "ICBC", "China Construction Bank"],
+            "RUB": ["Sberbank", "VTB Bank", "Gazprombank"],
+            "ALIEN": ["Bóveda Interdimensional", "Protocolo Orion", "Nexo Galáctico (Soporte)"]
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const selectorDivisa = document.getElementById('selector-divisa');
+            const selectorBanco = document.getElementById('selector-banco');
+
+            if (selectorDivisa && selectorBanco) {
+                selectorDivisa.addEventListener('change', function() {
+                    const divisa = this.value;
+                    selectorBanco.innerHTML = '<option value="">Seleccione la entidad receptora...</option>';
+
+                    if (divisa && redBancariaGlobal[divisa]) {
+                        redBancariaGlobal[divisa].forEach(banco => {
+                            const opcion = document.createElement('option');
+                            opcion.value = banco;
+                            opcion.textContent = banco;
+                            selectorBanco.appendChild(opcion);
+                        });
+                      }
 
     // Función vinculada a WINDOW para que el HTML de tu módulo pueda leerla
     window.actualizarListaBancos = () => {
