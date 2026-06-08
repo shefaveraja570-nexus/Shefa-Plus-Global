@@ -335,10 +335,11 @@
 </script>
     
     <!-- LÓGICA MAESTRA ADMINISTRATIVA INTACTA -->
-    <script type="module">
+        <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
-        import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+        // ⚡ Módulo ampliado: Añadimos getDoc y setDoc para gestionar la llave maestra
+        import { getFirestore, collection, getDocs, doc, updateDoc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
@@ -353,19 +354,98 @@
         const dbRT = getDatabase(app);
         const dbFS = getFirestore(app);
 
-        window.desbloquearComando = () => {
+        // ==========================================
+        // 1. DESBLOQUEO DEL CENTRO DE COMANDO (CONECTADO A FIREBASE)
+        // ==========================================
+        window.desbloquearComando = async () => {
             const pin = document.getElementById('pin-acceso').value;
-            if(pin === "777") { 
-                // Efecto de desvanecimiento sagrado al entrar
-                document.getElementById('pantalla-bloqueo').style.transition = "opacity 0.8s ease";
-                document.getElementById('pantalla-bloqueo').style.opacity = "0";
-                setTimeout(() => { document.getElementById('pantalla-bloqueo').style.display = 'none'; }, 800);
-                cargarDatos();
-            } else {
-                alert("Acceso Denegado. Frecuencia incorrecta.");
+            const btn = document.querySelector('#pantalla-bloqueo button');
+            btn.innerText = "VERIFICANDO LA MATRIX...";
+
+            try {
+                // Buscamos la llave maestra en Firebase
+                const docRef = doc(dbFS, "configuracion", "seguridad");
+                const docSnap = await getDoc(docRef);
+                
+                // 🔑 Aquí está tu nueva clave base forjada
+                let llaveMaestra = "codex.shefaplusglobal"; 
+
+                if (docSnap.exists()) {
+                    llaveMaestra = docSnap.data().pin; // Si ya cambiaste la clave en Firebase, usa la nueva
+                } else {
+                    // Si es la primera vez, guarda tu clave base en Firebase automáticamente
+                    await setDoc(docRef, { pin: llaveMaestra });
+                }
+
+                if(pin === llaveMaestra) { 
+                    document.getElementById('pantalla-bloqueo').style.transition = "opacity 0.8s ease";
+                    document.getElementById('pantalla-bloqueo').style.opacity = "0";
+                    setTimeout(() => { document.getElementById('pantalla-bloqueo').style.display = 'none'; }, 800);
+                    cargarDatos();
+                } else {
+                    alert("Acceso Denegado. Frecuencia incorrecta.");
+                    btn.innerText = "DESBLOQUEAR BÓVEDA";
+                }
+            } catch (error) {
+                console.error("Error al consultar Firebase:", error);
+                alert("Anomalía en la red. Activando protocolo de emergencia...");
+                // Respaldo de seguridad en caso de caída temporal de internet
+                if(pin === "codex.shefaplusglobal") {
+                    document.getElementById('pantalla-bloqueo').style.display = 'none';
+                    cargarDatos();
+                } else {
+                    btn.innerText = "DESBLOQUEAR BÓVEDA";
+                }
             }
         };
 
+        // ==========================================
+        // 2. FORJAR NUEVA LLAVE DESDE LA BÓVEDA (ALIMENTA FIREBASE)
+        // ==========================================
+        window.forjarNuevaLlave = async () => {
+            const llave = document.getElementById('nuevaLlave').value;
+            const confirmacion = document.getElementById('confirmarLlave').value;
+            const mensaje = document.getElementById('mensajeBoveda');
+
+            // Patrón estricto: mayúsculas, minúsculas, números, símbolos y min 8 caracteres.
+            const patronBlindado = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (llave !== confirmacion) {
+                mensaje.style.color = "#ef4444";
+                mensaje.innerText = "⚠️ Anomalía detectada: Las llaves no resuenan en la misma frecuencia.";
+                return;
+            }
+
+            if (!patronBlindado.test(llave)) {
+                mensaje.style.color = "#fbbf24";
+                mensaje.innerText = "🛡️ Debes elevar el blindaje: Incluye al menos 8 caracteres, mayúsculas, minúsculas, números y símbolos.";
+                return;
+            }
+
+            mensaje.style.color = "#fbbf24";
+            mensaje.innerText = "Sincronizando nueva frecuencia con la Matrix... Aguarda.";
+
+            try {
+                // Escribimos la nueva clave en la base de datos
+                const docRef = doc(dbFS, "configuracion", "seguridad");
+                await setDoc(docRef, { pin: llave });
+                
+                mensaje.style.color = "#10b981";
+                mensaje.innerText = "✅ ¡Sello Forjado! La llave maestra ha sido encriptada y actualizada en Firebase con éxito.";
+                
+                // Limpiamos la evidencia
+                document.getElementById('nuevaLlave').value = '';
+                document.getElementById('confirmarLlave').value = '';
+            } catch (error) {
+                console.error("Error al forjar llave en Firebase:", error);
+                mensaje.style.color = "#ef4444";
+                mensaje.innerText = "⚠️ Error de conexión al forjar el sello. Revisa la consola.";
+            }
+        };
+
+        // ==========================================
+        // 3. CARGA DE FLUJO (REMESAS E INVERSORES)
+        // ==========================================
         function cargarDatos() {
             const remesasRef = ref(dbRT, 'remesas/');
             onValue(remesasRef, (snapshot) => {
@@ -425,6 +505,30 @@
             document.getElementById('lista-inversores').innerHTML = htmlInversores;
         }
 
+        // ==========================================
+        // 4. INYECCIÓN VERAJÁ (ACTUALIZAR SALDOS)
+        // ==========================================
+        window.actualizarSaldo = async (uid) => {
+            const nuevoSaldo = document.getElementById(`input-saldo-${uid}`).value;
+            if(!nuevoSaldo) { alert("Ingrese un monto válido."); return; }
+
+            try {
+                const docRef = doc(dbFS, "inversores", uid);
+                await updateDoc(docRef, {
+                    saldo: parseFloat(nuevoSaldo).toFixed(2)
+                });
+                
+                document.getElementById(`saldo-${uid}`).innerText = `$${parseFloat(nuevoSaldo).toFixed(2)}`;
+                document.getElementById(`input-saldo-${uid}`).value = "";
+                alert("✅ Bendición aplicada. El inversor verá su nuevo saldo reflejado de inmediato.");
+                
+            } catch (error) {
+                console.error("Error al inyectar capital:", error);
+                alert("Error de conexión al actualizar la matriz. Revise los registros.");
+            }
+        };
+        </script>
+    
         window.actualizarSaldo = async (uid) => {
             const nuevoSaldo = document.getElementById(`input-saldo-${uid}`).value;
             if(!nuevoSaldo) { alert("Ingrese un monto válido."); return; }
