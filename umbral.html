@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salón de Honor | Shefa Plus Global</title>
+    <style>
+        /* ==========================================
+           💎 VARIABLES DE PROPORCIÓN ÁUREA Y NEUROSHEFÁ
+           ========================================== */
+        :root {
+            /* Colores Magnéticos */
+            --fondo-abismo: #0a0f16;
+            --tarjeta-fondo: #121a25;
+            --blanco-puro: #ffffff;
+            --gris-texto: #9ca3af;
+            --oro-shefa: #fbbf24;
+            --azul-parnasa: #2563eb;
+            --verde-veraja: #10b981;
+            
+            /* Sucesión de Fibonacci en píxeles */
+            --f-8: 8px;
+            --f-13: 13px;
+            --f-21: 21px;
+            --f-34: 34px;
+            --f-55: 55px;
+            --f-89: 89px;
+            --f-144: 144px;
+
+            /* Interlineado Áureo */
+            --line-height-aureo: 1.618;
+        }
+
+        /* Reseteo Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--fondo-abismo);
+            color: var(--blanco-puro);
+            line-height: var(--line-height-aureo);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1200px; /* Expansión visual controlada */
+            padding: var(--f-55) var(--f-21);
+        }
+
+        /* ==========================================
+           🏛️ SECCIÓN: PILARES DE ABUNDANCIA
+           ========================================== */
+        .seccion-titulo {
+            text-align: center;
+            margin-bottom: var(--f-89);
+        }
+
+        .seccion-titulo h2 {
+            font-size: var(--f-34);
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .seccion-titulo h2 span {
+            color: var(--oro-shefa);
+        }
+
+        .seccion-titulo p {
+            font-size: var(--f-13);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .grid-pilares {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--f-34);
+            padding-bottom: var(--f-55);
+        }
+
+        /* ==========================================
+           🃏 TARJETAS NEUROSHEFÁ (HOVER ILUMINADO)
+           ========================================== */
+        .pilar-card {
+            background-color: var(--tarjeta-fondo);
+            border-radius: var(--f-13);
+            padding: var(--f-55) var(--f-34);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.618s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transición Áurea */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        /* La Barra de Iluminación Oculta (Borde Superior) */
+        .pilar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--oro-shefa);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.618s ease-in-out;
+            z-index: 2;
+        }
+
+        /* Efecto de Flotación e Iluminación al pasar el mouse o tocar */
+        .pilar-card:hover, .pilar-card:active {
+            transform: translateY(-8px);
+            box-shadow: 0 var(--f-21) var(--f-55) rgba(0, 0, 0, 0.6);
+            background-color: #16202d; /* Ligero aclarado de fondo */
+        }
+
+        .pilar-card:hover::before, .pilar-card:active::before {
+            transform: scaleX(1); /* Despliega el rayo de luz */
+        }
+
+        /* Colores específicos de iluminación por cada pilar */
+        .pilar-card.shefa::before { background: var(--azul-parnasa); box-shadow: 0 0 15px var(--azul-parnasa); }
+        .pilar-card.parnasa::before { background: var(--oro-shefa); box-shadow: 0 0 15px var(--oro-shefa); }
+        .pilar-card.veraja::before { background: var(--verde-veraja); box-shadow: 0 0 15px var(--verde-veraja); }
+
+        /* Contenido de la Tarjeta */
+        .pilar-icono {
+            width: var(--f-55);
+            height: var(--f-55);
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: var(--f-13);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--f-21);
+            transition: transform 0.618s ease;
+        }
+
+        .pilar-card:hover .pilar-icono {
+            transform: scale(1.1); /* El ícono respira al interactuar */
+        }
+
+        .pilar-icono svg {
+            width: var(--f-21);
+            height: var(--f-21);
+            fill: var(--oro-shefa);
+        }
+
+        /* Variaciones de color para los íconos */
+        .pilar-card.shefa .pilar-icono svg { fill: var(--azul-parnasa); }
+        .pilar-card.parnasa .pilar-icono svg { fill: var(--oro-shefa); }
+        .pilar-card.veraja .pilar-icono svg { fill: var(--verde-veraja); }
+
+        .pilar-card h3 {
+            font-size: var(--f-21);
+            margin-bottom: var(--f-13);
+            font-weight: 700;
+            color: var(--blanco-puro);
+        }
+
+        .pilar-card p {
+            color: var(--gris-texto);
+            font-size: 15px; /* Optimizado para lectura en pantallas HD */
+            line-height: var(--line-height-aureo);
+        }
+
+        /* ==========================================
+           🧿 FOOTER VIBRACIONAL
+           ========================================== */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: var(--f-55) var(--f-21);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+        }
+
+        .frecuencia-texto {
+            margin-top: var(--f-21);
+            font-size: 0.85rem;
+            color: var(--oro-shefa);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="pilares" id="info">
+            <div class="seccion-titulo">
+                <h2>El Salón de <span>Honor</span></h2>
+                <p style="color: var(--gris-texto); margin-top: var(--f-13);">Arquitectura diseñada para el éxito mutuo</p>
+            </div>
+
+            <div class="grid-pilares">
+                
+                <div class="pilar-card shefa">
+                    <div class="pilar-icono">
+                        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3>Shefá | Flujo Constante</h3>
+                    <p>Interfaces optimizadas bajo proporciones armónicas. Garantizamos que la experiencia del usuario y tus procesos comerciales fluyan de manera natural, rápida y sin interrupciones.</p>
+                </div>
+
+                <div class="pilar-card parnasa">
+                    <div class="pilar-icono">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3>Parnasá | Sustento Protegido</h3>
+                    <p>Infraestructura robusta de grado bancario. Una herramienta sólida que protege tus transacciones, brindando la base segura para el crecimiento inquebrantable de cada aliado.</p>
+                </div>
+
+                <div class="pilar-card veraja">
+                    <div class="pilar-icono">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h3>Verajá | Multiplicación</h3>
+                    <p>Algoritmos eficientes y estructuras matemáticas impecables que impulsan los resultados, expandiendo el alcance de tu negocio de forma escalable y bendecida.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div style="margin-bottom: var(--f-21);">
+            <div class="logo-icon" style="font-size: 2.5rem; margin-bottom: var(--f-13);">🧿</div>
+            <p style="color: var(--blanco-puro); font-weight: bold; font-size: 1.2rem;">Plataforma Motos S.A.S.</p>
+        </div>
+        <p style="color: var(--gris-texto); font-size: 0.9rem;">&copy; 2026 Todos los derechos reservados. Preparando lanzamiento oficial.</p>
+        
+        <div class="frecuencia-texto">
+            Arquitectura Impecable &bull; Proporción Áurea <span style="color: var(--blanco-puro); opacity: 0.8;">&phi; 1.618</span><br>
+            <span style="font-size: 0.75rem; opacity: 0.7; color: var(--blanco-puro);">SHEFÁ &bull; PARNASÁ &bull; VERAJÁ</span>
+        </div>
+    </footer>
+
+</body>
+  </html>
+  
