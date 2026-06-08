@@ -385,16 +385,20 @@ body {
             if (selectorDivisa && selectorBanco) {
                 selectorDivisa.addEventListener('change', function() {
                     const divisa = this.value;
-                    selectorBanco.innerHTML = '<option value="">Seleccione la entidad receptora...</option>';
+                    selectorBanco.innerHTML = '<option value="">Seleccione el banco...</option>';
 
-                    if (divisa && redBancariaGlobal[divisa]) {
-                        redBancariaGlobal[divisa].forEach(banco => {
-                            const opcion = document.createElement('option');
-                            opcion.value = banco;
-                            opcion.textContent = banco;
-                            selectorBanco.appendChild(opcion);
-                        });
-                      }
+                if (divisa && redBancariaGlobal[divisa]) {
+                    redBancariaGlobal[divisa].forEach(banco => {
+                        const opcion = document.createElement('option');
+                        opcion.value = banco;
+                        opcion.textContent = banco;
+                        selectorBanco.appendChild(opcion);
+                    });
+                }
+            });
+    }
+    
+                    
     
     
     // CÁLCULO DE REMESAS CON PROPORCIÓN FIBONACCI (3.82%)
