@@ -21,6 +21,15 @@ function calcularImpulsoEconomico(saldoActual, tasaCrecimiento, tiempoActivo) {
   registrarCrecimientoEnHistorial(nuevoSaldo);
   return nuevoSaldo;
 }
+// Módulo: Conexión Global (Fetch Data Externo)
+async function sincronizarMercadoGlobal() {
+  const datosExternos = await fetchExternalAPI('https://api.mercado-vehiculos.global/v1/precios');
+  // Filtrar mediante nuestros valores
+  const datosAprobados = aplicarAnalisisPreventivo(datosExternos);
+  actualizarValorTokens(datosAprobados);
+  console.log("🌍 Ecosistema sincronizado con el mundo exterior.");
+}
+
 
 // ==========================================
 // 🧰 CAJA DE HERRAMIENTAS DEL NÚCLEO
