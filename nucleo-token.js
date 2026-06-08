@@ -54,3 +54,14 @@ function aplicarAnalisisPreventivo(activo) {
 function registrarCrecimientoEnHistorial(nuevoSaldo) {
   console.log("📈 Crecimiento registrado en la Matrix. Nuevo saldo: $" + nuevoSaldo);
 }
+
+// Herramienta 5: Simulador de Conexión Externa (Fetch API)
+async function fetchExternalAPI(url) {
+  console.log("📡 Conectando con el mercado global: " + url);
+  return { estado: "ACTIVO", tendencia: "ALCISTA" }; // Simulamos datos recibidos
+}
+
+// Herramienta 6: Actualizador de Precios de Tokens
+function actualizarValorTokens(datosAprobados) {
+  console.log("🔄 Precios de las fracciones Shefa recalibrados en el sistema.");
+}
