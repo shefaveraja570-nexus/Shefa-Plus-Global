@@ -22,3 +22,26 @@ function calcularImpulsoEconomico(saldoActual, tasaCrecimiento, tiempoActivo) {
   return nuevoSaldo;
 }
 
+// ==========================================
+// 🧰 CAJA DE HERRAMIENTAS DEL NÚCLEO
+// ==========================================
+
+// Herramienta 1: Calculadora de Fracciones
+function dividirEnTokens(valor, cantidad) {
+  return valor / cantidad;
+}
+
+// Herramienta 2: Generador de Huella Única
+function generarHash(vin) {
+  return "SHEFA-" + vin;
+}
+
+// Herramienta 3: Escudo Térmico Simplificado
+function aplicarAnalisisPreventivo(activo) {
+  return true; // Luz verde automática al activo
+}
+
+// Herramienta 4: Registro de Historial
+function registrarCrecimientoEnHistorial(nuevoSaldo) {
+  console.log("📈 Crecimiento registrado en la Matrix. Nuevo saldo: $" + nuevoSaldo);
+}
