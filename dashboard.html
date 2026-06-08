@@ -395,43 +395,6 @@ body {
                             selectorBanco.appendChild(opcion);
                         });
                       }
-
-    // Función vinculada a WINDOW para que el HTML de tu módulo pueda leerla
-    window.actualizarListaBancos = () => {
-        const selectorDivisa = document.getElementById("moneda-remesa");
-        const selectorBanco = document.getElementById("banco-remesa");
-        const divisaSeleccionada = selectorDivisa.value;
-
-        // 1. Limpiar opciones anteriores
-        selectorBanco.innerHTML = "";
-
-        // 2. Si no ha seleccionado nada o seleccionó la opción por defecto
-        if (!divisaSeleccionada || !mapaBancosPorDivisa[divisaSeleccionada]) {
-            const opcionDefecto = document.createElement("option");
-            opcionDefecto.value = "";
-            opcionDefecto.text = "Seleccione primero una divisa...";
-            selectorBanco.appendChild(opcionDefecto);
-            return;
-        }
-
-        // 3. Crear la opción instructiva del banco
-        const opcionInstruccion = document.createElement("option");
-        opcionInstruccion.value = "";
-        opcionInstruccion.text = "Seleccione el banco emisor / receptor...";
-        selectorBanco.appendChild(opcionInstruccion);
-
-        // 4. Inyectar los bancos correspondientes a la selección
-        const listaBancos = mapaBancosPorDivisa[divisaSeleccionada];
-        
-        listaBancos.forEach(function(nombreBanco) {
-            const nuevaOpcion = document.createElement("option");
-            nuevaOpcion.value = nombreBanco.toLowerCase().replace(/[^a-z0-9]/g, "_");
-            nuevaOpcion.text = nombreBanco;
-            selectorBanco.appendChild(nuevaOpcion);
-        });
-    };
-
-    // =================================================================
     
     
     // CÁLCULO DE REMESAS CON PROPORCIÓN FIBONACCI (3.82%)
