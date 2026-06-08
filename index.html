@@ -178,6 +178,33 @@
         .catch(err => console.log('Interferencia en el Escudo:', err));
       
     </script>
+        <!-- ==========================================
+         ⚙️ MOTOR DE ACTIVACIÓN DEL TESTAMENTO
+         ========================================== -->
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnOrigen = document.getElementById('btnOrigen');
+            const btnCerrar = document.getElementById('btnCerrarLeyenda');
+            const modal = document.getElementById('pergaminoModal');
+
+            // Abrir el pergamino
+            btnOrigen.addEventListener('click', () => {
+                modal.classList.add('activo');
+            });
+
+            // Cerrar el pergamino
+            btnCerrar.addEventListener('click', () => {
+                modal.classList.remove('activo');
+            });
+
+            // Cerrar al tocar fuera del pergamino (en el abismo oscuro)
+            modal.addEventListener('click', (evento) => {
+                if (evento.target === modal) {
+                    modal.classList.remove('activo');
+                }
+            });
+        });
+    </script>
     
 </body>
     </html>
