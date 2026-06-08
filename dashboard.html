@@ -362,7 +362,110 @@ body {
         const monto = document.getElementById(`inv${id}`).value || 0;
         document.getElementById(`res${id}`).innerText = `$${((monto * apy) / 12).toFixed(2)} /mes`;
     };
+    // =================================================================
+    // 🏦 CONTROL DE 9 BANCOS COMPATIBLES (PEGAR AQUÍ - LÍNEA 365)
+    // =================================================================
+    
+    // Diccionario exacto con las 9 opciones de tu plataforma
+    const mapaBancosPorDivisa = {
+        COP: [
+            "Bancolombia (Cuenta Matriz Directa)",
+            "Banco de Bogotá",
+            "Davivienda",
+            "BBVA Colombia",
+            "Banco de Occidente",
+            "Nequi / Daviplata"
+        ],
+        USD_US: [
+            "Bank of America",
+            "CHASE (JPMorgan Chase)",
+            "Wells Fargo",
+            "Citibank",
+            "Capital One"
+        ],
+        USD_EC: [
+            "Banco Pichincha",
+            "Banco Guayaquil",
+            "Banco del Pacífico",
+            "Produbanco"
+        ],
+        MXN: [
+            "BBVA México",
+            "Santander México",
+            "Banorte",
+            "Citibanamex",
+            "HSBC México"
+        ],
+        CLP: [
+            "Banco de Chile",
+            "Banco Estado",
+            "Santander Chile",
+            "Banco BCI"
+        ],
+        GTQ: [
+            "Banco Industrial",
+            "Banrural",
+            "Banco G&T Continental",
+            "Banco Agromercantil (BAM)"
+        ],
+        CNY: [
+            "ICBC (Industrial and Commercial Bank of China)",
+            "China Construction Bank",
+            "Agricultural Bank of China",
+            "Bank of China"
+        ],
+        RUB: [
+            "Sberbank",
+            "VTB Bank",
+            "Gazprombank",
+            "Alfa-Bank"
+        ],
+        EXT: [
+            "Red de Nodos de Andrómeda (Protocolo de Soporte)",
+            "Banco de Frecuencias Sirio (Enlace Cuántico)",
+            "Reserva Federal Pleyadiana (Validación Requerida)",
+            "Consorcio Financiero de Orión (Contactar SOPORTE)"
+        ]
+    };
 
+    // Función vinculada a WINDOW para que el HTML de tu módulo pueda leerla
+    window.actualizarListaBancos = () => {
+        const selectorDivisa = document.getElementById("moneda-remesa");
+        const selectorBanco = document.getElementById("banco-remesa");
+        const divisaSeleccionada = selectorDivisa.value;
+
+        // 1. Limpiar opciones anteriores
+        selectorBanco.innerHTML = "";
+
+        // 2. Si no ha seleccionado nada o seleccionó la opción por defecto
+        if (!divisaSeleccionada || !mapaBancosPorDivisa[divisaSeleccionada]) {
+            const opcionDefecto = document.createElement("option");
+            opcionDefecto.value = "";
+            opcionDefecto.text = "Seleccione primero una divisa...";
+            selectorBanco.appendChild(opcionDefecto);
+            return;
+        }
+
+        // 3. Crear la opción instructiva del banco
+        const opcionInstruccion = document.createElement("option");
+        opcionInstruccion.value = "";
+        opcionInstruccion.text = "Seleccione el banco emisor / receptor...";
+        selectorBanco.appendChild(opcionInstruccion);
+
+        // 4. Inyectar los bancos correspondientes a la selección
+        const listaBancos = mapaBancosPorDivisa[divisaSeleccionada];
+        
+        listaBancos.forEach(function(nombreBanco) {
+            const nuevaOpcion = document.createElement("option");
+            nuevaOpcion.value = nombreBanco.toLowerCase().replace(/[^a-z0-9]/g, "_");
+            nuevaOpcion.text = nombreBanco;
+            selectorBanco.appendChild(nuevaOpcion);
+        });
+    };
+
+    // =================================================================
+    
+    
     // CÁLCULO DE REMESAS CON PROPORCIÓN FIBONACCI (3.82%)
     window.calcularFeeRemesa = () => {
         const monto = parseFloat(document.getElementById('montoRemesa').value) || 0;
