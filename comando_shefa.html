@@ -527,27 +527,6 @@
                 alert("Error de conexión al actualizar la matriz. Revise los registros.");
             }
         };
-        </script>
-    
-        window.actualizarSaldo = async (uid) => {
-            const nuevoSaldo = document.getElementById(`input-saldo-${uid}`).value;
-            if(!nuevoSaldo) { alert("Ingrese un monto válido."); return; }
-
-            try {
-                const docRef = doc(dbFS, "inversores", uid);
-                await updateDoc(docRef, {
-                    saldo: parseFloat(nuevoSaldo).toFixed(2)
-                });
-                
-                document.getElementById(`saldo-${uid}`).innerText = `$${parseFloat(nuevoSaldo).toFixed(2)}`;
-                document.getElementById(`input-saldo-${uid}`).value = "";
-                alert("✅ Bendición aplicada. El inversor verá su nuevo saldo reflejado de inmediato.");
-                
-            } catch (error) {
-                console.error("Error al inyectar capital:", error);
-                alert("Error de conexión al actualizar la bóveda.");
-            }
-        };
     </script>
 </body>
   </html>
