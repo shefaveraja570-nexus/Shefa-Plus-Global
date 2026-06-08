@@ -6,7 +6,7 @@
  * que cada aliado reciba la proporción exacta que le corresponde.
  * ===================================================================== */
 
-async function distribuirVeraja(comunidad, rendimientoTotal) {
+export async function distribuirVeraja(comunidad, rendimientoTotal) {
     console.log("🧿 Iniciando protocolo de expansión Verajá...");
     
     // Utilizamos un bucle for...of para respetar los tiempos de la Matrix (asincronía)
