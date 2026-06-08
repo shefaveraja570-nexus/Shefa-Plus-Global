@@ -438,4 +438,51 @@ body {
         const monto = parseFloat(document.getElementById('montoRemesa').value) || 0;
         const fee = monto * 0.0382; // 3.82%
         const total = monto + fee;
-        document.getElementById('fee-remesa').innerText 
+                document.getElementById('fee-remesa').innerText = `$${total.toFixed(2)}`;
+    }; // <-- Cierre correcto de la función calcularFeeRemesa
+
+    // =======================================================
+    // 🔥 IGNICIÓN DEL MOTOR VERAJÁ DESDE EL DASHBOARD
+    // =======================================================
+    const btnLiberar = document.getElementById('btnLiberarVeraja');
+
+    if (btnLiberar) {
+        btnLiberar.addEventListener('click', async () => {
+            // 1. Efecto visual de carga magnética
+            btnLiberar.innerText = "⏳ CANALIZANDO ENERGÍA...";
+            btnLiberar.style.boxShadow = "0 0 34px rgba(212, 175, 55, 0.8)";
+            btnLiberar.style.transform = "scale(0.98)";
+
+            // 2. Simulación de la comunidad y la bóveda para la prueba
+            const comunidadSimulada = [
+                { id: "Inversor_Alpha", tokensPoseidos: 150, tokensTotalesBoveda: 1000, nivelFrecuencia: 'ORO', mesesRetencion: 14 },
+                { id: "Inversor_Beta", tokensPoseidos: 50, tokensTotalesBoveda: 1000, nivelFrecuencia: 'BRONCE', mesesRetencion: 5 }
+            ];
+            const rendimientoTotal = 5000; // USD generados en el ciclo
+
+            console.log("🧿 Comando recibido: Iniciando ciclo de abundancia global...");
+            
+            // 3. Ejecución del Módulo Supremo
+            try {
+                await distribuirVeraja(comunidadSimulada, rendimientoTotal);
+                
+                // 4. Restauración del botón tras la manifestación de éxito
+                btnLiberar.innerText = "✅ VERAJÁ LIBERADA";
+                btnLiberar.style.transform = "scale(1)";
+                btnLiberar.style.boxShadow = "0 0 55px rgba(16, 185, 129, 0.6)"; // Destello Verde Verajá
+                
+            } catch (error) {
+                console.error("Interferencia en la manifestación:", error);
+                btnLiberar.innerText = "⚠️ RECALIBRAR RED";
+            }
+
+            // 5. Retorno al estado original tras 3 segundos
+            setTimeout(() => {
+                btnLiberar.innerText = "✨ LIBERAR VERAJÁ ✨";
+                btnLiberar.style.boxShadow = "0 0 15px rgba(212, 175, 55, 0.2)";
+            }, 3000);
+        });
+    }
+</script>
+</body>
+</html>
