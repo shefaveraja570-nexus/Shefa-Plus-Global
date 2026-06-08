@@ -224,7 +224,116 @@
         </div>
 
     </div>
+<!-- ==========================================
+     🏦 MÓDULO: BÓVEDA DE INYECCIÓN DE CAPITAL
+     ========================================== -->
+<div class="tarjeta-boveda">
+    <h3>🔑 Sello de Seguridad del Núcleo</h3>
+    <p class="texto-seguridad">Actualiza la llave maestra de la Bóveda de Inyección de Capital. Solo frecuencias alfanuméricas de alta densidad.</p>
 
+    <div class="grupo-input">
+        <label>Nueva Llave Maestra</label>
+        <!-- El input 'password' oculta los caracteres automáticamente -->
+        <input type="password" id="nuevaLlave" placeholder="Letras, números y símbolos (Ej: Sh3f@!89)">
+    </div>
+
+    <div class="grupo-input">
+        <label>Confirmar Frecuencia</label>
+        <input type="password" id="confirmarLlave" placeholder="Repite la llave exacta">
+    </div>
+
+    <button onclick="forjarNuevaLlave()" class="btn-blindado">FORJAR NUEVO SELLO</button>
+    
+    <!-- Aquí aparecerán los mensajes de la Matrix -->
+    <p id="mensajeBoveda" class="mensaje-oculto"></p>
+</div>
+
+<!-- ==========================================
+     ⚙️ LÓGICA DE BLINDAJE Y ESTILOS
+     ========================================== -->
+<style>
+    /* Estética Áurea para la Bóveda */
+    .tarjeta-boveda { 
+        background-color: #121a25; 
+        padding: 34px; 
+        border-radius: 13px; 
+        border: 1px solid rgba(251, 191, 36, 0.2); 
+        max-width: 450px;
+        margin: 55px auto;
+        box-shadow: 0 8px 21px rgba(0, 0, 0, 0.5);
+    }
+    .tarjeta-boveda h3 { color: #fbbf24; font-size: 21px; margin-bottom: 13px; text-transform: uppercase; letter-spacing: 1px;}
+    .texto-seguridad { color: #9ca3af; font-size: 13px; margin-bottom: 21px; line-height: 1.618; }
+    
+    .grupo-input { margin-bottom: 21px; display: flex; flex-direction: column; }
+    .grupo-input label { color: #ffffff; font-size: 13px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    .grupo-input input { 
+        background: #0a0f16; 
+        border: 1px solid #374151; 
+        color: #ffffff; 
+        padding: 13px; 
+        border-radius: 8px; 
+        font-size: 15px; 
+        outline: none; 
+        transition: all 0.618s ease; 
+    }
+    .grupo-input input:focus { border-color: #fbbf24; box-shadow: 0 0 13px rgba(251, 191, 36, 0.3); }
+    
+    .btn-blindado { 
+        background: #fbbf24; 
+        color: #0a0f16; 
+        font-weight: 800; 
+        padding: 13px 21px; 
+        border: none; 
+        border-radius: 8px; 
+        cursor: pointer; 
+        width: 100%; 
+        transition: all 0.618s ease; 
+        font-size: 15px; 
+        text-transform: uppercase; 
+        letter-spacing: 2px;
+    }
+    .btn-blindado:hover { background: #f59e0b; box-shadow: 0 0 21px rgba(251, 191, 36, 0.4); transform: translateY(-2px); }
+    
+    .mensaje-oculto { margin-top: 21px; font-size: 13px; text-align: center; min-height: 21px; font-weight: bold; }
+</style>
+
+<script>
+    // 🛡️ Cerebro de Seguridad
+    function forjarNuevaLlave() {
+        const llave = document.getElementById('nuevaLlave').value;
+        const confirmacion = document.getElementById('confirmarLlave').value;
+        const mensaje = document.getElementById('mensajeBoveda');
+
+        // Patrón estricto: Letras (mayúsculas y minúsculas), números, símbolos y mínimo 8 caracteres.
+        const patronBlindado = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+        // Filtro 1: ¿Las llaves son idénticas?
+        if (llave !== confirmacion) {
+            mensaje.style.color = "#ef4444"; // Rojo alerta
+            mensaje.innerText = "⚠️ Anomalía detectada: Las llaves no resuenan en la misma frecuencia.";
+            return;
+        }
+
+        // Filtro 2: ¿La llave es lo suficientemente fuerte?
+        if (!patronBlindado.test(llave)) {
+            mensaje.style.color = "#fbbf24"; // Oro advertencia
+            mensaje.innerText = "🛡️ Debes elevar el blindaje: Incluye al menos 8 caracteres, mayúsculas, minúsculas, números y símbolos.";
+            return;
+        }
+
+        // Si pasa todos los filtros, damos luz verde.
+        mensaje.style.color = "#10b981"; // Verde Verajá (Éxito)
+        mensaje.innerText = "✅ ¡Sello Forjado! La llave maestra ha sido encriptada y actualizada con éxito.";
+        
+        // Aquí se limpia el formulario por seguridad
+        document.getElementById('nuevaLlave').value = '';
+        document.getElementById('confirmarLlave').value = '';
+        
+        console.log("🔒 Frecuencia de seguridad de la Bóveda actualizada en el núcleo.");
+    }
+</script>
+    
     <!-- LÓGICA MAESTRA ADMINISTRATIVA INTACTA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
