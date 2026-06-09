@@ -117,6 +117,12 @@
             transform: scale(0.98);
             box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
         }
+
+        /* Estilo visual para el proceso de carga */
+        .desbloqueando {
+            opacity: 0.8;
+            cursor: wait;
+        }
     </style>
 </head>
 <body>
@@ -134,43 +140,46 @@
     <input type="password" id="pass" placeholder="Firma de Seguridad (Contraseña)">
     <input type="text" id="codigo" class="input-validador" placeholder="CÓDIGO DE CRIPTOFRACCIÓN">
     
-    <button onclick="registrarInversor()" id="boton-ingresar">Ingresar al Catálogo</button>
+    <!-- Retiramos el onclick del HTML para blindarlo desde el módulo Javascript -->
+    <button id="boton-ingresar">Ingresar al Catálogo</button>
 
 </div>
 
+<!-- =================================================================== -->
+<!-- CEREBRO MATRIZ DE AUTENTICACIÓN Y ENRUTAMIENTO -->
+<!-- =================================================================== -->
 <script type="module">
-  // Usamos la misma versión de Firebase que tienes en tu Dashboard (10.8.0) para que no haya conflictos
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+  // Configuración Maestra Unificada
   const firebaseConfig = {
     apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
     authDomain: "shefa-plus-global.firebaseapp.com",
+    databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com", // Integrado para sincronía perfecta
     projectId: "shefa-plus-global",
-    storageBucket: "shefa-plus-global.firebasestorage.app",
+    storageBucket: "shefa-plus-global.appspot.com", // Homologado con el Dashboard
     messagingSenderId: "746532074927",
-    appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
-    measurementId: "G-ELXBWZJZD8"
+    appId: "1:746532074927:web:70811deddc66ad88d5eb5" // Homologado con el Dashboard
   };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  window.registrarInversor = async () => {
-    // 1. Iniciamos la animación de desbloqueo al hacer clic
+  // Escucha Directa: Esta técnica garantiza que el botón funcione SIEMPRE.
+  document.getElementById('boton-ingresar').addEventListener('click', async () => {
+    
     const botonIngresar = document.getElementById('boton-ingresar');
     botonIngresar.innerText = "DESBLOQUEANDO...";
     botonIngresar.classList.add('desbloqueando');
 
-    // 2. Extraemos los datos de tus inputs
     const nombre = document.getElementById('nombre').value;
     const email = document.getElementById('email').value;
     const pass = document.getElementById('pass').value;
     const codigo = document.getElementById('codigo').value;
 
-    // 3. Validación de acceso (tu búnker de criptofracción)
     if (codigo !== "SHEFA2026") {
         alert("Acceso denegado: El umbral requiere un código de criptofracción válido.");
         botonIngresar.innerText = "Ingresar al Catálogo"; 
@@ -179,25 +188,23 @@
     }
 
     try {
-        // 4. Proceso de REGISTRO para nuevos usuarios
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
         
-        // 5. Guardar en tu base de datos Firestore (Respetando tu optimización de sincronía)
-        await setDoc(doc(db, "inversores", userCredential.user.uid), {
+        // CORRECCIÓN CRÍTICA: Se guarda en "usuarios" para que el Dashboard lo reconozca
+        await setDoc(doc(db, "usuarios", userCredential.user.uid), {
             nombre: nombre,
+            email: email,
             rol: "inversionista_premium",
             frecuencia_ingreso: "Parnasá",
-            saldo: "0.00", 
+            saldoVeraja: 0, // Formato numérico limpio para la matemática del Dashboard
             fecha: new Date().toISOString()
         });
         
-        // 6. Éxito: Llevar al Dashboard
         botonIngresar.innerText = "ACCESO CONCEDIDO";
         alert("Autenticación exitosa. Bienvenido a la frecuencia de la abundancia, Inversionista.");
         window.location.href = "dashboard.html";
 
     } catch (error) {
-        // 7. Tu lógica maestra: Si da error porque YA ESTÁ REGISTRADO, lo iniciamos sesión automáticamente
         if (error.code === 'auth/email-already-in-use') {
             try {
                 await signInWithEmailAndPassword(auth, email, pass);
@@ -210,13 +217,12 @@
                 alert("Error al intentar ingresar: Contraseña incorrecta.");
             }
         } else {
-            // Si el error es otro (ej. contraseña muy corta)
             botonIngresar.innerText = "Ingresar al Catálogo";
             botonIngresar.classList.remove('desbloqueando');
             alert("Interferencia en la conexión: " + error.message);
         }
     }
-  };
+  });
 </script>
 </body>
     </html>
