@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -212,7 +211,174 @@
         </div>
     </footer>
 
+    <!-- =================================================================== -->
+    <!-- NÚCLEO MATRIZ: FIREBASE, PORTERO DE SEGURIDAD Y FLUJO DE FIRMAS RWA -->
+    <!-- =================================================================== -->
+    <script type="module">
+        // 1. Importaciones unificadas de la infraestructura de Google
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // 2. Configuración unificada de tu ecosistema global
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            projectId: "shefa-plus-global",
+            storageBucket: "shefa-plus-global.appspot.com",
+            messagingSenderId: "746532074927",
+            appId: "1:746532074927:web:70811deddc66ad88d5eb5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const firestore = getFirestore(app);
+
+        // 3. 🛡️ EL PORTERO: Verificación de sesión
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = "acceso_inversion.html";
+            } else {
+                try {
+                    const docSnap = await getDoc(doc(firestore, "usuarios", user.uid));
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        document.getElementById('displayNombre').innerText = data.nombre || "Socio Shefá";
+                    } else {
+                        document.getElementById('displayNombre').innerText = "Socio Activo";
+                    }
+                } catch (error) {
+                    console.error("Interferencia al leer el expediente de Firestore: ", error);
+                    document.getElementById('displayNombre').innerText = "Socio Activo";
+                }
+                
+                // Si tienes un loader-portero en tu HTML, esto lo oculta. Si no lo tienes, no afecta en nada.
+                const loader = document.getElementById('loader-portero');
+                if(loader) loader.classList.add('hidden');
+            }
+        });
+
+        // 4. LÓGICA DE INTERFAZ: Bancos y Cálculos
+        const mapaBancosPorDivisa = {
+            COP: ["Bancolombia (Cuenta Matriz Directa)", "Banco de Bogotá", "Davivienda", "BBVA Colombia", "Banco de Occidente", "Nequi / Daviplata"],
+            USD_US: ["Bank of America", "CHASE (JPMorgan Chase)", "Wells Fargo", "Citibank", "Capital One"],
+            USD_EC: ["Banco Pichincha", "Banco Guayaquil", "Banco del Pacífico", "Produbanco"],
+            MXN: ["BBVA México", "Santander México", "Banorte", "Citibanamex", "HSBC México"],
+            CLP: ["Banco de Chile", "Banco Estado", "Santander Chile", "Banco BCI"],
+            GTQ: ["Banco Industrial", "Banrural", "Banco G&T Continental", "Banco Agromercantil (BAM)"],
+            CNY: ["ICBC", "China Construction Bank", "Agricultural Bank of China", "Bank of China"],
+            RUB: ["Sberbank", "VTB Bank", "Gazprombank", "Alfa-Bank"],
+            EXT: ["Red de Nodos de Andrómeda (Protocolo)", "Banco de Frecuencias Sirio", "Reserva Federal Pleyadiana", "Consorcio Financiero de Orión"]
+        };
+
+        window.actualizarListaBancos = () => {
+            const selectorDivisa = document.getElementById("moneda-remesa");
+            const selectorBanco = document.getElementById("banco-remesa");
+            const divisaSeleccionada = selectorDivisa.value;
+
+            selectorBanco.innerHTML = "";
+
+            if (!divisaSeleccionada || !mapaBancosPorDivisa[divisaSeleccionada]) {
+                selectorBanco.innerHTML = '<option value="">Seleccione primero una divisa...</option>';
+                return;
+            }
+
+            selectorBanco.innerHTML = '<option value="">Seleccione el banco emisor / receptor...</option>';
+            mapaBancosPorDivisa[divisaSeleccionada].forEach(banco => {
+                selectorBanco.innerHTML += `<option value="${banco}">${banco}</option>`;
+            });
+        };
+
+        window.calcularFeeRemesa = () => {
+            const inputMonto = document.getElementById("montoRemesa");
+            const txtFee = document.getElementById("fee-remesa");
+            const txtTotal = document.getElementById("total-remesa");
+
+            const monto = parseFloat(inputMonto.value) || 0;
+            const fee = monto * 0.0382;
+            const total = monto + fee;
+
+            if(txtFee) txtFee.innerText = `$${fee.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            if(txtTotal) txtTotal.innerText = `$${total.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        };
+
+        window.abrirModalCompra = (nombrePropiedad, valorSugerido) => {
+            document.getElementById("propiedad-nombre").value = nombrePropiedad;
+            document.getElementById("montoRemesa").value = valorSugerido;
+            document.getElementById("modal-compra").classList.remove("hidden");
+            window.calcularFeeRemesa();
+        };
+
+        window.cerrarModal = () => {
+            document.getElementById("modal-compra").classList.add("hidden");
+        };
+
+        window.cerrarComprobante = () => {
+            document.getElementById("pantalla-comprobante").classList.add("hidden");
+        };
+
+        // 5. AUTOMATIZACIÓN DEL FLUJO DE FIRMAS
+        window.firmarYGenerarContrato = async () => {
+            const propiedad = document.getElementById("propiedad-nombre").value;
+            const divisa = document.getElementById("moneda-remesa").value;
+            const banco = document.getElementById("banco-remesa").value;
+            const monto = parseFloat(document.getElementById("montoRemesa").value) || 0;
+
+            if (!divisa || !banco || monto <= 0) {
+                alert("⚠️ El ecosistema requiere la validación completa de Divisa, Banco y Monto.");
+                return;
+            }
+
+            const fee = monto * 0.0382;
+            const total = monto + fee;
+
+            const caracteres = "abcdef0123456789";
+            let txHash = "0x";
+            for (let i = 0; i < 40; i++) {
+                txHash += caracteres[Math.floor(Math.random() * caracteres.length)];
+            }
+
+            try {
+                const transaccionesRef = collection(firestore, "transacciones");
+                
+                await addDoc(transaccionesRef, {
+                    tx_hash: txHash,
+                    inversor_uid: auth.currentUser ? auth.currentUser.uid : "Inversor_Anonimo",
+                    tipo_operacion: "Emision_Contrato_RWA",
+                    activo_destino: propiedad,
+                    divisa_origen: divisa,
+                    entidad_bancaria: banco,
+                    monto_base: monto,
+                    fee_fibonacci: fee,
+                    total_liquidado: total,
+                    estado: "Verificado_y_Sellado",
+                    fecha_sello: serverTimestamp() 
+                });
+
+                document.getElementById("ticket-fecha").innerText = new Date().toLocaleString();
+                document.getElementById("ticket-activo").innerText = propiedad;
+                document.getElementById("ticket-divisa").innerText = divisa;
+                document.getElementById("ticket-banco").innerText = banco;
+                document.getElementById("ticket-monto").innerText = `$${monto.toLocaleString('es-CO')}`;
+                document.getElementById("ticket-comision").innerText = `$${fee.toLocaleString('es-CO')}`;
+                document.getElementById("ticket-total").innerText = `$${total.toLocaleString('es-CO')}`;
+                document.getElementById("ticket-hash").innerText = txHash;
+
+                const qrUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(txHash)}&choe=UTF-8`;
+                document.getElementById("ticket-qr").src = qrUrl;
+
+                window.cerrarModal();
+                document.getElementById("pantalla-comprobante").classList.remove("hidden");
+
+            } catch (error) {
+                console.error("Error al sellar el contrato: ", error);
+                alert("⚠️ Interferencia detectada en la red matriz. No se pudo emitir el contrato.");
+            }
+        };
+    </script>
+    
+    
 </body>
 </html>
 
-```
