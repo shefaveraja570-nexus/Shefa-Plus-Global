@@ -3,128 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefa Plus Global</title>
+    <title>SHEFA PLUS GLOBAL | Arquitectura de Identidad</title>
     <style>
         :root {
-            --fondo: #0a0d14;
-            --oro: #d4af37;
-            --texto: #e2e8f0;
             --phi: 1.618;
-            --espacio: 20px;
-            --espacio-aureo: calc(var(--espacio) * var(--phi));
+            --base-unit: 1rem;
+            --fondo-profundo: #0a0d14;
+            --acento-dorado: #d4af37;
+            
+            /* Escala Áurea Restablecida */
+            --spacing-identity: calc(var(--base-unit) * var(--phi));
         }
 
         body {
-            background-color: var(--fondo);
-            color: var(--texto);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0;
+            background-color: var(--fondo-profundo);
+            color: #ffffff;
+            font-family: 'Helvetica', sans-serif;
+            padding: var(--spacing-identity);
             display: flex;
             justify-content: center;
-            padding: var(--espacio-aureo);
         }
 
-        .contenedor-maestro {
+        .contenedor-principal {
+            max-width: 500px;
             width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            gap: var(--espacio);
         }
 
-        /* Estilo Minimalista */
-        .tarjeta {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            padding: var(--espacio-aureo);
-            border-radius: 12px;
+        /* Identidad de Marca Prominente */
+        .header-identidad {
             text-align: center;
+            margin-bottom: calc(var(--spacing-identity) * 1.5);
+            border-bottom: 1px solid var(--acento-dorado);
+            padding-bottom: var(--spacing-identity);
         }
 
-        h1 { color: var(--oro); margin: 0; letter-spacing: 4px; }
-        .subtitulo { font-size: 12px; color: #8a99ad; letter-spacing: 2px; margin-bottom: var(--espacio); }
+        .brand-name {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--acento-dorado);
+            letter-spacing: 0.15em;
+            margin: 0;
+            display: block;
+        }
+
+        .brand-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            letter-spacing: 0.2em;
+            margin-top: 0.5rem;
+        }
 
         .btn {
             display: block;
             width: 100%;
-            padding: 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
             text-transform: uppercase;
+            text-decoration: none;
             cursor: pointer;
-            transition: opacity 0.3s;
         }
-        .btn-dorado { background: var(--oro); color: #000; }
-        .btn-azul { background: #2563eb; color: #fff; margin-top: 10px; }
-        .btn-outline { border: 1px solid var(--oro); color: var(--oro); margin-top: 10px; }
-        
-        /* Modal Pergamino */
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(8, 8, 8, 0.9);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
-        }
-        .modal.activo { display: flex; }
-        .contenido-modal {
-            background: #111; border: 1px solid var(--oro);
-            padding: var(--espacio-aureo); max-width: 500px; border-radius: 15px;
+
+        .btn-dorado { background: var(--acento-dorado); color: #000; }
+        .btn-neutro { background: #1a1a1a; color: #fff; border: 1px solid #333; }
+        .btn-azul { background: #2563eb; color: white; }
+
+        .seccion {
+            background: #111;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
 <body>
 
-<main class="contenedor-maestro">
-    <section class="tarjeta">
-        <h1>SHEFA<span>PLUS</span></h1>
-        <p class="subtitulo">Frecuencia Global 800 HZ</p>
-        <a href="umbral.html" class="btn btn-dorado">Ingresar al Núcleo</a>
-    </section>
+    <main class="contenedor-principal">
+        <!-- Identidad Restaurada -->
+        <header class="header-identidad">
+            <h1 class="brand-name">SHEFA PLUS</h1>
+            <p class="brand-subtitle">FRECUENCIA GLOBAL 800 HZ</p>
+        </header>
 
-    <section class="tarjeta">
-        <h3>Fondo de Criptofracciones</h3>
-        <p style="font-size: 13px; color: #8a99ad;">Sistema de inversión automatizado.</p>
-        <a onclick="gatekeeperInversion(); return false;" class="btn btn-dorado">Iniciar Inversión</a>
-        <a href="vin.html" class="btn btn-outline">🔎 Módulo Automotriz</a>
-    </section>
+        <a href="#" class="btn btn-dorado">Ingresar al Núcleo</a>
 
-    <section class="tarjeta">
-        <button id="btnOrigen" class="btn btn-outline">El Origen</button>
-        <a href="mailto:shefa.veraja.570@gmail.com" class="btn btn-azul" style="margin-top:10px;">✉ Correo Oficial</a>
-    </section>
-</main>
+        <div class="seccion">
+            <h3 style="color: var(--acento-dorado); text-align: center;">Fondo de Criptofracciones</h3>
+            <p style="text-align: center; font-size: 0.9rem;">Sistema de inversión automatizado.</p>
+            <a href="#" class="btn btn-dorado">Iniciar Inversión</a>
+            <a href="#" class="btn btn-neutro">🔎 Módulo Automotriz</a>
+        </div>
 
-<div id="pergaminoModal" class="modal">
-    <div class="contenido-modal">
-        <h2 style="color:var(--oro)">EL ORIGEN</h2>
-        <p>Los pilares de Shefá, Parnasá y Verajá sostienen la estructura de abundancia global.</p>
-        <button onclick="document.getElementById('pergaminoModal').classList.remove('activo')" class="btn btn-outline">Cerrar</button>
-    </div>
-</div>
+        <div class="seccion">
+            <button class="btn btn-neutro" onclick="alert('Los pilares de Shefá, Parnasá y Verajá sostienen la estructura de abundancia global.')">
+                El Origen
+            </button>
+            <a href="#" class="btn btn-azul">✉ Correo Oficial</a>
+        </div>
+    </main>
 
-<script>
-    // Inicialización del Modal
-    document.getElementById('btnOrigen').addEventListener('click', () => {
-        document.getElementById('pergaminoModal').classList.add('activo');
-    });
-
-    // Lógica Gatekeeper
-    async function gatekeeperInversion() {
-        const user = firebase.auth().currentUser;
-        if (!user) { window.location.href = "login.html"; return; }
-
-        try {
-            const doc = await firebase.firestore().collection("inversores").doc(user.uid).get();
-            if (doc.exists && doc.data().role === "investor" && doc.data().status === "verified") {
-                window.location.href = "dashboard-inversion.html";
-            } else {
-                alert("Acceso restringido. Estado actual: " + (doc.exists ? doc.data().status : "no registrado"));
-            }
-        } catch (e) {
-            console.error(e);
-        }
-    }
-</script>
 </body>
 </html>
-    
