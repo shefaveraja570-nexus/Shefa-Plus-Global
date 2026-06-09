@@ -1,0 +1,218 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefá Plus Global - Inmobiliaria Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dorado: '#d4af37',
+                        doradoOscuro: '#aa841b',
+                        fondoNegro: '#0a0a0a',
+                        tarjetaGris: '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos Premium para el flujo visual */
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .borde-dorado {
+            border: 1px solid #d4af37;
+        }
+        .resplandor-dorado {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+        .resplandor-dorado:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+        }
+        .texto-gradiente {
+            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .barra-progreso {
+            background: linear-gradient(90deg, #d4af37, #aa841b);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen">
+
+    <!-- CABECERA PREMIUM -->
+    <header class="border-b border-dorado/30 bg-fondoNegro/90 backdrop-blur-md sticky top-0 z-50 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full border-2 border-dorado flex items-center justify-center">
+                    <span class="text-dorado font-bold text-xl">S</span>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-widest text-white">SHEFÁ <span class="text-dorado">PLUS</span></h1>
+                    <p class="text-xs text-gray-400 tracking-widest">GLOBAL REAL ESTATE</p>
+                </div>
+            </div>
+            <div class="hidden md:flex text-xs text-dorado tracking-widest gap-4">
+                <span>PARNASÁ</span> • <span>SHEFÁ</span> • <span>VERAJÁ</span> • <span>JOJMÁ</span> • <span>EMUNÁ</span>
+            </div>
+            <div>
+                <button class="bg-tarjetaGris border border-dorado text-dorado px-4 py-2 rounded uppercase text-sm font-bold hover:bg-dorado hover:text-black transition-colors">
+                    <i class="fas fa-wallet mr-2"></i> Conectar Billetera
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER PRINCIPAL -->
+    <section class="relative py-20 px-4">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-fondoNegro"></div>
+        
+        <div class="relative max-w-7xl mx-auto text-center">
+            <span class="text-dorado uppercase tracking-[0.3em] font-bold text-sm mb-4 block"><i class="fas fa-globe mr-2"></i>Tokenización de Activos Reales (RWA)</span>
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 texto-gradiente uppercase">Umbral de Expansión Global</h2>
+            <p class="text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed mb-8">
+                El salón premium para la adquisición fraccionada y total de bienes raíces de alto valor. Desde extensas llanuras hasta arquitectura de vanguardia en Acacías, Meta, estructurado bajo contratos inteligentes blindados.
+            </p>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO INMOBILIARIO -->
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <div class="flex justify-between items-end mb-10 border-b border-gray-800 pb-4">
+            <div>
+                <h3 class="text-2xl font-bold text-white"><i class="fas fa-chart-line text-dorado mr-3"></i>CATÁLOGO RWA PREMIUM</h3>
+                <p class="text-gray-500 mt-2">Propiedades exclusivas respaldadas en Blockchain</p>
+            </div>
+            <div class="text-right">
+                <select class="bg-tarjetaGris text-white border border-gray-700 rounded p-2 focus:border-dorado outline-none">
+                    <option>Ubicación: Acacías, Meta</option>
+                    <option>Ubicación: Global</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8" id="contenedor-propiedades">
+            
+            <!-- TARJETA PROPIEDAD 1: FINCA 1000 HECTÁREAS -->
+            <div class="bg-tarjetaGris rounded-xl overflow-hidden borde-dorado resplandor-dorado flex flex-col">
+                <div class="relative h-64">
+                    <!-- Placeholder de imagen -->
+                    <div class="absolute inset-0 bg-gray-800 flex items-center justify-center">
+                        <i class="fas fa-tree text-4xl text-gray-600"></i>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-dorado text-xs px-2 py-1 rounded">[Imagen de Finca Llanera]</span>
+                    </div>
+                    <div class="absolute top-4 left-4 bg-dorado text-black font-bold px-3 py-1 rounded text-xs uppercase tracking-wider">
+                        Verificado
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/80 backdrop-blur text-white px-3 py-1 rounded text-xs border border-gray-700">
+                        <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-grow">
+                    <h4 class="text-2xl font-bold text-white mb-2">Finca Matriz de Expansión</h4>
+                    <p class="text-gray-400 text-sm mb-4 line-clamp-2">Extensión territorial premium de 1000 hectáreas estructurada para proyectos de alto rendimiento agrícola, ganadero y desarrollo sostenible.</p>
+                    
+                    <div class="bg-black rounded-lg p-4 mb-4 border border-gray-800">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-400">Valor Total Estimado</span>
+                            <span class="text-dorado font-bold">Por Definir (Esperando datos)</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Valor por Token (Fracción)</span>
+                            <span class="text-white font-bold">-- USD</span>
+                        </div>
+                    </div>
+
+                    <!-- Progreso de Tokenización -->
+                    <div class="mb-6">
+                        <div class="flex justify-between text-xs text-gray-400 mb-2">
+                            <span>Progreso de Tokenización</span>
+                            <span class="text-dorado">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-800 rounded-full h-2">
+                            <div class="barra-progreso h-2 rounded-full" style="width: 5%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-6 pb-6">
+                    <button class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-bold py-3 rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider flex justify-center items-center gap-2">
+                        <i class="fas fa-layer-group"></i> Invertir en Fracciones
+                    </button>
+                </div>
+            </div>
+
+            <!-- TARJETA PROPIEDAD 2: CASA PREMIUM (Esperando tus datos) -->
+            <div class="bg-tarjetaGris rounded-xl overflow-hidden borde-dorado resplandor-dorado flex flex-col">
+                <div class="relative h-64">
+                    <!-- Placeholder de imagen -->
+                    <div class="absolute inset-0 bg-gray-800 flex items-center justify-center">
+                        <i class="fas fa-home text-4xl text-gray-600"></i>
+                        <span class="absolute bottom-2 right-2 bg-black/70 text-dorado text-xs px-2 py-1 rounded">[Imagen de Casa Premium]</span>
+                    </div>
+                    <div class="absolute top-4 left-4 bg-dorado text-black font-bold px-3 py-1 rounded text-xs uppercase tracking-wider">
+                        Nuevo Ingreso
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/80 backdrop-blur text-white px-3 py-1 rounded text-xs border border-gray-700">
+                        <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-grow">
+                    <h4 class="text-2xl font-bold text-white mb-2" id="titulo-casa">Casa Residencial Premium</h4>
+                    <p class="text-gray-400 text-sm mb-4" id="desc-casa">Esperando la descripción detallada de la propiedad...</p>
+                    
+                    <div class="bg-black rounded-lg p-4 mb-4 border border-gray-800">
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-400">Valor Total</span>
+                            <span class="text-dorado font-bold" id="precio-casa">$300,000,000 COP</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">Disponibilidad de Compra</span>
+                            <span class="text-white font-bold">100% Inmediata</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-6 pb-6">
+                    <button class="w-full bg-transparent border-2 border-dorado text-dorado font-bold py-3 rounded-lg hover:bg-dorado hover:text-black transition-all uppercase tracking-wider flex justify-center items-center gap-2">
+                        <i class="fas fa-file-contract"></i> Adquirir Contrato Total
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 py-8 mt-12 bg-black">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 text-sm uppercase tracking-widest mb-2">
+                REESTRUCTURACIÓN ECONÓMICA GLOBAL | RIQUEZA | ABUNDANCIA
+            </p>
+            <p class="text-dorado text-sm font-bold tracking-[0.2em]">
+                PARNASÁ • SHEFÁ • VERAJÁ • JOJMÁ • EMUNÁ
+            </p>
+            <p class="text-gray-600 text-xs mt-4">
+                Sistema blindado mediante Contratos Inteligentes. Shefá Plus Global Real Estate.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
+
+```
