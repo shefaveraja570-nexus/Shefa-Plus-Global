@@ -375,6 +375,47 @@
                 }
             });
         });
+
+// --- MOTOR DEL GATEKEEPER DE INVERSIÓN ---
+async function gatekeeperInversion() {
+    // Usamos firebase.auth() y firebase.firestore() directamente
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const user = auth.currentUser;
+
+    if (!user) {
+        console.warn("Acceso denegado: Usuario no autenticado.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+        const docRef = db.collection("inversores").doc(user.uid);
+        const docSnap = await docRef.get();
+
+        if (docSnap.exists) {
+            const data = docSnap.data();
+
+            // Aquí validamos tus campos: role y status
+            if (data.role === "investor" && data.status === "verified") {
+                console.log("Acceso concedido. Abriendo Dashboard...");
+                window.location.href = "dashboard-inversion.html";
+            } else if (data.status === "pending") {
+                alert("Tu solicitud de acceso está en revisión. El ecosistema Shefá Plus Global está preparando tu entrada.");
+            } else {
+                alert("Tu perfil requiere autorización. Contacta a soporte.");
+            }
+        } else {
+            console.error("El usuario no tiene un perfil en la colección 'inversores'.");
+            alert("Completa tu registro de inversor para acceder.");
+        }
+
+    } catch (error) {
+        console.error("Error al validar acceso:", error);
+    }
+        }
+        
+          
     </script>
     
 </body>
