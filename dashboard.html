@@ -356,26 +356,52 @@ body {
     const auth = getAuth(app);
     const firestore = getFirestore(app);
 
-    // PORTERO CON FIX DEL "CARGANDO"
-    onAuthStateChanged(auth, async (user) => {
-        if (!user) { window.location.href = "acceso_inversores.html"; }
-        else {
-            document.getElementById('user-info').innerText = `Inversor: ${user.email}`;
-            try {
-                const docSnap = await getDoc(doc(firestore, "inversores", user.uid));
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
+    // =======================================================
+// 🚪 PORTERO CORREGIDO: FIN DEL "VERIFICANDO/CARGANDO"
+// =======================================================
+onAuthStateChanged(auth, async (user) => {
+    // Elemento que muestra el estado de carga (asegúrate de que el ID coincida con tu HTML)
+    const loader = document.getElementById('loader') || document.getElementById('cargando') || document.getElementById('verificando');
+
+    if (!user) { 
+        window.location.href = "acceso.html"; // Redirección si no hay sesión
+    } else {
+        try {
+            // 1. Obtener el documento del usuario en Firestore
+            const docRef = doc(firestore, "usuarios", user.uid);
+            const docSnap = await getDoc(docRef);
+            
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                
+                // 2. Inyectar datos reales en la interfaz
+                if(document.getElementById('displayNombre')) {
                     document.getElementById('displayNombre').innerText = data.nombre || "Inversionista VIP";
-                    document.getElementById('displaySaldo').innerText = data.saldo || "0.00";
-                } else {
+                }
+                if(document.getElementById('displaySaldo')) {
+                    document.getElementById('displaySaldo').innerText = `$${parseFloat(data.saldoVeraja || 0).toFixed(2)}`;
+                }
+            } else {
+                console.log("El documento del usuario no existe en Firestore.");
+                if(document.getElementById('displayNombre')) {
                     document.getElementById('displayNombre').innerText = "Inversionista VIP";
                 }
-            } catch (error) {
-                document.getElementById('displayNombre').innerText = "Inversionista VIP";
-                document.getElementById('displaySaldo').innerText = "0.00";
             }
+        } catch (error) {
+            console.error("Error al revivir datos de la base:", error);
+            if(document.getElementById('displayNombre')) {
+                document.getElementById('displayNombre').innerText = "Error de Red";
+            }
+        } finally {
+            // 3. SELLO FINAL: Ocultar el estado de "Verificando..." pase lo que pase
+            if (loader) {
+                loader.style.display = 'none'; 
+            }
+            // Si usas clases de CSS para ocultarlo, puedes usar: loader.classList.add('oculto');
         }
-    });
+    }
+});
+        
 
     // LÓGICA DE API
     window.apyLogisticaDinamico = 0.15; window.apyVerdeDinamico = 0.08; window.apyTulumDinamico = 0.12;
@@ -442,47 +468,89 @@ body {
     }; // <-- Cierre correcto de la función calcularFeeRemesa
 
     // =======================================================
-    // 🔥 IGNICIÓN DEL MOTOR VERAJÁ DESDE EL DASHBOARD
-    // =======================================================
-    const btnLiberar = document.getElementById('btnLiberarVeraja');
+// 🔥 IGNICIÓN REAL DEL MOTOR VERAJÁ CON FIREBASE
+// =======================================================
+const btnLiberar = document.getElementById('btnLiberarVeraja');
 
-    if (btnLiberar) {
-        btnLiberar.addEventListener('click', async () => {
-            // 1. Efecto visual de carga magnética
-            btnLiberar.innerText = "⏳ CANALIZANDO ENERGÍA...";
-            btnLiberar.style.boxShadow = "0 0 34px rgba(212, 175, 55, 0.8)";
-            btnLiberar.style.transform = "scale(0.98)";
+if (btnLiberar) {
+    btnLiberar.addEventListener('click', async () => {
+        // 1. Efecto visual magnético inicial
+        btnLiberar.innerText = "⏳ CANALIZANDO ENERGÍA REAL...";
+        btnLiberar.style.boxShadow = "0 0 34px rgba(212, 175, 55, 0.8)";
+        btnLiberar.style.transform = "scale(0.98)";
 
-            // 2. Simulación de la comunidad y la bóveda para la prueba
-            const comunidadSimulada = [
-                { id: "Inversor_Alpha", tokensPoseidos: 150, tokensTotalesBoveda: 1000, nivelFrecuencia: 'ORO', mesesRetencion: 14 },
-                { id: "Inversor_Beta", tokensPoseidos: 50, tokensTotalesBoveda: 1000, nivelFrecuencia: 'BRONCE', mesesRetencion: 5 }
-            ];
-            const rendimientoTotal = 5000; // USD generados en el ciclo
+        console.log("🧿 Comando de expansión recibido: Leyendo la red de inversores...");
+        
+        try {
+            const { collection, getDocs, updateDoc, doc } = await import("https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js");
 
-            console.log("🧿 Comando recibido: Iniciando ciclo de abundancia global...");
+            // 2. Extraer la comunidad desde Firestore
+            const usuariosRef = collection(firestore, "usuarios");
+            const querySnapshot = await getDocs(usuariosRef);
             
-            // 3. Ejecución del Módulo Supremo
-            try {
-                await distribuirVeraja(comunidadSimulada, rendimientoTotal);
-                
-                // 4. Restauración del botón tras la manifestación de éxito
-                btnLiberar.innerText = "✅ VERAJÁ LIBERADA";
-                btnLiberar.style.transform = "scale(1)";
-                btnLiberar.style.boxShadow = "0 0 55px rgba(16, 185, 129, 0.6)"; // Destello Verde Verajá
-                
-            } catch (error) {
-                console.error("Interferencia en la manifestación:", error);
-                btnLiberar.innerText = "⚠️ RECALIBRAR RED";
+            let comunidadReal = [];
+            
+            querySnapshot.forEach((documento) => {
+                const userData = documento.data();
+                comunidadReal.push({
+                    id: documento.id, 
+                    tokensPoseidos: parseFloat(userData.tokensPoseidos || 0),
+                    tokensTotalesBoveda: parseFloat(userData.tokensTotalesBoveda || 1000),
+                    nivelFrecuencia: userData.nivelFrecuencia || 'BRONCE',
+                    mesesRetencion: parseInt(userData.mesesRetencion || 1)
+                });
+            });
+
+            if (comunidadReal.length === 0) {
+                throw new Error("La red de inversores está vacía en este momento.");
             }
 
-            // 5. Retorno al estado original tras 3 segundos
-            setTimeout(() => {
-                btnLiberar.innerText = "✨ LIBERAR VERAJÁ ✨";
-                btnLiberar.style.boxShadow = "0 0 15px rgba(212, 175, 55, 0.2)";
-            }, 3000);
-        });
+            const rendimientoTotal = 5000; 
+
+            // 3. Ejecutar la distribución matemática (Asegúrate de que distribuirVeraja esté importado arriba)
+            const distribucion = await distribuirVeraja(comunidadReal, rendimientoTotal);
+            
+            console.log("💾 Sellando la bendición de Verajá en la base de datos...");
+            
+            // 4. Inyectar los saldos calculados en cada documento de usuario en Firebase
+            for (const usuario of comunidadReal) {
+                const userDocRef = doc(firestore, "usuarios", usuario.id);
+                
+                await updateDoc(userDocRef, {
+                    // Aquí usamos el valor que tu función matemática le asignó a este usuario
+                    saldoVeraja: firebase.firestore.FieldValue.increment(usuario.porcionVeraja || 10), // Ejemplo: incrementa el saldo
+                    ultimoCiclo: new Date().toISOString()
+                });
+            }
+
+            // 5. Sello visual de éxito en la interfaz
+            btnLiberar.innerText = "✅ VERAJÁ MATERIALIZADA";
+            btnLiberar.style.transform = "scale(1)";
+            btnLiberar.style.boxShadow = "0 0 55px rgba(16, 185, 129, 0.6)"; 
+            
+            // 6. Actualizar pantalla del usuario actual en tiempo real
+            if(auth.currentUser) {
+                const miDoc = await getDoc(doc(firestore, "usuarios", auth.currentUser.uid));
+                if(miDoc.exists() && document.getElementById('displaySaldo')) {
+                    document.getElementById('displaySaldo').innerText = `$${parseFloat(miDoc.data().saldoVeraja || 0).toFixed(2)}`;
+                }
+            }
+
+        } catch (error) {
+            console.error("Interferencia detectada en la Matrix:", error);
+            btnLiberar.innerText = "⚠️ RECALIBRAR FRECUENCIA";
+            btnLiberar.style.boxShadow = "0 0 34px rgba(239, 68, 68, 0.6)"; 
+        }
+
+        // 7. Retorno al estado de reposo Áureo
+        setTimeout(() => {
+            btnLiberar.innerText = "✨ LIBERAR VERAJÁ ✨";
+            btnLiberar.style.boxShadow = "0 0 15px rgba(212, 175, 55, 0.2)";
+        }, 4000);
+    });
     }
+    
+    
 </script>
 </body>
 </html>
