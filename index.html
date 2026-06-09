@@ -104,6 +104,155 @@
             align-items: center;
             width: 100%;
         }
+
+        /* ======================================================= */
+/* 🎨 NEURO-DISEÑO DEL PERGAMINO MÁGICO */
+/* ======================================================= */
+
+/* Fondo oscuro translúcido que cubre toda la pantalla */
+.pergamino-aureo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 8, 8, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    display: none; /* Cambiado a none por defecto para que lo controle tu JavaScript */
+    justify-content: center;
+    align-items: center;
+    padding: 21px;
+}
+
+/* Forzar despliegue cuando JavaScript añade la clase activo */
+.pergamino-aureo.activo {
+    display: flex !important;
+}
+
+/* La caja sagrada */
+.pergamino-contenido {
+    background: linear-gradient(145deg, #111111, #1a1a1a);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 13px;
+    box-shadow: 0 0 55px rgba(0, 0, 0, 0.9), inset 0 0 21px rgba(212, 175, 55, 0.05);
+    width: 100%;
+    max-width: 600px;
+    padding: 34px 21px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Título y Línea de frecuencia */
+.titulo-sagrado {
+    color: #D4AF37; 
+    text-align: center;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 13px rgba(212, 175, 55, 0.4);
+}
+
+.linea-frecuencia {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    width: 80%;
+    margin: 0 auto 34px auto;
+}
+
+/* Tarjetas de los 3 Pilares */
+.contenedor-pilares {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.pilar {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid #D4AF37;
+    border-radius: 0 8px 8px 0;
+    padding: 13px 21px;
+    transition: all 0.3s ease;
+}
+
+.pilar:hover {
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateX(5px);
+}
+
+/* Colores específicos para la energía de cada pilar al pasar el dedo/mouse */
+.pilar.shefa:hover { border-left-color: #3B82F6; box-shadow: inset 21px 0 34px rgba(59, 130, 246, 0.05); } 
+.pilar.parnasa:hover { border-left-color: #D4AF37; box-shadow: inset 21px 0 34px rgba(212, 175, 55, 0.05); } 
+.pilar.veraja:hover { border-left-color: #10B981; box-shadow: inset 21px 0 34px rgba(16, 185, 129, 0.05); } 
+
+/* Tipografía de los pilares */
+.pilar-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 8px;
+}
+
+.icono-pilar {
+    font-size: 1.2rem;
+}
+
+.pilar h3 {
+    color: #F3F4F6;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.pilar .subtitulo {
+    color: #9CA3AF;
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+.pilar p {
+    color: #D1D5DB;
+    font-size: 0.95rem;
+    line-height: 1.618; 
+    text-align: justify;
+    margin: 0;
+}
+
+/* Botón de cierre */
+.btn-cerrar-pergamino {
+    position: absolute;
+    top: 13px;
+    right: 13px;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #D4AF37;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-cerrar-pergamino:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 13px rgba(212, 175, 55, 0.4);
+}
+
+/* Sello final */
+.sello-final {
+    text-align: center;
+    margin-top: 34px;
+}
+
+.ojo-matrix {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+    }
+        
     </style>
 </head>
 <body>
@@ -151,23 +300,45 @@
             <button id="btnOrigen" class="btn-leyenda">EL ORIGEN</button>
         </div>
 
-        <!-- El Pergamino Digital (Modal Oculto) -->
-        <div id="pergaminoModal" class="modal-oculto">
-            <div class="pergamino-contenido">
-                <button id="btnCerrarLeyenda" class="btn-cerrar">✕</button>
-                <h2 class="titulo-pergamino">EL ORIGEN DEL CÓDIGO</h2>
-                
-                <div class="texto-pergamino">
-                    <p><span class="destello-azul">SHEFÁ | La Abundancia Originaria:</span> En nuestro ecosistema, representa la liquidez perfecta. Al tokenizar activos físicos, liberamos la energía financiera estancada, permitiendo que la riqueza fluya sin fricción y sin fronteras hacia cada inversor.</p>
-                    
-                    <p><span class="destello-dorado">PARNASÁ | El Sustento Protegido:</span> Es la infraestructura inquebrantable de la Matrix. Cada criptofracción está anclada matemática y legalmente a un valor real, garantizando que el fruto de tu capital esté blindado contra cualquier anomalía.</p>
-                    
-                    <p><span class="destello-verde">VERAJÁ | La Multiplicación Sagrada:</span> El algoritmo supremo del crecimiento. No solo preservamos el valor, lo programamos para expandirse a través del interés y la escalabilidad. Es la bendición codificada que recompensa la visión a largo plazo.</p>
+        <div id="pergaminoModal" class="pergamino-aureo" style="display: none;">
+    <div class="pergamino-contenido">
+        <button id="btnCerrarLeyenda" class="btn-cerrar-pergamino" onclick="document.getElementById('pergaminoModal').style.display='none'; document.getElementById('pergaminoModal').classList.remove('activo');">✕</button>
+        
+        <h2 class="titulo-sagrado">EL ORIGEN DEL CÓDIGO</h2>
+        <div class="linea-frecuencia"></div>
+        
+        <div class="contenedor-pilares">
+            <div class="pilar shefa">
+                <div class="pilar-cabecera">
+                    <span class="icono-pilar">🌊</span>
+                    <h3>SHEFÁ <span class="subtitulo">| La Abundancia Originaria</span></h3>
                 </div>
-                
-                <div class="sello-dorado">🧿</div>
+                <p>En nuestro ecosistema, representa la liquidez perfecta. Al tokenizar activos físicos, liberamos la energía financiera estancada, permitiendo que la riqueza fluya sin fricción y sin fronteras hacia cada inversor.</p>
+            </div>
+
+            <div class="pilar parnasa">
+                <div class="pilar-cabecera">
+                    <span class="icono-pilar">🛡️</span>
+                    <h3>PARNASÁ <span class="subtitulo">| El Sustento Protegido</span></h3>
+                </div>
+                <p>Es la infraestructura inquebrantable de la Matrix. Cada criptofracción está anclada matemática y legalmente a un valor real, garantizando que el fruto de tu capital esté blindado contra cualquier anomalía.</p>
+            </div>
+
+            <div class="pilar veraja">
+                <div class="pilar-cabecera">
+                    <span class="icono-pilar">✨</span>
+                    <h3>VERAJÁ <span class="subtitulo">| La Multiplicación Sagrada</span></h3>
+                </div>
+                <p>El algoritmo supremo del crecimiento. No solo preservamos el valor, lo programamos para expandirse a través del interés y la escalabilidad. Es la bendición codificada que recompensa la visión a largo plazo.</p>
             </div>
         </div>
+        
+        <div class="sello-final">
+            <span class="ojo-matrix">🧿</span>
+        </div>
+    </div>
+        </div>
+        
         
     </main>
 
