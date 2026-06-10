@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -533,4 +532,94 @@
         },
 
         goToCalculator() {
-            this.switch
+            this.switchView(this.nodes.viewBen, this.nodes.viewCalc);
+        },
+
+        // Sistema de Notificaciones Premium (Chao alerts feos)
+        showToast(msg, isError = false) {
+            this.nodes.toast.textContent = msg;
+            this.nodes.toast.style.background = isError ? 'var(--error-red)' : 'var(--emerald-success)';
+            this.nodes.toast.classList.add('show');
+            setTimeout(() => this.nodes.toast.classList.remove('show'), 3000);
+        },
+
+        // EL CORAZÓN DE LA EXPERIENCIA: El Despacho Cuántico
+        initiateQuantumDispatch() {
+            const name = document.getElementById('ben-name').value;
+            if(!name) return this.showToast("Ingresa el nombre del familiar", true);
+
+            this.switchView(this.nodes.viewBen, this.nodes.viewTracker);
+            this.simulateQuantumNetwork();
+        },
+
+        simulateQuantumNetwork() {
+            // Fase 1: Encriptación visual (Efecto Matrix/Hacker para seguridad)
+            let lines = [
+                "Estableciendo conexión P2P Segura...",
+                "Bypass de nodos intermediarios exitoso...",
+                "Firmando contrato inteligente...",
+                "Liquidez confirmada en bóveda destino."
+            ];
+            let i = 0;
+            let streamInterval = setInterval(() => {
+                if(i < lines.length) {
+                    this.nodes.codeStream.innerHTML += `<br>> ${lines[i]}`;
+                    i++;
+                } else {
+                    clearInterval(streamInterval);
+                    this.startTimeline(); // Pasar al mapa de rastreo
+                }
+            }, 800);
+        },
+
+        startTimeline() {
+            // Ocultar encriptación, mostrar línea de tiempo
+            this.nodes.encLayer.style.display = 'none';
+            this.nodes.timeLayer.style.display = 'block';
+            
+            // Generar ID único imponente
+            const txId = "NX-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+            this.nodes.txDisplay.textContent = txId;
+
+            // Simular el avance del dinero (Pipeline Asíncrono)
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const step3 = document.getElementById('step-3');
+
+            setTimeout(() => {
+                step1.classList.remove('active');
+                step1.classList.add('done');
+                step2.classList.add('active');
+                this.showToast("Fondos Internacionales Asegurados");
+            }, 2000);
+
+            setTimeout(() => {
+                step2.classList.remove('active');
+                step2.classList.add('done');
+                step3.classList.add('active');
+                this.showToast("Conversión de Divisas Exitosa");
+            }, 5000);
+
+            setTimeout(() => {
+                step3.classList.remove('active');
+                step3.classList.add('done');
+                this.showToast("🎉 ¡Verajá Materializada! Dinero Entregado.");
+                
+                // Efecto de celebración final en el fondo
+                document.querySelector('.nexus-container').style.boxShadow = "0 0 50px rgba(16, 185, 129, 0.4)";
+                document.querySelector('.nexus-container').style.borderColor = "var(--emerald-success)";
+            }, 8000);
+        },
+
+        resetSystem() {
+            window.location.reload(); // Reinicio limpio y absoluto
+        }
+    };
+
+    // Encendido del Motor Áureo
+    window.onload = () => NexusEngine.init();
+</script>
+</body>
+</html>
+
+```
