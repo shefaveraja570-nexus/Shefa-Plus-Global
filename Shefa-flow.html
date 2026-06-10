@@ -12,6 +12,7 @@
             --soft-gray: #F4F6F9;
             --text-dark: #1A202C;
             --success-green: #2ECC71;
+            --muted-gray: #A0AEC0;
         }
 
         * {
@@ -25,20 +26,28 @@
             background-color: var(--soft-gray);
             color: var(--text-dark);
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 34px 20px;
+        }
+
+        .container-flow {
+            width: 100%;
+            max-width: 466px; /* Medida basada en la Proporción Áurea */
+            display: flex;
+            flex-direction: column;
+            gap: 21px; /* Espaciado Fibonacci */
         }
 
         .remittance-card {
             background: var(--clean-white);
-            width: 100%;
-            max-width: 466px; /* Proporción áurea respecto a layouts estándar */
             border-radius: 21px;
             box-shadow: 0 13px 34px rgba(15, 30, 54, 0.08);
             padding: 34px;
             border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .brand-header {
@@ -59,6 +68,7 @@
             font-weight: 600;
             text-transform: uppercase;
             margin-top: 5px;
+            letter-spacing: 1px;
         }
 
         .input-group {
@@ -74,6 +84,7 @@
         .input-group:focus-within {
             border-color: var(--primary-gold);
             background: var(--clean-white);
+            box-shadow: 0 0 0 3px rgba(214, 175, 55, 0.15);
         }
 
         .input-group label {
@@ -83,6 +94,7 @@
             text-transform: uppercase;
             margin-bottom: 4px;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .input-row {
@@ -104,19 +116,21 @@
         .currency-select {
             background: var(--clean-white);
             border: 1px solid #CBD5E0;
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 8px;
             font-weight: 600;
             color: var(--deep-sapphire);
             outline: none;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .breakdown-container {
-            padding: 8px 13px;
+            padding: 13px;
             margin-bottom: 21px;
             border-left: 3px solid var(--primary-gold);
             background: rgba(214, 175, 85, 0.04);
+            border-radius: 0 13px 13px 0;
         }
 
         .breakdown-item {
@@ -130,6 +144,9 @@
         .breakdown-item.highlight {
             font-weight: 700;
             color: var(--deep-sapphire);
+            border-top: 1px dashed #E2E8F0;
+            padding-top: 8px;
+            margin-top: 8px;
         }
 
         .action-button {
@@ -142,70 +159,195 @@
             font-size: 16px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 5px 15px rgba(15, 30, 54, 0.2);
         }
 
         .action-button:hover {
-            background: #15294A;
+            background: #1A3156;
             transform: translateY(-1px);
+            box-shadow: 0 8px 21px rgba(15, 30, 54, 0.3);
         }
 
-        .action-button:active {
-            transform: translateY(1px);
+        /* ==================================================================== */
+        /* COMPONENTE: RASTREADOR DE BENDICIÓN (VERAJÁ VISUAL)                 */
+        /* ==================================================================== */
+        .tracker-card {
+            background: var(--clean-white);
+            border-radius: 21px;
+            box-shadow: 0 13px 34px rgba(15, 30, 54, 0.05);
+            padding: 21px 34px;
+            border: 1px solid #E2E8F0;
+            display: none; /* Se activa dinámicamente al enviar */
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .tracker-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--deep-sapphire);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 21px;
+            text-align: center;
+            border-bottom: 1px solid var(--soft-gray);
+            padding-bottom: 8px;
+        }
+
+        .tracker-timeline {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding-left: 34px;
+        }
+
+        .tracker-timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: #E2E8F0;
+            transition: all 0.5s ease;
+        }
+
+        .tracker-step {
+            position: relative;
+            margin-bottom: 21px;
+            opacity: 0.4;
+            transition: all 0.5s ease;
+        }
+
+        .tracker-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .tracker-node {
+            position: absolute;
+            left: -34px;
+            top: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--clean-white);
+            border: 2px solid var(--muted-gray);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+
+        .tracker-step.active {
+            opacity: 1;
+        }
+
+        .tracker-step.active .tracker-node {
+            border-color: var(--primary-gold);
+            background: var(--primary-gold);
+            box-shadow: 0 0 0 5px rgba(214, 175, 55, 0.25);
+        }
+
+        .tracker-step.completed .tracker-node {
+            border-color: var(--success-green);
+            background: var(--success-green);
+            box-shadow: 0 0 0 5px rgba(46, 204, 113, 0.2);
+        }
+
+        .step-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--deep-sapphire);
+            display: block;
+        }
+
+        .step-desc {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 2px;
+            display: block;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-<div class="remittance-card">
-    <div class="brand-header">
-        <h1>Shefa Plus Global</h1>
-        <p>Remesas e Interconectividad Financiera</p>
+<div class="container-flow">
+    
+    <div class="remittance-card" id="main-card">
+        <div class="brand-header">
+            <h1>Shefa Plus Global</h1>
+            <p>Remesas e Interconectividad Financiera</p>
+        </div>
+
+        <div class="input-group">
+            <label for="send-amount">Tú Envías (Sustento)</label>
+            <div class="input-row">
+                <input type="number" id="send-amount" value="1000" min="1" step="any">
+                <select id="send-currency" class="currency-select">
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="breakdown-container">
+            <div class="breakdown-item">
+                <span>Tasa de Cambio Global:</span>
+                <span id="exchange-rate">1 USD = 0.92 EUR</span>
+            </div>
+            <div class="breakdown-item">
+                <span>Tarifa Shefá (Sustentabilidad):</span>
+                <span id="shefa-fee">$5.00 USD</span>
+            </div>
+            <div class="breakdown-item highlight">
+                <span>Total Líquido a Fluir:</span>
+                <span id="total-to-convert">$995.00 USD</span>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label for="receive-amount">Ellos Reciben (Bendición)</label>
+            <div class="input-row">
+                <input type="number" id="receive-amount" readonly>
+                <select id="receive-currency" class="currency-select">
+                    <option value="EUR">EUR (€)</option>
+                    <option value="COP">COP ($)</option>
+                    <option value="MXN">MXN ($)</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="action-button" id="initiate-transfer">Iniciar Envío Inmediato</button>
     </div>
 
-    <!-- Panel de Envío -->
-    <div class="input-group">
-        <label for="send-amount">Tú Envías</label>
-        <div class="input-row">
-            <input type="number" id="send-amount" value="1000" min="1" step="any">
-            <select id="send-currency" class="currency-select">
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-            </select>
+    <div class="tracker-card" id="tracker-box">
+        <div class="tracker-title">Rastreador de Flujo en Tiempo Real</div>
+        <div class="tracker-timeline">
+            
+            <div class="tracker-step" id="step-initiated">
+                <div class="tracker-node"></div>
+                <span class="step-label">1. Dinero Convertido</span>
+                <span class="step-desc">Abundancia integrada al canal digital con éxito.</span>
+            </div>
+            
+            <div class="tracker-step" id="step-cleared">
+                <div class="tracker-node"></div>
+                <span class="step-label">2. Liquidez Asegurada</span>
+                <span class="step-desc">Sustento (Parnasá) reservado en la red de destino.</span>
+            </div>
+            
+            <div class="tracker-step" id="step-delivered">
+                <div class="tracker-node"></div>
+                <span class="step-label">3. Entregado a la Familia</span>
+                <span class="step-desc">Bendición (Verajá) materializada instantáneamente.</span>
+            </div>
+            
         </div>
     </div>
 
-    <!-- Desglose de Operación -->
-    <div class="breakdown-container">
-        <div class="breakdown-item">
-            <span>Tasa de Cambio:</span>
-            <span id="exchange-rate">1 USD = 0.92 EUR</span>
-        </div>
-        <div class="breakdown-item">
-            <span>Tarifa Shefá (Operación Justa):</span>
-            <span id="shefa-fee">$0.00 USD</span>
-        </div>
-        <div class="breakdown-item highlight">
-            <span>Total a Convertir:</span>
-            <span id="total-to-convert">$1000.00 USD</span>
-        </div>
-    </div>
-
-    <!-- Panel de Recepción -->
-    <div class="input-group">
-        <label for="receive-amount">Ellos Reciben</label>
-        <div class="input-row">
-            <input type="number" id="receive-amount" readonly>
-            <select id="receive-currency" class="currency-select">
-                <option value="EUR">EUR (€)</option>
-                <option value="COP">COP ($)</option>
-                <option value="MXN">MXN ($)</option>
-            </select>
-        </div>
-    </div>
-
-    <button class="action-button" id="initiate-transfer">Iniciar Envío Inmediato</button>
 </div>
 
 <script>
@@ -215,7 +357,7 @@
         EUR: { USD: 1.09, COP: 4350, MXN: 19.00, EUR: 1 }
     };
 
-    const SHEFA_FEE_PERCENTAGE = 0.005; // 0.5% - Una tarifa baja y transparente orientada a la Parnasá
+    const SHEFA_FEE_PERCENTAGE = 0.005; // 0.5% Orientado a la Parnasá justa
 
     // Captura de nodos del DOM (Elementos Visuales)
     const sendAmountInput = document.getElementById('send-amount');
@@ -226,6 +368,12 @@
     const shefaFeeLabel = document.getElementById('shefa-fee');
     const totalToConvertLabel = document.getElementById('total-to-convert');
     const transferButton = document.getElementById('initiate-transfer');
+    
+    // Nodos del Rastreador
+    const trackerBox = document.getElementById('tracker-box');
+    const stepInitiated = document.getElementById('step-initiated');
+    const stepCleared = document.getElementById('step-cleared');
+    const stepDelivered = document.getElementById('step-delivered');
 
     /**
      * Función interactiva de cálculo en tiempo real para la experiencia de usuario (UX)
@@ -235,7 +383,6 @@
         const fromCurrency = sendCurrencySelect.value;
         const toCurrency = receiveCurrencySelect.value;
 
-        // Validar si las monedas de origen y destino son iguales
         if (fromCurrency === toCurrency) {
             exchangeRateLabel.textContent = `1 ${fromCurrency} = 1.00 ${toCurrency}`;
             const fee = sendAmount * SHEFA_FEE_PERCENTAGE;
@@ -247,25 +394,21 @@
             return;
         }
 
-        // Obtener tasa de cambio establecida
         const rate = exchangeRates[fromCurrency][toCurrency] || 1;
         exchangeRateLabel.textContent = `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
 
-        // Cálculo de tarifas transparentes
         const fee = sendAmount * SHEFA_FEE_PERCENTAGE;
         const netAmount = sendAmount - fee;
         const finalReceived = netAmount * rate;
 
-        // Renderizado de valores en la interfaz
         shefaFeeLabel.textContent = `${fee.toFixed(2)} ${fromCurrency}`;
         totalToConvertLabel.textContent = `${netAmount.toFixed(2)} ${fromCurrency}`;
         receiveAmountInput.value = finalReceived.toFixed(2);
     }
 
-    // Escuchadores de eventos para actualizar el cálculo de forma reactiva al escribir o cambiar monedas
+    // Escuchadores de eventos reactivos
     sendAmountInput.addEventListener('input', calculateRemittance);
     sendCurrencySelect.addEventListener('change', () => {
-        // Evitar duplicaciones simples de origen/destino de forma limpia
         if(sendCurrencySelect.value === 'EUR') {
             receiveCurrencySelect.value = 'USD';
         } else {
@@ -275,18 +418,15 @@
     });
     receiveCurrencySelect.addEventListener('change', calculateRemittance);
 
-
     // ====================================================================
-    // 🚀 INTEGRACIÓN DEL NUEVO MOTOR CORE (EL CÓDIGO QUE ME ACABAS DE MOSTRAR)
+    // 🚀 DESPACHO CORE CON INTERCONEXIÓN AL RASTREADOR VISUAL
     // ====================================================================
     
-    // 1. Escuchador avanzado del botón para despachar el flujo financiero al Backend
     transferButton.addEventListener('click', async () => {
         const amount = sendAmountInput.value;
         const fromCurr = sendCurrencySelect.value;
         const toCurr = receiveCurrencySelect.value;
 
-        // Calcular la información final bajo el motor exacto y seguro de shefa-core.js
         const metricsResult = calculateShefaRemittanceData(amount, fromCurr, toCurr);
         
         if(metricsResult.error) {
@@ -294,41 +434,65 @@
             return;
         }
 
-        // Datos del receptor (Esto se capturará dinámicamente desde un formulario más adelante)
+        // Simulación de datos dinámicos del formulario
         const receiverSample = {
-            fullName: "Familiar Destinatario Ejemplo",
+            fullName: "Familia Destinataria",
             phoneNumber: "+573001234567",
             idNumber: "1098765432"
         };
         
         const senderSample = { name: "Magnético", uid: "shefa_owner_01" };
 
-        // Despachar el flujo al backend reactivo en la nube o entorno simulado
+        // Mostrar la tarjeta del rastreador visual inmediatamente
+        trackerBox.style.display = 'block';
+        resetTrackerVisuals();
+
+        // Despachar el flujo al motor central shefa-core.js
         const process = await dispatchShefaRemittance(senderSample, receiverSample, metricsResult.metrics);
         
-        if(process.success) {
-            alert(`¡Operación procesada! ID de Envío: ${process.transactionId}\nEstado inicial: ${process.data.status.current}`);
+        if(!process.success) {
+            alert(`Error en el canal de datos: ${process.error}`);
         }
     });
 
-    // 2. Escuchar cambios de estado en tiempo real que vengan desde Firebase o el simulador reactivo
+    /**
+     * Resetea los estados visuales del rastreador antes de una nueva ejecución
+     */
+    function resetTrackerVisuals() {
+        stepInitiated.className = "tracker-step";
+        stepCleared.className = "tracker-step";
+        stepDelivered.className = "tracker-step";
+    }
+
+    /**
+     * 🪐 MANEJADOR DE EVENTOS REACTIVOS EN TIEMPO REAL
+     * Escucha las transmisiones de estado emitidas desde shefa-core.js
+     */
     window.addEventListener('shefaStatusUpdate', (e) => {
         const updatedTx = e.detail;
-        console.log("La UI se ha enterado del cambio de estado del flujo:", updatedTx.status.current);
+        const status = updatedTx.status.current;
+        console.log("[UX Flow] Actualizando línea de tiempo visual:", status);
         
-        // Notificación de éxito absoluto cuando la abundancia llega a su destino
-        if(updatedTx.status.current === "DELIVERED") {
-            alert(`🎉 ¡Éxito absoluto, amigazo! La remesa con ID ${updatedTx.id} ha sido entregada.\n¡Sustento depositado y bendición materializada con éxito!`);
+        if (status === "PENDING_VERIFICATION") {
+            stepInitiated.className = "tracker-step active";
+        } 
+        else if (status === "CLEARED") {
+            stepInitiated.className = "tracker-step completed";
+            stepCleared.className = "tracker-step active";
+        } 
+        else if (status === "DELIVERED") {
+            stepInitiated.className = "tracker-step completed";
+            stepCleared.className = "tracker-step completed";
+            stepDelivered.className = "tracker-step completed active";
         }
     });
 
-    // Ejecución del cálculo inicial automático al cargar la ventana
+    // Inicialización automática
     calculateRemittance();
 </script>
 
 <script src="shefa-core.js"></script>
-    
 
 </body>
-  </html>
-  
+    </html>
+    
