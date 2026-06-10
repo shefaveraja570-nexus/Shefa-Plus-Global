@@ -209,7 +209,7 @@
 </div>
 
 <script>
-    // Configuración y Matrices de Conversión del Sistema Shefa Flow
+    // Configuración y Matrices de Conversión locales para la UI
     const exchangeRates = {
         USD: { EUR: 0.92, COP: 4000, MXN: 17.50, USD: 1 },
         EUR: { USD: 1.09, COP: 4350, MXN: 19.00, EUR: 1 }
@@ -217,6 +217,7 @@
 
     const SHEFA_FEE_PERCENTAGE = 0.005; // 0.5% - Una tarifa baja y transparente orientada a la Parnasá
 
+    // Captura de nodos del DOM (Elementos Visuales)
     const sendAmountInput = document.getElementById('send-amount');
     const receiveAmountInput = document.getElementById('receive-amount');
     const sendCurrencySelect = document.getElementById('send-currency');
@@ -226,6 +227,9 @@
     const totalToConvertLabel = document.getElementById('total-to-convert');
     const transferButton = document.getElementById('initiate-transfer');
 
+    /**
+     * Función interactiva de cálculo en tiempo real para la experiencia de usuario (UX)
+     */
     function calculateRemittance() {
         const sendAmount = parseFloat(sendAmountInput.value) || 0;
         const fromCurrency = sendCurrencySelect.value;
@@ -258,7 +262,7 @@
         receiveAmountInput.value = finalReceived.toFixed(2);
     }
 
-    // Eventos para el cálculo interactivo en tiempo real
+    // Escuchadores de eventos para actualizar el cálculo de forma reactiva al escribir o cambiar monedas
     sendAmountInput.addEventListener('input', calculateRemittance);
     sendCurrencySelect.addEventListener('change', () => {
         // Evitar duplicaciones simples de origen/destino de forma limpia
@@ -271,16 +275,59 @@
     });
     receiveCurrencySelect.addEventListener('change', calculateRemittance);
 
-    // Inicialización del flujo
-    transferButton.addEventListener('click', () => {
-        const finalValue = receiveAmountInput.value;
-        const currency = receiveCurrencySelect.value;
-        alert(`Conectando con el motor de Shefa Plus Global. Destino garantizado: ${finalValue} ${currency}. ¡Bendición en camino!`);
+
+    // ====================================================================
+    // 🚀 INTEGRACIÓN DEL NUEVO MOTOR CORE (EL CÓDIGO QUE ME ACABAS DE MOSTRAR)
+    // ====================================================================
+    
+    // 1. Escuchador avanzado del botón para despachar el flujo financiero al Backend
+    transferButton.addEventListener('click', async () => {
+        const amount = sendAmountInput.value;
+        const fromCurr = sendCurrencySelect.value;
+        const toCurr = receiveCurrencySelect.value;
+
+        // Calcular la información final bajo el motor exacto y seguro de shefa-core.js
+        const metricsResult = calculateShefaRemittanceData(amount, fromCurr, toCurr);
+        
+        if(metricsResult.error) {
+            alert(metricsResult.message);
+            return;
+        }
+
+        // Datos del receptor (Esto se capturará dinámicamente desde un formulario más adelante)
+        const receiverSample = {
+            fullName: "Familiar Destinatario Ejemplo",
+            phoneNumber: "+573001234567",
+            idNumber: "1098765432"
+        };
+        
+        const senderSample = { name: "Magnético", uid: "shefa_owner_01" };
+
+        // Despachar el flujo al backend reactivo en la nube o entorno simulado
+        const process = await dispatchShefaRemittance(senderSample, receiverSample, metricsResult.metrics);
+        
+        if(process.success) {
+            alert(`¡Operación procesada! ID de Envío: ${process.transactionId}\nEstado inicial: ${process.data.status.current}`);
+        }
     });
 
-    // Ejecución inicial al cargar
+    // 2. Escuchar cambios de estado en tiempo real que vengan desde Firebase o el simulador reactivo
+    window.addEventListener('shefaStatusUpdate', (e) => {
+        const updatedTx = e.detail;
+        console.log("La UI se ha enterado del cambio de estado del flujo:", updatedTx.status.current);
+        
+        // Notificación de éxito absoluto cuando la abundancia llega a su destino
+        if(updatedTx.status.current === "DELIVERED") {
+            alert(`🎉 ¡Éxito absoluto, amigazo! La remesa con ID ${updatedTx.id} ha sido entregada.\n¡Sustento depositado y bendición materializada con éxito!`);
+        }
+    });
+
+    // Ejecución del cálculo inicial automático al cargar la ventana
     calculateRemittance();
 </script>
+
+<script src="shefa-core.js"></script>
+    
 
 </body>
   </html>
