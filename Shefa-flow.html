@@ -1,1 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefa Plus Global - Sistema de Remesas de Alta Fluidez</title>
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --deep-sapphire: #0F1E36;
+            --clean-white: #FFFFFF;
+            --soft-gray: #F4F6F9;
+            --text-dark: #1A202C;
+            --success-green: #2ECC71;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--soft-gray);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .remittance-card {
+            background: var(--clean-white);
+            width: 100%;
+            max-width: 466px; /* Proporción áurea respecto a layouts estándar */
+            border-radius: 21px;
+            box-shadow: 0 13px 34px rgba(15, 30, 54, 0.08);
+            padding: 34px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 21px;
+        }
+
+        .brand-header h1 {
+            color: var(--deep-sapphire);
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-header p {
+            color: var(--primary-gold);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .input-group {
+            position: relative;
+            background: var(--soft-gray);
+            border: 1px solid #E2E8F0;
+            border-radius: 13px;
+            padding: 13px;
+            margin-bottom: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: var(--primary-gold);
+            background: var(--clean-white);
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .input-row input {
+            border: none;
+            background: transparent;
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--deep-sapphire);
+            width: 65%;
+            outline: none;
+        }
+
+        .currency-select {
+            background: var(--clean-white);
+            border: 1px solid #CBD5E0;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--deep-sapphire);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .breakdown-container {
+            padding: 8px 13px;
+            margin-bottom: 21px;
+            border-left: 3px solid var(--primary-gold);
+            background: rgba(214, 175, 85, 0.04);
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #4A5568;
+            margin: 8px 0;
+        }
+
+        .breakdown-item.highlight {
+            font-weight: 700;
+            color: var(--deep-sapphire);
+        }
+
+        .action-button {
+            width: 100%;
+            background: var(--deep-sapphire);
+            color: var(--clean-white);
+            border: none;
+            padding: 18px;
+            border-radius: 13px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(15, 30, 54, 0.2);
+        }
+
+        .action-button:hover {
+            background: #15294A;
+            transform: translateY(-1px);
+        }
+
+        .action-button:active {
+            transform: translateY(1px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="remittance-card">
+    <div class="brand-header">
+        <h1>Shefa Plus Global</h1>
+        <p>Remesas e Interconectividad Financiera</p>
+    </div>
+
+    <!-- Panel de Envío -->
+    <div class="input-group">
+        <label for="send-amount">Tú Envías</label>
+        <div class="input-row">
+            <input type="number" id="send-amount" value="1000" min="1" step="any">
+            <select id="send-currency" class="currency-select">
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Desglose de Operación -->
+    <div class="breakdown-container">
+        <div class="breakdown-item">
+            <span>Tasa de Cambio:</span>
+            <span id="exchange-rate">1 USD = 0.92 EUR</span>
+        </div>
+        <div class="breakdown-item">
+            <span>Tarifa Shefá (Operación Justa):</span>
+            <span id="shefa-fee">$0.00 USD</span>
+        </div>
+        <div class="breakdown-item highlight">
+            <span>Total a Convertir:</span>
+            <span id="total-to-convert">$1000.00 USD</span>
+        </div>
+    </div>
+
+    <!-- Panel de Recepción -->
+    <div class="input-group">
+        <label for="receive-amount">Ellos Reciben</label>
+        <div class="input-row">
+            <input type="number" id="receive-amount" readonly>
+            <select id="receive-currency" class="currency-select">
+                <option value="EUR">EUR (€)</option>
+                <option value="COP">COP ($)</option>
+                <option value="MXN">MXN ($)</option>
+            </select>
+        </div>
+    </div>
+
+    <button class="action-button" id="initiate-transfer">Iniciar Envío Inmediato</button>
+</div>
+
+<script>
+    // Configuración y Matrices de Conversión del Sistema Shefa Flow
+    const exchangeRates = {
+        USD: { EUR: 0.92, COP: 4000, MXN: 17.50, USD: 1 },
+        EUR: { USD: 1.09, COP: 4350, MXN: 19.00, EUR: 1 }
+    };
+
+    const SHEFA_FEE_PERCENTAGE = 0.005; // 0.5% - Una tarifa baja y transparente orientada a la Parnasá
+
+    const sendAmountInput = document.getElementById('send-amount');
+    const receiveAmountInput = document.getElementById('receive-amount');
+    const sendCurrencySelect = document.getElementById('send-currency');
+    const receiveCurrencySelect = document.getElementById('receive-currency');
+    const exchangeRateLabel = document.getElementById('exchange-rate');
+    const shefaFeeLabel = document.getElementById('shefa-fee');
+    const totalToConvertLabel = document.getElementById('total-to-convert');
+    const transferButton = document.getElementById('initiate-transfer');
+
+    function calculateRemittance() {
+        const sendAmount = parseFloat(sendAmountInput.value) || 0;
+        const fromCurrency = sendCurrencySelect.value;
+        const toCurrency = receiveCurrencySelect.value;
+
+        // Validar si las monedas de origen y destino son iguales
+        if (fromCurrency === toCurrency) {
+            exchangeRateLabel.textContent = `1 ${fromCurrency} = 1.00 ${toCurrency}`;
+            const fee = sendAmount * SHEFA_FEE_PERCENTAGE;
+            const netAmount = sendAmount - fee;
+            
+            shefaFeeLabel.textContent = `${fee.toFixed(2)} ${fromCurrency}`;
+            totalToConvertLabel.textContent = `${netAmount.toFixed(2)} ${fromCurrency}`;
+            receiveAmountInput.value = netAmount.toFixed(2);
+            return;
+        }
+
+        // Obtener tasa de cambio establecida
+        const rate = exchangeRates[fromCurrency][toCurrency] || 1;
+        exchangeRateLabel.textContent = `1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}`;
+
+        // Cálculo de tarifas transparentes
+        const fee = sendAmount * SHEFA_FEE_PERCENTAGE;
+        const netAmount = sendAmount - fee;
+        const finalReceived = netAmount * rate;
+
+        // Renderizado de valores en la interfaz
+        shefaFeeLabel.textContent = `${fee.toFixed(2)} ${fromCurrency}`;
+        totalToConvertLabel.textContent = `${netAmount.toFixed(2)} ${fromCurrency}`;
+        receiveAmountInput.value = finalReceived.toFixed(2);
+    }
+
+    // Eventos para el cálculo interactivo en tiempo real
+    sendAmountInput.addEventListener('input', calculateRemittance);
+    sendCurrencySelect.addEventListener('change', () => {
+        // Evitar duplicaciones simples de origen/destino de forma limpia
+        if(sendCurrencySelect.value === 'EUR') {
+            receiveCurrencySelect.value = 'USD';
+        } else {
+            receiveCurrencySelect.value = 'EUR';
+        }
+        calculateRemittance();
+    });
+    receiveCurrencySelect.addEventListener('change', calculateRemittance);
+
+    // Inicialización del flujo
+    transferButton.addEventListener('click', () => {
+        const finalValue = receiveAmountInput.value;
+        const currency = receiveCurrencySelect.value;
+        alert(`Conectando con el motor de Shefa Plus Global. Destino garantizado: ${finalValue} ${currency}. ¡Bendición en camino!`);
+    });
+
+    // Ejecución inicial al cargar
+    calculateRemittance();
+</script>
+
+</body>
+  </html>
+  
