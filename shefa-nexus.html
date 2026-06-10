@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shefa Plus Global | El Mejor Sistema de Remesas del Mundo</title>
+    <title>Shefa Flow Global | Ecosistema de Abundancia</title>
     <style>
         /* ==================================================================== */
-        /* VARIABLES ÁUREAS Y PALETA CORPORATIVA SUPREMA                        */
+        /* GEOMETRÍA ÁUREA Y VARIABLES CORPORATIVAS                             */
         /* ==================================================================== */
         :root {
             --gold-primary: #D4AF37;
@@ -18,7 +18,8 @@
             --gray-text: #9CA3AF;
             --emerald-success: #10B981;
             --emerald-glow: rgba(16, 185, 129, 0.3);
-            --radius-fibonacci: 21px; /* Proporción áurea aplicada a bordes */
+            --error-red: #EF4444;
+            --radius-fibonacci: 21px;
             --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -41,8 +42,7 @@
             overflow-x: hidden;
         }
 
-        /* Contenedor Principal Glassmorphism */
-        .nexus-container {
+        .flow-container {
             background: rgba(22, 37, 68, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -53,17 +53,19 @@
             padding: 34px;
             position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            overflow: hidden;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Branding Supremo */
         .brand-header {
             text-align: center;
-            margin-bottom: 34px;
+            margin-bottom: 21px;
+            flex-shrink: 0;
         }
         .brand-header h1 {
             color: var(--gold-primary);
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
             letter-spacing: -0.5px;
             text-shadow: 0 4px 15px var(--gold-glow);
@@ -76,26 +78,39 @@
             margin-top: 8px;
         }
 
-        /* Vistas Dinámicas (SPA) */
+        /* Contenedor de Vistas Dinámicas */
+        .views-wrapper {
+            flex-grow: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 5px; /* Espacio para el scroll */
+        }
+        
+        /* Ocultar barra de scroll para elegancia */
+        .views-wrapper::-webkit-scrollbar { width: 4px; }
+        .views-wrapper::-webkit-scrollbar-track { background: transparent; }
+        .views-wrapper::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 10px; }
+
         .view-section {
             display: none;
             opacity: 0;
-            transform: translateX(20px);
+            transform: scale(0.98);
             transition: var(--transition-smooth);
+            padding-bottom: 13px;
         }
         .view-section.active {
             display: block;
             opacity: 1;
-            transform: translateX(0);
+            transform: scale(1);
         }
 
-        /* Inputs Premium */
+        /* Inputs y Formularios */
         .input-group {
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 13px;
-            padding: 16px;
-            margin-bottom: 21px;
+            padding: 14px;
+            margin-bottom: 18px;
             transition: var(--transition-smooth);
         }
         .input-group:focus-within {
@@ -109,359 +124,415 @@
             color: var(--gray-text);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .input-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 13px;
-        }
-        .input-row input {
-            background: transparent;
-            border: none;
-            color: var(--white-pure);
-            font-size: 24px;
-            font-weight: 700;
-            width: 100%;
-            outline: none;
-        }
-        .input-row input::placeholder { color: rgba(255,255,255,0.2); }
-        .input-row select {
-            background: var(--sapphire-light);
-            color: var(--white-pure);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            outline: none;
-            cursor: pointer;
-            appearance: none;
-        }
+        .input-row { display: flex; justify-content: space-between; align-items: center; gap: 13px; }
+        .input-row input { background: transparent; border: none; color: var(--white-pure); font-size: 16px; font-weight: 600; width: 100%; outline: none; }
+        .input-row input[type="number"] { font-size: 24px; font-weight: 700; }
+        .input-row select { background: var(--sapphire-light); color: var(--white-pure); border: 1px solid rgba(255,255,255,0.1); padding: 8px 14px; border-radius: 8px; font-weight: 600; outline: none; cursor: pointer; }
 
-        /* Tarjeta de Transparencia (Parnasá) */
         .breakdown-card {
             background: linear-gradient(180deg, rgba(212, 175, 55, 0.05) 0%, transparent 100%);
             border-left: 3px solid var(--gold-primary);
             padding: 16px;
             border-radius: 0 13px 13px 0;
-            margin-bottom: 34px;
+            margin-bottom: 26px;
         }
-        .breakdown-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-            color: var(--gray-text);
-            margin-bottom: 8px;
-        }
-        .breakdown-row.total {
-            color: var(--white-pure);
-            font-weight: 700;
-            font-size: 15px;
-            margin-top: 13px;
-            padding-top: 13px;
-            border-top: 1px dashed rgba(255,255,255,0.1);
-        }
+        .breakdown-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--gray-text); margin-bottom: 8px; }
+        .breakdown-row.total { color: var(--white-pure); font-weight: 700; font-size: 15px; margin-top: 13px; padding-top: 13px; border-top: 1px dashed rgba(255,255,255,0.1); }
 
         /* Botones de Poder */
-        .btn-nexus {
+        .btn-flow {
             width: 100%;
             background: linear-gradient(90deg, var(--gold-primary) 0%, #FBE18D 100%);
             color: var(--sapphire-dark);
             border: none;
-            padding: 18px;
+            padding: 16px;
             border-radius: 13px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 800;
             cursor: pointer;
             transition: var(--transition-smooth);
             text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: 0 10px 20px var(--gold-glow);
+            margin-top: 8px;
         }
-        .btn-nexus:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.6);
-        }
-        .btn-secondary {
-            background: transparent;
-            color: var(--gold-primary);
-            border: 1px solid var(--gold-primary);
-            box-shadow: none;
-            margin-bottom: 13px;
-        }
-        .btn-secondary:hover {
-            background: rgba(212, 175, 55, 0.1);
-            transform: none;
-            box-shadow: none;
-        }
+        .btn-flow:hover { transform: translateY(-1px); box-shadow: 0 12px 22px rgba(212, 175, 55, 0.5); }
+        .btn-secondary { background: transparent; color: var(--gold-primary); border: 1px solid var(--gold-primary); box-shadow: none; margin-bottom: 13px; }
+        .btn-secondary:hover { background: rgba(212, 175, 55, 0.08); }
+        .btn-close { background: rgba(239, 68, 68, 0.1); color: var(--error-red); border: 1px solid rgba(239, 68, 68, 0.3); font-size: 12px; padding: 10px; box-shadow: none;}
+
+        .toggle-link { display: block; text-align: center; font-size: 13px; color: var(--gray-text); margin-top: 18px; text-decoration: none; transition: var(--transition-smooth); }
+        .toggle-link span { color: var(--gold-primary); font-weight: 600; }
 
         /* ==================================================================== */
-        /* PANTALLA DE ENCRIPTACIÓN Y RASTREADOR (LA VERAJÁ)                    */
+        /* NUEVO: ESTILOS DEL DASHBOARD DEL OPERADOR                            */
         /* ==================================================================== */
-        .encryption-loader {
-            text-align: center;
-            padding: 34px 0;
-        }
-        .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(212, 175, 55, 0.2);
-            border-top-color: var(--gold-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 21px auto;
-        }
-        .code-stream {
-            font-family: monospace;
-            color: var(--emerald-success);
-            font-size: 12px;
-            height: 60px;
-            overflow: hidden;
-            opacity: 0.7;
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 16px;
+            border-radius: 13px;
             margin-bottom: 21px;
         }
-
-        .tracker-timeline {
-            position: relative;
-            padding-left: 21px;
-            margin-top: 34px;
-        }
-        .tracker-timeline::before {
-            content: '';
-            position: absolute;
-            left: 5px;
-            top: 5px;
-            bottom: 5px;
-            width: 2px;
-            background: rgba(255,255,255,0.1);
-        }
-        .track-step {
-            position: relative;
-            margin-bottom: 34px;
-            opacity: 0.3;
-            transition: var(--transition-smooth);
-        }
-        .track-node {
-            position: absolute;
-            left: -21px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--sapphire-dark);
-            border: 2px solid var(--gray-text);
-            transition: var(--transition-smooth);
-            z-index: 2;
-        }
-        .track-step.active { opacity: 1; }
-        .track-step.active .track-node {
-            border-color: var(--gold-primary);
-            background: var(--gold-primary);
-            box-shadow: 0 0 10px var(--gold-glow);
-        }
-        .track-step.done { opacity: 1; }
-        .track-step.done .track-node {
-            border-color: var(--emerald-success);
-            background: var(--emerald-success);
-            box-shadow: 0 0 10px var(--emerald-glow);
-        }
-        .track-title {
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--white-pure);
-            display: block;
-        }
-        .track-desc {
-            font-size: 12px;
-            color: var(--gray-text);
-            margin-top: 4px;
-            display: block;
-        }
-
-        /* Notificación Custom Inmersiva */
-        .custom-toast {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: var(--emerald-success);
-            color: #fff;
-            padding: 13px 21px;
-            border-radius: 13px;
-            font-weight: 600;
-            font-size: 13px;
-            box-shadow: 0 10px 30px var(--emerald-glow);
-            z-index: 100;
-            transition: var(--transition-smooth);
+        .dash-user-info p { font-size: 11px; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1px; }
+        .dash-user-info h2 { font-size: 18px; color: var(--gold-primary); }
+        
+        .dash-stats {
             text-align: center;
-            width: 90%;
+            padding: 21px;
+            background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+            border-top: 2px solid var(--emerald-success);
+            border-radius: 13px;
+            margin-bottom: 34px;
         }
-        .custom-toast.show {
-            transform: translateX(-50%) translateY(0);
+        .dash-stats p { font-size: 12px; color: var(--gray-text); text-transform: uppercase; }
+        .dash-stats h3 { font-size: 34px; color: var(--white-pure); font-weight: 800; margin-top: 5px; }
+
+        .history-title { font-size: 14px; font-weight: 700; color: var(--white-pure); margin-bottom: 13px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
+        
+        .history-list { display: flex; flex-direction: column; gap: 13px; margin-bottom: 21px; }
+        .history-item {
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 13px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
         }
+        .history-item:hover { border-color: rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.02); }
+        
+        .hist-left { display: flex; flex-direction: column; gap: 4px; }
+        .hist-id { font-size: 10px; color: var(--gold-primary); font-family: monospace; }
+        .hist-name { font-size: 14px; color: var(--white-pure); font-weight: 600; }
+        .hist-date { font-size: 11px; color: var(--gray-text); }
+        
+        .hist-right { text-align: right; }
+        .hist-amount { font-size: 15px; color: var(--emerald-success); font-weight: 700; }
+        .hist-status { font-size: 10px; background: rgba(16, 185, 129, 0.1); color: var(--emerald-success); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; margin-top: 4px; display: inline-block; }
+
+        .empty-state { text-align: center; padding: 34px 13px; color: var(--gray-text); font-size: 13px; border: 1px dashed rgba(255,255,255,0.1); border-radius: 13px; }
+
+        /* Notificaciones y Trackers */
+        .encryption-loader { text-align: center; padding: 34px 0; }
+        .spinner { width: 50px; height: 50px; border: 3px solid rgba(212, 175, 55, 0.1); border-top-color: var(--gold-primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 21px auto; }
+        .code-stream { font-family: monospace; color: var(--emerald-success); font-size: 11px; height: 60px; overflow: hidden; opacity: 0.8; line-height: 1.5; }
+
+        .tracker-timeline { position: relative; padding-left: 21px; margin-top: 26px; }
+        .tracker-timeline::before { content: ''; position: absolute; left: 5px; top: 5px; bottom: 5px; width: 2px; background: rgba(255,255,255,0.08); }
+        .track-step { position: relative; margin-bottom: 26px; opacity: 0.25; transition: var(--transition-smooth); }
+        .track-node { position: absolute; left: -21px; top: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--sapphire-dark); border: 2px solid var(--gray-text); z-index: 2; }
+        .track-step.active { opacity: 1; }
+        .track-step.active .track-node { border-color: var(--gold-primary); background: var(--gold-primary); box-shadow: 0 0 10px var(--gold-glow); }
+        .track-step.done { opacity: 1; }
+        .track-step.done .track-node { border-color: var(--emerald-success); background: var(--emerald-success); box-shadow: 0 0 10px var(--emerald-glow); }
+        .track-title { font-weight: 700; font-size: 14px; color: var(--white-pure); }
+        .track-desc { font-size: 11px; color: var(--gray-text); margin-top: 2px; display: block; }
+
+        .custom-toast { position: absolute; top: 15px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--emerald-success); color: #fff; padding: 12px 21px; border-radius: 10px; font-weight: 600; font-size: 13px; box-shadow: 0 10px 25px var(--emerald-glow); z-index: 100; transition: var(--transition-smooth); text-align: center; width: 90%; }
+        .custom-toast.show { transform: translateX(-50%) translateY(0); }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div class="nexus-container">
-    
-    <!-- Notificación Suprema (Reemplaza a los alerts) -->
-    <div id="toastNotification" class="custom-toast">
-        Mensaje del sistema
-    </div>
+<div class="flow-container">
+    <div id="toastNotification" class="custom-toast">Mensaje</div>
 
     <div class="brand-header">
-        <h1>SHEFA NEXUS</h1>
-        <p>Motor de Abundancia Global</p>
+        <h1>SHEFA FLOW</h1>
+        <p id="platform-subtitle">Bóveda Criptográfica de Sustento</p>
     </div>
 
-    <!-- ==================================================================== -->
-    <!-- VISTA 1: CALCULADORA DE SUSTENTO (PARNASÁ)                           -->
-    <!-- ==================================================================== -->
-    <div id="view-calculator" class="view-section active">
-        <div class="input-group">
-            <label>Origen de la Abundancia (Tú Envías)</label>
-            <div class="input-row">
-                <input type="number" id="calc-amount" value="1000" min="1" step="any">
-                <select id="calc-from-curr">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                </select>
+    <!-- Contenedor con Scroll para las Vistas -->
+    <div class="views-wrapper">
+
+        <!-- ========================================== -->
+        <!-- PORTAL A: INICIO DE SESIÓN                 -->
+        <!-- ========================================== -->
+        <div id="view-login" class="view-section active">
+            <div class="input-group">
+                <label>Correo Electrónico Autorizado</label>
+                <div class="input-row"><input type="email" id="login-email" placeholder="ejemplo@shefa.com"></div>
             </div>
+            <div class="input-group">
+                <label>Llave de Acceso Secreta</label>
+                <div class="input-row"><input type="password" id="login-pass" placeholder="••••••••"></div>
+            </div>
+            <button class="btn-flow" onclick="UiController.handleLogin()">Desencriptar Bóveda</button>
+            <a href="#" class="toggle-link" onclick="UiController.switchAuthMode('REGISTER')">¿Eres un nuevo operador? <span>Regístrate aquí</span></a>
         </div>
 
-        <div class="breakdown-card">
-            <div class="breakdown-row">
-                <span>Tasa Global Garantizada</span>
-                <span id="label-rate">1 USD = 0.92 EUR</span>
+        <!-- ========================================== -->
+        <!-- PORTAL B: REGISTRO                         -->
+        <!-- ========================================== -->
+        <div id="view-register" class="view-section">
+            <div class="input-group">
+                <label>Nombre del Operador Titular</label>
+                <div class="input-row"><input type="text" id="reg-name" placeholder="Ej. Luis Carlos"></div>
             </div>
-            <div class="breakdown-row">
-                <span>Tarifa Shefá (Justa y Transparente)</span>
-                <span id="label-fee">$5.00 USD</span>
+            <div class="input-group">
+                <label>Correo Electrónico de Conectividad</label>
+                <div class="input-row"><input type="email" id="reg-email" placeholder="correo@shefa.com"></div>
             </div>
-            <div class="breakdown-row total">
-                <span>Total a Convertir</span>
-                <span id="label-net">$995.00 USD</span>
+            <div class="input-group">
+                <label>Llave de Seguridad (Mínimo 6 caracteres)</label>
+                <div class="input-row"><input type="password" id="reg-pass" placeholder="••••••••"></div>
             </div>
+            <button class="btn-flow" onclick="UiController.handleRegister()">Generar Llave Maestra</button>
+            <a href="#" class="toggle-link" onclick="UiController.switchAuthMode('LOGIN')">¿Ya posees credenciales? <span>Inicia Sesión</span></a>
         </div>
 
-        <div class="input-group">
-            <label>Destino de la Bendición (Ellos Reciben)</label>
-            <div class="input-row">
-                <input type="text" id="calc-receive" readonly>
-                <select id="calc-to-curr">
-                    <option value="COP">COP</option>
-                    <option value="MXN">MXN</option>
-                    <option value="EUR">EUR</option>
-                </select>
-            </div>
-        </div>
-
-        <button class="btn-nexus" onclick="NexusEngine.goToBeneficiary()">Siguiente: Datos de Entrega</button>
-    </div>
-
-    <!-- ==================================================================== -->
-    <!-- VISTA 2: DATOS DEL RECEPTOR (CERO FRICCIÓN)                          -->
-    <!-- ==================================================================== -->
-    <div id="view-beneficiary" class="view-section">
-        <div class="input-group">
-            <label>Nombre Completo del Familiar</label>
-            <div class="input-row">
-                <input type="text" id="ben-name" placeholder="Ej. Familia Manjarrés" style="font-size: 16px;">
-            </div>
-        </div>
-        <div class="input-group">
-            <label>Teléfono Móvil (Para Notificar)</label>
-            <div class="input-row">
-                <input type="tel" id="ben-phone" placeholder="+57 300 000 0000" style="font-size: 16px;">
-            </div>
-        </div>
-        <div class="input-group">
-            <label>Método de Recepción Inmediata</label>
-            <div class="input-row">
-                <select id="ben-method" style="width: 100%;">
-                    <option value="WALLET">Billetera Digital Shefa</option>
-                    <option value="BANK">Cuenta Bancaria Directa</option>
-                    <option value="CASH">Retiro Físico (Ventanilla)</option>
-                </select>
-            </div>
-        </div>
-
-        <button class="btn-nexus btn-secondary" onclick="NexusEngine.goToCalculator()">Volver a los Cálculos</button>
-        <button class="btn-nexus" onclick="NexusEngine.initiateQuantumDispatch()">Despachar Remesa Ahora</button>
-    </div>
-
-    <!-- ==================================================================== -->
-    <!-- VISTA 3: ENCRIPTACIÓN Y RASTREO (LA VERAJÁ)                          -->
-    <!-- ==================================================================== -->
-    <div id="view-tracker" class="view-section">
-        
-        <!-- Pantalla de Encriptación Inicial -->
-        <div id="encryption-layer" class="encryption-loader">
-            <div class="spinner"></div>
-            <h3 style="color: var(--gold-primary); margin-bottom: 13px;">Asegurando Canal Criptográfico</h3>
-            <div class="code-stream" id="code-stream">
-                01010011 01001000 01000101 01000110 01000001<br>
-                Generando Hash Áureo...<br>
-                Validando liquidez global...
-            </div>
-        </div>
-
-        <!-- Rastreador de Tiempo Real -->
-        <div id="timeline-layer" style="display: none;">
-            <h3 style="text-align: center; color: var(--gold-primary); font-size: 18px;">Viaje de la Abundancia</h3>
-            <p style="text-align: center; color: var(--gray-text); font-size: 12px; margin-bottom: 21px;">ID: <span id="tx-id-display">NEXUS-000</span></p>
-
-            <div class="tracker-timeline">
-                <div class="track-step active" id="step-1">
-                    <div class="track-node"></div>
-                    <span class="track-title">1. Fondos Asegurados</span>
-                    <span class="track-desc">Sustento local bloqueado y encriptado.</span>
+        <!-- ========================================== -->
+        <!-- VISTA: DASHBOARD DEL OPERADOR (NUEVO LOBBY)-->
+        <!-- ========================================== -->
+        <div id="view-dashboard" class="view-section">
+            <div class="dashboard-header">
+                <div class="dash-user-info">
+                    <p>Operador Activo</p>
+                    <h2 id="dash-user-name">Cargando...</h2>
                 </div>
-                <div class="track-step" id="step-2">
-                    <div class="track-node"></div>
-                    <span class="track-title">2. Conversión Global Exacta</span>
-                    <span class="track-desc">Procesando intercambio por red distribuida.</span>
-                </div>
-                <div class="track-step" id="step-3">
-                    <div class="track-node"></div>
-                    <span class="track-title">3. Bendición Entregada</span>
-                    <span class="track-desc">Disponible para retiro o depositado en cuenta.</span>
+                <div style="cursor:pointer;" onclick="ShefaAuth.logout()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--error-red)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                 </div>
             </div>
 
-            <button class="btn-nexus btn-secondary" style="margin-top: 34px;" onclick="NexusEngine.resetSystem()">Realizar Nuevo Envío</button>
+            <div class="dash-stats">
+                <p>Volumen Histórico Despachado</p>
+                <h3 id="dash-total-volume">$0.00 USD</h3>
+            </div>
+
+            <h3 class="history-title">Libro Contable (Últimos Flujos)</h3>
+            <div id="history-container" class="history-list">
+                <!-- Los bloques históricos se inyectan aquí vía JavaScript -->
+            </div>
+
+            <button class="btn-flow" onclick="FlowEngine.goToCalculator()">⚡ Transmitir Nueva Bendición</button>
         </div>
 
-    </div>
+        <!-- ========================================== -->
+        <!-- VISTA: CALCULADORA (PARNASÁ)               -->
+        <!-- ========================================== -->
+        <div id="view-calculator" class="view-section">
+            <button class="btn-flow btn-secondary btn-close" onclick="FlowEngine.goToDashboard()" style="margin-bottom: 21px;">← Volver al Dashboard</button>
+            
+            <div class="input-group">
+                <label>Origen de la Abundancia (Tú Envías)</label>
+                <div class="input-row">
+                    <input type="number" id="calc-amount" value="1000" min="1" step="any">
+                    <select id="calc-from-curr"><option value="USD">USD</option><option value="EUR">EUR</option></select>
+                </div>
+            </div>
 
+            <div class="breakdown-card">
+                <div class="breakdown-row"><span>Tasa Global Garantizada</span><span id="label-rate">1 USD = 0.92 EUR</span></div>
+                <div class="breakdown-row"><span>Tarifa Shefá (Justa)</span><span id="label-fee">$5.00 USD</span></div>
+                <div class="breakdown-row total"><span>Total a Convertir</span><span id="label-net">$995.00 USD</span></div>
+            </div>
+
+            <div class="input-group">
+                <label>Destino de la Bendición (Ellos Reciben)</label>
+                <div class="input-row">
+                    <input type="text" id="calc-receive" readonly>
+                    <select id="calc-to-curr"><option value="COP">COP</option><option value="MXN">MXN</option><option value="EUR">EUR</option></select>
+                </div>
+            </div>
+
+            <button class="btn-flow" onclick="FlowEngine.goToBeneficiary()">Siguiente: Datos de Entrega</button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VISTA: DATOS DEL RECEPTOR                  -->
+        <!-- ========================================== -->
+        <div id="view-beneficiary" class="view-section">
+            <div class="input-group">
+                <label>Nombre Completo del Familiar</label>
+                <div class="input-row"><input type="text" id="ben-name" placeholder="Ej. María Manjarrés"></div>
+            </div>
+            <div class="input-group">
+                <label>Teléfono Móvil (Para Notificar)</label>
+                <div class="input-row"><input type="tel" id="ben-phone" placeholder="+57 300 000 0000"></div>
+            </div>
+            <div class="input-group">
+                <label>Método de Recepción</label>
+                <div class="input-row">
+                    <select id="ben-method" style="width: 100%;">
+                        <option value="WALLET">Billetera Digital Shefa</option>
+                        <option value="BANK">Cuenta Bancaria Directa</option>
+                        <option value="CASH">Retiro Físico (Ventanilla)</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-flow btn-secondary" onclick="FlowEngine.goToCalculatorFromBen()">← Atrás</button>
+            <button class="btn-flow" onclick="FlowEngine.initiateQuantumDispatch()">Despachar Remesa Ahora</button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VISTA: TRACKER (LA VERAJÁ)                 -->
+        <!-- ========================================== -->
+        <div id="view-tracker" class="view-section">
+            <div id="encryption-layer" class="encryption-loader">
+                <div class="spinner"></div>
+                <h3 style="color: var(--gold-primary); margin-bottom: 13px; font-size:16px;">Asegurando Canal Criptográfico</h3>
+                <div class="code-stream" id="code-stream">> Sintonizando frecuencia Shefa Flow...</div>
+            </div>
+
+            <div id="timeline-layer" style="display: none;">
+                <h3 style="text-align: center; color: var(--gold-primary); font-size: 18px;">Viaje de la Abundancia</h3>
+                <p style="text-align: center; color: var(--gray-text); font-size: 12px; margin-bottom: 21px;">ID: <span id="tx-id-display">FLOW-000</span></p>
+
+                <div class="tracker-timeline">
+                    <div class="track-step active" id="step-1"><div class="track-node"></div><span class="track-title">1. Fondos Asegurados</span><span class="track-desc">Sustento local bloqueado.</span></div>
+                    <div class="track-step" id="step-2"><div class="track-node"></div><span class="track-title">2. Conversión Exacta</span><span class="track-desc">Procesando red distribuida.</span></div>
+                    <div class="track-step" id="step-3"><div class="track-node"></div><span class="track-title">3. Bendición Entregada</span><span class="track-desc">Sustento depositado y sellado.</span></div>
+                </div>
+
+                <button class="btn-flow" style="margin-top: 34px;" onclick="FlowEngine.goToDashboard()">Volver al Dashboard Central</button>
+            </div>
+        </div>
+
+    </div> <!-- Fin Views Wrapper -->
 </div>
+
+<!-- INYECCIÓN INTEGRAL DEL ECOSISTEMA -->
+<script src="shefa-auth.js"></script>
+<script src="shefa-core.js"></script>
+<script src="shefa-vault.js"></script>
 
 <script>
     /**
      * ====================================================================
-     * SHÉFA NEXUS ENGINE - EL CEREBRO INSUPERABLE
-     * Arquitectura limpia, unificada y reactiva.
+     * DASHBOARD ENGINE: El procesador de datos del historial
      * ====================================================================
      */
-    const NexusEngine = {
-        // Matriz de Tasas (Parnasá)
+    const DashboardEngine = {
+        render() {
+            const user = ShefaAuth.state.currentUser;
+            if (!user) return;
+
+            document.getElementById('dash-user-name').textContent = user.name;
+            const container = document.getElementById('history-container');
+            container.innerHTML = '';
+
+            // Obtener el libro contable y filtrar solo las transacciones de este operador
+            const allLedger = ShefaVault.getLedger();
+            const myHistory = allLedger.filter(tx => tx.details && tx.details.receiverId === user.uid || tx.operatorUid === user.uid);
+
+            if (myHistory.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" width="40" height="40" stroke="rgba(212, 175, 55, 0.5)" stroke-width="1.5" fill="none" style="margin-bottom:10px;"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg><br>
+                        Tu bóveda está lista.<br>No tienes flujos de abundancia registrados aún.
+                    </div>`;
+                document.getElementById('dash-total-volume').textContent = `$0.00 USD`;
+                return;
+            }
+
+            let totalVolume = 0;
+
+            myHistory.forEach(tx => {
+                totalVolume += parseFloat(tx.financials.sentAmount || 0);
+                
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <div class="hist-left">
+                        <span class="hist-id">${tx.txId}</span>
+                        <span class="hist-name">A: ${tx.details.receiverName}</span>
+                        <span class="hist-date">${tx.formattedDate.split(',')[0]}</span>
+                    </div>
+                    <div class="hist-right">
+                        <div class="hist-amount">${parseFloat(tx.financials.receivedAmount).toLocaleString('es-CO')} ${tx.financials.receivedCurrency}</div>
+                        <span class="hist-status">Entregado</span>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            // Formatear el volumen total despachado (Se asume USD como moneda base de cuenta)
+            document.getElementById('dash-total-volume').textContent = `$${totalVolume.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} USD`;
+        }
+    };
+
+    /**
+     * ====================================================================
+     * CONTROLADOR DE VISTAS (SPA) Y AUTENTICACIÓN
+     * ====================================================================
+     */
+    const UiController = {
+        views: {
+            login: document.getElementById('view-login'),
+            register: document.getElementById('view-register'),
+            dashboard: document.getElementById('view-dashboard'),
+            subtitle: document.getElementById('platform-subtitle')
+        },
+
+        switchAuthMode(mode) {
+            if (mode === 'REGISTER') {
+                FlowEngine.switchView(this.views.login, this.views.register);
+            } else {
+                FlowEngine.switchView(this.views.register, this.views.login);
+            }
+        },
+
+        async handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            const res = await ShefaAuth.loginUser(email, pass);
+            if (!res.success) FlowEngine.showToast(res.message, true);
+        },
+
+        async handleRegister() {
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            const res = await ShefaAuth.registerUser(name, email, pass);
+            if (!res.success) FlowEngine.showToast(res.message, true);
+        }
+    };
+
+    // Escuchador del Estado de Identidad
+    window.addEventListener('shefaAuthStatusChanged', (e) => {
+        const { loggedIn, user } = e.detail;
+        const activeSection = document.querySelector('.view-section.active');
+        
+        if (loggedIn) {
+            UiController.views.subtitle.textContent = "Bóveda Personal Desbloqueada";
+            DashboardEngine.render(); // Renderizar tabla antes de mostrar
+            FlowEngine.switchView(activeSection, UiController.views.dashboard);
+        } else {
+            UiController.views.subtitle.textContent = "Bóveda Criptográfica de Sustento";
+            if(activeSection) FlowEngine.switchView(activeSection, UiController.views.login);
+            document.getElementById('login-pass').value = "";
+            document.getElementById('reg-pass').value = "";
+        }
+    });
+
+    /**
+     * ====================================================================
+     * MOTOR CENTRAL: SHEFA FLOW (Calculadora y Despacho)
+     * ====================================================================
+     */
+    const FlowEngine = {
         rates: {
             USD: { EUR: 0.92, COP: 4000, MXN: 17.50, USD: 1 },
             EUR: { USD: 1.09, COP: 4350, MXN: 19.00, EUR: 1 }
         },
-        feePercentage: 0.005, // 0.5% Shefá Fee
+        feePercentage: 0.005,
 
-        // Nodos del DOM (Caché visual para velocidad extrema)
         nodes: {
-            // Vistas
+            viewDash: document.getElementById('view-dashboard'),
             viewCalc: document.getElementById('view-calculator'),
             viewBen: document.getElementById('view-beneficiary'),
             viewTracker: document.getElementById('view-tracker'),
-            // Calculadora
             amtIn: document.getElementById('calc-amount'),
             currIn: document.getElementById('calc-from-curr'),
             amtOut: document.getElementById('calc-receive'),
@@ -469,7 +540,6 @@
             lblRate: document.getElementById('label-rate'),
             lblFee: document.getElementById('label-fee'),
             lblNet: document.getElementById('label-net'),
-            // Tracker
             encLayer: document.getElementById('encryption-layer'),
             timeLayer: document.getElementById('timeline-layer'),
             codeStream: document.getElementById('code-stream'),
@@ -478,24 +548,18 @@
         },
 
         init() {
-            this.bindEvents();
-            this.calculateMath();
-        },
-
-        bindEvents() {
             this.nodes.amtIn.addEventListener('input', () => this.calculateMath());
             this.nodes.currIn.addEventListener('change', () => this.calculateMath());
             this.nodes.currOut.addEventListener('change', () => this.calculateMath());
         },
 
-        // Motor Matemático Criptográfico (Precisión Absoluta)
         calculateMath() {
+            if (!ShefaAuth.state.isAuthenticated) return;
             const amount = parseFloat(this.nodes.amtIn.value) || 0;
             const from = this.nodes.currIn.value;
             const to = this.nodes.currOut.value;
 
-            // Bloqueo de divisas iguales
-            if(from === to) {
+            if (from === to) {
                 this.nodes.currOut.value = (from === 'USD') ? 'EUR' : 'USD';
                 return this.calculateMath();
             }
@@ -505,37 +569,40 @@
             const net = amount - fee;
             const final = net * rate;
 
-            // Renderizado en la UI (Formateo Premium)
             this.nodes.lblRate.textContent = `1 ${from} = ${rate.toLocaleString()} ${to}`;
             this.nodes.lblFee.textContent = `$${fee.toFixed(2)} ${from}`;
             this.nodes.lblNet.textContent = `$${net.toFixed(2)} ${from}`;
-            
-            // Efecto visual al actualizar
-            this.nodes.amtOut.style.opacity = 0.5;
-            setTimeout(() => {
-                this.nodes.amtOut.value = final.toLocaleString('es-CO', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-                this.nodes.amtOut.style.opacity = 1;
-            }, 150);
+            this.nodes.amtOut.value = final.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         },
 
-        // Navegación Fluida SPA (Single Page Application)
         switchView(hideNode, showNode) {
-            hideNode.classList.remove('active');
-            setTimeout(() => showNode.classList.add('active'), 50); // Delay áureo para la transición CSS
+            if(hideNode) hideNode.classList.remove('active');
+            setTimeout(() => { if(showNode) showNode.classList.add('active'); }, 50);
+        },
+
+        // Rutas de Navegación Interna
+        goToCalculator() {
+            this.switchView(this.nodes.viewDash, this.nodes.viewCalc);
+            this.calculateMath();
+            document.getElementById('platform-subtitle').textContent = "Calculadora de Fluidez";
+        },
+        
+        goToDashboard() {
+            const active = document.querySelector('.view-section.active');
+            DashboardEngine.render(); // Refrescar los datos actualizados
+            this.switchView(active, this.nodes.viewDash);
+            document.getElementById('platform-subtitle').textContent = "Bóveda Personal Desbloqueada";
         },
 
         goToBeneficiary() {
-            if(parseFloat(this.nodes.amtIn.value) <= 0) {
-                return this.showToast("El monto debe ser mayor a cero", true);
-            }
+            if (parseFloat(this.nodes.amtIn.value) <= 0) return this.showToast("El monto debe ser mayor a cero", true);
             this.switchView(this.nodes.viewCalc, this.nodes.viewBen);
         },
 
-        goToCalculator() {
+        goToCalculatorFromBen() {
             this.switchView(this.nodes.viewBen, this.nodes.viewCalc);
         },
 
-        // Sistema de Notificaciones Premium (Chao alerts feos)
         showToast(msg, isError = false) {
             this.nodes.toast.textContent = msg;
             this.nodes.toast.style.background = isError ? 'var(--error-red)' : 'var(--emerald-success)';
@@ -543,82 +610,93 @@
             setTimeout(() => this.nodes.toast.classList.remove('show'), 3000);
         },
 
-        // EL CORAZÓN DE LA EXPERIENCIA: El Despacho Cuántico
         initiateQuantumDispatch() {
             const name = document.getElementById('ben-name').value;
-            if(!name) return this.showToast("Ingresa el nombre del familiar", true);
-
+            if (!name) return this.showToast("Ingresa el nombre del familiar", true);
             this.switchView(this.nodes.viewBen, this.nodes.viewTracker);
             this.simulateQuantumNetwork();
         },
 
         simulateQuantumNetwork() {
-            // Fase 1: Encriptación visual (Efecto Matrix/Hacker para seguridad)
             let lines = [
-                "Estableciendo conexión P2P Segura...",
-                "Bypass de nodos intermediarios exitoso...",
-                "Firmando contrato inteligente...",
-                "Liquidez confirmada en bóveda destino."
+                "Inicializando cifrado asimétrico en Shefa Flow...",
+                `Aislando flujo bajo operador UID: ${ShefaAuth.state.currentUser.uid}`,
+                "Firmando contrato de dispersión de Sustento...",
+                "Bóveda destino interconectada de forma segura."
             ];
             let i = 0;
+            this.nodes.codeStream.innerHTML = "> Conectando...";
+            
+            // Reset visual de trackers
+            document.getElementById('step-1').className = "track-step active";
+            document.getElementById('step-2').className = "track-step";
+            document.getElementById('step-3').className = "track-step";
+            document.querySelector('.flow-container').style.boxShadow = "";
+            document.querySelector('.flow-container').style.borderColor = "";
+
             let streamInterval = setInterval(() => {
-                if(i < lines.length) {
+                if (i < lines.length) {
                     this.nodes.codeStream.innerHTML += `<br>> ${lines[i]}`;
                     i++;
                 } else {
                     clearInterval(streamInterval);
-                    this.startTimeline(); // Pasar al mapa de rastreo
+                    this.startTimeline();
                 }
             }, 800);
         },
 
         startTimeline() {
-            // Ocultar encriptación, mostrar línea de tiempo
             this.nodes.encLayer.style.display = 'none';
             this.nodes.timeLayer.style.display = 'block';
-            
-            // Generar ID único imponente
-            const txId = "NX-" + Math.random().toString(36).substr(2, 6).toUpperCase();
+            const txId = "FLOW-" + Math.random().toString(36).substr(2, 6).toUpperCase();
             this.nodes.txDisplay.textContent = txId;
 
-            // Simular el avance del dinero (Pipeline Asíncrono)
             const step1 = document.getElementById('step-1');
             const step2 = document.getElementById('step-2');
             const step3 = document.getElementById('step-3');
 
             setTimeout(() => {
-                step1.classList.remove('active');
-                step1.classList.add('done');
+                step1.classList.remove('active'); step1.classList.add('done');
                 step2.classList.add('active');
-                this.showToast("Fondos Internacionales Asegurados");
+                this.showToast("Fondos Asegurados y Cifrados");
             }, 2000);
 
             setTimeout(() => {
-                step2.classList.remove('active');
-                step2.classList.add('done');
+                step2.classList.remove('active'); step2.classList.add('done');
                 step3.classList.add('active');
                 this.showToast("Conversión de Divisas Exitosa");
             }, 5000);
 
             setTimeout(() => {
-                step3.classList.remove('active');
-                step3.classList.add('done');
-                this.showToast("🎉 ¡Verajá Materializada! Dinero Entregado.");
-                
-                // Efecto de celebración final en el fondo
-                document.querySelector('.nexus-container').style.boxShadow = "0 0 50px rgba(16, 185, 129, 0.4)";
-                document.querySelector('.nexus-container').style.borderColor = "var(--emerald-success)";
-            }, 8000);
-        },
+                step3.classList.remove('active'); step3.classList.add('done');
+                this.showToast("🎉 ¡Verajá Materializada! Dinero en Bóveda Destino.");
+                document.querySelector('.flow-container').style.boxShadow = "0 0 50px rgba(16, 185, 129, 0.4)";
+                document.querySelector('.flow-container').style.borderColor = "var(--emerald-success)";
 
-        resetSystem() {
-            window.location.reload(); // Reinicio limpio y absoluto
+                // ARCHIVAR EN LA BÓVEDA
+                const mockFinancials = {
+                    send: { amount: parseFloat(this.nodes.amtIn.value), currency: this.nodes.currIn.value },
+                    receive: { amount: parseFloat(this.nodes.amtOut.value.replace(/\./g, '').replace(',', '.')), currency: this.nodes.currOut.value },
+                    logistics: { fee: parseFloat(this.nodes.lblFee.textContent.replace(/[^0-9.]/g, '')), rate: parseFloat(this.nodes.lblRate.textContent.split('=')[1].replace(/[^0-9.]/g, '')) }
+                };
+                const mockReceiver = {
+                    fullName: document.getElementById('ben-name').value.trim(),
+                    idNumber: "ID-" + Math.floor(Math.random() * 900000 + 100000),
+                    payoutMethod: document.getElementById('ben-method').value,
+                };
+                
+                // Enviar UID a la bóveda
+                mockReceiver.operatorUid = ShefaAuth.state.currentUser.uid;
+                ShefaVault.archiveTransaction(txId, mockFinancials, mockReceiver);
+                
+                // Limpiar inputs del receptor para el próximo envío
+                document.getElementById('ben-name').value = "";
+                document.getElementById('ben-phone').value = "";
+            }, 8000);
         }
     };
 
-    // Encendido del Motor Áureo
-    window.onload = () => NexusEngine.init();
+    window.addEventListener('DOMContentLoaded', () => FlowEngine.init());
 </script>
 </body>
 </html>
-
