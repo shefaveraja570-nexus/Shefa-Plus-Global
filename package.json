@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Desarrolladora de software y emprendedora colombiana con una visión inquebrantable de expansión global. Como creadora y Lead Developer de un ecosistema de criptofracciones a escala mundial, fusiono una sólida base multidisciplinaria con la arquitectura tecnológica de alto nivel. de Hardware &amp; Software | CEO en SHEFA PLUS. Especialista en optimización de infraestructura de señales (RF) y despliegue de sistemas inteligentes con ESP32. Impulsando la vanguardia tecnológica con visión global y propósito consciente. Construyendo el futuro de la conectividad desde la excelencia.",
   "main": "index.js",
-  "  "scripts": {
+ "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
