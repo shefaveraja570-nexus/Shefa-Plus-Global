@@ -193,6 +193,52 @@
         }
 
     </style>
+<style>
+    /* ========================================= */
+    /* AURA FIBONACCI - ANIMACIÓN DEL BOTÓN RWA  */
+    /* ========================================= */
+    
+    @keyframes pulso-fibonacci {
+        0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.8); transform: scale(1); }
+        38.2% { box-shadow: 0 0 20px 5px rgba(212, 175, 55, 0.5); transform: scale(1.01); } /* Punto Áureo 1 */
+        61.8% { box-shadow: 0 0 35px 15px rgba(212, 175, 55, 0.2); transform: scale(1.02); } /* Punto Áureo 2 */
+        100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); transform: scale(1); }
+    }
+
+    @keyframes rotacion-luz {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .btn-hipnotico-aureo {
+        background: linear-gradient(135deg, #d4af37 0%, #8a6a1c 100%);
+        color: #050b14 !important; /* Texto oscuro para contraste premium */
+        position: relative;
+        overflow: hidden;
+        animation: pulso-fibonacci 3.14s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
+        border: 1px solid #ffdf73;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .btn-hipnotico-aureo::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: conic-gradient(transparent, rgba(255, 255, 255, 0.4), transparent 30%);
+        animation: rotacion-luz 6.18s linear infinite; /* Tiempo basado en 1.618 */
+        z-index: -1;
+    }
+
+    .btn-hipnotico-aureo:hover {
+        transform: scale(1.03) !important;
+        box-shadow: 0 0 40px rgba(212, 175, 55, 0.6) !important;
+        letter-spacing: 0.25em;
+    }
+</style>
+    
+    
 </head>
 <body>
 
