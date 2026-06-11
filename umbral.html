@@ -242,6 +242,80 @@
 </head>
 <body>
 
+        <header style="position: fixed; top: 0; width: 100%; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 11, 20, 0.85); backdrop-filter: blur(10px); z-index: 997; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+        
+        <div style="color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px;">
+            SHEFÁ <span style="color: #d4af37;">PLUS</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 30px;">
+            <button class="btn-carrito-flotante" onclick="toggleBovedaCarrito()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="contador-activos" id="contador-carrito">0</span>
+            </button>
+
+            <div class="btn-menu-aureo" id="btn-menu" onclick="togglePortalNavegacion()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <nav class="portal-navegacion" id="portal-nav">
+        <a href="#" class="link-andromeda">
+            Criptofracciones
+            <small>Bienes Raíces & Arquitectura</small>
+        </a>
+        <a href="#" class="link-andromeda">
+            Luxury Motors
+            <small>Flotas y Vehículos Premium</small>
+        </a>
+        <a href="#" class="link-andromeda">
+            Bonos Verdes
+            <small>Sostenibilidad y Carbono</small>
+        </a>
+        <a href="#" class="link-andromeda">
+            Quantum Express
+            <small>Remesas & Envíos Globales</small>
+        </a>
+        <a href="comando.html" class="link-andromeda" style="margin-top: 50px; font-size: 1.5rem; color: #94a3b8; -webkit-text-stroke: 0;">
+            <i class="fas fa-fingerprint"></i> Acceso Parnasá
+        </a>
+    </nav>
+
+    <aside class="boveda-carrito" id="boveda-carrito">
+        <div class="cabecera-carrito">
+            <h2 style="color: #d4af37; font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
+                <i class="fas fa-vault mr-2"></i> Bóveda de Activos
+            </h2>
+            <button onclick="toggleBovedaCarrito()" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="cuerpo-carrito" id="lista-activos">
+            <div style="text-align: center; color: #94a3b8; margin-top: 50px;">
+                <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                <p style="letter-spacing: 1px;">Tu bóveda está esperando flujos de abundancia.</p>
+            </div>
+        </div>
+
+        <div class="pie-carrito">
+            <div style="display: flex; justify-content: space-between; color: #fff; margin-bottom: 10px; font-size: 0.9rem;">
+                <span>Subtotal Parnasá:</span>
+                <span style="font-weight: bold;">$0.00 USD</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; color: #39ff14; font-weight: 900; font-size: 1.3rem; margin-bottom: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                <span>TOTAL:</span>
+                <span>$0.00 USD</span>
+            </div>
+            <button style="width: 100%; padding: 15px; background: linear-gradient(90deg, #d4af37, #aa841b); color: #000; border: none; border-radius: 8px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);">
+                Liquidar Contratos <i class="fas fa-bolt ml-2"></i>
+            </button>
+        </div>
+    </aside>
+    
     <main>
         <section class="pilares" id="info">
             <div class="seccion-titulo">
@@ -328,6 +402,58 @@
     </footer>
 <!-- Importación de la lógica avanzada de Shefa Flow -->
 <script src="shefa-core.js"></script>
+
+
+        <script>
+        // Función para abrir/cerrar el Menú de Andrómeda
+        function togglePortalNavegacion() {
+            const btnMenu = document.getElementById('btn-menu');
+            const portalNav = document.getElementById('portal-nav');
+            const bovedaCarrito = document.getElementById('boveda-carrito');
+            
+            // Si el carrito está abierto, lo cerramos por seguridad visual
+            if(bovedaCarrito.classList.contains('activa')) {
+                bovedaCarrito.classList.remove('activa');
+            }
+
+            btnMenu.classList.toggle('abierto');
+            portalNav.classList.toggle('activo');
+        }
+
+        // Función para abrir/cerrar la Bóveda del Carrito
+        function toggleBovedaCarrito() {
+            const bovedaCarrito = document.getElementById('boveda-carrito');
+            const portalNav = document.getElementById('portal-nav');
+            const btnMenu = document.getElementById('btn-menu');
+
+            // Si el menú está abierto, lo cerramos cruzado
+            if(portalNav.classList.contains('activo')) {
+                portalNav.classList.remove('activo');
+                btnMenu.classList.remove('abierto');
+            }
+
+            bovedaCarrito.classList.toggle('activa');
+        }
+
+        // Función para simular agregar un activo a la bóveda (Úsala en tus botones de compra)
+        function agregarActivoABoveda(nombreActivo, valor) {
+            const contador = document.getElementById('contador-carrito');
+            let cantidadActual = parseInt(contador.innerText);
+            
+            // Incrementamos el contador
+            cantidadActual++;
+            contador.innerText = cantidadActual;
+            
+            // Efecto de pulso en el carrito para avisar al usuario
+            contador.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                contador.style.transform = 'scale(1)';
+            }, 300);
+
+            // Aquí se desarrollará la lógica para agregar los items a la lista (Backend en Firestore)
+            console.log(`[+] Activo añadido: ${nombreActivo} | Valor: $${valor}`);
+        }
+        </script>
     
 </body>
   </html>
