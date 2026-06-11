@@ -116,7 +116,6 @@
             z-index: 2;
         }
 
-        /* Efecto de Flotación e Iluminación al pasar el mouse o tocar */
         .pilar-card:hover, .pilar-card:active {
             transform: translateY(-8px);
             box-shadow: 0 var(--f-21) var(--f-55) rgba(0, 0, 0, 0.6);
@@ -127,12 +126,12 @@
             transform: scaleX(1); /* Despliega el rayo de luz */
         }
 
-        /* Colores específicos de iluminación por cada pilar */
+    
         .pilar-card.shefa::before { background: var(--azul-parnasa); box-shadow: 0 0 15px var(--azul-parnasa); }
         .pilar-card.parnasa::before { background: var(--oro-shefa); box-shadow: 0 0 15px var(--oro-shefa); }
         .pilar-card.veraja::before { background: var(--verde-veraja); box-shadow: 0 0 15px var(--verde-veraja); }
 
-        /* Contenido de la Tarjeta */
+    
         .pilar-icono {
             width: var(--f-55);
             height: var(--f-55);
@@ -146,7 +145,7 @@
         }
 
         .pilar-card:hover .pilar-icono {
-            transform: scale(1.1); /* El ícono respira al interactuar */
+            transform: scale(1.1); 
         }
 
         .pilar-icono svg {
@@ -155,7 +154,7 @@
             fill: var(--oro-shefa);
         }
 
-        /* Variaciones de color para los íconos */
+        
         .pilar-card.shefa .pilar-icono svg { fill: var(--azul-parnasa); }
         .pilar-card.parnasa .pilar-icono svg { fill: var(--oro-shefa); }
         .pilar-card.veraja .pilar-icono svg { fill: var(--verde-veraja); }
@@ -169,7 +168,7 @@
 
         .pilar-card p {
             color: var(--gris-texto);
-            font-size: 15px; /* Optimizado para lectura en pantallas HD */
+            font-size: 15px;  HD 
             line-height: var(--line-height-aureo);
         }
 
@@ -242,7 +241,6 @@
     /* NAVEGACIÓN ANDRÓMEDA & BÓVEDA DE ACTIVOS (CARRITO)                     */
     /* ====================================================================== */
     
-    /* 1. El Menú Hamburguesa Transformable (Proporción Áurea) */
     .btn-menu-aureo {
         width: 40px;
         height: 30px;
@@ -264,7 +262,7 @@
         box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
     }
 
-    /* Animación de conversión a 'X' */
+    
     .btn-menu-aureo.abierto span:nth-child(1) {
         transform: translateY(13.5px) rotate(45deg);
         background: #39ff14; /* Verde Éxito */
@@ -280,7 +278,7 @@
         box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
     }
 
-    /* 2. El Portal de Navegación (Fondo de Cristal) */
+    
     .portal-navegacion {
         position: fixed;
         top: 0;
@@ -336,7 +334,6 @@
         -webkit-text-stroke: 0px;
     }
 
-    /* 3. El Carrito Cuántico (Bóveda Lateral) */
     .boveda-carrito {
         position: fixed;
         top: 0;
@@ -378,7 +375,7 @@
         border-top: 1px solid rgba(212, 175, 55, 0.2);
     }
 
-    /* Botón Flotante del Carrito en el Header */
+    
     .btn-carrito-flotante {
         position: relative;
         background: transparent;
@@ -431,7 +428,7 @@
         z-index: 1;
     }
 
-    /* El resplandor del Fuego Ancestral en el fondo */
+    
     .cofre-cuantico-container::before {
         content: '';
         position: absolute;
@@ -484,7 +481,7 @@
     .btn-desbloquear-cofre {
         background: linear-gradient(90deg, #8a2be2, #4a00e0);
         color: #fff;
-        border: 1px solid #b87333; /* Toque de cobre/antena */
+        border: 1px solid #b87333;  
         padding: 15px 40px;
         font-size: 1rem;
         font-weight: 900;
@@ -650,7 +647,7 @@
                     <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                 </svg>
             </div>
-       <h3>Remesas | Conexión Sin Fronteras</h3>
+       <h3>Shefa Flow Remesas | Conexión Sin Fronteras</h3>
         <p>Servicio global habilitado para todos los usuarios, independiente de las inversiones. Flujo directo y seguro para enviar valor a cualquier lugar del mundo.</p>
         
         <a href="shefa-flow.html" style="display: block; text-align: center; background: linear-gradient(90deg, #D4AF37 0%, #FBE18D 100%); color: #0A1128; text-decoration: none; padding: 13px 21px; border-radius: 13px; font-weight: 800; margin-top: 21px; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); transition: transform 0.3s ease;">
@@ -662,18 +659,16 @@
 <!-- ======================================================= -->
 <div style="background-color: #111f38; border: 1px solid rgba(212, 175, 55, 0.15);" class="rounded-xl p-6 mb-8 relative">
     
-    <!-- Ícono Premium -->
+    
     <div style="background-color: #050b14; border: 1px solid rgba(212, 175, 55, 0.3);" class="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
         <i class="fas fa-city" style="color: #d4af37; font-size: 1.25rem;"></i>
     </div>
     
-    <!-- Textos -->
+    
     <h3 class="text-xl font-bold text-white mb-2">Bienes Raíces | Tokenización RWA</h3>
     <p class="text-sm leading-relaxed mb-6" style="color: #94a3b8;">
         Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada (Criptofracciones) respaldada por contratos inteligentes bajo la proporción de la abundancia.
     </p>
-
-    <!-- EL BOTÓN HIPNÓTICO -->
     <a href="salon_inmobiliario.html" class="btn-hipnotico-aureo w-full block text-center font-black py-4 rounded-lg uppercase tracking-widest text-sm shadow-2xl">
         <i class="fas fa-key mr-2"></i> Abrir Salón Inmobiliario
     </a>
@@ -716,9 +711,8 @@
             const bovedaCarrito = document.getElementById('boveda-carrito');
             const portalNav = document.getElementById('portal-nav');
             const btnMenu = document.getElementById('btn-menu');
-
-            // Si el menú está abierto, lo cerramos cruzado
-            if(portalNav.classList.contains('activo')) {
+            
+           if(portalNav.classList.contains('activo')) {
                 portalNav.classList.remove('activo');
                 btnMenu.classList.remove('abierto');
             }
@@ -751,7 +745,7 @@
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
             const codigoIngresado = inputCodigo.value.trim().toUpperCase();
 
-            // Reseteo visual
+            
             pantallaRespuesta.style.opacity = '0';
             
             setTimeout(() => {
@@ -803,7 +797,7 @@
             }, 500);
         }
          <script src="shefa-core.js"></script>
-   </script></body>
-    
-   </html>
+   </script>
+</body>
+</html>
   
