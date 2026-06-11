@@ -695,27 +695,23 @@
             <span style="font-size: 0.75rem; opacity: 0.7; color: var(--blanco-puro);">SHEFÁ &bull; PARNASÁ &bull; VERAJÁ</span>
         </div>
     </footer>
-<!-- Importación de la lógica avanzada de Shefa Flow -->
-
-
 
         <script>
-        // Función para abrir/cerrar el Menú de Andrómeda
         function togglePortalNavegacion() {
             const btnMenu = document.getElementById('btn-menu');
             const portalNav = document.getElementById('portal-nav');
             const bovedaCarrito = document.getElementById('boveda-carrito');
-            
-            // Si el carrito está abierto, lo cerramos por seguridad visual
-            if(bovedaCarrito.classList.contains('activa')) {
+            } 
+        
+            {  if(bovedaCarrito.classList.contains('activa')) 
                 bovedaCarrito.classList.remove('activa');
             }
 
-            btnMenu.classList.toggle('abierto');
+            {  btnMenu.classList.toggle('abierto');
             portalNav.classList.toggle('activo');
         }
 
-        // Función para abrir/cerrar la Bóveda del Carrito
+    
         function toggleBovedaCarrito() {
             const bovedaCarrito = document.getElementById('boveda-carrito');
             const portalNav = document.getElementById('portal-nav');
@@ -730,22 +726,22 @@
             bovedaCarrito.classList.toggle('activa');
         }
 
-        // Función para simular agregar un activo a la bóveda (Úsala en tus botones de compra)
+    
         function agregarActivoABoveda(nombreActivo, valor) {
             const contador = document.getElementById('contador-carrito');
             let cantidadActual = parseInt(contador.innerText);
             
-            // Incrementamos el contador
+            
             cantidadActual++;
             contador.innerText = cantidadActual;
             
-            // Efecto de pulso en el carrito para avisar al usuario
+            
             contador.style.transform = 'scale(1.5)';
             setTimeout(() => {
                 contador.style.transform = 'scale(1)';
             }, 300);
 
-            // Aquí se desarrollará la lógica para agregar los items a la lista (Backend en Firestore)
+        
             console.log(`[+] Activo añadido: ${nombreActivo} | Valor: $${valor}`);
         }
     
@@ -759,7 +755,7 @@
             pantallaRespuesta.style.opacity = '0';
             
             setTimeout(() => {
-                // MATRIZ DE CÓDIGOS OBSEQUIO (Puedes agregar más en el futuro)
+                
                 if (codigoIngresado === 'SIRIUS-1618') {
                     mostrarÉxito("¡CÓDIGO ACEPTADO! Has desbloqueado una (1) Criptofracción de Bienes Raíces Premium.", "#39ff14");
                     lanzarConfetiCuantico();
@@ -778,7 +774,7 @@
                 else {
                     mostrarError("Frecuencia no reconocida. Código inválido o expirado.");
                 }
-            }, 300); // Pequeño retraso para dar sensación de procesamiento de datos
+            }, 300);
         }
 
         function mostrarÉxito(mensaje, colorFuego) {
@@ -796,8 +792,6 @@
             pantallaRespuesta.style.textShadow = "none";
             pantallaRespuesta.style.opacity = '1';
         }
-
-        // Simulación de un destello de energía al aceptar el código
         function lanzarConfetiCuantico() {
             const contenedor = document.querySelector('.cofre-cuantico-container');
             contenedor.style.transform = 'scale(1.05)';
@@ -808,8 +802,8 @@
                 contenedor.style.boxShadow = '0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2)';
             }, 500);
         }
-            <script src="shefa-core.js"></script>
-   </script>
-    </body>
+         <script src="shefa-core.js"></script>
+   </script></body>
+    
    </html>
   
