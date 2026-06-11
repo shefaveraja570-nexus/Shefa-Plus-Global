@@ -750,6 +750,67 @@
             console.log(`[+] Activo añadido: ${nombreActivo} | Valor: $${valor}`);
         }
         </script>
+    <script>
+        function procesarCodigoCosmico() {
+            const inputCodigo = document.getElementById('codigo-universo');
+            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            const codigoIngresado = inputCodigo.value.trim().toUpperCase();
+
+            // Reseteo visual
+            pantallaRespuesta.style.opacity = '0';
+            
+            setTimeout(() => {
+                // MATRIZ DE CÓDIGOS OBSEQUIO (Puedes agregar más en el futuro)
+                if (codigoIngresado === 'SIRIUS-1618') {
+                    mostrarÉxito("¡CÓDIGO ACEPTADO! Has desbloqueado una (1) Criptofracción de Bienes Raíces Premium.", "#39ff14");
+                    lanzarConfetiCuantico();
+                } 
+                else if (codigoIngresado === 'FUEGO-VERAJA-777') {
+                    mostrarÉxito("¡CONEXIÓN ANCESTRAL! Has recibido $500 USD en saldo para Remesas Globales.", "#ffaa00");
+                    lanzarConfetiCuantico();
+                }
+                else if (codigoIngresado === 'ANDROMEDA-SHEFA') {
+                    mostrarÉxito("¡SISTEMA DESBLOQUEADO! Acceso VIP otorgado al Salón Luxury Motors.", "#00f0ff");
+                    lanzarConfetiCuantico();
+                }
+                else if (codigoIngresado === '') {
+                    mostrarError("La frecuencia está vacía. Ingresa un código válido.");
+                }
+                else {
+                    mostrarError("Frecuencia no reconocida. Código inválido o expirado.");
+                }
+            }, 300); // Pequeño retraso para dar sensación de procesamiento de datos
+        }
+
+        function mostrarÉxito(mensaje, colorFuego) {
+            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            pantallaRespuesta.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${mensaje}`;
+            pantallaRespuesta.style.color = colorFuego;
+            pantallaRespuesta.style.textShadow = `0 0 10px ${colorFuego}`;
+            pantallaRespuesta.style.opacity = '1';
+        }
+
+        function mostrarError(mensaje) {
+            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            pantallaRespuesta.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i> ${mensaje}`;
+            pantallaRespuesta.style.color = "#ff4444";
+            pantallaRespuesta.style.textShadow = "none";
+            pantallaRespuesta.style.opacity = '1';
+        }
+
+        // Simulación de un destello de energía al aceptar el código
+        function lanzarConfetiCuantico() {
+            const contenedor = document.querySelector('.cofre-cuantico-container');
+            contenedor.style.transform = 'scale(1.05)';
+            contenedor.style.boxShadow = '0 0 80px rgba(255, 170, 0, 0.8)';
+            
+            setTimeout(() => {
+                contenedor.style.transform = 'scale(1)';
+                contenedor.style.boxShadow = '0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2)';
+            }, 500);
+        }
+    </script>
+    
     
 </body>
   </html>
