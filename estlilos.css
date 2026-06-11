@@ -1,27 +1,143 @@
-/* ======================================================= */
-/* EXPANSIÓN: CÓDIGO MAESTRO PARA TRANSMISIÓN              */
-/* ======================================================= */
+/* ========================================================================= */
+/* SHEFA PLUS GLOBAL - ARQUITECTURA DE ESTILOS & FUNCIONALIDAD CSS           */
+/* ========================================================================= */
 
-.transmision-icono {
-    font-size: 3rem; 
-    margin-bottom: 15px; 
-    color: #00f0ff; 
-    text-shadow: 0 0 20px #00f0ff;
+:root {
+    /* Paleta de Abundancia - Basada en el Oro y el Abismo */
+    --oro-shefa: #d4af37;
+    --oro-claro: #fbe18d;
+    --azul-abismo: #050b14;
+    --azul-seccion: #111f38;
+    --cian-transmision: #00f0ff;
+    --blanco-puro: #ffffff;
+    --gris-texto: #94a3b8;
+    
+    /* Espaciado Armónico (Proporción Áurea aproximada) */
+    --f-13: 13px;
+    --f-21: 21px;
+    --f-34: 34px;
+    --f-55: 55px;
 }
 
-.transmision-titulo {
-    color: #fff; 
-    font-size: 1.8rem; 
-    font-weight: 900; 
-    letter-spacing: 3px; 
-    text-transform: uppercase; 
-    margin-bottom: 10px;
+/* 1. RESET Y BASE (Cimientos Inquebrantables) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.transmision-texto {
-    color: #9ca3af; 
-    font-size: 0.9rem; 
-    max-width: 500px; 
-    margin: 0 auto 30px auto; 
+body {
+    background-color: var(--azul-abismo);
+    color: var(--blanco-puro);
+    font-family: 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
+    overflow-x: hidden;
 }
+
+/* 2. COMPONENTE: COFRE CUÁNTICO (Funcionalidad Visual) */
+.cofre-cuantico-container {
+    background: rgba(17, 31, 56, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: var(--f-55);
+    border-radius: 20px;
+    text-align: center;
+    margin: var(--f-34) auto;
+    max-width: 600px;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.cofre-cuantico-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
+}
+
+.input-obsequio-cosmico {
+    background: #0a0f16;
+    border: 1px solid var(--oro-shefa);
+    color: var(--blanco-puro);
+    padding: 15px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: var(--f-21);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.input-obsequio-cosmico:focus {
+    border-color: var(--cian-transmision);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+}
+
+.btn-desbloquear-cofre {
+    background: linear-gradient(90deg, #d4af37, #fbe18d);
+    color: var(--azul-abismo);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, filter 0.3s ease;
+}
+
+.btn-desbloquear-cofre:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+
+/* 3. COMPONENTE: PILARES DE HONOR (Grid de Flujo) */
+.grid-pilares {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--f-34);
+    padding: var(--f-34);
+}
+
+.pilar-card {
+    background: var(--azul-seccion);
+    padding: var(--f-34);
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: border 0.3s ease;
+}
+
+.pilar-card:hover {
+    border: 1px solid var(--oro-shefa);
+}
+
+.pilar-icono {
+    width: 60px;
+    height: 60px;
+    margin-bottom: var(--f-21);
+    color: var(--oro-shefa);
+}
+
+/* 4. FUNCIONALIDAD DE MENSAJES (Respuesta Dinámica) */
+.mensaje-respuesta-cosmica {
+    margin-top: 20px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* 5. BOTÓN HIPNÓTICO AUREO */
+.btn-hipnotico-aureo {
+    background: linear-gradient(90deg, #D4AF37 0%, #FBE18D 100%);
+    color: var(--azul-abismo);
+    padding: 15px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 800;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+}
+
+.btn-hipnotico-aureo:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+                           }
