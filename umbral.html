@@ -4,516 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salón de Honor | Shefa Plus Global</title>
-    <style>
-        /* ==========================================
-           💎 VARIABLES DE PROPORCIÓN ÁUREA Y NEUROSHEFÁ
-           ========================================== */
-        :root {
-            /* Colores Magnéticos */
-            --fondo-abismo: #0a0f16;
-            --tarjeta-fondo: #121a25;
-            --blanco-puro: #ffffff;
-            --gris-texto: #9ca3af;
-            --oro-shefa: #fbbf24;
-            --azul-parnasa: #2563eb;
-            --verde-veraja: #10b981;
-            
-            /* Sucesión de Fibonacci en píxeles */
-            --f-8: 8px;
-            --f-13: 13px;
-            --f-21: 21px;
-            --f-34: 34px;
-            --f-55: 55px;
-            --f-89: 89px;
-            --f-144: 144px;
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
 
-            
-            --line-height-aureo: 1.618;
-        }
-
-        
-        {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--fondo-abismo);
-            color: var(--blanco-puro);
-            line-height: var(--line-height-aureo);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        main {
-            width: 100%;
-            max-width: 1200px; /* Expansión visual controlada */
-            padding: var(--f-55) var(--f-21);
-        }
-
-        /* ==========================================
-           🏛️ SECCIÓN: PILARES DE ABUNDANCIA
-           ========================================== */
-        .seccion-titulo {
-            text-align: center;
-            margin-bottom: var(--f-89);
-        }
-
-        .seccion-titulo h2 {
-            font-size: var(--f-34);
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .seccion-titulo h2 span {
-            color: var(--oro-shefa);
-        }
-
-        .seccion-titulo p {
-            font-size: var(--f-13);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .grid-pilares {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--f-34);
-            padding-bottom: var(--f-55);
-        }
-
-        /* ==========================================
-           🃏 TARJETAS NEUROSHEFÁ (HOVER ILUMINADO)
-           ========================================== */
-        .pilar-card {
-            background-color: var(--tarjeta-fondo);
-            border-radius: var(--f-13);
-            padding: var(--f-55) var(--f-34);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.618s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transición Áurea */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        /* La Barra de Iluminación Oculta (Borde Superior) */
-        .pilar-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--oro-shefa);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.618s ease-in-out;
-            z-index: 2;
-        }
-
-        .pilar-card:hover, .pilar-card:active {
-            transform: translateY(-8px);
-            box-shadow: 0 var(--f-21) var(--f-55) rgba(0, 0, 0, 0.6);
-            background-color: #16202d; /* Ligero aclarado de fondo */
-        }
-
-        .pilar-card:hover::before, .pilar-card:active::before {
-            transform: scaleX(1); /* Despliega el rayo de luz */
-        }
-
-    
-        .pilar-card.shefa::before { background: var(--azul-parnasa); box-shadow: 0 0 15px var(--azul-parnasa); }
-        .pilar-card.parnasa::before { background: var(--oro-shefa); box-shadow: 0 0 15px var(--oro-shefa); }
-        .pilar-card.veraja::before { background: var(--verde-veraja); box-shadow: 0 0 15px var(--verde-veraja); }
-
-    
-        .pilar-icono {
-            width: var(--f-55);
-            height: var(--f-55);
-            background-color: rgba(255, 255, 255, 0.03);
-            border-radius: var(--f-13);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: var(--f-21);
-            transition: transform 0.618s ease;
-        }
-
-        .pilar-card:hover .pilar-icono {
-            transform: scale(1.1); 
-        }
-
-        .pilar-icono svg {
-            width: var(--f-21);
-            height: var(--f-21);
-            fill: var(--oro-shefa);
-        }
-
-        
-        .pilar-card.shefa .pilar-icono svg { fill: var(--azul-parnasa); }
-        .pilar-card.parnasa .pilar-icono svg { fill: var(--oro-shefa); }
-        .pilar-card.veraja .pilar-icono svg { fill: var(--verde-veraja); }
-
-        .pilar-card h3 {
-            font-size: var(--f-21);
-            margin-bottom: var(--f-13);
-            font-weight: 700;
-            color: var(--blanco-puro);
-        }
-
-        .pilar-card p {
-            color: var(--gris-texto);
-            font-size: 15px;  HD 
-            line-height: var(--line-height-aureo);
-        }
-
-        /* ==========================================
-           🧿 FOOTER VIBRACIONAL
-           ========================================== */
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: var(--f-55) var(--f-21);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: auto;
-        }
-
-        .frecuencia-texto {
-            margin-top: var(--f-21);
-            font-size: 0.85rem;
-            color: var(--oro-shefa);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-    </style>
-<style>
-    /* ========================================= */
-    /* AURA FIBONACCI - ANIMACIÓN DEL BOTÓN RWA  */
-    /* ========================================= */
-    
-    @keyframes pulso-fibonacci {
-        0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.8); transform: scale(1); }
-        38.2% { box-shadow: 0 0 20px 5px rgba(212, 175, 55, 0.5); transform: scale(1.01); } /* Punto Áureo 1 */
-        61.8% { box-shadow: 0 0 35px 15px rgba(212, 175, 55, 0.2); transform: scale(1.02); } /* Punto Áureo 2 */
-        100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); transform: scale(1); }
-    }
-
-    @keyframes rotacion-luz {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    .btn-hipnotico-aureo {
-        background: linear-gradient(135deg, #d4af37 0%, #8a6a1c 100%);
-        color: #050b14 !important; /* Texto oscuro para contraste premium */
-        position: relative;
-        overflow: hidden;
-        animation: pulso-fibonacci 3.14s infinite cubic-bezier(0.25, 0.1, 0.25, 1);
-        border: 1px solid #ffdf73;
-        z-index: 1;
-        transition: all 0.3s ease;
-    }
-
-    .btn-hipnotico-aureo::before {
-        content: '';
-        position: absolute;
-        top: -50%; left: -50%;
-        width: 200%; height: 200%;
-        background: conic-gradient(transparent, rgba(255, 255, 255, 0.4), transparent 30%);
-        animation: rotacion-luz 6.18s linear infinite; /* Tiempo basado en 1.618 */
-        z-index: -1;
-    }
-
-    .btn-hipnotico-aureo:hover {
-        transform: scale(1.03) !important;
-        box-shadow: 0 0 40px rgba(212, 175, 55, 0.6) !important;
-        letter-spacing: 0.25em;
-    }
-</style>
-
-<style>  /* ====================================================================== */
-    /* NAVEGACIÓN ANDRÓMEDA & BÓVEDA DE ACTIVOS (CARRITO)                     */
-    /* ====================================================================== */
-    
-    .btn-menu-aureo {
-        width: 40px;
-        height: 30px;
-        position: relative;
-        cursor: pointer;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    
-    .btn-menu-aureo span {
-        display: block;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, #d4af37, #fdf5a9);
-        border-radius: 3px;
-        transition: all 0.618s cubic-bezier(0.25, 0.1, 0.25, 1); /* Tiempo Fibonacci */
-        box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-    }
-
-    
-    .btn-menu-aureo.abierto span:nth-child(1) {
-        transform: translateY(13.5px) rotate(45deg);
-        background: #39ff14; /* Verde Éxito */
-        box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
-    }
-    .btn-menu-aureo.abierto span:nth-child(2) {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    .btn-menu-aureo.abierto span:nth-child(3) {
-        transform: translateY(-13.5px) rotate(-45deg);
-        background: #39ff14;
-        box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
-    }
-
-    
-    .portal-navegacion {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(5, 11, 20, 0.95);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        z-index: 998;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.618s ease;
-    }
-
-    .portal-navegacion.activo {
-        opacity: 1;
-        pointer-events: all;
-    }
-
-    .link-andromeda {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: transparent;
-        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
-        text-transform: uppercase;
-        letter-spacing: 0.15em;
-        margin: 15px 0;
-        text-decoration: none;
-        transition: all 0.382s ease;
-        position: relative;
-    }
-
-    .link-andromeda:hover {
-        color: #d4af37;
-        -webkit-text-stroke: 0px;
-        text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
-        transform: scale(1.1);
-        letter-spacing: 0.25em;
-    }
-
-    .link-andromeda small {
-        display: block;
-        font-size: 0.8rem;
-        color: #39ff14;
-        text-shadow: none;
-        letter-spacing: 0.3em;
-        margin-top: 5px;
-        -webkit-text-stroke: 0px;
-    }
-
-    .boveda-carrito {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        max-width: 450px;
-        height: 100vh;
-        background: #0a0d14;
-        border-left: 2px solid rgba(212, 175, 55, 0.3);
-        box-shadow: -20px 0 50px rgba(0,0,0,0.8);
-        z-index: 999;
-        transition: right 0.618s cubic-bezier(0.25, 1, 0.5, 1);
-        display: flex;
-        flex-direction: column;
-    }
-
-    .boveda-carrito.activa {
-        right: 0;
-    }
-
-    .cabecera-carrito {
-        padding: 20px;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #111f38;
-    }
-
-    .cuerpo-carrito {
-        flex-grow: 1;
-        padding: 20px;
-        overflow-y: auto;
-    }
-
-    .pie-carrito {
-        padding: 20px;
-        background: #111f38;
-        border-top: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    
-    .btn-carrito-flotante {
-        position: relative;
-        background: transparent;
-        border: none;
-        color: #d4af37;
-        font-size: 1.8rem;
-        cursor: pointer;
-        transition: transform 0.3s ease;
-        z-index: 1000;
-    }
-    
-    .btn-carrito-flotante:hover {
-        transform: scale(1.1);
-        text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
-    }
-
-    .contador-activos {
-        position: absolute;
-        top: -5px;
-        right: -10px;
-        background: #39ff14;
-        color: #050b14;
-        font-size: 0.7rem;
-        font-weight: 900;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
-    }
-           
-    </style>
-
- <style>   /* ====================================================================== */
-    /* MÓDULO COFRE CUÁNTICO & CÓDIGOS DE OBSEQUIO (INSPIRACIÓN ANDRÓMEDA)    */
-    /* ====================================================================== */
-
-    .cofre-cuantico-container {
-        background: linear-gradient(135deg, #0f051d 0%, #1a0b2e 50%, #051428 100%);
-        border: 2px solid rgba(0, 240, 255, 0.3);
-        border-radius: 21px; 
-        padding: 40px 20px;
-        position: relative;
-        overflow: hidden;
-        text-align: center;
-        box-shadow: 0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2);
-        margin: 40px 0;
-        z-index: 1;
-    }
-
-    
-    .cofre-cuantico-container::before {
-        content: '';
-        position: absolute;
-        bottom: -50px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 200px;
-        height: 100px;
-        background: radial-gradient(ellipse, rgba(255, 170, 0, 0.8) 0%, rgba(255, 170, 0, 0) 70%);
-        filter: blur(20px);
-        z-index: -1;
-        animation: latido-fuego 3.14s infinite alternate ease-in-out;
-    }
-
-    @keyframes latido-fuego {
-        0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-        100% { opacity: 1; transform: translateX(-50%) scale(1.5); }
-    }
-
-    .input-obsequio-cosmico {
-        background: rgba(5, 11, 20, 0.8);
-        border: 1px solid #00f0ff;
-        color: #fff;
-        font-size: 1.2rem;
-        padding: 15px 20px;
-        width: 100%;
-        max-width: 350px;
-        border-radius: 8px;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        outline: none;
-        transition: all 0.382s ease;
-        box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
-        margin-bottom: 20px;
-    }
-
-    .input-obsequio-cosmico:focus {
-        border-color: #ffaa00;
-        box-shadow: 0 0 25px rgba(255, 170, 0, 0.4);
-        transform: scale(1.02);
-    }
-
-    .input-obsequio-cosmico::placeholder {
-        color: rgba(0, 240, 255, 0.4);
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-    }
-
-    .btn-desbloquear-cofre {
-        background: linear-gradient(90deg, #8a2be2, #4a00e0);
-        color: #fff;
-        border: 1px solid #b87333;  
-        padding: 15px 40px;
-        font-size: 1rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.618s ease;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .btn-desbloquear-cofre:hover {
-        background: linear-gradient(90deg, #ffaa00, #ff5500); /* Transición al fuego */
-        box-shadow: 0 0 30px rgba(255, 170, 0, 0.6);
-        transform: translateY(-3px);
-    }
-
-    .mensaje-respuesta-cosmica {
-        margin-top: 20px;
-        min-height: 24px;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-        font-weight: bold;
-        transition: opacity 0.3s ease;
-    }
-         
-   </style>
-   <!-- ======================================================= -->
-    <!-- CABECERA MAESTRA (MENÚ HAMBURGUESA + CARRITO)           -->
-    <!-- ======================================================= -->
-  
     <header style="position: fixed; top: 0; width: 100%; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 11, 20, 0.85); backdrop-filter: blur(10px); z-index: 997; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
         <div style="color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px;">
             SHEFÁ <span style="color: #d4af37;">PLUS</span>
@@ -530,202 +24,131 @@
             </div>
         </div>
     </header>
-</head>
-<body>
 
-    
     <main>
-            <div class="cofre-cuantico-container">
-        
-        <div style="font-size: 3rem; margin-bottom: 15px; color: #00f0ff; text-shadow: 0 0 20px #00f0ff;">
-            <i class="fas fa-cube"></i>
-        </div>
-        
-        <h3 style="color: #fff; font-size: 1.8rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">
-            Transmisión de Abundancia
-        </h3>
-        <p style="color: #9ca3af; font-size: 0.9rem; max-width: 500px; margin: 0 auto 30px auto; line-height: 1.6;">
-            Ingresa el código de frecuencia cuántica para desbloquear activos, criptofracciones y bendiciones (Verajá) de nuestra red global.
-        </p>
-
-        <input type="text" id="codigo-universo" class="input-obsequio-cosmico" placeholder="INGRESA EL CÓDIGO AQUÍ" autocomplete="off">
-        <br>
-        <button class="btn-desbloquear-cofre" onclick="procesarCodigoCosmico()">
-            <i class="fas fa-unlock-alt mr-2"></i> Desbloquear Cofre
-        </button>
-
-        <div id="pantalla-respuesta" class="mensaje-respuesta-cosmica"></div>
+        <div class="cofre-cuantico-container">
+            <div style="font-size: 3rem; margin-bottom: 15px; color: #00f0ff; text-shadow: 0 0 20px #00f0ff;">
+                <i class="fas fa-cube"></i>
             </div>
+            <h3 style="color: #fff; font-size: 1.8rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 10px;">
+                Transmisión de Abundancia
+            </h3>
+            <p style="color: #9ca3af; font-size: 0.9rem; max-width: 500px; margin: 0 auto 30px auto; line-height: 1.6;">
+                Ingresa el código de frecuencia cuántica para desbloquear activos, criptofracciones y bendiciones (Verajá) de nuestra red global.
+            </p>
+            <input type="text" id="codigo-universo" class="input-obsequio-cosmico" placeholder="INGRESA EL CÓDIGO AQUÍ" autocomplete="off">
+            <br>
+            <button class="btn-desbloquear-cofre" onclick="procesarCodigoCosmico()">
+                <i class="fas fa-unlock-alt mr-2"></i> Desbloquear Cofre
+            </button>
+            <div id="pantalla-respuesta" class="mensaje-respuesta-cosmica"></div>
+        </div>
         
         <section class="pilares" id="info">
             <div class="seccion-titulo">
                 <h2>El Salón de <span>Honor</span></h2>
                 <p style="color: var(--gris-texto); margin-top: var(--f-13);">Arquitectura diseñada para el éxito mutuo</p>
             </div>
-
             <div class="grid-pilares">
-                
                 <div class="pilar-card shefa">
                     <div class="pilar-icono">
                         <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                     </div>
                     <h3>Shefá | Flujo Constante</h3>
-                    <p>Interfaces optimizadas bajo proporciones armónicas. Garantizamos que la experiencia del usuario y tus procesos comerciales fluyan de manera natural, rápida y sin interrupciones.</p>
+                    <p>Interfaces optimizadas bajo proporciones armónicas. Garantizamos que la experiencia del usuario y tus procesos comerciales fluyan de manera natural.</p>
                 </div>
-
                 <div class="pilar-card parnasa">
                     <div class="pilar-icono">
                         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
                     <h3>Parnasá | Sustento Protegido</h3>
-                    <p>Infraestructura robusta de grado bancario. Una herramienta sólida que protege tus transacciones, brindando la base segura para el crecimiento inquebrantable de cada aliado.</p>
+                    <p>Infraestructura robusta de grado bancario. Una herramienta sólida que protege tus transacciones, brindando la base segura para el crecimiento inquebrantable.</p>
                 </div>
-
                 <div class="pilar-card veraja">
                     <div class="pilar-icono">
                         <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <h3>Verajá | Multiplicación</h3>
-                    <p>Algoritmos eficientes y estructuras matemáticas impecables que impulsan los resultados, expandiendo el alcance de tu negocio de forma escalable y bendecida.</p>
+                    <p>Algoritmos eficientes y estructuras matemáticas impecables que impulsan los resultados, expandiendo el alcance de tu negocio de forma escalable.</p>
                 </div>
-        <div class="pilar-card remesas">
-            <div class="pilar-icono" style="color: #A855F7;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                </svg>
+                <div class="pilar-card remesas">
+                    <div class="pilar-icono" style="color: #A855F7;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </div>
+                    <h3>Shefa Flow Remesas | Conexión Sin Fronteras</h3>
+                    <p>Servicio global habilitado para todos los usuarios. Flujo directo y seguro para enviar valor a cualquier lugar del mundo.</p>
+                    <a href="shefa-flow.html" class="btn-hipnotico-aureo" style="display: block; text-align: center; text-decoration: none; padding: 13px 21px; border-radius: 13px; font-weight: 800; margin-top: 21px; font-size: 15px; text-transform: uppercase;">
+                        ⚡ Ingresar a Shefa Flow
+                    </a>
+                </div>
             </div>
-       <h3>Shefa Flow Remesas | Conexión Sin Fronteras</h3>
-        <p>Servicio global habilitado para todos los usuarios, independiente de las inversiones. Flujo directo y seguro para enviar valor a cualquier lugar del mundo.</p>
-        
-        <a href="shefa-flow.html" style="display: block; text-align: center; background: linear-gradient(90deg, #D4AF37 0%, #FBE18D 100%); color: #0A1128; text-decoration: none; padding: 13px 21px; border-radius: 13px; font-weight: 800; margin-top: 21px; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); transition: transform 0.3s ease;">
-            ⚡ Ingresar a Shefa Flow
-        </a>
-    </div>
-     
-<!-- ======================================================= -->
-<!-- MÓDULO SALÓN INMOBILIARIO (RWA)                         -->
-<!-- ======================================================= -->
-
-     <div style="background-color: #111f38; border: 1px solid rgba(212, 175, 55, 0.15);" class="rounded-xl p-6 mb-8 relative">
-    
-    
-    <div style="background-color: #050b14; border: 1px solid rgba(212, 175, 55, 0.3);" class="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-        <i class="fas fa-city" style="color: #d4af37; font-size: 1.25rem;"></i>
-    </div>
-    
-    
-    <h3 class="text-xl font-bold text-white mb-2">Bienes Raíces | Tokenización RWA</h3>
-    <p class="text-sm leading-relaxed mb-6" style="color: #94a3b8;">
-        Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada (Criptofracciones) respaldada por contratos inteligentes bajo la proporción de la abundancia.
-    </p>
-    <a href="salon_inmobiliario.html" class="btn-hipnotico-aureo w-full block text-center font-black py-4 rounded-lg uppercase tracking-widest text-sm shadow-2xl">
-        <i class="fas fa-key mr-2"></i> Abrir Salón Inmobiliario
-    </a>
-</div>
-                            
-   </section>  
+            <div style="background-color: #111f38; border: 1px solid rgba(212, 175, 55, 0.15);" class="rounded-xl p-6 mb-8">
+                <h3 class="text-xl font-bold text-white mb-2">Bienes Raíces | Tokenización RWA</h3>
+                <p class="text-sm text-gray-400 mb-6">Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada.</p>
+                <a href="salon_inmobiliario.html" class="btn-hipnotico-aureo w-full block text-center font-black py-4 rounded-lg uppercase">
+                    <i class="fas fa-key mr-2"></i> Abrir Salón Inmobiliario
+                </a>
+            </div>
+        </section>  
     </main>
 
     <footer>
-           <div style="margin-bottom: 21px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <img src="logo-sagrado.png" alt="Shefá Plus Global" style="width: 75px; height: 75px; border-radius: 50%; box-shadow: 0 0 21px rgba(212, 175, 55, 0.5); border: 1px solid rgba(212, 175, 55, 0.3); object-fit: cover; margin-bottom: 15px;">
+        <div style="margin-bottom: 21px; display: flex; flex-direction: column; align-items: center;">
+            <img src="logo-sagrado.png" alt="Shefá Plus Global" style="width: 75px; height: 75px; border-radius: 50%; box-shadow: 0 0 21px rgba(212, 175, 55, 0.5); border: 1px solid rgba(212, 175, 55, 0.3); margin-bottom: 15px;">
             <p style="color: var(--blanco-puro); font-weight: bold; font-size: 1.2rem; margin: 0; letter-spacing: 2px;">SHEFA PLUS GLOBAL</p>
         </div>
-
-        <p style="color: var(--gris-texto); font-size: 0.9rem;">&copy; 2026 Todos los derechos reservados. Preparando lanzamiento oficial.</p>
-        
-        <div class="frecuencia-texto">
-            Arquitectura Impecable &bull; Proporción Áurea <span style="color: var(--blanco-puro); opacity: 0.8;">&phi; 1.618</span><br>
-            <span style="font-size: 0.75rem; opacity: 0.7; color: var(--blanco-puro);">SHEFÁ &bull; PARNASÁ &bull; VERAJÁ</span>
-        </div>
+        <p style="color: var(--gris-texto); font-size: 0.9rem;">&copy; 2026 Todos los derechos reservados.</p>
     </footer>
 
-        <script>
+    <script src="shefa-core.js"></script>
+
+    <script>
         function togglePortalNavegacion() {
             const btnMenu = document.getElementById('btn-menu');
             const portalNav = document.getElementById('portal-nav');
             const bovedaCarrito = document.getElementById('boveda-carrito');
-            } 
-        
-            {  if(bovedaCarrito.classList.contains('activa')) 
-                bovedaCarrito.classList.remove('activa');
-            }
-
-            {  btnMenu.classList.toggle('abierto');
-            portalNav.classList.toggle('activo');
+            if(bovedaCarrito && bovedaCarrito.classList.contains('activa')) bovedaCarrito.classList.remove('activa');
+            btnMenu.classList.toggle('abierto');
+            if(portalNav) portalNav.classList.toggle('activo');
         }
 
-    
         function toggleBovedaCarrito() {
             const bovedaCarrito = document.getElementById('boveda-carrito');
             const portalNav = document.getElementById('portal-nav');
             const btnMenu = document.getElementById('btn-menu');
-            
-           if(portalNav.classList.contains('activo')) {
+            if(portalNav && portalNav.classList.contains('activo')) {
                 portalNav.classList.remove('activo');
                 btnMenu.classList.remove('abierto');
             }
-
-            bovedaCarrito.classList.toggle('activa');
+            if(bovedaCarrito) bovedaCarrito.classList.toggle('activa');
         }
 
-    
-        function agregarActivoABoveda(nombreActivo, valor) {
-            const contador = document.getElementById('contador-carrito');
-            let cantidadActual = parseInt(contador.innerText);
-            
-            
-            cantidadActual++;
-            contador.innerText = cantidadActual;
-            
-            
-            contador.style.transform = 'scale(1.5)';
-            setTimeout(() => {
-                contador.style.transform = 'scale(1)';
-            }, 300);
-
-        
-            console.log(`[+] Activo añadido: ${nombreActivo} | Valor: $${valor}`);
-        }
-    
-    <script>
         function procesarCodigoCosmico() {
             const inputCodigo = document.getElementById('codigo-universo');
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            if(!inputCodigo) return;
             const codigoIngresado = inputCodigo.value.trim().toUpperCase();
-
-            
             pantallaRespuesta.style.opacity = '0';
-            
             setTimeout(() => {
-                
                 if (codigoIngresado === 'SIRIUS-1618') {
-                    mostrarÉxito("¡CÓDIGO ACEPTADO! Has desbloqueado una (1) Criptofracción de Bienes Raíces Premium.", "#39ff14");
+                    mostrarExito("¡CÓDIGO ACEPTADO! Has desbloqueado una (1) Criptofracción.", "#39ff14");
                     lanzarConfetiCuantico();
-                } 
-                else if (codigoIngresado === 'FUEGO-VERAJA-777') {
-                    mostrarÉxito("¡CONEXIÓN ANCESTRAL! Has recibido $500 USD en saldo para Remesas Globales.", "#ffaa00");
+                } else if (codigoIngresado === 'FUEGO-VERAJA-777') {
+                    mostrarExito("¡CONEXIÓN ANCESTRAL! Has recibido saldo.", "#ffaa00");
                     lanzarConfetiCuantico();
-                }
-                else if (codigoIngresado === 'ANDROMEDA-SHEFA') {
-                    mostrarÉxito("¡SISTEMA DESBLOQUEADO! Acceso VIP otorgado al Salón Luxury Motors.", "#00f0ff");
-                    lanzarConfetiCuantico();
-                }
-                else if (codigoIngresado === '') {
-                    mostrarError("La frecuencia está vacía. Ingresa un código válido.");
-                }
-                else {
-                    mostrarError("Frecuencia no reconocida. Código inválido o expirado.");
+                } else {
+                    mostrarError("Frecuencia no reconocida.");
                 }
             }, 300);
         }
 
-        function mostrarÉxito(mensaje, colorFuego) {
+        function mostrarExito(mensaje, color) {
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
             pantallaRespuesta.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${mensaje}`;
-            pantallaRespuesta.style.color = colorFuego;
-            pantallaRespuesta.style.textShadow = `0 0 10px ${colorFuego}`;
+            pantallaRespuesta.style.color = color;
             pantallaRespuesta.style.opacity = '1';
         }
 
@@ -733,123 +156,17 @@
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
             pantallaRespuesta.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i> ${mensaje}`;
             pantallaRespuesta.style.color = "#ff4444";
-            pantallaRespuesta.style.textShadow = "none";
             pantallaRespuesta.style.opacity = '1';
         }
+
         function lanzarConfetiCuantico() {
             const contenedor = document.querySelector('.cofre-cuantico-container');
-            contenedor.style.transform = 'scale(1.05)';
-            contenedor.style.boxShadow = '0 0 80px rgba(255, 170, 0, 0.8)';
-            
-            setTimeout(() => {
-                contenedor.style.transform = 'scale(1)';
-                contenedor.style.boxShadow = '0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2)';
-            }, 500);
-        }
-        
-   
-                    <script src="shefa-core.js"></script>
-
-    <script>
-        // Función para abrir/cerrar el Menú de Andrómeda
-        function togglePortalNavegacion() {
-            const btnMenu = document.getElementById('btn-menu');
-            const portalNav = document.getElementById('portal-nav');
-            const bovedaCarrito = document.getElementById('boveda-carrito');
-
-            // Si el carrito está abierto, lo cerramos primero por seguridad visual
-            if(bovedaCarrito && bovedaCarrito.classList.contains('activa')) {
-                bovedaCarrito.classList.remove('activa');
-            }
-
-            btnMenu.classList.toggle('abierto');
-            portalNav.classList.toggle('activo');
-        }
-
-        // Función para abrir/cerrar la Bóveda del Carrito
-        function toggleBovedaCarrito() {
-            const bovedaCarrito = document.getElementById('boveda-carrito');
-            const portalNav = document.getElementById('portal-nav');
-            const btnMenu = document.getElementById('btn-menu');
-
-            // Si el menú está abierto, lo cerramos primero
-            if(portalNav && portalNav.classList.contains('activo')) {
-                portalNav.classList.remove('activo');
-                btnMenu.classList.remove('abierto');
-            }
-
-            bovedaCarrito.classList.toggle('activa');
-        }
-
-        // Función del Cofre Cuántico (Frecuencia Verajá)
-        function procesarCodigoCosmico() {
-            const inputCodigo = document.getElementById('codigo-universo');
-            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
-            
-            if(!inputCodigo) return; // Protección contra errores
-            
-            const codigoIngresado = inputCodigo.value.trim().toUpperCase();
-
-            // Reseteo visual
-            pantallaRespuesta.style.opacity = '0';
-
-            setTimeout(() => {
-                // MATRIZ DE CÓDIGOS OBSEQUIO
-                if (codigoIngresado === 'SIRIUS-1618') {
-                    mostrarExito("¡CÓDIGO ACEPTADO! Has sintonizado la frecuencia.", "#00f0ff");
-                    lanzarConfetiCuantico();
-                }
-                else if (codigoIngresado === 'FUEGO-VERAJA') {
-                    mostrarExito("¡CONEXIÓN ANCESTRAL! Bendición desbloqueada.", "#ff8c00");
-                    lanzarConfetiCuantico();
-                }
-                else if (codigoIngresado === 'ANDROMEDA-777') {
-                    mostrarExito("¡SISTEMA DESBLOQUEADO! Acceso premium concedido.", "#d4af37");
-                    lanzarConfetiCuantico();
-                }
-                else if (codigoIngresado === '') {
-                    mostrarError("La frecuencia está vacía. Ingresa un código.");
-                }
-                else {
-                    mostrarError("Frecuencia no reconocida. Intenta de nuevo.");
-                }
-            }, 300); // Pequeño retraso para dar sensación cuántica
-        }
-
-        function mostrarExito(mensaje, colorFuego) {
-            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
-            pantallaRespuesta.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${mensaje}`;
-            pantallaRespuesta.style.color = colorFuego;
-            pantallaRespuesta.style.textShadow = `0 0 10px ${colorFuego}`;
-            pantallaRespuesta.style.opacity = '1';
-        }
-
-        function mostrarError(mensaje) {
-            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
-            pantallaRespuesta.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ${mensaje}`;
-            pantallaRespuesta.style.color = "#ff4444";
-            pantallaRespuesta.style.textShadow = "none";
-            pantallaRespuesta.style.opacity = '1';
-        }
-
-        // Simulación de un destello de energía al aceptar el código
-        function lanzarConfetiCuantico() {
-            const contenedor = document.querySelector('.cofre-cuantico-container');
-            
             if(contenedor) {
                 contenedor.style.transform = 'scale(1.05)';
-                contenedor.style.boxShadow = '0 0 80px rgba(212, 175, 55, 0.8), inset 0 0 30px rgba(212, 175, 55, 0.5)';
-                
-                setTimeout(() => {
-                    contenedor.style.transform = 'scale(1)';
-                    contenedor.style.boxShadow = '0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2)';
-                }, 500);
+                setTimeout(() => { contenedor.style.transform = 'scale(1)'; }, 500);
             }
         }
     </script>
 </body>
-</html>
+                            </html>
     
-</body>
-</html>
-  
