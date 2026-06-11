@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shefa Plus Global | Umbral de Acceso</title>
+    <meta name="theme-color" content="#0a0d14">
+    <style>
+        /* Variables de Neuro-Diseño Premium */
+        :root {
+            --bg-titanio: #050b14;
+            --bg-panel: #111f38;
+            --oro-premium: #d4af37;
+            --verde-exito: #39ff14;
+            --texto-puro: #f8fafc;
+            --texto-mutado: #94a3b8;
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-titanio);
+            color: var(--texto-puro);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .portal-acceso {
+            width: 100%;
+            max-width: 450px;
+            background: var(--bg-panel);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            position: relative;
+        }
+
+        .portal-acceso::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--oro-premium) 38.2%, var(--verde-exito) 61.8%);
+        }
+
+        .encabezado-portal {
+            padding: 40px 30px 20px;
+            text-align: center;
+        }
+
+        .encabezado-portal h1 {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .encabezado-portal h1 span {
+            color: var(--oro-premium);
+        }
+
+        .encabezado-portal p {
+            color: var(--texto-mutado);
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .formulario-acceso {
+            padding: 20px 30px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .grupo-input {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 11px;
+            color: var(--oro-premium);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        input {
+            background: rgba(5, 11, 20, 0.8);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 16px;
+            border-radius: 8px;
+            color: var(--texto-puro);
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--oro-premium);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        button {
+            background: var(--oro-premium);
+            color: var(--bg-titanio);
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .mensaje-sistema {
+            font-size: 12px;
+            text-align: center;
+            min-height: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .error-texto {
+            color: var(--error);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="portal-acceso">
+        <header class="encabezado-portal">
+            <h1>Shefa <span>Plus</span></h1>
+            <p>Ojo de Acceso Global</p>
+        </header>
+
+        <section class="formulario-acceso">
+            <div class="grupo-input">
+                <label for="id-operador">ID de Operador</label>
+                <input type="text" id="id-operador" placeholder="Ej: MAGNÉTICO_01" autocomplete="off">
+            </div>
+
+            <div class="grupo-input">
+                <label for="clave-acceso">Frecuencia de Acceso (PIN)</label>
+                <input type="password" id="clave-acceso" placeholder="••••••••">
+            </div>
+
+            <div id="mensaje-acceso" class="mensaje-sistema"></div>
+
+            <button onclick="validarUmbral()">Abrir Bóveda</button>
+        </section>
+    </main>
+
+    <script>
+        function validarUmbral() {
+            const operador = document.getElementById('id-operador').value.trim().toUpperCase();
+            const clave = document.getElementById('clave-acceso').value.trim();
+            const mensajeDiv = document.getElementById('mensaje-acceso');
+
+            mensajeDiv.innerText = '';
+            mensajeDiv.className = 'mensaje-sistema';
+
+            if (!operador || !clave) {
+                mensajeDiv.innerText = '🛡️ Requiere ID y Frecuencia.';
+                mensajeDiv.classList.add('error-texto');
+                return;
+            }
+
+            // PIN Maestro - Control de Acceso
+            const LLAVE_MAESTRA = "SHEFA2026";
+
+            if (clave === LLAVE_MAESTRA) {
+                mensajeDiv.style.color = 'var(--verde-exito)';
+                mensajeDiv.innerText = `Umbral abierto. Sincronizando...`;
+                
+                // Redirección al Ecosistema Shefa Flow
+                setTimeout(() => {
+                    window.location.href = 'shefa-flow.html';
+                }, 800); 
+            } else {
+                mensajeDiv.innerText = '⚠️ Frecuencia incorrecta. Acceso denegado.';
+                mensajeDiv.classList.add('error-texto');
+            }
+        }
+    </script>
+</body>
+  </html>
+  
