@@ -412,6 +412,105 @@
         box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
     }
     </style>
+
+     <style>   /* ====================================================================== */
+    /* MÓDULO COFRE CUÁNTICO & CÓDIGOS DE OBSEQUIO (INSPIRACIÓN ANDRÓMEDA)    */
+    /* ====================================================================== */
+
+    .cofre-cuantico-container {
+        background: linear-gradient(135deg, #0f051d 0%, #1a0b2e 50%, #051428 100%);
+        border: 2px solid rgba(0, 240, 255, 0.3);
+        border-radius: 21px; /* Proporción Fibonacci */
+        padding: 40px 20px;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2);
+        margin: 40px 0;
+        z-index: 1;
+    }
+
+    /* El resplandor del Fuego Ancestral en el fondo */
+    .cofre-cuantico-container::before {
+        content: '';
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 100px;
+        background: radial-gradient(ellipse, rgba(255, 170, 0, 0.8) 0%, rgba(255, 170, 0, 0) 70%);
+        filter: blur(20px);
+        z-index: -1;
+        animation: latido-fuego 3.14s infinite alternate ease-in-out;
+    }
+
+    @keyframes latido-fuego {
+        0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+        100% { opacity: 1; transform: translateX(-50%) scale(1.5); }
+    }
+
+    .input-obsequio-cosmico {
+        background: rgba(5, 11, 20, 0.8);
+        border: 1px solid #00f0ff;
+        color: #fff;
+        font-size: 1.2rem;
+        padding: 15px 20px;
+        width: 100%;
+        max-width: 350px;
+        border-radius: 8px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        outline: none;
+        transition: all 0.382s ease;
+        box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .input-obsequio-cosmico:focus {
+        border-color: #ffaa00;
+        box-shadow: 0 0 25px rgba(255, 170, 0, 0.4);
+        transform: scale(1.02);
+    }
+
+    .input-obsequio-cosmico::placeholder {
+        color: rgba(0, 240, 255, 0.4);
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+
+    .btn-desbloquear-cofre {
+        background: linear-gradient(90deg, #8a2be2, #4a00e0);
+        color: #fff;
+        border: 1px solid #b87333; /* Toque de cobre/antena */
+        padding: 15px 40px;
+        font-size: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.618s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-desbloquear-cofre:hover {
+        background: linear-gradient(90deg, #ffaa00, #ff5500); /* Transición al fuego */
+        box-shadow: 0 0 30px rgba(255, 170, 0, 0.6);
+        transform: translateY(-3px);
+    }
+
+    .mensaje-respuesta-cosmica {
+        margin-top: 20px;
+        min-height: 24px;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        font-weight: bold;
+        transition: opacity 0.3s ease;
+    }
+    </style>
     
 </head>
 <body>
