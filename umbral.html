@@ -797,8 +797,110 @@
                 contenedor.style.boxShadow = '0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2)';
             }, 500);
         }
-         <script src="shefa-core.js"></script>
-   </script>
+        
+   
+                    <script src="shefa-core.js"></script>
+
+    <script>
+        // Función para abrir/cerrar el Menú de Andrómeda
+        function togglePortalNavegacion() {
+            const btnMenu = document.getElementById('btn-menu');
+            const portalNav = document.getElementById('portal-nav');
+            const bovedaCarrito = document.getElementById('boveda-carrito');
+
+            // Si el carrito está abierto, lo cerramos primero por seguridad visual
+            if(bovedaCarrito && bovedaCarrito.classList.contains('activa')) {
+                bovedaCarrito.classList.remove('activa');
+            }
+
+            btnMenu.classList.toggle('abierto');
+            portalNav.classList.toggle('activo');
+        }
+
+        // Función para abrir/cerrar la Bóveda del Carrito
+        function toggleBovedaCarrito() {
+            const bovedaCarrito = document.getElementById('boveda-carrito');
+            const portalNav = document.getElementById('portal-nav');
+            const btnMenu = document.getElementById('btn-menu');
+
+            // Si el menú está abierto, lo cerramos primero
+            if(portalNav && portalNav.classList.contains('activo')) {
+                portalNav.classList.remove('activo');
+                btnMenu.classList.remove('abierto');
+            }
+
+            bovedaCarrito.classList.toggle('activa');
+        }
+
+        // Función del Cofre Cuántico (Frecuencia Verajá)
+        function procesarCodigoCosmico() {
+            const inputCodigo = document.getElementById('codigo-universo');
+            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            
+            if(!inputCodigo) return; // Protección contra errores
+            
+            const codigoIngresado = inputCodigo.value.trim().toUpperCase();
+
+            // Reseteo visual
+            pantallaRespuesta.style.opacity = '0';
+
+            setTimeout(() => {
+                // MATRIZ DE CÓDIGOS OBSEQUIO
+                if (codigoIngresado === 'SIRIUS-1618') {
+                    mostrarExito("¡CÓDIGO ACEPTADO! Has sintonizado la frecuencia.", "#00f0ff");
+                    lanzarConfetiCuantico();
+                }
+                else if (codigoIngresado === 'FUEGO-VERAJA') {
+                    mostrarExito("¡CONEXIÓN ANCESTRAL! Bendición desbloqueada.", "#ff8c00");
+                    lanzarConfetiCuantico();
+                }
+                else if (codigoIngresado === 'ANDROMEDA-777') {
+                    mostrarExito("¡SISTEMA DESBLOQUEADO! Acceso premium concedido.", "#d4af37");
+                    lanzarConfetiCuantico();
+                }
+                else if (codigoIngresado === '') {
+                    mostrarError("La frecuencia está vacía. Ingresa un código.");
+                }
+                else {
+                    mostrarError("Frecuencia no reconocida. Intenta de nuevo.");
+                }
+            }, 300); // Pequeño retraso para dar sensación cuántica
+        }
+
+        function mostrarExito(mensaje, colorFuego) {
+            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            pantallaRespuesta.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${mensaje}`;
+            pantallaRespuesta.style.color = colorFuego;
+            pantallaRespuesta.style.textShadow = `0 0 10px ${colorFuego}`;
+            pantallaRespuesta.style.opacity = '1';
+        }
+
+        function mostrarError(mensaje) {
+            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
+            pantallaRespuesta.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ${mensaje}`;
+            pantallaRespuesta.style.color = "#ff4444";
+            pantallaRespuesta.style.textShadow = "none";
+            pantallaRespuesta.style.opacity = '1';
+        }
+
+        // Simulación de un destello de energía al aceptar el código
+        function lanzarConfetiCuantico() {
+            const contenedor = document.querySelector('.cofre-cuantico-container');
+            
+            if(contenedor) {
+                contenedor.style.transform = 'scale(1.05)';
+                contenedor.style.boxShadow = '0 0 80px rgba(212, 175, 55, 0.8), inset 0 0 30px rgba(212, 175, 55, 0.5)';
+                
+                setTimeout(() => {
+                    contenedor.style.transform = 'scale(1)';
+                    contenedor.style.boxShadow = '0 0 40px rgba(74, 14, 78, 0.6), inset 0 0 20px rgba(0, 240, 255, 0.2)';
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
+    
 </body>
 </html>
   
