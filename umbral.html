@@ -237,7 +237,181 @@
         letter-spacing: 0.25em;
     }
 </style>
+
+       <style> /* ====================================================================== */
+    /* NAVEGACIÓN ANDRÓMEDA & BÓVEDA DE ACTIVOS (CARRITO)                     */
+    /* ====================================================================== */
     
+    /* 1. El Menú Hamburguesa Transformable (Proporción Áurea) */
+    .btn-menu-aureo {
+        width: 40px;
+        height: 30px;
+        position: relative;
+        cursor: pointer;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    .btn-menu-aureo span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #d4af37, #fdf5a9);
+        border-radius: 3px;
+        transition: all 0.618s cubic-bezier(0.25, 0.1, 0.25, 1); /* Tiempo Fibonacci */
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    /* Animación de conversión a 'X' */
+    .btn-menu-aureo.abierto span:nth-child(1) {
+        transform: translateY(13.5px) rotate(45deg);
+        background: #39ff14; /* Verde Éxito */
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
+    }
+    .btn-menu-aureo.abierto span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    .btn-menu-aureo.abierto span:nth-child(3) {
+        transform: translateY(-13.5px) rotate(-45deg);
+        background: #39ff14;
+        box-shadow: 0 0 15px rgba(57, 255, 20, 0.6);
+    }
+
+    /* 2. El Portal de Navegación (Fondo de Cristal) */
+    .portal-navegacion {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(5, 11, 20, 0.95);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        z-index: 998;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.618s ease;
+    }
+
+    .portal-navegacion.activo {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .link-andromeda {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin: 15px 0;
+        text-decoration: none;
+        transition: all 0.382s ease;
+        position: relative;
+    }
+
+    .link-andromeda:hover {
+        color: #d4af37;
+        -webkit-text-stroke: 0px;
+        text-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+        transform: scale(1.1);
+        letter-spacing: 0.25em;
+    }
+
+    .link-andromeda small {
+        display: block;
+        font-size: 0.8rem;
+        color: #39ff14;
+        text-shadow: none;
+        letter-spacing: 0.3em;
+        margin-top: 5px;
+        -webkit-text-stroke: 0px;
+    }
+
+    /* 3. El Carrito Cuántico (Bóveda Lateral) */
+    .boveda-carrito {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        max-width: 450px;
+        height: 100vh;
+        background: #0a0d14;
+        border-left: 2px solid rgba(212, 175, 55, 0.3);
+        box-shadow: -20px 0 50px rgba(0,0,0,0.8);
+        z-index: 999;
+        transition: right 0.618s cubic-bezier(0.25, 1, 0.5, 1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .boveda-carrito.activa {
+        right: 0;
+    }
+
+    .cabecera-carrito {
+        padding: 20px;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #111f38;
+    }
+
+    .cuerpo-carrito {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .pie-carrito {
+        padding: 20px;
+        background: #111f38;
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    /* Botón Flotante del Carrito en el Header */
+    .btn-carrito-flotante {
+        position: relative;
+        background: transparent;
+        border: none;
+        color: #d4af37;
+        font-size: 1.8rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .btn-carrito-flotante:hover {
+        transform: scale(1.1);
+        text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    }
+
+    .contador-activos {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background: #39ff14;
+        color: #050b14;
+        font-size: 0.7rem;
+        font-weight: 900;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+    }
+    </style>
     
 </head>
 <body>
