@@ -516,6 +516,27 @@
 </head>
 <body>
 
+    <!-- ======================================================= -->
+    <!-- CABECERA MAESTRA (MENÚ HAMBURGUESA + CARRITO)           -->
+    <!-- ======================================================= -->
+    <header style="position: fixed; top: 0; width: 100%; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 11, 20, 0.85); backdrop-filter: blur(10px); z-index: 997; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
+        <div style="color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px;">
+            SHEFÁ <span style="color: #d4af37;">PLUS</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 30px;">
+            <button class="btn-carrito-flotante" onclick="toggleBovedaCarrito()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="contador-activos" id="contador-carrito">0</span>
+            </button>
+            <div class="btn-menu-aureo" id="btn-menu" onclick="togglePortalNavegacion()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    
+
         <header style="position: fixed; top: 0; width: 100%; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; background: rgba(5, 11, 20, 0.85); backdrop-filter: blur(10px); z-index: 997; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
         
         <div style="color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px;">
