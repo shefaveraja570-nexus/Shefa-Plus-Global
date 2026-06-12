@@ -4,7 +4,228 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salón de Honor | Shefa Plus Global</title>
+    
+    <!-- AMPLIFICACIÓN 1: Librería de íconos para que el carrito, cubo y candado sean visibles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Enlace original respetado -->
     <link rel="stylesheet" href="estilos.css">
+
+    <!-- AMPLIFICACIÓN 2: Tu Obra de Arte CSS integrada para flujo inmediato -->
+    <style>
+        /* ========================================================================= */
+        /* SHEFA PLUS GLOBAL - ARQUITECTURA DE ESTILOS & FUNCIONALIDAD CSS           */
+        /* ========================================================================= */
+
+        :root {
+            /* Paleta de Abundancia - Basada en el Oro y el Abismo */
+            --oro-shefa: #d4af37;
+            --oro-claro: #fbe18d;
+            --azul-abismo: #050b14;
+            --azul-seccion: #111f38;
+            --cian-transmision: #00f0ff;
+            --blanco-puro: #ffffff;
+            --gris-texto: #94a3b8;
+            
+            /* Espaciado Armónico (Proporción Áurea aproximada) */
+            --f-13: 13px;
+            --f-21: 21px;
+            --f-34: 34px;
+            --f-55: 55px;
+        }
+
+        /* 1. RESET Y BASE (Cimientos Inquebrantables) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--azul-abismo);
+            color: var(--blanco-puro);
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 100px; /* Amplificación: Espacio para que el header fijo no tape el contenido */
+        }
+
+        /* 2. COMPONENTE: COFRE CUÁNTICO (Funcionalidad Visual) */
+        .cofre-cuantico-container {
+            background: rgba(17, 31, 56, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: var(--f-55);
+            border-radius: 20px;
+            text-align: center;
+            margin: var(--f-34) auto;
+            max-width: 600px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        }
+
+        .cofre-cuantico-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
+        }
+
+        .input-obsequio-cosmico {
+            background: #0a0f16;
+            border: 1px solid var(--oro-shefa);
+            color: var(--blanco-puro);
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: var(--f-21);
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        .input-obsequio-cosmico:focus {
+            border-color: var(--cian-transmision);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .btn-desbloquear-cofre {
+            background: linear-gradient(90deg, #d4af37, #fbe18d);
+            color: var(--azul-abismo);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.2s ease, filter 0.3s ease;
+        }
+
+        .btn-desbloquear-cofre:hover {
+            filter: brightness(1.2);
+            transform: scale(1.05);
+        }
+
+        /* 3. COMPONENTE: PILARES DE HONOR (Grid de Flujo) */
+        .seccion-titulo {
+            text-align: center;
+            margin-bottom: var(--f-34);
+        }
+
+        .seccion-titulo h2 {
+            font-size: 2.5rem;
+        }
+
+        .seccion-titulo span {
+            color: var(--oro-shefa);
+        }
+
+        .grid-pilares {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--f-34);
+            padding: var(--f-34);
+        }
+
+        .pilar-card {
+            background: var(--azul-seccion);
+            padding: var(--f-34);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: border 0.3s ease;
+        }
+
+        .pilar-card:hover {
+            border: 1px solid var(--oro-shefa);
+        }
+
+        .pilar-icono {
+            width: 60px;
+            height: 60px;
+            margin-bottom: var(--f-21);
+            color: var(--oro-shefa);
+        }
+        
+        .pilar-icono svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        /* 4. FUNCIONALIDAD DE MENSAJES (Respuesta Dinámica) */
+        .mensaje-respuesta-cosmica {
+            margin-top: 20px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* 5. BOTÓN HIPNÓTICO AUREO */
+        .btn-hipnotico-aureo {
+            background: linear-gradient(90deg, #D4AF37 0%, #FBE18D 100%);
+            color: var(--azul-abismo);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 800;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-block;
+        }
+
+        .btn-hipnotico-aureo:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* 6. AMPLIFICACIÓN DE UTILIDADES: Clases para la sección Bienes Raíces */
+        .rounded-xl { border-radius: 15px; }
+        .p-6 { padding: var(--f-34); }
+        .mb-8 { margin-bottom: var(--f-55); width: 90%; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .text-xl { font-size: 1.5rem; }
+        .font-bold { font-weight: bold; }
+        .text-white { color: var(--blanco-puro); }
+        .mb-2 { margin-bottom: 10px; }
+        .text-sm { font-size: 0.9rem; }
+        .text-gray-400 { color: var(--gris-texto); }
+        .mb-6 { margin-bottom: var(--f-21); }
+        .w-full { width: 100%; }
+        .block { display: block; }
+        .text-center { text-align: center; }
+        .font-black { font-weight: 900; }
+        .py-4 { padding: 15px 0; }
+        .rounded-lg { border-radius: 10px; }
+        .uppercase { text-transform: uppercase; }
+        .mr-2 { margin-right: 10px; }
+
+        /* Estilos base del header transparente */
+        .btn-carrito-flotante {
+            background: transparent;
+            border: none;
+            color: #d4af37;
+            font-size: 1.5rem;
+            position: relative;
+            cursor: pointer;
+        }
+        .contador-activos {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #00f0ff;
+            color: #050b14;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+        .btn-menu-aureo span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: #d4af37;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+    </style>
 </head>
 <body>
 
@@ -85,6 +306,8 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- Respetada la sección con clases combinadas y amplificada desde CSS -->
             <div style="background-color: #111f38; border: 1px solid rgba(212, 175, 55, 0.15);" class="rounded-xl p-6 mb-8">
                 <h3 class="text-xl font-bold text-white mb-2">Bienes Raíces | Tokenización RWA</h3>
                 <p class="text-sm text-gray-400 mb-6">Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada.</p>
@@ -100,7 +323,7 @@
             <img src="logo-sagrado.png" alt="Shefá Plus Global" style="width: 75px; height: 75px; border-radius: 50%; box-shadow: 0 0 21px rgba(212, 175, 55, 0.5); border: 1px solid rgba(212, 175, 55, 0.3); margin-bottom: 15px;">
             <p style="color: var(--blanco-puro); font-weight: bold; font-size: 1.2rem; margin: 0; letter-spacing: 2px;">SHEFA PLUS GLOBAL</p>
         </div>
-        <p style="color: var(--gris-texto); font-size: 0.9rem;">&copy; 2026 Todos los derechos reservados.</p>
+        <p style="color: var(--gris-texto); font-size: 0.9rem; text-align: center; margin-bottom: 30px;">&copy; 2026 Todos los derechos reservados.</p>
     </footer>
 
     <script src="shefa-core.js"></script>
@@ -168,5 +391,4 @@
         }
     </script>
 </body>
-                            </html>
-    
+    </html>
