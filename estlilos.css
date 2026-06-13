@@ -141,3 +141,148 @@ body {
     transform: scale(1.03);
     box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
                            }
+
+
+/* ======================================================= */
+/* EXPANSIÓN: SANTUARIO DE CONEXIÓN (CHAT)                 */
+/* ======================================================= */
+
+.cuerpo-chat-sagrado {
+    background-color: var(--azul-abismo);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.header-chat {
+    background: rgba(17, 31, 56, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    z-index: 10;
+}
+
+.info-contacto-chat {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar-chat {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--oro-shefa);
+    object-fit: cover;
+}
+
+.detalles-contacto h2 {
+    color: var(--blanco-puro);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.estado-frecuencia {
+    color: #39ff14; /* Verde éxito */
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.icono-fuego-ancestral {
+    color: #ff5500;
+    font-size: 1.5rem;
+    text-shadow: 0 0 15px rgba(255, 85, 0, 0.8);
+    animation: latido-fuego 2s infinite alternate;
+}
+
+.matriz-mensajes {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+}
+
+.burbuja-mensaje {
+    max-width: 75%;
+    padding: 12px 18px;
+    border-radius: 15px;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.recibido {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--blanco-puro);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.enviado {
+    background: linear-gradient(135deg, var(--oro-shefa), var(--oro-claro));
+    color: var(--azul-abismo);
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+    font-weight: 500;
+}
+
+.hora-mensaje {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 5px;
+    opacity: 0.7;
+    text-align: right;
+}
+
+.consola-escritura {
+    background: var(--azul-seccion);
+    padding: 15px 20px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+#input-mensaje {
+    flex: 1;
+    background: rgba(5, 11, 20, 0.8);
+    border: 1px solid var(--gris-texto);
+    color: var(--blanco-puro);
+    padding: 12px 20px;
+    border-radius: 30px;
+    outline: none;
+    font-family: inherit;
+    transition: border 0.3s ease;
+}
+
+#input-mensaje:focus {
+    border-color: var(--oro-shefa);
+}
+
+.btn-enviar-frecuencia {
+    background: var(--oro-shefa);
+    color: var(--azul-abismo);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-enviar-frecuencia:hover {
+    transform: scale(1.1);
+    }
+        
