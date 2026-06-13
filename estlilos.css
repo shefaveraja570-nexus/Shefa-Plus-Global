@@ -1,337 +1,161 @@
-/* ========================================================================= */
-/* SHEFA PLUS GLOBAL - ARQUITECTURA DE ESTILOS & FUNCIONALIDAD CSS           */
-/* ========================================================================= */
-
-:root {
-    /* Paleta de Abundancia - Basada en el Oro y el Abismo */
-    --oro-shefa: #d4af37;
-    --oro-claro: #fbe18d;
-    --azul-abismo: #050b14;
-    --azul-seccion: #111f38;
-    --cian-transmision: #00f0ff;
-    --blanco-puro: #ffffff;
-    --gris-texto: #94a3b8;
-    
-    /* Espaciado Armónico (Proporción Áurea aproximada) */
-    --f-13: 13px;
-    --f-21: 21px;
-    --f-34: 34px;
-    --f-55: 55px;
-}
-
-/* 1. RESET Y BASE (Cimientos Inquebrantables) */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ======================================================= */
+/* NEURO-DISEÑO CORPORATIVO: SHEFÁ PLUS GLOBAL             */
+/* ======================================================= */
 
 body {
-    background-color: var(--azul-abismo);
-    color: var(--blanco-puro);
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 }
 
-/* 2. COMPONENTE: COFRE CUÁNTICO (Funcionalidad Visual) */
-.cofre-cuantico-container {
-    background: rgba(17, 31, 56, 0.6);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    padding: var(--f-55);
-    border-radius: 20px;
-    text-align: center;
-    margin: var(--f-34) auto;
-    max-width: 600px;
-    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+.borde-dorado {
+    border: 1px solid #d4af37;
 }
 
-.cofre-cuantico-container:hover {
+.resplandor-dorado {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    transition: all 0.3s ease;
+}
+
+.resplandor-dorado:hover {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
     transform: translateY(-5px);
-    box-shadow: 0 10px 40px rgba(0, 240, 255, 0.1);
 }
 
-.input-obsequio-cosmico {
-    background: #0a0f16;
-    border: 1px solid var(--oro-shefa);
-    color: var(--blanco-puro);
-    padding: 15px;
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: var(--f-21);
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    outline: none;
-    transition: border 0.3s ease;
+.texto-gradiente {
+    background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.input-obsequio-cosmico:focus {
-    border-color: var(--cian-transmision);
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+.barra-progreso {
+    background: linear-gradient(90deg, #d4af37, #aa841b);
 }
-
-.btn-desbloquear-cofre {
-    background: linear-gradient(90deg, #d4af37, #fbe18d);
-    color: var(--azul-abismo);
-    border: none;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-weight: 900;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: transform 0.2s ease, filter 0.3s ease;
-}
-
-.btn-desbloquear-cofre:hover {
-    filter: brightness(1.2);
-    transform: scale(1.05);
-}
-
-/* 3. COMPONENTE: PILARES DE HONOR (Grid de Flujo) */
-.grid-pilares {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--f-34);
-    padding: var(--f-34);
-}
-
-.pilar-card {
-    background: var(--azul-seccion);
-    padding: var(--f-34);
-    border-radius: 15px;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: border 0.3s ease;
-}
-
-.pilar-card:hover {
-    border: 1px solid var(--oro-shefa);
-}
-
-.pilar-icono {
-    width: 60px;
-    height: 60px;
-    margin-bottom: var(--f-21);
-    color: var(--oro-shefa);
-}
-
-/* 4. FUNCIONALIDAD DE MENSAJES (Respuesta Dinámica) */
-.mensaje-respuesta-cosmica {
-    margin-top: 20px;
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-/* 5. BOTÓN HIPNÓTICO AUREO */
-.btn-hipnotico-aureo {
-    background: linear-gradient(90deg, #D4AF37 0%, #FBE18D 100%);
-    color: var(--azul-abismo);
-    padding: 15px 25px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 800;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: inline-block;
-}
-
-.btn-hipnotico-aureo:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-                           }
-
 
 /* ======================================================= */
-/* EXPANSIÓN: SANTUARIO DE CONEXIÓN (CHAT)                 */
+/* NEURO-DISEÑO VISUAL: MENÚ HAMBURGUESA Y CARRITO         */
 /* ======================================================= */
 
-.cuerpo-chat-sagrado {
-    background-color: var(--azul-abismo);
-    display: flex;
-    flex-direction: column;
+/* Estado inicial del Portal de Navegación (Oculto a la derecha) */
+#portal-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 400px;
     height: 100vh;
-    margin: 0;
-    overflow: hidden;
+    background: rgba(10, 15, 30, 0.95);
+    backdrop-filter: blur(15px);
+    transition: right 0.618s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 100;
+    border-left: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: -15px 0 50px rgba(0, 0, 0, 0.7);
 }
 
-.header-chat {
-    background: rgba(17, 31, 56, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-    z-index: 10;
+#portal-nav.activo {
+    right: 0;
 }
 
-.info-contacto-chat {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+/* Estado inicial de la Bóveda del Carrito */
+#boveda-carrito {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%; 
+    max-width: 450px;
+    height: 100vh;
+    background: rgba(5, 11, 20, 0.98);
+    backdrop-filter: blur(20px);
+    transition: right 0.618s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 105;
+    border-left: 2px solid #d4af37; 
+    box-shadow: -20px 0 60px rgba(212, 175, 55, 0.15); 
 }
 
-.avatar-chat {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--oro-shefa);
-    object-fit: cover;
+#boveda-carrito.activa {
+    right: 0;
 }
 
-.detalles-contacto h2 {
-    color: var(--blanco-puro);
-    font-size: 1.2rem;
-    margin: 0;
-}
-
-.estado-frecuencia {
-    color: #39ff14; /* Verde éxito */
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-.icono-fuego-ancestral {
-    color: #ff5500;
-    font-size: 1.5rem;
-    text-shadow: 0 0 15px rgba(255, 85, 0, 0.8);
-    animation: latido-fuego 2s infinite alternate;
-}
-
-.matriz-mensajes {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-image: radial-gradient(circle at center, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-}
-
-.burbuja-mensaje {
-    max-width: 75%;
-    padding: 12px 18px;
-    border-radius: 15px;
-    position: relative;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-.recibido {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--blanco-puro);
-    align-self: flex-start;
-    border-bottom-left-radius: 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.enviado {
-    background: linear-gradient(135deg, var(--oro-shefa), var(--oro-claro));
-    color: var(--azul-abismo);
-    align-self: flex-end;
-    border-bottom-right-radius: 0;
-    font-weight: 500;
-}
-
-.hora-mensaje {
-    display: block;
-    font-size: 0.7rem;
-    margin-top: 5px;
-    opacity: 0.7;
-    text-align: right;
-}
-
-.consola-escritura {
-    background: var(--azul-seccion);
-    padding: 15px 20px;
-    display: flex;
-    gap: 10px;
-    border-top: 1px solid rgba(212, 175, 55, 0.3);
-}
-
-#input-mensaje {
-    flex: 1;
-    background: rgba(5, 11, 20, 0.8);
-    border: 1px solid var(--gris-texto);
-    color: var(--blanco-puro);
-    padding: 12px 20px;
-    border-radius: 30px;
-    outline: none;
-    font-family: inherit;
-    transition: border 0.3s ease;
-}
-
-#input-mensaje:focus {
-    border-color: var(--oro-shefa);
-}
-
-.btn-enviar-frecuencia {
-    background: var(--oro-shefa);
-    color: var(--azul-abismo);
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+/* Animación del botón hamburguesa */
+#btn-menu {
+    transition: transform 0.3s ease, color 0.3s ease;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: transform 0.2s ease;
+}
+#btn-menu.abierto {
+    transform: rotate(90deg); 
+    color: #d4af37; 
 }
 
-.btn-enviar-frecuencia:hover {
+/* Animación del botón carrito */
+#btn-carrito {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+#btn-carrito:hover {
     transform: scale(1.1);
-    }
-
+}
 
 /* ======================================================= */
 /* NEURO-DISEÑO: TARJETAS INMOBILIARIAS SHEFÁ PLUS         */
 /* ======================================================= */
 
-/* Contenedor principal de la propiedad */
+.grid-propiedades {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+@media (min-width: 768px) {
+    .grid-propiedades {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .tarjeta-inmueble {
-    background: rgba(17, 31, 56, 0.4); /* Fondo azul medianoche sutil */
-    border: 1px solid rgba(212, 175, 55, 0.15); /* Borde de oro oscuro */
+    background: rgba(17, 31, 56, 0.4);
+    border: 1px solid rgba(212, 175, 55, 0.15);
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra de profundidad */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .tarjeta-inmueble:hover {
-    transform: translateY(-5px); /* Efecto de levitación al tocar/pasar el mouse */
+    transform: translateY(-5px);
 }
 
-/* Que la imagen ocupe todo el ancho sin deformarse */
 .imagen-inmueble {
     width: 100%;
-    height: auto;
+    height: 250px; /* Altura fija para uniformidad */
+    object-fit: cover; /* Para que la imagen no se deforme */
     display: block;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* El aire (padding) que le da vida al texto */
 .contenido-texto {
     padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    flex-grow: 1;
 }
 
-/* La etiqueta RWA: Pequeña, dorada y espaciada */
 .etiqueta-rwa {
     display: inline-block;
-    color: #d4af37; /* Dorado Frecuencia Shefá */
+    color: #d4af37; 
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 10px;
+    background: rgba(0,0,0,0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
-/* El Título: Fuerte, blanco y dominante */
 .titulo-propiedad {
     color: #ffffff;
     font-size: 1.3rem;
@@ -340,11 +164,10 @@ body {
     line-height: 1.2;
 }
 
-/* La Descripción: Suave, legible y elegante */
 .descripcion-propiedad {
-    color: #94a3b8; /* Gris azulado platino */
+    color: #94a3b8; 
     font-size: 0.95rem;
     line-height: 1.6;
     margin: 0;
-}
-
+    }
+                     
