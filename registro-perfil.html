@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Perfil | Shefa Plus Global</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://kit.fontawesome.com/tu-codigo-font-awesome.js" crossorigin="anonymous"></script>
+</head>
+<body class="cuerpo-registro">
+
+    <div class="contenedor-registro">
+        <div class="cabecera-registro">
+            <i class="fas fa-fingerprint icono-identidad"></i>
+            <h2>Identidad Global</h2>
+            <p>Ingresa tus datos para habilitar tu Bóveda y Santuario de Conexión.</p>
+        </div>
+
+        <form class="formulario-perfil" id="form-registro">
+            
+            <!-- Foto de Perfil -->
+            <div class="grupo-foto-perfil">
+                <div class="vista-previa-foto">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <label for="subir-foto" class="btn-subir-foto">Seleccionar Fotografía</label>
+                <input type="file" id="subir-foto" accept="image/*" style="display: none;">
+            </div>
+
+            <!-- Datos Personales -->
+            <div class="grupo-input">
+                <label for="nombre-completo">Nombre Completo</label>
+                <input type="text" id="nombre-completo" placeholder="Ej. Johanna Manjarrés" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="correo-electronico">Correo de Conexión</label>
+                <input type="email" id="correo-electronico" placeholder="tu@correo.com" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="fecha-nacimiento">Fecha de Nacimiento</label>
+                <input type="date" id="fecha-nacimiento" required>
+            </div>
+
+            <div class="grupo-input">
+                <label for="clave-acceso">Clave de Seguridad</label>
+                <input type="password" id="clave-acceso" placeholder="Mínimo 8 caracteres" required>
+            </div>
+
+            <button type="button" class="btn-hipnotico-aureo btn-registro-total">
+                Forjar Identidad <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </form>
+    </div>
+
+</body>
+</html>
