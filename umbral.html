@@ -305,6 +305,59 @@
 
     </div>
 
+        <!-- =========================================
+         INICIO BLOQUE DE INYECCIÓN SHEFA NEXUS
+         ========================================= -->
+    
+    <!-- 1. EL BOTÓN IMPONENTE -->
+    <div class="btn-imponente-container" id="boton-nexus-container">
+        <button class="btn-imponente" onclick="abrirNexus()">
+            <i class="fas fa-globe" style="margin-right: 0.5rem;"></i>
+            Canal de Comunicación Global Shefa Nexus
+            <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
+        </button>
+    </div>
+
+    <!-- 2. EL PORTAL DE REGISTRO (Oculto por defecto) -->
+    <div id="vista-nexus" class="nexus-portal">
+        
+        <!-- Botón Volver -->
+        <button onclick="volverAlSalon()" class="btn-volver-nexus">
+            <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i> Volver al Salón de Honor
+        </button>
+
+        <!-- El Logo Circular (Asegúrate de que la ruta de la imagen sea correcta en tu GitHub) -->
+        <div class="logo-circulo-container">
+            <img src="1000021160.jpg" onerror="this.src='[https://images.unsplash.com/photo-1614064010373-b26a6401fcbf?q=80&w=300&auto=format&fit=crop](https://images.unsplash.com/photo-1614064010373-b26a6401fcbf?q=80&w=300&auto=format&fit=crop)'" alt="Logo Shefa Nexus" class="logo-circulo">
+        </div>
+
+        <div style="text-align: center; margin-bottom: 2rem; width: 100%;">
+            <h2 style="font-size: 1.875rem; font-weight: bold; color: white; margin-bottom: 0.5rem;">Portal Shefa Nexus</h2>
+            <p style="color: #94a3b8;">Configura tu perfil para el canal de comunicación global.</p>
+        </div>
+
+        <!-- Formulario de Registro -->
+        <div class="form-container-nexus">
+            <form onsubmit="event.preventDefault(); alert('Perfil guardado con éxito.'); volverAlSalon();">
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #94a3b8; margin-bottom: 0.25rem;">Nombre de Identidad</label>
+                    <input type="text" class="form-input-nexus" placeholder="Ingresa tu nombre o alias" required>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.875rem; font-weight: 500; color: #94a3b8; margin-bottom: 0.25rem;">Código de Enlace (Opcional)</label>
+                    <input type="text" class="form-input-nexus" placeholder="Ej: NEX-777">
+                </div>
+                <button type="submit" class="btn-submit-nexus">
+                    INICIAR CONEXIÓN SEGURA
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- =========================================
+         FIN BLOQUE DE INYECCIÓN SHEFA NEXUS
+         ========================================= -->
+    
+
     <!-- FOOTER -->
     <div class="footer-global">
         <!-- Reemplaza con tu logo azul real -->
