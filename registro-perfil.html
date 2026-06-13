@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Perfil | Shefa Plus Global</title>
+    <title>Crear Perfil | Shefá Plus Global</title>
     <link rel="stylesheet" href="estilos.css">
     <script src="https://kit.fontawesome.com/tu-codigo-font-awesome.js" crossorigin="anonymous"></script>
 </head>
@@ -13,12 +13,11 @@
         <div class="cabecera-registro">
             <i class="fas fa-fingerprint icono-identidad"></i>
             <h2>Identidad Global</h2>
-            <p>Ingresa tus datos para habilitar tu Bóveda y Santuario de Conexión.</p>
+            <p>Ingresa tus datos para habilitar tu Bóveda y Santuario de Conexión bajo la frecuencia de Parnasá, Shefá y Verajá.</p>
         </div>
 
         <form class="formulario-perfil" id="form-registro">
             
-            <!-- Foto de Perfil -->
             <div class="grupo-foto-perfil">
                 <div class="vista-previa-foto">
                     <i class="fas fa-camera"></i>
@@ -27,7 +26,6 @@
                 <input type="file" id="subir-foto" accept="image/*" style="display: none;">
             </div>
 
-            <!-- Datos Personales -->
             <div class="grupo-input">
                 <label for="nombre-completo">Nombre Completo</label>
                 <input type="text" id="nombre-completo" placeholder="Ej. Johanna Manjarrés" required>
@@ -45,7 +43,7 @@
 
             <div class="grupo-input">
                 <label for="clave-acceso">Clave de Seguridad</label>
-                <input type="password" id="clave-acceso" placeholder="Mínimo 8 caracteres" required>
+                <input type="password" id="clave-acceso" placeholder="Mínimo 6 caracteres" required>
             </div>
 
             <button type="button" class="btn-hipnotico-aureo btn-registro-total">
@@ -54,88 +52,78 @@
         </form>
     </div>
 
-
     <script type="module">
-    // 1. Importaciones del Núcleo de Seguridad (Firebase v9)
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // 2. Tu Matriz de Configuración (REEMPLAZA ESTO CON TUS CLAVES)
-    const firebaseConfig = {
-        apiKey: "TU_API_KEY",
-        authDomain: "TU_PROYECTO.firebaseapp.com",
-        projectId: "TU_PROYECTO",
-        storageBucket: "TU_PROYECTO.appspot.com",
-        messagingSenderId: "TU_SENDER_ID",
-        appId: "TU_APP_ID"
-    };
+        // ⚠️ ATENCIÓN MAGNÉTICO: PEGA AQUÍ TUS CLAVES EXACTAS DE FIREBASE
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            projectId: "TU_PROYECTO",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
 
-    // 3. Inicialización del Ecosistema
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-    // 4. Captura del Botón y Formulario
-    const btnRegistro = document.querySelector('.btn-registro-total');
-    
-    btnRegistro.addEventListener('click', async () => {
-        // Capturamos los datos que el usuario escribió
-        const nombre = document.getElementById('nombre-completo').value.trim();
-        const correo = document.getElementById('correo-electronico').value.trim();
-        const fechaNacimiento = document.getElementById('fecha-nacimiento').value;
-        const clave = document.getElementById('clave-acceso').value;
+        const btnRegistro = document.querySelector('.btn-registro-total');
+        
+        btnRegistro.addEventListener('click', async () => {
+            const nombre = document.getElementById('nombre-completo').value.trim();
+            const correo = document.getElementById('correo-electronico').value.trim();
+            const fechaNacimiento = document.getElementById('fecha-nacimiento').value;
+            const clave = document.getElementById('clave-acceso').value;
 
-        // Validación básica (Que no dejen campos vacíos)
-        if(!nombre || !correo || !fechaNacimiento || !clave) {
-            alert("⚠️ Por favor, completa todos los campos de identidad.");
-            return;
-        }
-
-        // Cambiamos el texto del botón para que el usuario sepa que el sistema está trabajando
-        const textoOriginal = btnRegistro.innerHTML;
-        btnRegistro.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Forjando Identidad...';
-        btnRegistro.disabled = true;
-
-        try {
-            // A. Creamos el usuario en el sistema de autenticación de Firebase
-            const credencialUsuario = await createUserWithEmailAndPassword(auth, correo, clave);
-            const usuario = credencialUsuario.user;
-
-            // B. Le asignamos el nombre al perfil recién creado
-            await updateProfile(usuario, {
-                displayName: nombre
-            });
-
-            // C. Guardamos sus datos extra (Fecha de Nacimiento) en la base de datos Firestore
-            await setDoc(doc(db, "usuarios_globales", usuario.uid), {
-                nombreCompleto: nombre,
-                correoElectronico: correo,
-                fechaDeNacimiento: fechaNacimiento,
-                fechaRegistro: serverTimestamp(),
-                estadoFrecuencia: "Activo"
-            });
-
-            alert("✨ ¡Identidad forjada con éxito! El fuego ancestral ha validado tu acceso.");
-           // Redirección al Motor Jojmá para la transición protectora
-           window.location.href = "motor-fuego-jojma.html"; 
-
-        } catch (error) {
-            console.error("Fallo en la creación de identidad:", error);
-            // Manejo de errores comunes
-            if(error.code === 'auth/email-already-in-use') {
-                alert("⚠️ Esta frecuencia (correo) ya está registrada en el sistema.");
-            } else if (error.code === 'auth/weak-password') {
-                alert("⚠️ La clave de seguridad es muy débil. Usa al menos 6 caracteres.");
-            } else {
-                alert("⚠️ Error de conexión: " + error.message);
+            if(!nombre || !correo || !fechaNacimiento || !clave) {
+                alert("⚠️ La matriz requiere que completes todos los campos de identidad.");
+                return;
             }
-        } finally {
-            // Restauramos el botón a su estado normal
-            btnRegistro.innerHTML = textoOriginal;
-            btnRegistro.disabled = false;
-        }
-    });
+
+            const textoOriginal = btnRegistro.innerHTML;
+            btnRegistro.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sintonizando Frecuencia...';
+            btnRegistro.disabled = true;
+
+            try {
+                const credencialUsuario = await createUserWithEmailAndPassword(auth, correo, clave);
+                const usuario = credencialUsuario.user;
+
+                await updateProfile(usuario, {
+                    displayName: nombre
+                });
+
+                await setDoc(doc(db, "usuarios_globales", usuario.uid), {
+                    nombreCompleto: nombre,
+                    correoElectronico: correo,
+                    fechaDeNacimiento: fechaNacimiento,
+                    fechaRegistro: serverTimestamp(),
+                    estadoFrecuencia: "Activo"
+                });
+
+                alert("✨ ¡Identidad forjada con éxito! El fuego ancestral ha validado tu acceso.");
+                
+                // Redirección automática al chat
+                window.location.href = "chat-sagrado.html"; 
+
+            } catch (error) {
+                console.error("Fallo en la creación de identidad:", error);
+                if(error.code === 'auth/email-already-in-use') {
+                    alert("⚠️ Esta frecuencia (correo) ya está registrada en el ecosistema.");
+                } else if (error.code === 'auth/weak-password') {
+                    alert("⚠️ La clave de seguridad necesita más fuerza. Usa al menos 6 caracteres.");
+                } else {
+                    alert("⚠️ Error de conexión en la matriz: " + error.message);
+                }
+            } finally {
+                btnRegistro.innerHTML = textoOriginal;
+                btnRegistro.disabled = false;
+            }
+        });
     </script>
 </body>
-</html>
+    </html>
+        
