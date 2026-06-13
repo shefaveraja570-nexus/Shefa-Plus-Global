@@ -4,26 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Umbral de Expansión | Shefá Plus Global</title>
-    <link rel="stylesheet" href="estilos.css">
-    <script src="https://kit.fontawesome.com/tu-codigo-font-awesome.js" crossorigin="anonymous"></script>
+    <!-- ICONOS FONT AWESOME -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Estilos específicos de esta página que no interfieren con el maestro */
         body {
             background-color: #050b14;
-            color: white;
-            font-family: 'Segoe UI', sans-serif;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
+
+        /* Cabecera */
         .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px;
-            background: rgba(0,0,0,0.8);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            background: #050b14;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .logo-text {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.3rem;
+            font-weight: 800;
             letter-spacing: 2px;
         }
         .logo-text span {
@@ -33,33 +37,33 @@
             display: flex;
             gap: 20px;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
+        }
+        .cart-container {
+            position: relative;
+            cursor: pointer;
         }
         .cart-badge {
             background: #00d2ff;
             color: black;
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             font-weight: bold;
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 50%;
             position: absolute;
-            top: -10px;
-            right: -10px;
+            top: -8px;
+            right: -8px;
         }
-        .relative-icon {
-            position: relative;
-        }
-        
-        /* Contenedor del Cofre Cuántico */
+
+        /* Transmisión de Abundancia */
         .cofre-cuantico-container {
-            max-width: 500px;
-            margin: 50px auto;
-            background: rgba(17, 31, 56, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: #0d1425;
             border-radius: 12px;
             padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 90%;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             transition: transform 0.3s ease;
         }
         .icono-cubo {
@@ -69,61 +73,186 @@
             margin-bottom: 20px;
         }
         .input-codigo {
-            width: 80%;
+            width: 85%;
             padding: 15px;
             margin: 20px 0;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid #d4af37;
+            background: #050b14;
+            border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 8px;
             color: white;
             text-align: center;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
         .input-codigo:focus {
             outline: none;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            border-color: #d4af37;
         }
         .btn-desbloquear {
             background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
             color: black;
             font-weight: bold;
-            padding: 15px 30px;
+            padding: 15px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            width: 80%;
-            font-size: 1rem;
+            width: 85%;
+            font-size: 0.9rem;
             letter-spacing: 1px;
-            transition: transform 0.2s;
+            text-transform: uppercase;
         }
-        .btn-desbloquear:hover {
-            transform: scale(1.05);
+
+        /* Salón de Honor */
+        .titulo-salon {
+            text-align: center;
+            margin: 50px 0 30px 0;
+        }
+        .titulo-salon h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .titulo-salon span {
+            color: #d4af37;
+        }
+        .titulo-salon p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Tarjetas de Honor */
+        .contenedor-tarjetas {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px;
+            max-width: 500px;
+            margin: 0 auto 50px auto;
+        }
+        .tarjeta-honor {
+            background: #0d1425;
+            padding: 25px;
+            border-radius: 12px;
+        }
+        .tarjeta-honor h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tarjeta-honor p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .btn-tarjeta {
+            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+            color: black;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        .footer-global {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .logo-footer {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+            margin-bottom: 15px;
+        }
+        .footer-global h4 {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .footer-global p {
+            color: #64748b;
+            font-size: 0.8rem;
+        }
+
+        /* Menú Lateral y Carrito */
+        #portal-nav, #boveda-carrito {
+            position: fixed;
+            top: 0;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: #050b14;
+            z-index: 100;
+            transition: 0.3s ease;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        #portal-nav {
+            left: -100%;
+            border-right: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        #portal-nav.activo {
+            left: 0;
+        }
+        #boveda-carrito {
+            right: -100%;
+            border-left: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        #boveda-carrito.activa {
+            right: 0;
+        }
+        .titulo-menu {
+            color: #d4af37;
+            font-size: 1.1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .lista-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            line-height: 2.5;
+        }
+        .lista-menu li {
+            font-size: 1rem;
         }
         #pantalla-respuesta {
-            margin-top: 20px;
-            min-height: 24px;
+            margin-top: 15px;
+            font-size: 0.9rem;
             transition: opacity 0.3s;
         }
     </style>
 </head>
 <body>
 
+    <!-- CABECERA -->
     <div class="header-top">
         <div class="logo-text">SHEFÁ <span>PLUS</span></div>
         <div class="iconos-derecha">
-            <div class="relative-icon" id="btn-carrito" onclick="toggleBovedaCarrito()">
-                <i class="fas fa-shopping-cart text-[#d4af37]"></i>
+            <div class="cart-container" id="btn-carrito" onclick="toggleBovedaCarrito()">
+                <i class="fas fa-shopping-cart" style="color: #d4af37;"></i>
                 <span class="cart-badge">0</span>
             </div>
-            <i class="fas fa-bars text-[#d4af37]" id="btn-menu" onclick="toggleMenuNav()"></i>
+            <i class="fas fa-bars" style="color: #d4af37; cursor: pointer;" id="btn-menu" onclick="toggleMenuNav()"></i>
         </div>
     </div>
 
+    <!-- TRANSMISIÓN DE ABUNDANCIA -->
     <div class="cofre-cuantico-container">
         <i class="fas fa-cube icono-cubo"></i>
-        <h2 style="font-size: 1.8rem; letter-spacing: 3px; margin-bottom: 10px;">TRANSMISIÓN DE ABUNDANCIA</h2>
-        <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 30px;">Ingresa el código de frecuencia cuántica para desbloquear activos, criptofracciones y bendiciones (Verajá) de nuestra red global.</p>
+        <h2 style="font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;">Transmisión de<br>Abundancia</h2>
+        <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 20px;">Ingresa el código de frecuencia cuántica para desbloquear activos, criptofracciones y bendiciones (Verajá) de nuestra red global.</p>
         
         <input type="text" id="codigo-universo" class="input-codigo" placeholder="INGRESA EL CÓDIGO AQUÍ">
         
@@ -134,42 +263,79 @@
         <div id="pantalla-respuesta" style="opacity: 0;"></div>
     </div>
 
-    <div style="text-align: center; margin-top: 50px;">
-        <h2 style="font-size: 2rem;">El Salón de <span style="color:#d4af37;">Honor</span></h2>
-        <p style="color: #94a3b8;">Arquitectura diseñada para el éxito mutuo</p>
+    <!-- SALÓN DE HONOR -->
+    <div class="titulo-salon">
+        <h2>El Salón de <span>Honor</span></h2>
+        <p>Arquitectura diseñada para el éxito mutuo</p>
     </div>
 
-    <div id="portal-nav">
-        <div style="padding: 30px;">
-            <h3 style="color:#d4af37; border-bottom: 1px solid #d4af37; padding-bottom: 10px; margin-bottom: 20px;">Menú Global</h3>
-            <ul style="list-style: none; padding: 0; line-height: 2.5;">
-                <li><i class="fas fa-home" style="width:25px; color:#d4af37;"></i> Inicio</li>
-                <li><i class="fas fa-building" style="width:25px; color:#d4af37;"></i> Salón Inmobiliario</li>
-                <li><i class="fas fa-wallet" style="width:25px; color:#d4af37;"></i> Billetera</li>
-                <li><i class="fas fa-cog" style="width:25px; color:#d4af37;"></i> Configuración</li>
-            </ul>
+    <!-- TARJETAS -->
+    <div class="contenedor-tarjetas">
+        
+        <div class="tarjeta-honor">
+            <i class="fas fa-bolt" style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;"></i>
+            <h3>Shefá | Flujo Constante</h3>
+            <p>Interfaces optimizadas bajo proporciones armónicas. Garantizamos que la experiencia del usuario y tus procesos comerciales fluyan de manera natural.</p>
         </div>
+
+        <div class="tarjeta-honor">
+            <i class="fas fa-shield-alt" style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;"></i>
+            <h3>Parnasá | Sustento Protegido</h3>
+            <p>Infraestructura robusta de grado bancario. Una herramienta sólida que protege tus transacciones, brindando la base segura para el crecimiento inquebrantable.</p>
+        </div>
+
+        <div class="tarjeta-honor">
+            <i class="fas fa-star" style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;"></i>
+            <h3>Verajá | Multiplicación</h3>
+            <p>Algoritmos eficientes y estructuras matemáticas impecables que impulsan los resultados, expandiendo el alcance de tu negocio de forma escalable.</p>
+        </div>
+
+        <div class="tarjeta-honor">
+            <i class="fas fa-location-arrow" style="color: #a855f7; font-size: 1.8rem; margin-bottom: 15px;"></i>
+            <h3>Shefa Flow Remesas | Conexión Sin Fronteras</h3>
+            <p style="margin-bottom: 15px;">Servicio global habilitado para todos los usuarios. Flujo directo y seguro para enviar valor a cualquier lugar del mundo.</p>
+            <button class="btn-tarjeta"><i class="fas fa-bolt mr-2"></i> INGRESAR A SHEFA FLOW</button>
+        </div>
+
+        <div class="tarjeta-honor">
+            <h3>Bienes Raíces | Tokenización RWA</h3>
+            <p style="margin-bottom: 15px;">Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada.</p>
+            <button class="btn-tarjeta"><i class="fas fa-key mr-2"></i> ABRIR SALÓN INMOBILIARIO</button>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer-global">
+        <!-- Reemplaza con tu logo azul real -->
+        <img src="logo-shefa.png" alt="Logo" class="logo-footer">
+        <h4>SHEFA PLUS GLOBAL</h4>
+        <p>© 2026 Todos los derechos reservados.</p>
+    </div>
+
+    <!-- PORTALES (MENÚ Y CARRITO) -->
+    <div id="portal-nav">
+        <h3 class="titulo-menu">Menú Global</h3>
+        <ul class="lista-menu">
+            <li>Inicio</li>
+            <li>Salón Inmobiliario</li>
+            <li>Billetera</li>
+            <li>Configuración</li>
+        </ul>
     </div>
 
     <div id="boveda-carrito">
-        <div style="padding: 30px;">
-            <h3 style="color:#d4af37; border-bottom: 1px solid #d4af37; padding-bottom: 10px; margin-bottom: 20px;"><i class="fas fa-shopping-cart"></i> Sustento Global</h3>
-            <p style="color: #94a3b8;">Tu bóveda está esperando transacciones.</p>
-        </div>
+        <h3 class="titulo-menu">Sustento Global</h3>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Tu bóveda está esperando transacciones.</p>
     </div>
 
+    <!-- JAVASCRIPT ORIGINAL -->
     <script>
         function toggleMenuNav() {
             const btnMenu = document.getElementById('btn-menu');
             const portalNav = document.getElementById('portal-nav');
             const bovedaCarrito = document.getElementById('boveda-carrito');
-            
-            // Si el carrito está abierto, ciérralo
-            if(bovedaCarrito && bovedaCarrito.classList.contains('activa')) {
-                bovedaCarrito.classList.remove('activa');
-            }
-            
-            // Alterna el menú
+            if(bovedaCarrito && bovedaCarrito.classList.contains('activa')) bovedaCarrito.classList.remove('activa');
             btnMenu.classList.toggle('abierto');
             if(portalNav) portalNav.classList.toggle('activo');
         }
@@ -178,14 +344,10 @@
             const bovedaCarrito = document.getElementById('boveda-carrito');
             const portalNav = document.getElementById('portal-nav');
             const btnMenu = document.getElementById('btn-menu');
-            
-            // Si el menú está abierto, ciérralo
             if(portalNav && portalNav.classList.contains('activo')) {
                 portalNav.classList.remove('activo');
                 btnMenu.classList.remove('abierto');
             }
-            
-            // Alterna el carrito
             if(bovedaCarrito) bovedaCarrito.classList.toggle('activa');
         }
 
@@ -194,15 +356,13 @@
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
             if(!inputCodigo) return;
             const codigoIngresado = inputCodigo.value.trim().toUpperCase();
-            
             pantallaRespuesta.style.opacity = '0';
-            
             setTimeout(() => {
                 if (codigoIngresado === 'SIRIUS-1618') {
                     mostrarExito("¡CÓDIGO ACEPTADO! Has desbloqueado una (1) Criptofracción.", "#39ff14");
                     lanzarConfetiCuantico();
                 } else if (codigoIngresado === 'FUEGO-VERAJA-777') {
-                    mostrarExito("¡CONEXIÓN ANCESTRAL! Has recibido saldo.", "#d4af37");
+                    mostrarExito("¡CONEXIÓN ANCESTRAL! Has recibido saldo.", "#ffaa00");
                     lanzarConfetiCuantico();
                 } else {
                     mostrarError("Frecuencia no reconocida.");
