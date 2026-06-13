@@ -50,14 +50,10 @@
 </head>
 <body class="antialiased min-h-screen">
 
-    <!-- CABECERA PREMIUM -->
     <header class="border-b border-dorado/30 bg-fondoNegro/90 backdrop-blur-md sticky top-0 z-50 p-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-3">
-                                <!-- ========================================== -->
-                <!-- NÚCLEO VISUAL: LOGO CON PROPORCIÓN ÁUREA   -->
-                <!-- ========================================== -->
-                <div class="w-[55px] h-[55px] rounded-full p-[2px] bg-gradient-to-tr from-[#d4af37] via-[#f9f295] to-[#d4af37] shadow-[0_0_13px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform duration-500 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                                <div class="w-[55px] h-[55px] rounded-full p-[2px] bg-gradient-to-tr from-[#d4af37] via-[#f9f295] to-[#d4af37] shadow-[0_0_13px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform duration-500 flex-shrink-0 flex items-center justify-center overflow-hidden">
                     
                     <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-full h-full object-cover rounded-full bg-fondoNegro">
                 </div>
@@ -78,7 +74,6 @@
         </div>
     </header>
 
-    <!-- BANNER PRINCIPAL -->
     <section class="relative py-20 px-4">
         <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
         <div class="absolute inset-0 bg-gradient-to-b from-transparent to-fondoNegro"></div>
@@ -92,7 +87,6 @@
         </div>
     </section>
 
-    <!-- CATÁLOGO INMOBILIARIO -->
     <section class="max-w-7xl mx-auto px-4 py-12">
         <div class="flex justify-between items-end mb-10 border-b border-gray-800 pb-4">
             <div>
@@ -116,12 +110,9 @@
 
         <div class="grid-propiedades">
             
-            <!-- CÓDIGO MAESTRO PARA CADA PROPIEDAD DEL SALÓN -->
-<div class="tarjeta-inmueble">
-    <!-- Aquí va tu foto -->
+            <div class="tarjeta-inmueble">
     <img src="1000020650.jpg" alt="Casa Residencial" class="imagen-inmueble">
     
-    <!-- Aquí va tu texto envuelto para que tome la jerarquía áurea -->
     <div class="contenido-texto">
         <span class="etiqueta-rwa">RWA - Activo</span>
         <h3 class="titulo-propiedad">Casa Residencial Premium</h3>
@@ -164,7 +155,6 @@
                         </div>
                     </div>
 
-                    <!-- Progreso de Tokenización -->
                     <div class="mb-6">
                         <div class="flex justify-between text-xs text-gray-400 mb-2">
                             <span>Progreso de Tokenización</span>
@@ -183,10 +173,8 @@
                 </div>
             </div>
 
-            <!-- TARJETA PROPIEDAD 2: CASA PREMIUM (Esperando tus datos) -->
             <div class="bg-tarjetaGris rounded-xl overflow-hidden borde-dorado resplandor-dorado flex flex-col">
                 <div class="relative h-64">
-                    <!-- Placeholder de imagen -->
                     <div class="absolute inset-0 bg-gray-800 flex items-center justify-center">
                         <i class="fas fa-home text-4xl text-gray-600"></i>
                         <span class="absolute bottom-2 right-2 bg-black/70 text-dorado text-xs px-2 py-1 rounded">[Imagen de Casa Premium]</span>
@@ -225,7 +213,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="border-t border-gray-800 py-8 mt-12 bg-black">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="text-gray-500 text-sm uppercase tracking-widest mb-2">
@@ -240,9 +227,6 @@
         </div>
     </footer>
 
-    <!-- =================================================================== -->
-    <!-- NÚCLEO MATRIZ: FIREBASE, PORTERO DE SEGURIDAD Y FLUJO DE FIRMAS RWA -->
-    <!-- =================================================================== -->
     <script type="module">
         // 1. Importaciones unificadas de la infraestructura de Google
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -384,30 +368,4 @@
                     estado: "Verificado_y_Sellado",
                     fecha_sello: serverTimestamp() 
                 });
-
-                document.getElementById("ticket-fecha").innerText = new Date().toLocaleString();
-                document.getElementById("ticket-activo").innerText = propiedad;
-                document.getElementById("ticket-divisa").innerText = divisa;
-                document.getElementById("ticket-banco").innerText = banco;
-                document.getElementById("ticket-monto").innerText = `$${monto.toLocaleString('es-CO')}`;
-                document.getElementById("ticket-comision").innerText = `$${fee.toLocaleString('es-CO')}`;
-                document.getElementById("ticket-total").innerText = `$${total.toLocaleString('es-CO')}`;
-                document.getElementById("ticket-hash").innerText = txHash;
-
-                const qrUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(txHash)}&choe=UTF-8`;
-                document.getElementById("ticket-qr").src = qrUrl;
-
-                window.cerrarModal();
-                document.getElementById("pantalla-comprobante").classList.remove("hidden");
-
-            } catch (error) {
-                console.error("Error al sellar el contrato: ", error);
-                alert("⚠️ Interferencia detectada en la red matriz. No se pudo emitir el contrato.");
-            }
-        };
-    </script>
-    
-    
-</body>
-</html>
-
+                    
