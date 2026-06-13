@@ -285,4 +285,66 @@ body {
 .btn-enviar-frecuencia:hover {
     transform: scale(1.1);
     }
-        
+
+
+/* ======================================================= */
+/* NEURO-DISEÑO: TARJETAS INMOBILIARIAS SHEFÁ PLUS         */
+/* ======================================================= */
+
+/* Contenedor principal de la propiedad */
+.tarjeta-inmueble {
+    background: rgba(17, 31, 56, 0.4); /* Fondo azul medianoche sutil */
+    border: 1px solid rgba(212, 175, 55, 0.15); /* Borde de oro oscuro */
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra de profundidad */
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-inmueble:hover {
+    transform: translateY(-5px); /* Efecto de levitación al tocar/pasar el mouse */
+}
+
+/* Que la imagen ocupe todo el ancho sin deformarse */
+.imagen-inmueble {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* El aire (padding) que le da vida al texto */
+.contenido-texto {
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* La etiqueta RWA: Pequeña, dorada y espaciada */
+.etiqueta-rwa {
+    display: inline-block;
+    color: #d4af37; /* Dorado Frecuencia Shefá */
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+/* El Título: Fuerte, blanco y dominante */
+.titulo-propiedad {
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
+}
+
+/* La Descripción: Suave, legible y elegante */
+.descripcion-propiedad {
+    color: #94a3b8; /* Gris azulado platino */
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
