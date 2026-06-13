@@ -444,7 +444,32 @@
                 setTimeout(() => { contenedor.style.transform = 'scale(1)'; }, 500);
             }
         }
+
+            <script>
+        function abrirNexus() {
+            // Oculta el título, las tarjetas y el botón
+            document.querySelector('.titulo-salon').style.display = 'none';
+            document.querySelector('.contenedor-tarjetas').style.display = 'none';
+            document.getElementById('boton-nexus-container').style.display = 'none';
+            
+            // Muestra el portal de registro
+            document.getElementById('vista-nexus').style.display = 'flex';
+            
+            // Sube la pantalla arriba del todo
+            window.scrollTo(0, 0);
+        }
+
+        function volverAlSalon() {
+            // Oculta el portal
+            document.getElementById('vista-nexus').style.display = 'none';
+            
+            // Restaura el título, las tarjetas y el botón a su estado original
+            document.querySelector('.titulo-salon').style.display = ''; 
+            document.querySelector('.contenedor-tarjetas').style.display = '';
+            document.getElementById('boton-nexus-container').style.display = 'flex';
+        }
     </script>
+    
 </body>
     </html>
     
