@@ -45,5 +45,96 @@
         </button>
     </footer>
 
+    <script type="module">
+    // 1. Importaciones de la infraestructura global (Firebase SDK v9)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // 2. Tu Matriz de Configuración (REEMPLAZA ESTO CON TUS CLAVES)
+    const firebaseConfig = {
+        apiKey: "TU_API_KEY",
+        authDomain: "TU_PROYECTO.firebaseapp.com",
+        projectId: "TU_PROYECTO",
+        storageBucket: "TU_PROYECTO.appspot.com",
+        messagingSenderId: "TU_SENDER_ID",
+        appId: "TU_APP_ID"
+    };
+
+    // 3. Inicialización del Núcleo
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 4. Variables de Entorno
+    // Cambia esto a 'Johanna' en el teléfono de tu esposa, para diferenciar quién envía el mensaje
+    const usuarioActual = "Magnético"; 
+    const inputMensaje = document.getElementById('input-mensaje');
+    const contenedorMensajes = document.getElementById('matriz-mensajes');
+
+    // 5. Función de Transmisión (Enviar a Firebase)
+    window.transmitirMensaje = async function() {
+        const texto = inputMensaje.value.trim();
+        if (texto === "") return; // No enviar mensajes vacíos
+
+        try {
+            await addDoc(collection(db, "mensajes_santuario"), {
+                usuario: usuarioActual,
+                texto: texto,
+                timestamp: serverTimestamp() // Sello de tiempo de los servidores de Google
+            });
+            inputMensaje.value = ""; // Limpiar la consola tras enviar
+            console.log("Frecuencia transmitida con éxito.");
+        } catch (error) {
+            console.error("Fallo en la transmisión:", error);
+            alert("Error en la conexión. Verifica tu red.");
+        }
+    };
+
+    // Para enviar con la tecla Enter
+    inputMensaje.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            transmitirMensaje();
+        }
+    });
+
+    // 6. El Ojo Que Todo Lo Ve (Escuchar en Tiempo Real)
+    // Ordenamos los mensajes por tiempo para que aparezcan en orden lógico
+    const q = query(collection(db, "mensajes_santuario"), orderBy("timestamp", "asc"));
+
+    onSnapshot(q, (snapshot) => {
+        // Limpiamos la matriz antes de re-dibujar (evita duplicados)
+        contenedorMensajes.innerHTML = `
+            <div class="mensaje-sistema">
+                Conexión encriptada bajo Parnasá, Shefá y Verajá.
+            </div>
+        `;
+
+        snapshot.forEach((doc) => {
+            const datos = doc.data();
+            
+            // Determinar si el mensaje lo enviaste tú o lo recibiste
+            const tipoBurbuja = datos.usuario === usuarioActual ? "enviado" : "recibido";
+            
+            // Formatear la hora si existe el timestamp
+            let hora = "";
+            if(datos.timestamp) {
+                const fecha = datos.timestamp.toDate();
+                hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            }
+
+            // Inyectar el mensaje en el HTML
+            const htmlMensaje = `
+                <div class="burbuja-mensaje ${tipoBurbuja}">
+                    <p>${datos.texto}</p>
+                    <span class="hora-mensaje">${hora}</span>
+                </div>
+            `;
+            contenedorMensajes.innerHTML += htmlMensaje;
+        });
+
+        // Hacer auto-scroll hacia abajo cada vez que llega un mensaje nuevo
+        contenedorMensajes.scrollTop = contenedorMensajes.scrollHeight;
+    });
+    </script>
+    
 </body>
 </html>
