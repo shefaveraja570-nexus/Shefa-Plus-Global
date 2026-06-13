@@ -225,6 +225,62 @@
             margin: 5px 0;
             transition: 0.4s;
         }
+
+        /* ======================================================= */
+/* NEURO-DISEÑO VISUAL: MENÚ HAMBURGUESA Y CARRITO         */
+/* ======================================================= */
+
+/* Estado inicial del Portal de Navegación (Oculto a la derecha) */
+#portal-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 400px;
+    height: 100vh;
+    background: rgba(10, 15, 30, 0.95);
+    backdrop-filter: blur(15px); /* Efecto vidrio cuántico */
+    transition: right 0.618s cubic-bezier(0.23, 1, 0.32, 1); /* Proporción Áurea en el movimiento */
+    z-index: 100;
+    border-left: 1px solid rgba(212, 175, 55, 0.3); /* Borde sutil dorado */
+    box-shadow: -15px 0 50px rgba(0, 0, 0, 0.7);
+}
+
+/* Estado Activo del Portal */
+#portal-nav.activo {
+    right: 0;
+}
+
+/* Estado inicial de la Bóveda del Carrito */
+#boveda-carrito {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%; 
+    max-width: 450px;
+    height: 100vh;
+    background: rgba(5, 11, 20, 0.98);
+    backdrop-filter: blur(20px);
+    transition: right 0.618s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 105;
+    border-left: 2px solid #d4af37; /* Borde dorado fuerte de protección */
+    box-shadow: -20px 0 60px rgba(212, 175, 55, 0.15); /* Resplandor de Jojmá */
+}
+
+/* Estado Activo del Carrito */
+#boveda-carrito.activa {
+    right: 0;
+}
+
+/* Animación del botón hamburguesa */
+#btn-menu {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+#btn-menu.abierto {
+    transform: rotate(90deg); /* Gira suavemente indicando apertura */
+    color: #d4af37; /* Se ilumina en dorado */
+            }
+        
     </style>
 </head>
 <body>
