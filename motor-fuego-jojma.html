@@ -181,8 +181,25 @@
             requestAnimationFrame(animarFuego);
         }
 
-        // Encender el motor
+                // Encender el motor
         animarFuego();
+
+        // =======================================================
+        // PUENTE DE TRANSICIÓN HACIA EL SANTUARIO
+        // =======================================================
+        // El motor arderá por 4.5 segundos (4500 milisegundos) antes de abrir la puerta
+        setTimeout(() => {
+            // Un pequeño efecto de desvanecimiento para que la salida sea elegante
+            document.body.style.transition = "opacity 1s ease";
+            document.body.style.opacity = "0";
+            
+            // Medio segundo después de desvanecerse, salta al chat
+            setTimeout(() => {
+                window.location.href = "chat-sagrado.html";
+            }, 1000);
+            
+        }, 4500); 
+            ;
     </script>
 </body>
   </html>
