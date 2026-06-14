@@ -7,8 +7,20 @@
     <!-- ICONOS FONT AWESOME -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* === PARNASÁ: ESTRUCTURA Y BLINDAJE PREMIUM === */
+        :root {
+            --titanio-azul: #0a1128;
+            --titanio-profundo: #050b14;
+            --oro-solido: #d4af37;
+            --oro-luz: #fdf5a9;
+            --cuantico: #00d2ff;
+            --texto-plata: #94a3b8;
+            --purpura-shefa: #a855f7;
+        }
+
         body {
-            background-color: #050b14;
+            /* Fondo profundo con destello sutil radial (El Río de Luz) */
+            background: radial-gradient(circle at 50% 0%, #111d40 0%, var(--titanio-profundo) 60%);
             color: #ffffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -16,247 +28,216 @@
             overflow-x: hidden;
         }
 
-        /* Cabecera */
+        /* Cabecera con Logo Integrado */
         .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
-            background: #050b14;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            background: rgba(5, 11, 20, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .logo-container-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-img-header {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            object-fit: cover;
         }
         .logo-text {
-            font-size: 1.3rem;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            margin: 0;
         }
-        .logo-text span {
-            color: #d4af37;
-        }
-        .iconos-derecha {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            font-size: 1.3rem;
-        }
-        .cart-container {
-            position: relative;
-            cursor: pointer;
-        }
+        .logo-text span { color: var(--oro-solido); }
+        .iconos-derecha { display: flex; gap: 20px; align-items: center; font-size: 1.3rem; }
+        
+        .cart-container { position: relative; cursor: pointer; }
         .cart-badge {
-            background: #00d2ff;
-            color: black;
-            font-size: 0.6rem;
-            font-weight: bold;
-            padding: 2px 5px;
-            border-radius: 50%;
-            position: absolute;
-            top: -8px;
-            right: -8px;
+            background: var(--cuantico); color: black; font-size: 0.6rem;
+            font-weight: bold; padding: 3px 6px; border-radius: 50%;
+            position: absolute; top: -8px; right: -10px;
+            box-shadow: 0 0 10px var(--cuantico);
         }
 
-        /* Transmisión de Abundancia */
+        /* === SHEFA: EL COFRE CUÁNTICO === */
         .cofre-cuantico-container {
-            background: #0d1425;
-            border-radius: 12px;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.7), rgba(10, 17, 40, 0.9));
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px 4px 24px 4px; /* Asimetría Verajá */
             padding: 40px 20px;
             text-align: center;
             max-width: 90%;
-            margin: 30px auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+            margin: 40px auto;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.05);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .icono-cubo {
-            font-size: 3rem;
-            color: #00d2ff;
-            text-shadow: 0 0 15px rgba(0, 210, 255, 0.8);
-            margin-bottom: 20px;
+            font-size: 3.5rem; color: var(--cuantico);
+            text-shadow: 0 0 25px rgba(0, 210, 255, 0.6); margin-bottom: 20px;
+            animation: flotar 3s ease-in-out infinite;
         }
+
         .input-codigo {
-            width: 85%;
-            padding: 15px;
-            margin: 20px 0;
-            background: #050b14;
+            width: 85%; padding: 16px; margin: 20px 0;
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 8px;
-            color: white;
-            text-align: center;
-            font-size: 1rem;
-            letter-spacing: 1px;
+            border-radius: 8px 0 8px 0;
+            color: var(--oro-luz); text-align: center; font-size: 1.1rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            transition: all 0.3s;
         }
         .input-codigo:focus {
-            outline: none;
-            border-color: #d4af37;
+            outline: none; border-color: var(--oro-solido);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.4);
         }
-        .btn-desbloquear {
-            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
-            color: black;
-            font-weight: bold;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 85%;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+
+        /* === PUERTAS DE BÓVEDA (Botones) === */
+        .btn-boveda {
+            background: linear-gradient(145deg, #e6c240, #b58b22);
+            color: #111; font-weight: 900; padding: 16px;
+            border: none; border-radius: 8px; cursor: pointer;
+            width: 85%; font-size: 0.95rem; letter-spacing: 2px;
             text-transform: uppercase;
+            box-shadow: inset 2px 2px 5px rgba(255,255,255,0.6), inset -3px -3px 8px rgba(0,0,0,0.3), 0 8px 20px rgba(212, 175, 55, 0.3);
+            transition: all 0.3s ease;
+            position: relative; overflow: hidden;
+        }
+        .btn-boveda:active { transform: translateY(3px); box-shadow: inset 2px 2px 10px rgba(0,0,0,0.5); }
+        .btn-boveda::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: rgba(255,255,255,0.2); transform: rotate(45deg); transition: 0.5s; opacity: 0;
+        }
+        .btn-boveda:hover::after { left: 100%; opacity: 1; }
+
+        /* Botón interno de tarjetas */
+        .btn-tarjeta-interno {
+            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+            color: black; font-weight: bold; padding: 12px; margin-top: 20px;
+            border: none; border-radius: 8px; cursor: pointer;
+            width: 100%; font-size: 0.85rem; letter-spacing: 1px;
+            text-transform: uppercase; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+            pointer-events: none; /* Para no interrumpir el toque de la tarjeta */
         }
 
         /* Salón de Honor */
-        .titulo-salon {
-            text-align: center;
-            margin: 50px 0 30px 0;
-        }
-        .titulo-salon h2 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        .titulo-salon span {
-            color: #d4af37;
-        }
-        .titulo-salon p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
+        .titulo-salon { text-align: center; margin: 60px 0 40px 0; }
+        .titulo-salon h2 { font-size: 2.2rem; margin-bottom: 10px; font-weight: 300; }
+        .titulo-salon span { color: var(--oro-solido); font-weight: 900; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .titulo-salon p { color: var(--texto-plata); font-size: 0.95rem; letter-spacing: 1px; }
 
-        /* Tarjetas de Honor */
+        /* === VERAJÁ: TARJETAS DE HONOR ASIMÉTRICAS === */
         .contenedor-tarjetas {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 0 20px;
-            max-width: 500px;
-            margin: 0 auto 50px auto;
+            display: flex; flex-direction: column; gap: 25px;
+            padding: 0 20px; max-width: 500px; margin: 0 auto 60px auto;
         }
+        
         .tarjeta-honor {
-            background: #0d1425;
-            padding: 25px;
-            border-radius: 12px;
-        }
-        .tarjeta-honor h3 {
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .tarjeta-honor p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
-        .btn-tarjeta {
-            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
-            color: black;
-            font-weight: bold;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.8), rgba(5, 11, 20, 0.95));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 24px 4px 24px 4px; /* Efecto Berajá UI */
+            position: relative;
             cursor: pointer;
-            width: 100%;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
-        /* Footer */
-        .footer-global {
-            text-align: center;
-            padding: 40px 20px;
+        .tarjeta-honor h3 {
+            font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; color: #fff;
+        }
+        .tarjeta-honor p { color: var(--texto-plata); font-size: 0.9rem; line-height: 1.7; margin-bottom: 0; }
+
+        /* === EL AURA SAGRADA (1 TOQUE) === */
+        @keyframes pulsoAura {
+            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(0, 210, 255, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.9), 0 0 40px rgba(0, 210, 255, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.4); transform: scale(1.03); border-color: var(--oro-solido); }
+            100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 20px rgba(0, 210, 255, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.2); }
+        }
+
+        .aura-activa {
+            animation: pulsoAura 2s infinite ease-in-out;
+            border: 1px solid var(--oro-solido) !important;
+            z-index: 10;
+        }
+        
+        .instruccion-toque {
+            display: none; position: absolute; bottom: 10px; right: 15px;
+            font-size: 0.7rem; color: var(--oro-solido); font-weight: bold; letter-spacing: 1px;
+            text-transform: uppercase; animation: flotar 2s infinite;
+        }
+        .aura-activa .instruccion-toque { display: block; }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* === FOOTER GLOBAL === */
+        .footer-global { 
+            text-align: center; 
+            padding: 50px 20px 40px 20px; 
+            background: linear-gradient(to top, rgba(5,11,20,1), transparent);
+            margin-top: 20px; 
         }
         .logo-footer {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
-            margin-bottom: 15px;
+            width: 80px; height: 80px; border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.5), inset 0 0 15px rgba(255,255,255,0.2);
+            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);
+            animation: pulsoCuantico 4s infinite alternate;
         }
-        .footer-global h4 {
-            font-size: 1rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+        @keyframes pulsoCuantico {
+            from { box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); }
+            to { box-shadow: 0 0 40px rgba(0, 210, 255, 0.8), 0 0 10px var(--oro-solido); }
         }
-        .footer-global p {
-            color: #64748b;
-            font-size: 0.8rem;
-        }
+        .texto-footer-titulo { font-size: 1.2rem; letter-spacing: 3px; font-weight: 900; margin-bottom: 10px; color: #fff; }
+        .texto-footer-titulo span { color: var(--oro-solido); }
+        .texto-footer-copy { color: var(--texto-plata); font-size: 0.85rem; }
 
-        /* Menú Lateral y Carrito */
-        #portal-nav, #boveda-carrito {
-            position: fixed;
-            top: 0;
-            width: 80%;
-            max-width: 400px;
-            height: 100vh;
-            background: #050b14;
-            z-index: 100;
-            transition: 0.3s ease;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-        #portal-nav {
-            left: -100%;
-            border-right: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        #portal-nav.activo {
-            left: 0;
-        }
-        #boveda-carrito {
-            right: -100%;
-            border-left: 1px solid rgba(212, 175, 55, 0.3);
-        }
-        #boveda-carrito.activa {
-            right: 0;
-        }
-        .titulo-menu {
-            color: #d4af37;
-            font-size: 1.1rem;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-        .lista-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            line-height: 2.5;
-        }
-        .lista-menu li {
-            font-size: 1rem;
-        }
-        #pantalla-respuesta {
-            margin-top: 15px;
-            font-size: 0.9rem;
-            transition: opacity 0.3s;
-        }
+        #pantalla-respuesta { margin-top: 20px; font-size: 1rem; transition: opacity 0.3s; font-weight: bold; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <!-- CABECERA -->
     <div class="header-top">
-        <div class="logo-text">SHEFÁ <span>PLUS</span></div>
+        <div class="logo-container-header">
+            <!-- Imagen del logo (Asegúrate de tener logo-shefa.png en tu carpeta) -->
+            <img src="logo-shefa.png" alt="Ojo Shefa" class="logo-img-header">
+            <h1 class="logo-text">SHEFÁ <span>PLUS</span></h1>
+        </div>
         <div class="iconos-derecha">
-            <div class="cart-container" id="btn-carrito" onclick="toggleBovedaCarrito()">
-                <i class="fas fa-shopping-cart" style="color: #d4af37;"></i>
-                <span class="cart-badge">0</span>
+            <div class="cart-container">
+                <i class="fas fa-cube" style="color: var(--oro-solido);"></i>
+                <span class="cart-badge">1</span>
             </div>
-            <i class="fas fa-bars" style="color: #d4af37; cursor: pointer;" id="btn-menu" onclick="toggleMenuNav()"></i>
+            <i class="fas fa-bars" style="color: var(--oro-solido); cursor: pointer;" id="btn-menu"></i>
         </div>
     </div>
 
     <!-- TRANSMISIÓN DE ABUNDANCIA -->
     <div class="cofre-cuantico-container">
         <i class="fas fa-cube icono-cubo"></i>
-        <h2 style="font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;">Transmisión de<br>Abundancia</h2>
-        <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 20px;">Ingresa el código de frecuencia cuántica para desbloquear activos, criptofracciones y bendiciones (Verajá) de nuestra red global.</p>
+        <h2 style="font-size: 1.4rem; letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase;">Transmisión de<br><span style="color: var(--oro-solido)">Abundancia</span></h2>
+        <p style="color: var(--texto-plata); font-size: 0.85rem; margin-bottom: 25px; line-height: 1.6;">Ingresa el código de frecuencia cuántica para desbloquear activos y bendiciones (Verajá) de nuestra red global.</p>
         
-        <input type="text" id="codigo-universo" class="input-codigo" placeholder="INGRESA EL CÓDIGO AQUÍ">
+        <input type="text" id="codigo-universo" class="input-codigo" placeholder="INGRESA EL CÓDIGO">
         
-        <button class="btn-desbloquear" onclick="procesarCodigoCosmico()">
+        <button class="btn-boveda" onclick="procesarCodigoCosmico()">
             <i class="fas fa-lock mr-2"></i> DESBLOQUEAR COFRE
         </button>
 
@@ -269,141 +250,138 @@
         <p>Arquitectura diseñada para el éxito mutuo</p>
     </div>
 
-    <!-- TARJETAS -->
+    <!-- TARJETAS DE HONOR (Interactividad 1 y 2 Toques) -->
     <div class="contenedor-tarjetas">
         
-        <div class="tarjeta-honor">
-            <i class="fas fa-bolt" style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;"></i>
-            <h3>Shefá | Flujo Constante</h3>
-            <p>Interfaces optimizadas bajo proporciones armónicas. Garantizamos que la experiencia del usuario y tus procesos comerciales fluyan de manera natural.</p>
-        </div>
-
-        <div class="tarjeta-honor">
-            <i class="fas fa-shield-alt" style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;"></i>
-            <h3>Parnasá | Sustento Protegido</h3>
-            <p>Infraestructura robusta de grado bancario. Una herramienta sólida que protege tus transacciones, brindando la base segura para el crecimiento inquebrantable.</p>
-        </div>
-
-        <div class="tarjeta-honor">
-            <i class="fas fa-star" style="color: #d4af37; font-size: 1.8rem; margin-bottom: 15px;"></i>
-            <h3>Verajá | Multiplicación</h3>
-            <p>Algoritmos eficientes y estructuras matemáticas impecables que impulsan los resultados, expandiendo el alcance de tu negocio de forma escalable.</p>
-        </div>
-        <div class="tarjeta-honor">
-            <i class="fas fa-location-arrow" style="color: #a855f7; font-size: 1.8rem; margin-bottom: 15px;"></i>
-            <h3>Shefa Flow Remesas | Conexión Sin Fronteras</h3>
-            <p style="margin-bottom: 15px;">Servicio global habilitado para todos los usuarios. Flujo directo y seguro para enviar valor a cualquier lugar del mundo.</p>
-            <button class="btn-tarjeta" onclick="window.location.href='shefa-flow.html'">
+        <!-- 1. Tarjeta Shefa Flow Remesas -->
+        <div class="tarjeta-honor interactiva" data-url="shefa-flow.html">
+            <h3><i class="fas fa-location-arrow" style="color: var(--purpura-shefa); font-size: 1.8rem;"></i> Shefa Flow Remesas</h3>
+            <p>Conexión Sin Fronteras. Servicio global habilitado para todos los usuarios. Flujo directo y seguro para enviar valor a cualquier lugar del mundo.</p>
+            <button class="btn-tarjeta-interno">
                 <i class="fas fa-bolt mr-2"></i> INGRESAR A SHEFA FLOW
             </button>
+            <span class="instruccion-toque">Toca otra vez para entrar</span>
         </div>
 
-        <div class="tarjeta-honor">
-            <h3>Bienes Raíces | Tokenización RWA</h3>
-            <p style="margin-bottom: 15px;">Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada.</p>
-            <button class="btn-tarjeta" onclick="window.location.href='salon_inmobiliario.html'">
+        <!-- 2. RWA / Inmobiliario -->
+        <div class="tarjeta-honor interactiva" data-url="salon_inmobiliario.html">
+            <h3><i class="fas fa-city" style="color: var(--oro-solido); font-size: 1.8rem;"></i> Salón Inmobiliario RWA</h3>
+            <p>Acceso al ecosistema de propiedades premium. Adquisición total o fraccionada respaldada en contratos inteligentes.</p>
+            <button class="btn-tarjeta-interno">
                 <i class="fas fa-key mr-2"></i> ABRIR SALÓN INMOBILIARIO
             </button>
+            <span class="instruccion-toque">Toca otra vez para entrar</span>
         </div>
-        >
+
+        <!-- 3. Tarjeta Shefá -->
+        <div class="tarjeta-honor interactiva" data-url="sala_shefa.html">
+            <h3><i class="fas fa-bolt" style="color: var(--oro-solido); font-size: 1.8rem;"></i> Shefá | Flujo Constante</h3>
+            <p>Interfaces optimizadas bajo proporciones armónicas. Garantizamos que la experiencia del usuario y tus procesos comerciales fluyan de manera natural.</p>
+            <span class="instruccion-toque">Toca otra vez para entrar</span>
+        </div>
+
+        <!-- 4. Tarjeta Parnasá -->
+        <div class="tarjeta-honor interactiva" data-url="sala_parnasa.html">
+            <h3><i class="fas fa-shield-alt" style="color: var(--oro-solido); font-size: 1.8rem;"></i> Parnasá | Sustento</h3>
+            <p>Infraestructura robusta de grado bancario. Una herramienta sólida que protege tus transacciones, brindando la base segura para el crecimiento.</p>
+            <span class="instruccion-toque">Toca otra vez para entrar</span>
+        </div>
+
+        <!-- 5. Tarjeta Verajá -->
+        <div class="tarjeta-honor interactiva" data-url="sala_veraja.html">
+            <h3><i class="fas fa-star" style="color: var(--oro-solido); font-size: 1.8rem;"></i> Verajá | Multiplicación</h3>
+            <p>Algoritmos eficientes y estructuras matemáticas impecables que impulsan los resultados, expandiendo el alcance de tu negocio de forma escalable.</p>
+            <span class="instruccion-toque">Toca otra vez para entrar</span>
+        </div>
+
+        <!-- 6. NUEVA: Tarjeta Liberar Verajá -->
+        <div class="tarjeta-honor interactiva" data-url="liberar_veraja.html">
+            <h3><i class="fas fa-lock" style="color: var(--oro-solido); font-size: 1.8rem;"></i> Liberar Verajá | Desembolsos</h3>
+            <p>Auditoría y rigor absoluto en la liberación de fondos. Nuestros protocolos de desembolso operan bajo un escrutinio ciego y matemático, asegurando que cada gota de abundancia sea entregada con máxima seguridad y precisión inquebrantable.</p>
+            <button class="btn-tarjeta-interno" style="background: linear-gradient(90deg, #1e293b, #0f172a); color: var(--oro-solido); border: 1px solid rgba(212, 175, 55, 0.3);">
+                <i class="fas fa-fingerprint mr-2"></i> VERIFICAR PROTOCOLO
+            </button>
+            <span class="instruccion-toque">Toca otra vez para entrar</span>
+        </div>
 
     </div>
 
-    <!-- FOOTER -->
+    <!-- FOOTER RESTAURADO (El Ojo que Cierra el Bucle) -->
     <div class="footer-global">
-        <!-- Reemplaza con tu logo azul real -->
-        <img src="logo-shefa.png" alt="Logo" class="logo-footer">
-        <h4>SHEFA PLUS GLOBAL</h4>
-        <p>© 2026 Todos los derechos reservados.</p>
+        <!-- Reemplaza con el archivo de tu logo circular iluminado -->
+        <img src="logo-shefa.png" alt="El Ojo de Shefa Global" class="logo-footer">
+        <h4 class="texto-footer-titulo">SHEFA PLUS <span>GLOBAL</span></h4>
+        <p class="texto-footer-copy">© 2026 Todos los derechos reservados.</p>
     </div>
 
-    <!-- PORTALES (MENÚ Y CARRITO) -->
-    <div id="portal-nav">
-        <h3 class="titulo-menu">Menú Global</h3>
-        <ul class="lista-menu">
-            <li>Inicio</li>
-            <li>Salón Inmobiliario</li>
-            <li>Billetera</li>
-            <li>Configuración</li>
-        </ul>
-    </div>
-
-    <div id="boveda-carrito">
-        <h3 class="titulo-menu">Sustento Global</h3>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Tu bóveda está esperando transacciones.</p>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- NEXUS DE COMUNICACIÓN: SHEFA-NEXUS         -->
-    <!-- ========================================== -->
-    <a href="chat-sagrado.html" style="position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #d4af37, #fdf5a9, #d4af37); color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; box-shadow: 0 0 20px rgba(212,175,55,0.6); z-index: 999; text-decoration: none; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+    <!-- NEXUS DE COMUNICACIÓN -->
+    <a href="chat-sagrado.html" style="position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #d4af37, #b58b22); color: #000; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2rem; box-shadow: 0 0 30px rgba(212,175,55,0.5); z-index: 999; text-decoration: none; border: 2px solid #fff;">
         <i class="fas fa-comment-dots"></i>
     </a>
-    
-    
-    <!-- JAVASCRIPT ORIGINAL -->
+
+    <!-- JAVASCRIPT NEURO-DISEÑO -->
     <script>
-        function toggleMenuNav() {
-            const btnMenu = document.getElementById('btn-menu');
-            const portalNav = document.getElementById('portal-nav');
-            const bovedaCarrito = document.getElementById('boveda-carrito');
-            if(bovedaCarrito && bovedaCarrito.classList.contains('activa')) bovedaCarrito.classList.remove('activa');
-            btnMenu.classList.toggle('abierto');
-            if(portalNav) portalNav.classList.toggle('activo');
-        }
+        // === LÓGICA DE 1 TOQUE (AURA) Y 2 TOQUES (PORTAL) ===
+        const tarjetas = document.querySelectorAll('.tarjeta-honor.interactiva');
 
-        function toggleBovedaCarrito() {
-            const bovedaCarrito = document.getElementById('boveda-carrito');
-            const portalNav = document.getElementById('portal-nav');
-            const btnMenu = document.getElementById('btn-menu');
-            if(portalNav && portalNav.classList.contains('activo')) {
-                portalNav.classList.remove('activo');
-                btnMenu.classList.remove('abierto');
-            }
-            if(bovedaCarrito) bovedaCarrito.classList.toggle('activa');
-        }
+        tarjetas.forEach(tarjeta => {
+            tarjeta.addEventListener('click', function(e) {
+                const urlDestino = this.getAttribute('data-url');
+                
+                // Si la tarjeta ya tiene el aura activa, es el SEGUNDO TOQUE -> Redirigir
+                if (this.classList.contains('aura-activa')) {
+                    this.style.transform = 'scale(0.9)';
+                    this.style.opacity = '0.5';
+                    setTimeout(() => {
+                        window.location.href = urlDestino;
+                    }, 300);
+                    return;
+                }
 
+                // Si NO tiene el aura, es el PRIMER TOQUE -> Encender Aura
+                tarjetas.forEach(t => t.classList.remove('aura-activa'));
+                this.classList.add('aura-activa');
+
+                if (navigator.vibrate) { navigator.vibrate(50); }
+            });
+        });
+
+        // === CÓDIGO CÓSMICO ===
         function procesarCodigoCosmico() {
             const inputCodigo = document.getElementById('codigo-universo');
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
             if(!inputCodigo) return;
             const codigoIngresado = inputCodigo.value.trim().toUpperCase();
+            
             pantallaRespuesta.style.opacity = '0';
+            
             setTimeout(() => {
                 if (codigoIngresado === 'SIRIUS-1618') {
-                    mostrarExito("¡CÓDIGO ACEPTADO! Has desbloqueado una (1) Criptofracción.", "#39ff14");
-                    lanzarConfetiCuantico();
-                } else if (codigoIngresado === 'FUEGO-VERAJA-777') {
-                    mostrarExito("¡CONEXIÓN ANCESTRAL! Has recibido saldo.", "#ffaa00");
+                    mostrarRespuesta("¡UMBRAL CRUZADO! Criptofracción Desbloqueada.", "#00d2ff");
                     lanzarConfetiCuantico();
                 } else {
-                    mostrarError("Frecuencia no reconocida.");
+                    mostrarRespuesta("Frecuencia no detectada. Intenta de nuevo.", "#ff4d4d");
                 }
-            }, 300);
+            }, 400);
         }
 
-        function mostrarExito(mensaje, color) {
+        function mostrarRespuesta(mensaje, color) {
             const pantallaRespuesta = document.getElementById('pantalla-respuesta');
-            pantallaRespuesta.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${mensaje}`;
+            pantallaRespuesta.innerHTML = mensaje;
             pantallaRespuesta.style.color = color;
-            pantallaRespuesta.style.opacity = '1';
-        }
-
-        function mostrarError(mensaje) {
-            const pantallaRespuesta = document.getElementById('pantalla-respuesta');
-            pantallaRespuesta.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i> ${mensaje}`;
-            pantallaRespuesta.style.color = "#ff4444";
+            pantallaRespuesta.style.textShadow = `0 0 10px ${color}`;
             pantallaRespuesta.style.opacity = '1';
         }
 
         function lanzarConfetiCuantico() {
             const contenedor = document.querySelector('.cofre-cuantico-container');
-            if(contenedor) {
-                contenedor.style.transform = 'scale(1.05)';
-                setTimeout(() => { contenedor.style.transform = 'scale(1)'; }, 500);
-            }
+            contenedor.style.transform = 'scale(1.05)';
+            contenedor.style.boxShadow = '0 0 50px rgba(0, 210, 255, 0.8)';
+            setTimeout(() => { 
+                contenedor.style.transform = 'scale(1)'; 
+                contenedor.style.boxShadow = '0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(212, 175, 55, 0.05)';
+            }, 600);
         }
     </script>
 </body>
     </html>
-    
