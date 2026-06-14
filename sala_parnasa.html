@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parnasá | Sustento Protegido | Shefá Plus Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --dorado: #d4af37; --titanio: #0a1128; --negro-puro: #000000; }
+        body { background-color: var(--negro-puro); color: white; font-family: 'Segoe UI', Tahoma, sans-serif; background: radial-gradient(circle at 50% -20%, #111d40 0%, #000 70%); min-height: 100vh; }
+        .boveda-glow { box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); }
+        .tarjeta-honor { background: linear-gradient(145deg, #0f172a, #050b14); border-radius: 24px 4px 24px 4px; border: 1px solid rgba(212, 175, 55, 0.2); }
+        .texto-oro { color: var(--dorado); }
+        .pilar-valor { transition: 0.3s; border-left: 2px solid var(--dorado); }
+        .pilar-valor:hover { background: rgba(212, 175, 55, 0.05); transform: translateX(10px); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- CABECERA -->
+    <header class="border-b border-dorado/30 bg-black/95 sticky top-0 z-50 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="window.location.href='umbral.html'">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center bg-black border border-dorado shadow-[0_0_10px_rgba(212,175,55,0.4)]">
+                    <i class="fas fa-arrow-left text-dorado"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-widest uppercase">Parnasá</h1>
+                    <p class="text-[10px] text-gray-400 tracking-[0.3em] uppercase">Sustento Protegido</p>
+                </div>
+            </div>
+            <img src="logo-shefa.png" alt="Ojo" class="w-10 h-10 rounded-full border border-dorado">
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-16">
+        
+        <!-- HÉROE DE SALA -->
+        <div class="text-center mb-16">
+            <div class="inline-block p-6 rounded-full bg-titanio border border-dorado mb-6">
+                <i class="fas fa-shield-alt text-5xl text-dorado"></i>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tight">Parnasá | <span class="texto-oro">Infraestructura de Honor</span></h2>
+            <p class="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto italic">
+                "La seguridad no es un costo, es el cimiento sobre el cual se construye el imperio de la abundancia."
+            </p>
+        </div>
+
+        <!-- VALORES FUNDAMENTALES (La base del Honor) -->
+        <div class="tarjeta-honor p-8 mb-12">
+            <h3 class="text-2xl font-black uppercase tracking-widest mb-8 text-center"><i class="fas fa-balance-scale text-dorado mr-3"></i> Nuestra Matriz de Valores</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="pilar-valor pl-6 py-2">
+                    <h4 class="font-bold text-dorado uppercase tracking-widest">Parnasá</h4>
+                    <p class="text-sm text-gray-400">El sustento protegido. La base inquebrantable de cada operación.</p>
+                </div>
+                <div class="pilar-valor pl-6 py-2">
+                    <h4 class="font-bold text-dorado uppercase tracking-widest">Shefá</h4>
+                    <p class="text-sm text-gray-400">El flujo constante y armónico del valor en nuestra red.</p>
+                </div>
+                <div class="pilar-valor pl-6 py-2">
+                    <h4 class="font-bold text-dorado uppercase tracking-widest">Verajá</h4>
+                    <p class="text-sm text-gray-400">La multiplicación sagrada a través de la eficiencia técnica.</p>
+                </div>
+                <div class="pilar-valor pl-6 py-2">
+                    <h4 class="font-bold text-dorado uppercase tracking-widest">Jojmá</h4>
+                    <p class="text-sm text-gray-400">La sabiduría operativa en cada línea de nuestro código.</p>
+                </div>
+                <div class="pilar-valor pl-6 py-2 col-span-1 md:col-span-2">
+                    <h4 class="font-bold text-dorado uppercase tracking-widest">Emuná</h4>
+                    <p class="text-sm text-gray-400">La fe inquebrantable que sostiene nuestro compromiso con la comunidad global.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CALL TO ACTION -->
+        <div class="text-center">
+            <button class="border-2 border-dorado text-dorado font-black py-4 px-12 rounded uppercase tracking-widest hover:bg-dorado hover:text-black transition-all text-sm shadow-[0_0_20px_rgba(212,175,55,0.2)]">
+                Auditoría de Protocolos
+            </button>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 py-16 bg-black">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                <img src="logo-shefa.png" alt="El Ojo de Shefá Global" class="w-full h-full object-cover rounded-full">
+            </div>
+            <p class="text-dorado font-black tracking-[0.3em] uppercase mb-2">Shefá Plus Global</p>
+            <p class="text-gray-600 text-[10px] tracking-widest">© 2026 ESTRUCTURA BLINDADA POR CONTRATOS INTELIGENTES</p>
+        </div>
+    </footer>
+
+</body>
+  </html>
+                  
