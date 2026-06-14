@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberar Verajá | Auditoría de Desembolsos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --dorado: #d4af37; --titanio: #0a1128; --negro-puro: #000000; }
+        body { background-color: var(--negro-puro); color: white; font-family: 'Segoe UI', sans-serif; background: radial-gradient(circle at 50% -20%, #111d40 0%, #000 70%); min-height: 100vh; }
+        .borde-dorado { border: 1px solid var(--dorado); }
+        .efecto-beraja { background: linear-gradient(145deg, #0f172a, #050b14); border-radius: 24px 4px 24px 4px; border: 1px solid rgba(212, 175, 55, 0.15); box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .texto-oro { color: var(--dorado); }
+        /* Animación del escáner de auditoría */
+        .escaner-linea { width: 100%; height: 2px; background: var(--dorado); box-shadow: 0 0 10px var(--dorado); animation: escaneo 3s infinite linear; opacity: 0.5; }
+        @keyframes escaneo { 0% { transform: translateY(0); } 50% { transform: translateY(150px); } 100% { transform: translateY(0); } }
+        /* Fuente monoespaciada para datos matemáticos */
+        .fuente-codigo { font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- CABECERA -->
+    <header class="border-b border-dorado/30 bg-black/95 sticky top-0 z-50 p-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="window.location.href='umbral.html'">
+                <div class="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center bg-black border border-dorado shadow-[0_0_10px_rgba(212,175,55,0.4)]">
+                    <i class="fas fa-arrow-left text-dorado"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-widest uppercase">Retornar</h1>
+                    <p class="text-[10px] text-gray-400 tracking-[0.3em] uppercase">Al Umbral Global</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <p class="text-dorado font-bold tracking-widest text-sm uppercase">Liberar Verajá</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL: La Sala de Auditoría -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-12 flex flex-col justify-center">
+        
+        <div class="text-center mb-10">
+            <div class="w-24 h-24 mx-auto mb-6 bg-black rounded-full flex items-center justify-center border-2 border-dorado shadow-[0_0_30px_rgba(212,175,55,0.3)]">
+                <i class="fas fa-lock text-4xl text-dorado"></i>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black mb-4 uppercase tracking-wider">Protocolo de <span class="text-dorado">Desembolso</span></h2>
+            <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto tracking-wide leading-relaxed">
+                Auditoría y rigor absoluto. Nuestros protocolos operan bajo un escrutinio matemático ciego, garantizando que cada gota de abundancia sea liberada con máxima seguridad e integridad inquebrantable.
+            </p>
+        </div>
+
+        <!-- PANEL DE AUDITORÍA VISUAL -->
+        <div class="efecto-beraja p-8 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full escaner-linea"></div>
+            
+            <div class="flex justify-between items-center mb-6 border-b border-gray-800 pb-4">
+                <h3 class="text-white font-bold tracking-widest uppercase"><i class="fas fa-server text-dorado mr-2"></i> Estatus de la Red</h3>
+                <span class="bg-[#0a1128] text-[#39ff14] px-3 py-1 rounded text-xs font-bold border border-[#39ff14]/30 uppercase tracking-widest">
+                    <i class="fas fa-circle text-[8px] mr-1 align-middle"></i> Auditoría Activa
+                </span>
+            </div>
+
+            <div class="space-y-4 fuente-codigo text-sm text-gray-400">
+                <div class="flex justify-between border-b border-gray-800/50 pb-2">
+                    <span>> VERIFICANDO IDENTIDAD_NODO...</span>
+                    <span class="text-dorado">COMPLETADO [OK]</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800/50 pb-2">
+                    <span>> VALIDANDO CONTRATOS_INTELIGENTES...</span>
+                    <span class="text-dorado">FIRMA VÁLIDA [OK]</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-800/50 pb-2">
+                    <span>> CÁLCULO DE PROPORCIÓN_FIBONACCI...</span>
+                    <span class="text-[#39ff14]">ALINEADO [1.618]</span>
+                </div>
+                <div class="flex justify-between pb-2">
+                    <span>> ESTADO_BÓVEDA_DESEMBOLSO...</span>
+                    <span class="text-white font-bold">ESPERANDO SOLICITUD DE RETIRO</span>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-800">
+                <button class="w-full bg-gradient-to-r from-[#0a1128] to-black border border-dorado text-dorado font-black py-4 rounded hover:bg-dorado hover:text-black transition-all uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <i class="fas fa-fingerprint mr-2"></i> Iniciar Petición de Desembolso
+                </button>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-800 py-8 bg-black mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-dorado text-xs font-black tracking-[0.4em] mb-2">PARNASÁ • SHEFÁ • VERAJÁ</p>
+            <p class="text-gray-600 text-[10px] tracking-widest uppercase">Shefá Plus Global Real Estate - Código Blindado</p>
+        </div>
+    </footer>
+
+</body>
+  </html>
+  
