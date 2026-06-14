@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bóveda Administrativa | Comando Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root { --dorado: #d4af37; --titanio: #0a1128; --negro-puro: #000000; }
+        body { background-color: var(--negro-puro); color: white; font-family: 'Segoe UI', sans-serif; background: radial-gradient(circle at 50% -20%, #111d40 0%, #000 70%); min-height: 100vh; }
+        .boveda-glow { box-shadow: 0 0 40px rgba(212, 175, 55, 0.15); border: 1px solid rgba(212, 175, 55, 0.3); }
+        .tarjeta-admin { background: rgba(10, 17, 40, 0.8); backdrop-filter: blur(10px); border-radius: 24px 4px 24px 4px; }
+        .input-premium { background: #000; border: 1px solid #333; color: white; padding: 12px; border-radius: 4px; width: 100%; outline: none; transition: border 0.3s; }
+        .input-premium:focus { border-color: var(--dorado); box-shadow: 0 0 10px rgba(212, 175, 55, 0.2); }
+        .bloqueado { display: none; }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
 
+    <!-- PANTALLA DE ACCESO (Blindaje Restaurado) -->
+    <div id="login-container" class="w-full max-w-md p-8 tarjeta-admin boveda-glow text-center">
+        <div class="w-20 h-20 mx-auto mb-6 bg-black rounded-full flex items-center justify-center border border-dorado shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+            <i class="fas fa-eye text-3xl text-dorado"></i>
+        </div>
+        <h2 class="text-2xl font-black text-white mb-6 uppercase tracking-widest">Acceso a Bóveda</h2>
+        
+        <!-- CORRECCIÓN DEL PARNASÁ: Clave oculta, placeholder de seguridad -->
+        <input type="password" id="pass-field" placeholder="INGRESE FRECUENCIA SAGRADA" class="input-premium mb-4 text-center font-bold tracking-widest text-dorado">
+        
+        <button onclick="validarFrecuencia()" class="w-full bg-gradient-to-r from-dorado to-[#aa841b] text-black font-black py-3 rounded uppercase hover:opacity-90 transition-all tracking-wider">Verificar Frecuencia</button>
+        <p id="error-msg" class="text-red-500 mt-4 text-xs font-bold uppercase tracking-widest hidden"><i class="fas fa-exclamation-triangle mr-1"></i> Frecuencia Inválida</p>
+    </div>
+
+    <!-- PANEL DE COMANDO (Una vez desbloqueado) -->
+    <div id="admin-panel" class="bloqueado w-full max-w-5xl">
+        <header class="mb-8 flex justify-between items-end border-b border-gray-800 pb-4">
+            <div>
+                <h1 class="text-3xl font-black text-white uppercase tracking-wider">Comando General de <span class="text-dorado">Operaciones</span></h1>
+                <p class="text-gray-500 text-sm italic">Jojmá • Emuná presentes</p>
+            </div>
+            <button onclick="location.reload()" class="text-gray-500 hover:text-white uppercase text-xs font-bold tracking-widest"><i class="fas fa-lock mr-1"></i> Sellar Bóveda</button>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- INYECCIÓN DE ACTIVOS -->
+            <div class="tarjeta-admin p-8 boveda-glow">
+                <h3 class="text-dorado font-bold uppercase mb-6 flex items-center tracking-widest"><i class="fas fa-plus-circle mr-3"></i> Inyectar Activo RWA</h3>
+                <form class="space-y-4">
+                    <input type="text" placeholder="Nombre del Activo (Ej: Finca la Esperanza)" class="input-premium">
+                    <select class="input-premium text-gray-400 font-bold">
+                        <option>Seleccionar Categoría...</option>
+                        <option>Finca Nueva</option>
+                        <option>Casa Nueva</option>
+                        <option>Ganado de Raza</option>
+                    </select>
+                    <input type="number" placeholder="Valor en USD" class="input-premium">
+                    <input type="text" placeholder="URL de la Fotografía" class="input-premium">
+                    <button type="button" class="w-full bg-gradient-to-r from-dorado to-[#aa841b] text-black font-black py-4 rounded uppercase tracking-widest hover:opacity-90 shadow-[0_0_15px_rgba(212,175,55,0.3)]">Confirmar Inyección</button>
+                </form>
+            </div>
+
+            <!-- CONFIGURACIÓN DE SEGURIDAD -->
+            <div class="tarjeta-admin p-8 boveda-glow">
+                <h3 class="text-dorado font-bold uppercase mb-6 flex items-center tracking-widest"><i class="fas fa-shield-alt mr-3"></i> Ajustes de Frecuencia</h3>
+                <div class="space-y-4">
+                    <label class="text-xs text-gray-500 uppercase font-bold tracking-widest">Cambiar Clave de Frecuencia Sagrada</label>
+                    <input type="password" placeholder="Nueva Clave Alfanumérica" class="input-premium text-dorado text-center tracking-widest">
+                    <button class="w-full border-2 border-dorado text-dorado py-4 rounded hover:bg-dorado hover:text-black font-black uppercase tracking-widest transition-all">Actualizar Protocolo</button>
+                    
+                    <div class="mt-10 p-6 bg-black/40 rounded border border-gray-800 text-center">
+                        <p class="text-dorado font-bold tracking-widest mb-2">PARNASÁ • SHEFÁ • VERAJÁ</p>
+                        <p class="text-gray-500 text-[10px] tracking-widest">SISTEMA DE SEGURIDAD OPERATIVO</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function validarFrecuencia() {
+            const pass = document.getElementById('pass-field').value;
+            // La Frecuencia Sagrada Maestra
+            if (pass === 'CODEX.SHEFA2026') {
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('bloqueado');
+            } else {
+                document.getElementById('error-msg').classList.remove('hidden');
+                // Efecto de error visual (Vibración)
+                const loginBox = document.getElementById('login-container');
+                loginBox.style.transform = 'translateX(-10px)';
+                setTimeout(() => loginBox.style.transform = 'translateX(10px)', 100);
+                setTimeout(() => loginBox.style.transform = 'translateX(-10px)', 200);
+                setTimeout(() => loginBox.style.transform = 'translateX(0)', 300);
+            }
+        }
+    </script>
+</body>
+  </html>
+          
