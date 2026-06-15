@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos del Servicio y Habeas Data | Shefá Plus Global</title>
+    
+    <!-- Parnasá: Inyección de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Shefa: Paleta Asimétrica de Alta Frecuencia -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dorado: '#D4AF37', /* Oro Premium */
+                        titanio: '#0a1128', /* Titanio Azul */
+                        abismo: '#050814'  /* Fondo Infinito */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #050814; font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .glow-dorado { text-shadow: 0 0 20px rgba(212, 175, 55, 0.5); }
+        .borde-titanio { box-shadow: 0 0 50px rgba(10, 17, 40, 0.95); }
+        .fibonacci-grid { background-image: radial-gradient(circle at 13% 21%, rgba(212, 175, 55, 0.03) 0%, transparent 50%); }
+    </style>
+</head>
+<body class="text-gray-300 min-h-screen flex flex-col fibonacci-grid selection:bg-dorado selection:text-black">
+
+    <header class="border-b border-dorado/20 bg-titanio/80 backdrop-blur-xl sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <h1 class="text-dorado text-2xl font-black tracking-[0.3em] uppercase glow-dorado">
+                Shefá Plus Global
+            </h1>
+            <span class="text-[0.65rem] text-gray-400 tracking-widest border border-gray-700 px-2 py-1 rounded">ESTADO: ACTIVO</span>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto px-6 py-20 w-full relative">
+        <div class="absolute top-10 left-0 w-32 h-32 bg-titanio rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+
+        <h1 class="text-4xl md:text-5xl font-black text-white uppercase tracking-widest mb-4">
+            Términos y <span class="text-dorado glow-dorado">Habeas Data</span>
+        </h1>
+        <p class="text-sm text-gray-500 tracking-[0.2em] mb-12 border-b border-dorado/30 pb-6">
+            MARCO JURISDICCIONAL GLOBAL | VERSIÓN 1.0 (2026)
+        </p>
+        
+        <div class="bg-gradient-to-b from-[#0a1128] to-[#050814] p-8 md:p-12 rounded-2xl border border-dorado/20 mb-10 borde-titanio">
+            
+            <section class="mb-10">
+                <h2 class="text-dorado font-black uppercase tracking-widest mb-4 flex items-center">
+                    <span class="bg-dorado h-px w-8 mr-4"></span> 01. Soberanía de Datos
+                </h2>
+                <p class="leading-relaxed text-gray-300 text-lg">
+                    En cumplimiento de la normativa global de protección de datos y el derecho constitucional al <strong>Habeas Data</strong>, <b>Shefá Plus Global</b> garantiza que el flujo de información de nuestros inversores es tratado con el máximo nivel de encriptación y privacidad corporativa. Usted es el soberano de su identidad digital dentro de nuestra red.
+                </p>
+            </section>
+
+            <section class="mb-10">
+                <h2 class="text-dorado font-black uppercase tracking-widest mb-4 flex items-center">
+                    <span class="bg-dorado h-px w-8 mr-4"></span> 02. Finalidad del Tratamiento
+                </h2>
+                <p class="leading-relaxed text-gray-300 text-lg mb-4">
+                    La información recopilada en nuestro ecosistema (mediante Meta, Firebase o registro directo) está destinada exclusivamente a:
+                </p>
+                <ul class="list-disc pl-8 space-y-2 text-gray-400">
+                    <li>Validación de identidad para el acceso a la bóveda de inversiones.</li>
+                    <li>Gestión de la participación en activos del mundo real (RWA).</li>
+                    <li>Emisión de certificaciones digitales y ejecución de contratos inteligentes.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-dorado font-black uppercase tracking-widest mb-4 flex items-center">
+                    <span class="bg-dorado h-px w-8 mr-4"></span> 03. Aceptación del Umbral
+                </h2>
+                <p class="leading-relaxed text-gray-300 text-lg">
+                    Al interactuar con nuestros canales, APIs o interfaces alojadas en nuestro dominio soberano, el usuario reconoce y acepta explícitamente estas políticas operativas, consolidando su entrada a la nueva economía real. Para ejercer sus derechos de actualización, rectificación o purga, diríjase a <span class="text-white font-bold tracking-wider">soporte@shefaplusglobal.com</span>.
+                </p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-black py-10 border-t border-dorado/10 mt-auto relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 text-center z-10 relative">
+            <p class="text-[0.65rem] text-gray-600 tracking-[0.3em] uppercase">
+                Arquitectura de Confianza. &copy; 2026 Shefá Plus Global.
+            </p>
+        </div>
+    </footer>
+</body>
+              </html>
+              
