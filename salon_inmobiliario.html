@@ -1,87 +1,381 @@
-<!-- [CABECERA Y ESTILOS MANTENIDOS] - [INYECCIÓN DE LÓGICA DE BÓVEDA] -->
-
-<!-- 1. EL LOGO SAGRADO (Con el sensor de 5 toques) -->
-<div id="logo-sagrado" class="cursor-pointer">
-    <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-[55px] h-[55px] object-cover rounded-full bg-fondoNegro">
-</div>
-
-<!-- 2. MODAL DE LA BÓVEDA ADMINISTRATIVA (OCULTO) -->
-<div id="boveda-admin" class="fixed inset-0 z-[100] bg-black/90 hidden items-center justify-center p-4">
-    <div class="bg-tarjetaGris border-2 border-dorado p-6 rounded-2xl w-full max-w-lg">
-        <h2 class="text-white font-black text-xl mb-4 text-center">BÓVEDA ADMINISTRATIVA</h2>
-        <input type="text" id="admin-nombre" placeholder="Nombre del Activo" class="w-full bg-black p-2 rounded mb-2 text-white">
-        <input type="number" id="admin-precio" placeholder="Precio Total" class="w-full bg-black p-2 rounded mb-2 text-white">
-        <input type="number" id="admin-fracciones" placeholder="Total Fracciones" class="w-full bg-black p-2 rounded mb-4 text-white">
-        <button onclick="guardarActivo()" class="w-full bg-dorado text-black font-bold p-3 rounded">INYECTAR ACTIVO A LA MATRIZ</button>
-        <button onclick="cerrarBoveda()" class="w-full text-gray-500 mt-2">Cerrar</button>
-    </div>
-</div>
-
-<!-- 3. ESTRUCTURA DE LA TARJETA PREMIUM (Con Pasarela de Pago) -->
-<div class="tarjeta-inmueble resplandor-dorado">
-    <img src="1000020650.jpg" alt="Casa Premium" class="w-full h-48 object-cover">
-    <div class="p-4">
-        <h3 class="titulo-propiedad text-xl text-white font-bold">Casa Residencial Premium</h3>
-        <!-- Dashboard de Fracciones -->
-        <div class="my-4 space-y-2">
-            <div class="flex justify-between text-xs text-gray-400">
-                <span>Fracciones Disponibles: <b class="text-dorado">450 / 1000</b></span>
-                <span>Valor/Fracción: <b class="text-white">$500 USD</b></span>
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-                <div class="barra-progreso h-2 rounded-full" style="width: 55%"></div>
-            </div>
-        </div>
-        <!-- Botón de Pago Asimétrico -->
-        <button onclick="abrirPasarelaMercadoPago()" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-bold py-3 rounded uppercase tracking-widest hover:scale-105 transition-all">
-            <i class="fas fa-credit-card mr-2"></i> Pagar con Mercado Pago
-        </button>
-    </div>
-</div>
-
-<!-- 4. MODAL PASARELA DE PAGO -->
-<div id="modal-pagos" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4">
-    <div class="bg-tarjetaGris border border-dorado p-6 rounded-2xl w-full max-w-sm text-center">
-        <h3 class="text-white text-lg font-bold mb-4 uppercase">Medios de Pago</h3>
-        <div class="flex flex-col gap-3">
-            <a href="TU_LINK_MERCADOPAGO_AQUI" class="p-4 bg-white text-black rounded font-bold flex items-center justify-center gap-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Mercado_Pago_Logo.png" class="h-6"> Mercado Pago
-            </a>
-            <div class="flex justify-center gap-4 mt-4">
-                <i class="fab fa-cc-visa text-white text-3xl"></i>
-                <i class="fab fa-cc-mastercard text-white text-3xl"></i>
-                <i class="fab fa-cc-amex text-white text-3xl"></i>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script type="module">
-    // ... (Tu configuración anterior) ...
-
-    // LÓGICA DE LA BÓVEDA OCULTA (5 Taps)
-    let tapCount = 0;
-    document.getElementById('logo-sagrado').addEventListener('click', () => {
-        tapCount++;
-        if (tapCount >= 5) {
-            document.getElementById('boveda-admin').classList.remove('hidden');
-            document.getElementById('boveda-admin').classList.add('flex');
-            tapCount = 0;
-        }
-    });
-
-    window.cerrarBoveda = () => {
-        document.getElementById('boveda-admin').classList.add('hidden');
-    }
-
-    // LÓGICA DE PAGO
-    window.abrirPasarelaMercadoPago = () => {
-        document.getElementById('modal-pagos').classList.remove('hidden');
-        document.getElementById('modal-pagos').classList.add('flex');
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefá Plus Global - Inmobiliaria Premium</title>
     
-    // Cerrar click fuera
-    window.onclick = (event) => {
-        if(event.target.id == 'modal-pagos') event.target.classList.add('hidden');
-    }
-</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dorado: '#d4af37',
+                        doradoOscuro: '#aa841b',
+                        fondoNegro: '#050814',
+                        tarjetaGris: '#0a1128',
+                        titanio: '#12182b'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050814;
+            color: #ffffff;
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .borde-dorado { border: 1px solid rgba(212, 175, 55, 0.3); }
+        .resplandor-dorado {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            transition: all 0.4s ease;
+        }
+        .resplandor-dorado:hover {
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            transform: translateY(-5px);
+            border-color: #d4af37;
+        }
+        .texto-gradiente {
+            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .barra-progreso {
+            background: linear-gradient(90deg, #d4af37, #aa841b);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen selection:bg-dorado selection:text-black">
+
+    <header class="border-b border-dorado/30 bg-fondoNegro/90 backdrop-blur-md sticky top-0 z-40 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div id="logo-sagrado" class="w-[55px] h-[55px] rounded-full p-[2px] bg-gradient-to-tr from-[#d4af37] via-[#f9f295] to-[#d4af37] shadow-[0_0_13px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform duration-500 flex-shrink-0 flex items-center justify-center overflow-hidden cursor-pointer">
+                    <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-full h-full object-cover rounded-full bg-fondoNegro pointer-events-none">
+                </div>
+
+                <div>
+                    <h1 class="text-xl font-black tracking-widest text-white uppercase">SHEFÁ <span class="texto-gradiente">PLUS</span></h1>
+                    <p class="text-[0.65rem] text-gray-400 tracking-[0.2em] uppercase">Global Real Estate</p>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex text-[0.65rem] text-dorado tracking-[0.2em] gap-4 font-bold">
+                <span>PARNASÁ</span> • <span>SHEFÁ</span> • <span>VERAJÁ</span>
+            </div>
+            
+            <div>
+                <button class="bg-tarjetaGris border border-dorado text-dorado px-4 py-2 rounded-lg uppercase text-xs tracking-widest font-bold hover:bg-dorado hover:text-black transition-all shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <i class="fas fa-wallet mr-2"></i> Billetera
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative py-20 px-4">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-fondoNegro"></div>
+        
+        <div class="relative max-w-7xl mx-auto text-center">
+            <span class="text-dorado uppercase tracking-[0.3em] font-bold text-xs mb-4 block"><i class="fas fa-globe mr-2"></i>Tokenización de Activos Reales (RWA)</span>
+            <h2 class="text-4xl md:text-6xl font-black mb-6 texto-gradiente uppercase tracking-tight">Umbral de Expansión Global</h2>
+            <p class="text-gray-300 max-w-3xl mx-auto text-sm md:text-lg leading-relaxed mb-8 font-light">
+                El salón premium para la adquisición fraccionada y total de bienes raíces de alto valor. Desde extensas llanuras hasta arquitectura de vanguardia en Acacías, Meta, estructurado bajo contratos inteligentes blindados en la matriz.
+            </p>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 py-12">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 border-b border-gray-800 pb-4 gap-4">
+            <div>
+                <h3 class="text-2xl font-black text-white uppercase tracking-widest"><i class="fas fa-chart-line text-dorado mr-3"></i>Catálogo RWA Premium</h3>
+                <p class="text-gray-500 mt-2 text-sm uppercase tracking-wider">Propiedades exclusivas respaldadas en Blockchain</p>
+            </div>
+            <div class="w-full md:w-auto text-right">
+                <select class="w-full md:w-auto bg-tarjetaGris text-white border border-gray-700 rounded-lg p-3 text-sm font-bold tracking-wider focus:border-dorado outline-none">
+                    <option>📍 Ubicación: Acacías, Meta</option>
+                    <option>📍 Ubicación: Global</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="bg-tarjetaGris rounded-2xl overflow-hidden borde-dorado resplandor-dorado flex flex-col relative group">
+                <div class="absolute top-4 left-4 z-10 bg-dorado text-black font-black px-3 py-1 rounded-full text-[0.65rem] uppercase tracking-widest shadow-lg">
+                    <i class="fas fa-gem mr-1"></i> RWA - Finca Matriz
+                </div>
+                <div class="absolute top-4 right-4 z-10 bg-black/80 backdrop-blur text-white px-3 py-1 rounded-full text-[0.65rem] border border-gray-700 uppercase tracking-widest">
+                    <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
+                </div>
+                
+                <div class="relative h-64 overflow-hidden">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition duration-500 z-0"></div>
+                    <img src="finca_premium.png" alt="Finca 1000 Hectáreas" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Finca Matriz de Expansión</h4>
+                        <p class="text-gray-400 text-xs mb-4 leading-relaxed">Extensión territorial premium de 1000 hectáreas estructurada para proyectos de alto rendimiento agrícola, ganadero y desarrollo sostenible.</p>
+                        
+                        <div class="bg-titanio rounded-xl p-4 mb-6 border border-gray-700 shadow-inner">
+                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
+                                <span class="text-gray-400">Fracciones Disponibles</span>
+                                <span class="text-dorado">850 / 1000</span>
+                            </div>
+                            <div class="w-full bg-black rounded-full h-2 mb-3 border border-gray-800">
+                                <div class="barra-progreso h-2 rounded-full" style="width: 15%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs uppercase tracking-widest">
+                                <span class="text-gray-500">Valor x Token</span>
+                                <span class="text-white font-black">$1,500 USD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="abrirPasarelaMercadoPago('Finca Matriz')" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-black py-4 rounded-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all uppercase tracking-widest flex justify-center items-center gap-2 transform hover:-translate-y-1">
+                        <i class="fas fa-credit-card text-lg"></i> Conectar & Invertir
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-tarjetaGris rounded-2xl overflow-hidden borde-dorado resplandor-dorado flex flex-col relative group">
+                <div class="absolute top-4 left-4 z-10 bg-dorado text-black font-black px-3 py-1 rounded-full text-[0.65rem] uppercase tracking-widest shadow-lg">
+                    <i class="fas fa-home mr-1"></i> RWA - Residencial
+                </div>
+                <div class="absolute top-4 right-4 z-10 bg-black/80 backdrop-blur text-white px-3 py-1 rounded-full text-[0.65rem] border border-gray-700 uppercase tracking-widest">
+                    <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
+                </div>
+                
+                <div class="relative h-64 overflow-hidden">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition duration-500 z-0"></div>
+                    <img src="1000020650.jpg" alt="Casa Residencial" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                </div>
+                
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Casa Residencial Premium</h4>
+                        <p class="text-gray-400 text-xs mb-4 leading-relaxed">Arquitectura de vanguardia con acabados de lujo. Propiedad de alto valor lista para la tokenización y estructurada bajo contratos inteligentes.</p>
+                        
+                        <div class="bg-titanio rounded-xl p-4 mb-6 border border-gray-700 shadow-inner">
+                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
+                                <span class="text-gray-400">Fracciones Disponibles</span>
+                                <span class="text-dorado">210 / 500</span>
+                            </div>
+                            <div class="w-full bg-black rounded-full h-2 mb-3 border border-gray-800">
+                                <div class="barra-progreso h-2 rounded-full" style="width: 58%"></div>
+                            </div>
+                            <div class="flex justify-between text-xs uppercase tracking-widest">
+                                <span class="text-gray-500">Valor x Token</span>
+                                <span class="text-white font-black">$500 USD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="abrirPasarelaMercadoPago('Casa Premium')" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-black py-4 rounded-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all uppercase tracking-widest flex justify-center items-center gap-2 transform hover:-translate-y-1">
+                        <i class="fas fa-credit-card text-lg"></i> Conectar & Invertir
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="border-t border-gray-800 py-8 mt-12 bg-black">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-500 text-[0.65rem] uppercase tracking-[0.3em] mb-2 font-bold">
+                Reestructuración Económica Global
+            </p>
+            <p class="text-dorado text-xs font-black tracking-[0.2em] mb-4">
+                PARNASÁ • SHEFÁ • VERAJÁ
+            </p>
+            <a href="/legal/terminos.html" class="text-gray-600 hover:text-dorado text-[0.6rem] uppercase tracking-widest transition-colors border-b border-gray-800 pb-1">
+                Marco Legal y Contratos Inteligentes
+            </a>
+        </div>
+    </footer>
+
+    <div id="boveda-admin" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-titanio border-2 border-dorado p-8 rounded-3xl w-full max-w-md relative shadow-[0_0_50px_rgba(212,175,55,0.3)] transform scale-95 transition-transform duration-300" id="boveda-admin-content">
+            <div class="w-16 h-16 mx-auto rounded-full border border-dorado flex items-center justify-center bg-black glow-dorado mb-4">
+                <i class="fas fa-eye text-2xl text-dorado"></i>
+            </div>
+            <h2 class="text-white font-black text-xl mb-1 text-center uppercase tracking-widest">Matriz de Inyección</h2>
+            <p class="text-dorado text-[0.6rem] uppercase tracking-[0.2em] text-center mb-6">Acceso Administrativo Nivel 7</p>
+            
+            <label class="text-[0.6rem] text-gray-400 uppercase tracking-widest mb-1 block">Nombre del Activo (Finca, Vaca, Casa)</label>
+            <input type="text" id="admin-nombre" placeholder="Ej: Vaca Raza Premium" class="w-full bg-black border border-gray-700 p-3 rounded-lg mb-4 text-white font-bold focus:border-dorado outline-none">
+            
+            <label class="text-[0.6rem] text-gray-400 uppercase tracking-widest mb-1 block">Valor Total (USD)</label>
+            <input type="number" id="admin-precio" placeholder="Ej: 5000" class="w-full bg-black border border-gray-700 p-3 rounded-lg mb-4 text-white font-bold focus:border-dorado outline-none">
+            
+            <label class="text-[0.6rem] text-gray-400 uppercase tracking-widest mb-1 block">Cantidad de Fracciones (Tokens)</label>
+            <input type="number" id="admin-fracciones" placeholder="Ej: 100" class="w-full bg-black border border-gray-700 p-3 rounded-lg mb-6 text-white font-bold focus:border-dorado outline-none">
+            
+            <button onclick="guardarActivoEnFirebase()" class="w-full bg-dorado text-black font-black uppercase tracking-widest p-4 rounded-xl hover:bg-white transition-colors shadow-lg flex items-center justify-center gap-2" id="btn-inyeccion">
+                <i class="fas fa-database"></i> Inyectar a la Red
+            </button>
+            <button onclick="cerrarBoveda()" class="w-full text-gray-500 hover:text-red-500 uppercase tracking-widest text-xs font-bold mt-4 transition-colors">
+                Sellar Bóveda
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-pagos" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-titanio border border-dorado/50 p-8 rounded-3xl w-full max-w-sm relative shadow-[0_0_80px_rgba(212,175,55,0.2)] text-center transform scale-95 transition-transform duration-300" id="modal-pagos-content">
+            
+            <button onclick="cerrarPasarela()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <h3 class="text-white text-lg font-black mb-1 uppercase tracking-widest">Sintonizar Billetera</h3>
+            <p class="text-dorado text-[0.6rem] uppercase tracking-[0.2em] mb-6" id="pago-activo-nombre">Inversión RWA</p>
+            
+            <div class="flex flex-col gap-4">
+                <a href="https://link.mercadopago.com.co/shefaplus" target="_blank" class="w-full p-4 bg-[#009ee3] text-white rounded-xl font-black uppercase tracking-wider flex items-center justify-center gap-3 hover:scale-105 transition-transform shadow-lg">
+                    <i class="fas fa-handshake text-xl"></i> Pagar con Mercado Pago
+                </a>
+                <div class="mt-4 pt-4 border-t border-gray-800">
+                    <p class="text-[0.6rem] text-gray-500 uppercase tracking-widest mb-3">Respaldado por las Grandes Potencias</p>
+                    <div class="flex justify-center gap-6 opacity-70">
+                        <i class="fab fa-cc-visa text-white text-4xl hover:text-[#1a1f71] hover:opacity-100 transition-all"></i>
+                        <i class="fab fa-cc-mastercard text-white text-4xl hover:text-[#eb001b] hover:opacity-100 transition-all"></i>
+                        <i class="fas fa-university text-white text-4xl hover:text-[#004481] hover:opacity-100 transition-all" title="BBVA"></i>
+                    </div>
+                </div>
+            </div>
+            <p class="text-[0.55rem] text-gray-600 mt-6 uppercase tracking-widest">Transacción encriptada P2P • Nivel Bancario</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // ⚡ TUS LLAVES MAESTRAS ⚡
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            projectId: "shefa-plus-global",
+            storageBucket: "shefa-plus-global.firebasestorage.app",
+            messagingSenderId: "746532074927",
+            appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
+            measurementId: "G-ELXBWZJZD8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // --- 1. LÓGICA DE LA BÓVEDA OCULTA (5 Toques Sagrados) ---
+        let tapCount = 0;
+        let tapTimer;
+
+        document.getElementById('logo-sagrado').addEventListener('click', () => {
+            tapCount++;
+            clearTimeout(tapTimer);
+            
+            // Si el usuario deja de tocar por 2 segundos, se reinicia el contador
+            tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
+
+            if (tapCount >= 5) {
+                const boveda = document.getElementById('boveda-admin');
+                const content = document.getElementById('boveda-admin-content');
+                boveda.classList.remove('hidden');
+                boveda.classList.add('flex');
+                setTimeout(() => {
+                    boveda.classList.remove('opacity-0');
+                    content.classList.remove('scale-95');
+                }, 10);
+                tapCount = 0; // Reiniciar
+            }
+        });
+
+        window.cerrarBoveda = () => {
+            const boveda = document.getElementById('boveda-admin');
+            const content = document.getElementById('boveda-admin-content');
+            boveda.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                boveda.classList.add('hidden');
+                boveda.classList.remove('flex');
+            }, 300);
+        }
+
+        // --- 2. INYECCIÓN A FIREBASE ---
+        window.guardarActivoEnFirebase = async () => {
+            const nombre = document.getElementById('admin-nombre').value;
+            const precio = document.getElementById('admin-precio').value;
+            const fracciones = document.getElementById('admin-fracciones').value;
+            const btn = document.getElementById('btn-inyeccion');
+
+            if(!nombre || !precio || !fracciones) {
+                alert("La matriz requiere todos los datos para inyectar el activo.");
+                return;
+            }
+
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Inyectando...';
+
+            try {
+                await addDoc(collection(db, "propiedades_rwa"), {
+                    nombre: nombre,
+                    precio_total: Number(precio),
+                    fracciones_totales: Number(fracciones),
+                    fracciones_vendidas: 0,
+                    estado: "Activo",
+                    timestamp: serverTimestamp()
+                });
+
+                btn.innerHTML = '<i class="fas fa-check-double"></i> Activo Enlazado';
+                btn.classList.replace('bg-dorado', 'bg-green-500');
+                
+                setTimeout(() => {
+                    cerrarBoveda();
+                    document.getElementById('admin-nombre').value = '';
+                    document.getElementById('admin-precio').value = '';
+                    document.getElementById('admin-fracciones').value = '';
+                    btn.innerHTML = '<i class="fas fa-database"></i> Inyectar a la Red';
+                    btn.classList.replace('bg-green-500', 'bg-dorado');
+                }, 1500);
+
+            } catch (error) {
+                console.error("Error en inyección:", error);
+                btn.innerHTML = 'Error en la Matriz';
+            }
+        };
+
+        // --- 3. LÓGICA DE LA PASARELA DE PAGO ---
+        window.abrirPasarelaMercadoPago = (nombreActivo) => {
+            document.getElementById('pago-activo-nombre').innerText = `Activo: ${nombreActivo}`;
+            const modal = document.getElementById('modal-pagos');
+            const content = document.getElementById('modal-pagos-content');
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+        }
+
+        window.cerrarPasarela = () => {
+            const modal = document.getElementById('modal-pagos');
+            const content = document.getElementById('modal-pagos-content');
+            
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
