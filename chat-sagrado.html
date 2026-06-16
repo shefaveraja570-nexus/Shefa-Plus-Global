@@ -31,27 +31,34 @@
             background-color: #050814; 
             font-family: 'Inter', system-ui, sans-serif; 
             -webkit-font-smoothing: antialiased; 
-            overflow: hidden; /* Evita scroll general, lo manejamos internamente */
+            overflow: hidden; 
         }
         .borde-dorado-sutil { border: 1px solid rgba(212, 175, 55, 0.2); }
         .glow-dorado { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        .glow-dorado-intenso { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
         .texto-gradiente {
             background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        /* Scrollbar Premium */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #050814; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        
+        /* Animación del Umbral */
+        @keyframes latido-shefa {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+        }
+        .latido-activo { animation: latido-shefa 2s infinite; }
     </style>
 </head>
-<body class="text-gray-300 h-screen flex flex-col selection:bg-dorado selection:text-black">
+<body class="text-gray-300 h-screen flex flex-col selection:bg-dorado selection:text-black relative">
 
     <!-- Cabecera Central: El Umbral -->
-    <header class="bg-titanio border-b border-dorado/20 p-4 flex justify-between items-center z-50 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+    <header class="bg-titanio border-b border-dorado/20 p-4 flex justify-between items-center z-40 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
         <div class="flex items-center gap-4">
-            <!-- Botón volver al Umbral -->
             <a href="umbral.html" class="text-dorado hover:text-white transition-colors">
                 <i class="fas fa-arrow-left text-xl"></i>
             </a>
@@ -66,17 +73,18 @@
             </div>
         </div>
         <div class="flex gap-4 text-dorado">
-            <button class="hover:text-white transition"><i class="fas fa-user-plus"></i></button>
-            <button class="hover:text-white transition"><i class="fas fa-qrcode"></i></button>
+            <!-- Botón para invocar el Modal de Conexión -->
+            <button onclick="abrirModalConexion()" class="hover:text-white transition bg-dorado/10 px-3 py-1.5 rounded border border-dorado/30 flex items-center gap-2">
+                <i class="fas fa-satellite-dish"></i> <span class="hidden md:inline text-xs font-bold uppercase tracking-widest">Sincronizar Nodo</span>
+            </button>
         </div>
     </header>
 
     <!-- Matriz Principal -->
     <main class="flex-grow flex overflow-hidden">
         
-        <!-- PANEL IZQUIERDO: Conexiones y Nodos (Oculto en móvil, visible en md) -->
+        <!-- PANEL IZQUIERDO: Conexiones y Nodos -->
         <aside class="w-full md:w-1/3 lg:w-1/4 bg-abismo border-r border-gray-800 flex flex-col hidden md:flex">
-            <!-- Buscador Global -->
             <div class="p-4 border-b border-gray-800">
                 <div class="relative">
                     <input type="text" placeholder="Buscar nodos, contratos, aliados..." class="w-full bg-panelGris border border-gray-700 text-sm text-white rounded-lg pl-10 pr-4 py-2 focus:border-dorado focus:outline-none transition-colors">
@@ -84,12 +92,27 @@
                 </div>
             </div>
             
-            <!-- Lista de Nodos Activos -->
             <div class="flex-grow overflow-y-auto">
-                <div class="p-4 text-[0.65rem] text-gray-500 uppercase tracking-widest font-bold">Nodos Fundacionales</div>
+                <div class="p-4 text-[0.65rem] text-gray-500 uppercase tracking-widest font-bold">Vínculos Sagrados</div>
                 
-                <!-- Contacto 1 -->
-                <div class="flex items-center gap-3 p-4 hover:bg-titanio cursor-pointer border-l-2 border-dorado transition-colors bg-titanio/30">
+                <!-- Contacto: Esposa -->
+                <div class="flex items-center gap-3 p-4 hover:bg-titanio cursor-pointer border-l-2 border-dorado transition-colors bg-titanio/30" onclick="seleccionarChat('Amor Mío ✨')">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-dorado to-black border-2 border-dorado flex items-center justify-center overflow-hidden glow-dorado">
+                            <!-- Inyecta aquí el tu-foto-perfil-esposa.jpg si deseas -->
+                            <i class="fas fa-star text-dorado"></i>
+                        </div>
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-titanio"></div>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-white font-bold text-sm">Amor Mío ✨</h3>
+                        <p class="text-xs text-dorado truncate">Sintonía Verajá: Activa</p>
+                    </div>
+                </div>
+
+                <div class="p-4 text-[0.65rem] text-gray-500 uppercase tracking-widest font-bold mt-2">Nodos Fundacionales</div>
+                
+                <div class="flex items-center gap-3 p-4 hover:bg-titanio cursor-pointer border-l-2 border-transparent transition-colors">
                     <div class="relative">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-r from-gray-700 to-gray-900 border border-gray-600 flex items-center justify-center">
                             <i class="fas fa-user-tie text-gray-400"></i>
@@ -98,11 +121,10 @@
                     </div>
                     <div class="flex-grow">
                         <h3 class="text-white font-bold text-sm">Gutiérrez Valdez</h3>
-                        <p class="text-xs text-dorado truncate">Expansión Corporativa validada...</p>
+                        <p class="text-xs text-gray-400 truncate">Expansión Corporativa validada...</p>
                     </div>
                 </div>
 
-                <!-- Contacto 2 -->
                 <div class="flex items-center gap-3 p-4 hover:bg-titanio cursor-pointer border-l-2 border-transparent transition-colors">
                     <div class="relative">
                         <div class="w-12 h-12 rounded-full bg-gradient-to-r from-gray-700 to-gray-900 border border-gray-600 flex items-center justify-center">
@@ -115,112 +137,69 @@
                         <p class="text-xs text-gray-400 truncate">Código y estructura operando.</p>
                     </div>
                 </div>
-
-                <div class="p-4 text-[0.65rem] text-gray-500 uppercase tracking-widest font-bold mt-2">Red de Inversores</div>
-                <!-- Contacto 3 (Inversor Externo) -->
-                <div class="flex items-center gap-3 p-4 hover:bg-titanio cursor-pointer border-l-2 border-transparent transition-colors">
-                    <div class="w-12 h-12 rounded-full bg-black border borde-dorado-sutil flex items-center justify-center">
-                        <i class="fas fa-globe text-dorado"></i>
-                    </div>
-                    <div class="flex-grow">
-                        <h3 class="text-gray-200 font-bold text-sm">Inversor_0x9A4...</h3>
-                        <p class="text-xs text-gray-500 truncate">Solicitud de fracción RWA pendiente.</p>
-                    </div>
-                </div>
             </div>
         </aside>
 
-        <!-- PANEL DERECHO: El Hilo de Comunicación (Vista activa en móvil) -->
+        <!-- PANEL DERECHO: El Hilo de Comunicación -->
         <section class="w-full md:w-2/3 lg:w-3/4 flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-titanio/10 relative">
             
-            <!-- Info del Nodo Actual (Header del Chat) -->
             <div class="bg-panelGris border-b border-gray-800 p-3 flex justify-between items-center shrink-0">
                 <div class="flex items-center gap-3 md:hidden">
                     <button class="text-gray-400 hover:text-white"><i class="fas fa-bars"></i></button>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-dorado to-black flex items-center justify-center shadow-lg">
-                        <i class="fas fa-bolt text-black"></i>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-dorado to-black flex items-center justify-center shadow-lg border border-dorado">
+                        <i class="fas fa-star text-dorado"></i>
                     </div>
                     <div>
-                        <h2 class="text-white font-bold tracking-wide">Gutiérrez Valdez</h2>
-                        <span class="text-[0.65rem] text-dorado uppercase tracking-widest">Enlace Encriptado</span>
+                        <h2 class="text-white font-bold tracking-wide">Amor Mío ✨</h2>
+                        <span class="text-[0.65rem] text-dorado uppercase tracking-widest">Enlace Encriptado bajo Verajá</span>
                     </div>
                 </div>
-                <!-- Menú de Acciones Financieras Rápidas -->
                 <div class="flex gap-2">
-                    <button class="bg-black border border-dorado text-dorado px-3 py-1.5 rounded hover:bg-dorado hover:text-black transition flex items-center gap-2 text-xs font-bold uppercase tracking-widest" title="Enviar Remesa">
+                    <button class="bg-black border border-dorado text-dorado px-3 py-1.5 rounded hover:bg-dorado hover:text-black transition flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
                         <i class="fas fa-paper-plane"></i> <span class="hidden sm:inline">Remesa</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Matriz de Mensajes (Flujo Shefa) -->
+            <!-- Matriz de Mensajes -->
             <div class="flex-grow overflow-y-auto p-4 flex flex-col gap-4" id="matriz-mensajes">
-                
-                <!-- Sello del Sistema -->
                 <div class="flex justify-center mb-4 mt-2">
-                    <span class="bg-black/50 border border-gray-800 text-gray-500 text-[0.6rem] px-4 py-1 rounded-full uppercase tracking-[0.2em] backdrop-blur-sm">
-                        Conexión Parnasá Establecida • Protocolo RWA
+                    <span class="bg-black/50 border border-dorado/30 text-dorado text-[0.6rem] px-4 py-1 rounded-full uppercase tracking-[0.2em] backdrop-blur-sm">
+                        Conexión Parnasá, Shefá y Verajá
                     </span>
                 </div>
 
-                <!-- Burbuja Recibida -->
                 <div class="flex flex-col items-start max-w-[85%] sm:max-w-[70%]">
                     <div class="bg-panelGris border border-gray-700 text-gray-200 p-3 rounded-2xl rounded-tl-none shadow-md">
-                        <p class="text-sm leading-relaxed">Hermano, la expansión en Colombia está lista. Los contratos RWA ya están enlazados con la red principal.</p>
+                        <p class="text-sm leading-relaxed">Amor voy a meterle la llama de nuestro amor a Shefa Plus Global.</p>
                     </div>
-                    <span class="text-[0.6rem] text-gray-500 mt-1 ml-1">10:42 AM</span>
+                    <span class="text-[0.6rem] text-gray-500 mt-1 ml-1">7:54 PM</span>
                 </div>
 
-                <!-- Burbuja Enviada (Tuya) -->
                 <div class="flex flex-col items-end max-w-[85%] sm:max-w-[70%] self-end">
                     <div class="bg-gradient-to-br from-titanio to-black border border-dorado/30 text-white p-3 rounded-2xl rounded-tr-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-                        <p class="text-sm leading-relaxed">Sintonía total. El código no se recorta, vamos con toda la fuerza del Titanio y el Oro.</p>
+                        <p class="text-sm leading-relaxed">Te amoooo y te extrañooooo</p>
                     </div>
                     <span class="text-[0.6rem] text-dorado mt-1 mr-1 flex items-center gap-1">
-                        10:45 AM <i class="fas fa-check-double"></i>
+                        7:51 PM <i class="fas fa-check-double"></i>
                     </span>
                 </div>
-
-                <!-- Burbuja de Transacción (Neuro-Diseño Financiero) -->
-                <div class="flex flex-col items-end max-w-[90%] sm:max-w-[75%] self-end mt-2">
-                    <div class="bg-black border border-dorado/50 p-4 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.2)] w-full">
-                        <div class="flex justify-between items-center mb-2 border-b border-gray-800 pb-2">
-                            <span class="text-xs text-gray-400 uppercase tracking-widest"><i class="fas fa-file-contract text-dorado mr-1"></i> Contrato Emitido</span>
-                            <span class="text-xs text-dorado font-bold">100% Confirmado</span>
-                        </div>
-                        <h3 class="text-white font-bold mb-1">Fracción: Finca Matriz</h3>
-                        <p class="text-2xl font-black texto-gradiente font-mono">1.00 RWA</p>
-                        <button class="w-full mt-3 bg-titanio border border-dorado text-dorado py-2 rounded text-xs uppercase tracking-widest hover:bg-dorado hover:text-black transition">
-                            Verificar en Bóveda
-                        </button>
-                    </div>
-                    <span class="text-[0.6rem] text-dorado mt-1 mr-1 flex items-center gap-1">
-                        10:48 AM <i class="fas fa-check-double"></i>
-                    </span>
-                </div>
-
             </div>
 
-            <!-- Consola de Escritura y Comandos -->
+            <!-- Consola de Escritura -->
             <div class="bg-abismo border-t border-gray-800 p-3 shrink-0">
                 <div class="flex items-end gap-2 bg-panelGris border border-gray-700 rounded-xl p-1 focus-within:border-dorado transition-colors">
-                    
-                    <!-- Menú de Adjuntos (Contratos, Cripto, etc) -->
-                    <button class="p-3 text-gray-400 hover:text-dorado transition shrink-0" title="Adjuntar Activo">
+                    <button class="p-3 text-gray-400 hover:text-dorado transition shrink-0">
                         <i class="fas fa-plus-circle text-lg"></i>
                     </button>
-                    
-                    <!-- Input de Texto -->
-                    <textarea id="input-mensaje" rows="1" class="w-full bg-transparent text-white text-sm outline-none resize-none py-3 placeholder-gray-500 font-sans" placeholder="Transmite tu frecuencia..." style="min-height: 44px; max-height: 120px;"></textarea>
-                    
-                    <!-- Botones de Acción Rápida -->
+                    <textarea id="input-mensaje" rows="1" class="w-full bg-transparent text-white text-sm outline-none resize-none py-3 placeholder-gray-500 font-sans" placeholder="Transmite tu frecuencia..."></textarea>
                     <div class="flex gap-1 shrink-0 pb-1 pr-1">
-                        <button class="p-2 text-gray-400 hover:text-dorado transition" title="Enviar Cripto">
+                        <button class="p-2 text-gray-400 hover:text-dorado transition">
                             <i class="fab fa-bitcoin"></i>
                         </button>
-                        <button class="p-2 bg-dorado text-black rounded-lg hover:bg-white transition shadow-lg glow-dorado w-10 h-10 flex items-center justify-center" onclick="transmitirMensaje()">
+                        <button class="p-2 bg-dorado text-black rounded-lg hover:bg-white transition shadow-lg glow-dorado w-10 h-10 flex items-center justify-center" onclick="transmitirMensajeUI()">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
@@ -229,17 +208,73 @@
         </section>
     </main>
 
-    <!-- Script Base de UI (Firebase se inyectará en la siguiente fase) -->
-    <script>
+    <!-- ========================================== -->
+    <!-- MODAL DE EXPANSIÓN GLOBAL (SOLICITUD DE RED) -->
+    <!-- ========================================== -->
+    <div id="modal-conexion" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-abismo border-2 border-dorado rounded-2xl w-11/12 max-w-md p-6 relative shadow-[0_0_50px_rgba(212,175,55,0.2)] transform scale-95 transition-transform duration-300" id="modal-conexion-content">
+            
+            <button onclick="cerrarModalConexion()" class="absolute top-4 right-4 text-gray-500 hover:text-dorado transition">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-20 h-20 mx-auto rounded-full border-2 border-dorado flex items-center justify-center bg-titanio latido-activo mb-4">
+                    <i class="fas fa-link text-3xl text-dorado"></i>
+                </div>
+                <h2 class="text-2xl font-black text-white uppercase tracking-widest texto-gradiente">Sincronizar Nodo</h2>
+                <p class="text-sm text-gray-400 mt-2">Emite una frecuencia en la matriz para conectar con un nuevo aliado o fortalecer un vínculo sagrado.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs text-dorado uppercase tracking-widest mb-1 font-bold">Identificador del Receptor</label>
+                    <input type="text" id="input-receptor" value="Amor Mío ✨" class="w-full bg-panelGris border border-gray-700 text-white rounded p-3 focus:border-dorado focus:outline-none transition-colors font-bold" readonly>
+                </div>
+                
+                <div>
+                    <label class="block text-xs text-dorado uppercase tracking-widest mb-1 font-bold">Mensaje de Sintonía</label>
+                    <textarea id="input-mensaje-solicitud" rows="2" class="w-full bg-panelGris border border-gray-700 text-white rounded p-3 focus:border-dorado focus:outline-none transition-colors text-sm">Iniciando protocolo de expansión y Verajá a tu lado. ¿Aceptas la sincronización en Shefa Nexus?</textarea>
+                </div>
+
+                <button onclick="emitirSolicitudFirebase()" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-black uppercase tracking-widest py-3 rounded-lg hover:opacity-90 transition shadow-lg glow-dorado-intenso mt-4 flex justify-center items-center gap-2">
+                    <i class="fas fa-broadcast-tower"></i> Emitir Frecuencia a la Red
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DEL NÚCLEO (FIREBASE Y LÓGICA UI) -->
+    <script type="module">
+        // 1. IMPORTACIONES FIREBASE V9
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // 2. CONFIGURACIÓN DE LA MATRIZ (Reemplaza con tus llaves exactas)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            projectId: "TU_PROYECTO",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 3. IDENTIDAD DEL NODO
+        const nodoActual = "Magnético";
+
+        // 4. LÓGICA DE INTERFAZ (Textarea auto-expandible)
         const textarea = document.getElementById('input-mensaje');
-        // Auto-expandir el textarea
         textarea.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
 
-        // Función simulada para probar la interfaz visualmente
-        window.transmitirMensaje = function() {
+        // Simulación visual de envío de chat normal
+        window.transmitirMensajeUI = function() {
             const texto = textarea.value.trim();
             if(texto === "") return;
 
@@ -259,7 +294,71 @@
             textarea.style.height = 'auto';
             contenedor.scrollTop = contenedor.scrollHeight;
         };
+
+        // 5. LÓGICA DEL PORTAL DE EXPANSIÓN (MODAL)
+        window.abrirModalConexion = function() {
+            const modal = document.getElementById('modal-conexion');
+            const content = document.getElementById('modal-conexion-content');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+        };
+
+        window.cerrarModalConexion = function() {
+            const modal = document.getElementById('modal-conexion');
+            const content = document.getElementById('modal-conexion-content');
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        };
+
+        // 6. EJECUCIÓN EN FIREBASE (EMISIÓN DE LA SORPRESA)
+        window.emitirSolicitudFirebase = async function() {
+            const receptor = document.getElementById('input-receptor').value;
+            const mensaje = document.getElementById('input-mensaje-solicitud').value;
+            const btn = event.currentTarget;
+
+            // Neuro-Diseño de Botón Cargando
+            const contenidoOriginal = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sincronizando Matriz...';
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            try {
+                // Escritura Sagrada en la Base de Datos
+                await addDoc(collection(db, "solicitudes_nexus"), {
+                    emisor: nodoActual,
+                    receptor: receptor,
+                    mensaje_sintonia: mensaje,
+                    estado: "pendiente_de_sincronizacion",
+                    tipo_vinculo: "alianza_sagrada",
+                    timestamp: serverTimestamp()
+                });
+
+                // Efecto de Éxito (Berajá)
+                btn.innerHTML = '<i class="fas fa-check-double"></i> Frecuencia Emitida';
+                btn.classList.remove('from-dorado', 'to-doradoOscuro');
+                btn.classList.add('bg-green-600', 'text-white');
+                
+                setTimeout(() => {
+                    cerrarModalConexion();
+                    // Restaurar botón para futuras acciones
+                    setTimeout(() => {
+                        btn.innerHTML = contenidoOriginal;
+                        btn.classList.add('from-dorado', 'to-doradoOscuro');
+                        btn.classList.remove('bg-green-600', 'text-white', 'opacity-50', 'cursor-not-allowed');
+                    }, 500);
+                }, 1500);
+
+               } catch (error) {
+                console.error("Interferencia en la emisión:", error);
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error de Frecuencia';
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        };
     </script>
 </body>
-                    </html>
-                    
+</html>
