@@ -1,392 +1,87 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefá Plus Global - Inmobiliaria Premium</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dorado: '#d4af37',
-                        doradoOscuro: '#aa841b',
-                        fondoNegro: '#0a0a0a',
-                        tarjetaGris: '#1a1a1a',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Estilos Premium para el flujo visual */
-        body {
-            background-color: #0a0a0a;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .borde-dorado {
-            border: 1px solid #d4af37;
-        }
-        .resplandor-dorado {
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
-            transition: all 0.3s ease;
-        }
-        .resplandor-dorado:hover {
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
-            transform: translateY(-5px);
-        }
-        .texto-gradiente {
-            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .barra-progreso {
-            background: linear-gradient(90deg, #d4af37, #aa841b);
-        }
-    </style>
-</head>
-<body class="antialiased min-h-screen">
+<!-- [CABECERA Y ESTILOS MANTENIDOS] - [INYECCIÓN DE LÓGICA DE BÓVEDA] -->
 
-    <header class="border-b border-dorado/30 bg-fondoNegro/90 backdrop-blur-md sticky top-0 z-50 p-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                                <div class="w-[55px] h-[55px] rounded-full p-[2px] bg-gradient-to-tr from-[#d4af37] via-[#f9f295] to-[#d4af37] shadow-[0_0_13px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform duration-500 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                    
-                    <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-full h-full object-cover rounded-full bg-fondoNegro">
-                </div>
+<!-- 1. EL LOGO SAGRADO (Con el sensor de 5 toques) -->
+<div id="logo-sagrado" class="cursor-pointer">
+    <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-[55px] h-[55px] object-cover rounded-full bg-fondoNegro">
+</div>
 
-                <div>
-                    <h1 class="text-xl font-bold tracking-widest text-white">SHEFÁ <span class="text-dorado">PLUS</span></h1>
-                    <p class="text-xs text-gray-400 tracking-widest">GLOBAL REAL ESTATE</p>
-                </div>
+<!-- 2. MODAL DE LA BÓVEDA ADMINISTRATIVA (OCULTO) -->
+<div id="boveda-admin" class="fixed inset-0 z-[100] bg-black/90 hidden items-center justify-center p-4">
+    <div class="bg-tarjetaGris border-2 border-dorado p-6 rounded-2xl w-full max-w-lg">
+        <h2 class="text-white font-black text-xl mb-4 text-center">BÓVEDA ADMINISTRATIVA</h2>
+        <input type="text" id="admin-nombre" placeholder="Nombre del Activo" class="w-full bg-black p-2 rounded mb-2 text-white">
+        <input type="number" id="admin-precio" placeholder="Precio Total" class="w-full bg-black p-2 rounded mb-2 text-white">
+        <input type="number" id="admin-fracciones" placeholder="Total Fracciones" class="w-full bg-black p-2 rounded mb-4 text-white">
+        <button onclick="guardarActivo()" class="w-full bg-dorado text-black font-bold p-3 rounded">INYECTAR ACTIVO A LA MATRIZ</button>
+        <button onclick="cerrarBoveda()" class="w-full text-gray-500 mt-2">Cerrar</button>
+    </div>
+</div>
+
+<!-- 3. ESTRUCTURA DE LA TARJETA PREMIUM (Con Pasarela de Pago) -->
+<div class="tarjeta-inmueble resplandor-dorado">
+    <img src="1000020650.jpg" alt="Casa Premium" class="w-full h-48 object-cover">
+    <div class="p-4">
+        <h3 class="titulo-propiedad text-xl text-white font-bold">Casa Residencial Premium</h3>
+        <!-- Dashboard de Fracciones -->
+        <div class="my-4 space-y-2">
+            <div class="flex justify-between text-xs text-gray-400">
+                <span>Fracciones Disponibles: <b class="text-dorado">450 / 1000</b></span>
+                <span>Valor/Fracción: <b class="text-white">$500 USD</b></span>
             </div>
-            <div class="hidden md:flex text-xs text-dorado tracking-widest gap-4">
-                <span>PARNASÁ</span> • <span>SHEFÁ</span> • <span>VERAJÁ</span> • <span>JOJMÁ</span> • <span>EMUNÁ</span>
-            </div>
-            <div>
-                <button class="bg-tarjetaGris border border-dorado text-dorado px-4 py-2 rounded uppercase text-sm font-bold hover:bg-dorado hover:text-black transition-colors">
-                    <i class="fas fa-wallet mr-2"></i> Conectar Billetera
-                </button>
+            <div class="w-full bg-gray-800 rounded-full h-2">
+                <div class="barra-progreso h-2 rounded-full" style="width: 55%"></div>
             </div>
         </div>
-    </header>
+        <!-- Botón de Pago Asimétrico -->
+        <button onclick="abrirPasarelaMercadoPago()" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-bold py-3 rounded uppercase tracking-widest hover:scale-105 transition-all">
+            <i class="fas fa-credit-card mr-2"></i> Pagar con Mercado Pago
+        </button>
+    </div>
+</div>
 
-    <section class="relative py-20 px-4">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-fondoNegro"></div>
-        
-        <div class="relative max-w-7xl mx-auto text-center">
-            <span class="text-dorado uppercase tracking-[0.3em] font-bold text-sm mb-4 block"><i class="fas fa-globe mr-2"></i>Tokenización de Activos Reales (RWA)</span>
-            <h2 class="text-4xl md:text-6xl font-bold mb-6 texto-gradiente uppercase">Umbral de Expansión Global</h2>
-            <p class="text-gray-300 max-w-3xl mx-auto text-lg leading-relaxed mb-8">
-                El salón premium para la adquisición fraccionada y total de bienes raíces de alto valor. Desde extensas llanuras hasta arquitectura de vanguardia en Acacías, Meta, estructurado bajo contratos inteligentes blindados.
-            </p>
-        </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-4 py-12">
-        <div class="flex justify-between items-end mb-10 border-b border-gray-800 pb-4">
-            <div>
-                <h3 class="text-2xl font-bold text-white"><i class="fas fa-chart-line text-dorado mr-3"></i>CATÁLOGO RWA PREMIUM</h3>
-                <p class="text-gray-500 mt-2">Propiedades exclusivas respaldadas en Blockchain</p>
-            </div>
-            <div class="text-right">
-                <select class="bg-tarjetaGris text-white border border-gray-700 rounded p-2 focus:border-dorado outline-none">
-                    <option>Ubicación: Acacías, Meta</option>
-                    <option>Ubicación: Global</option>
-                </select>
+<!-- 4. MODAL PASARELA DE PAGO -->
+<div id="modal-pagos" class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center p-4">
+    <div class="bg-tarjetaGris border border-dorado p-6 rounded-2xl w-full max-w-sm text-center">
+        <h3 class="text-white text-lg font-bold mb-4 uppercase">Medios de Pago</h3>
+        <div class="flex flex-col gap-3">
+            <a href="TU_LINK_MERCADOPAGO_AQUI" class="p-4 bg-white text-black rounded font-bold flex items-center justify-center gap-2">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Mercado_Pago_Logo.png" class="h-6"> Mercado Pago
+            </a>
+            <div class="flex justify-center gap-4 mt-4">
+                <i class="fab fa-cc-visa text-white text-3xl"></i>
+                <i class="fab fa-cc-mastercard text-white text-3xl"></i>
+                <i class="fab fa-cc-amex text-white text-3xl"></i>
             </div>
         </div>
-    <section class="max-w-7xl mx-auto px-4 py-12">
-        <div class="flex justify-between items-end mb-10">
-            <div>
-                <h3 class="text-2xl font-bold text-white">Catálogo Premium</h3>
-                <p class="text-gray-500 mt-2">Propiedades tokenizadas de alto rendimiento</p>
+    </div>
+</div>
 
-                <div class="mt-4 pt-4 border-t border-dorado/10 flex justify-between items-center text-[0.6rem] uppercase tracking-widest text-gray-500">
-       <span>Tokenización RWA V.2026</span>
-    <a href="/legal/terminos.html" class="hover:text-dorado transition-colors underline decoration-dorado/30">
-        Marco Legal (Titanio)
-    </a>
-                </div>
-                
-            </div>
-            </div>
+<script type="module">
+    // ... (Tu configuración anterior) ...
 
-        <div class="grid-propiedades">
-            
-            <div class="tarjeta-inmueble">
-    <img src="1000020650.jpg" alt="Casa Residencial" class="imagen-inmueble">
+    // LÓGICA DE LA BÓVEDA OCULTA (5 Taps)
+    let tapCount = 0;
+    document.getElementById('logo-sagrado').addEventListener('click', () => {
+        tapCount++;
+        if (tapCount >= 5) {
+            document.getElementById('boveda-admin').classList.remove('hidden');
+            document.getElementById('boveda-admin').classList.add('flex');
+            tapCount = 0;
+        }
+    });
+
+    window.cerrarBoveda = () => {
+        document.getElementById('boveda-admin').classList.add('hidden');
+    }
+
+    // LÓGICA DE PAGO
+    window.abrirPasarelaMercadoPago = () => {
+        document.getElementById('modal-pagos').classList.remove('hidden');
+        document.getElementById('modal-pagos').classList.add('flex');
+    }
     
-    <div class="contenido-texto">
-        <span class="etiqueta-rwa">RWA - Activo</span>
-        <h3 class="titulo-propiedad">Casa Residencial Premium</h3>
-        <p class="descripcion-propiedad">Propiedad de alto valor en Acacías, Meta. Lista para tokenizar.</p>
-
-        <div class="mt-4 pt-4 border-t border-dorado/10 flex justify-between items-center text-[0.6rem] uppercase tracking-widest text-gray-500">
-    <span>Tokenización RWA V.2026</span>
-    <a href="/legal/terminos.html" class="hover:text-dorado transition-colors underline decoration-dorado/30">
-        Marco Legal (Titanio)
-    </a>
-        </div>
-        
-    </div>
-</div>
-            
-
-            <div class="propiedad-card">
-                <div class="propiedad-imagen-wrapper">
-                    <img src="finca_premium.png" alt="Finca 1000 Hectáreas" class="propiedad-img">
-                    <div class="badge-token">RWA - Finca</div>
-                </div>
-                <div class="contenido-texto">
-        <span class="etiqueta-rwa">RWA - Activo</span>
-        <h3 class="titulo-propiedad">Casa Residencial Premium</h3>
-      <p class="descripcion-propiedad">Propiedad de alto valor en Acacías, Meta. Lista para tokenizar.</p>
-<div class="mt-4 pt-4 border-t border-dorado/10 flex justify-between items-center text-[0.6rem] uppercase tracking-widest text-gray-500">
-    <span>Tokenización RWA V.2026</span>
-    <a href="/legal/terminos.html" class="hover:text-dorado transition-colors underline decoration-dorado/30">
-        Marco Legal (Titanio)
-    </a>
- </div>
-</div>
-    </section>
-
-        </div>
-      <div class="absolute top-4 right-4 bg-black/80 backdrop-blur text-white px-3 py-1 rounded text-xs border border-gray-700">
-    <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
-    </div>
-          </div>
-                
-                <div class="p-6 flex-grow">
-                    <h4 class="text-2xl font-bold text-white mb-2">Finca Matriz de Expansión</h4>
-                    <p class="text-gray-400 text-sm mb-4 line-clamp-2">Extensión territorial premium de 1000 hectáreas estructurada para proyectos de alto rendimiento agrícola, ganadero y desarrollo sostenible.</p>
-                    
-                    <div class="bg-black rounded-lg p-4 mb-4 border border-gray-800">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-gray-400">Valor Total Estimado</span>
-                            <span class="text-dorado font-bold">Por Definir (Esperando datos)</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-400">Valor por Token (Fracción)</span>
-                            <span class="text-white font-bold">-- USD</span>
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <div class="flex justify-between text-xs text-gray-400 mb-2">
-                            <span>Progreso de Tokenización</span>
-                            <span class="text-dorado">0%</span>
-                        </div>
-                        <div class="w-full bg-gray-800 rounded-full h-2">
-                            <div class="barra-progreso h-2 rounded-full" style="width: 5%"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-6 pb-6">
-                    <button class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-bold py-3 rounded-lg hover:opacity-90 transition-opacity uppercase tracking-wider flex justify-center items-center gap-2">
-                        <i class="fas fa-layer-group"></i> Invertir en Fracciones
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-tarjetaGris rounded-xl overflow-hidden borde-dorado resplandor-dorado flex flex-col">
-                <div class="relative h-64">
-                    <div class="absolute inset-0 bg-gray-800 flex items-center justify-center">
-                        <i class="fas fa-home text-4xl text-gray-600"></i>
-                        <span class="absolute bottom-2 right-2 bg-black/70 text-dorado text-xs px-2 py-1 rounded">[Imagen de Casa Premium]</span>
-                    </div>
-                    <div class="absolute top-4 left-4 bg-dorado text-black font-bold px-3 py-1 rounded text-xs uppercase tracking-wider">
-                        Nuevo Ingreso
-                    </div>
-                    <div class="absolute top-4 right-4 bg-black/80 backdrop-blur text-white px-3 py-1 rounded text-xs border border-gray-700">
-                        <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
-                    </div>
-                </div>
-                
-                <div class="p-6 flex-grow">
-                    <h4 class="text-2xl font-bold text-white mb-2" id="titulo-casa">Casa Residencial Premium</h4>
-                    <p class="text-gray-400 text-sm mb-4" id="desc-casa">Esperando la descripción detallada de la propiedad...</p>
-                    
-                    <div class="bg-black rounded-lg p-4 mb-4 border border-gray-800">
-                        <div class="flex justify-between text-sm mb-2">
-                            <span class="text-gray-400">Valor Total</span>
-                            <span class="text-dorado font-bold" id="precio-casa">$300,000,000 COP</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-400">Disponibilidad de Compra</span>
-                            <span class="text-white font-bold">100% Inmediata</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-6 pb-6">
-                    <button class="w-full bg-transparent border-2 border-dorado text-dorado font-bold py-3 rounded-lg hover:bg-dorado hover:text-black transition-all uppercase tracking-wider flex justify-center items-center gap-2">
-                        <i class="fas fa-file-contract"></i> Adquirir Contrato Total
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer class="border-t border-gray-800 py-8 mt-12 bg-black">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-500 text-sm uppercase tracking-widest mb-2">
-                REESTRUCTURACIÓN ECONÓMICA GLOBAL | RIQUEZA | ABUNDANCIA
-            </p>
-            <p class="text-dorado text-sm font-bold tracking-[0.2em]">
-                PARNASÁ • SHEFÁ • VERAJÁ • JOJMÁ • EMUNÁ
-            </p>
-            <p class="text-gray-600 text-xs mt-4">
-                Sistema blindado mediante Contratos Inteligentes. Shefá Plus Global Real Estate.
-            </p>
-        </div>
-    </footer>
-
-    <script type="module">
-        // 1. Importaciones unificadas de la infraestructura de Google
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        // 2. Configuración unificada de tu ecosistema global
-        const firebaseConfig = {
-            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
-            authDomain: "shefa-plus-global.firebaseapp.com",
-            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
-            projectId: "shefa-plus-global",
-            storageBucket: "shefa-plus-global.appspot.com",
-            messagingSenderId: "746532074927",
-            appId: "1:746532074927:web:70811deddc66ad88d5eb5"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const firestore = getFirestore(app);
-
-        // 3. 🛡️ EL PORTERO: Verificación de sesión
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                window.location.href = "acceso_inversion.html";
-            } else {
-                try {
-                    const docSnap = await getDoc(doc(firestore, "usuarios", user.uid));
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        document.getElementById('displayNombre').innerText = data.nombre || "Socio Shefá";
-                    } else {
-                        document.getElementById('displayNombre').innerText = "Socio Activo";
-                    }
-                } catch (error) {
-                    console.error("Interferencia al leer el expediente de Firestore: ", error);
-                    document.getElementById('displayNombre').innerText = "Socio Activo";
-                }
-                
-                // Si tienes un loader-portero en tu HTML, esto lo oculta. Si no lo tienes, no afecta en nada.
-                const loader = document.getElementById('loader-portero');
-                if(loader) loader.classList.add('hidden');
-            }
-        });
-
-        // 4. LÓGICA DE INTERFAZ: Bancos y Cálculos
-        const mapaBancosPorDivisa = {
-            COP: ["Bancolombia (Cuenta Matriz Directa)", "Banco de Bogotá", "Davivienda", "BBVA Colombia", "Banco de Occidente", "Nequi / Daviplata"],
-            USD_US: ["Bank of America", "CHASE (JPMorgan Chase)", "Wells Fargo", "Citibank", "Capital One"],
-            USD_EC: ["Banco Pichincha", "Banco Guayaquil", "Banco del Pacífico", "Produbanco"],
-            MXN: ["BBVA México", "Santander México", "Banorte", "Citibanamex", "HSBC México"],
-            CLP: ["Banco de Chile", "Banco Estado", "Santander Chile", "Banco BCI"],
-            GTQ: ["Banco Industrial", "Banrural", "Banco G&T Continental", "Banco Agromercantil (BAM)"],
-            CNY: ["ICBC", "China Construction Bank", "Agricultural Bank of China", "Bank of China"],
-            RUB: ["Sberbank", "VTB Bank", "Gazprombank", "Alfa-Bank"],
-            EXT: ["Red de Nodos de Andrómeda (Protocolo)", "Banco de Frecuencias Sirio", "Reserva Federal Pleyadiana", "Consorcio Financiero de Orión"]
-        };
-
-        window.actualizarListaBancos = () => {
-            const selectorDivisa = document.getElementById("moneda-remesa");
-            const selectorBanco = document.getElementById("banco-remesa");
-            const divisaSeleccionada = selectorDivisa.value;
-
-            selectorBanco.innerHTML = "";
-
-            if (!divisaSeleccionada || !mapaBancosPorDivisa[divisaSeleccionada]) {
-                selectorBanco.innerHTML = '<option value="">Seleccione primero una divisa...</option>';
-                return;
-            }
-
-            selectorBanco.innerHTML = '<option value="">Seleccione el banco emisor / receptor...</option>';
-            mapaBancosPorDivisa[divisaSeleccionada].forEach(banco => {
-                selectorBanco.innerHTML += `<option value="${banco}">${banco}</option>`;
-            });
-        };
-
-        window.calcularFeeRemesa = () => {
-            const inputMonto = document.getElementById("montoRemesa");
-            const txtFee = document.getElementById("fee-remesa");
-            const txtTotal = document.getElementById("total-remesa");
-
-            const monto = parseFloat(inputMonto.value) || 0;
-            const fee = monto * 0.0382;
-            const total = monto + fee;
-
-            if(txtFee) txtFee.innerText = `$${fee.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-            if(txtTotal) txtTotal.innerText = `$${total.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-        };
-
-        window.abrirModalCompra = (nombrePropiedad, valorSugerido) => {
-            document.getElementById("propiedad-nombre").value = nombrePropiedad;
-            document.getElementById("montoRemesa").value = valorSugerido;
-            document.getElementById("modal-compra").classList.remove("hidden");
-            window.calcularFeeRemesa();
-        };
-
-        window.cerrarModal = () => {
-            document.getElementById("modal-compra").classList.add("hidden");
-        };
-
-        window.cerrarComprobante = () => {
-            document.getElementById("pantalla-comprobante").classList.add("hidden");
-        };
-
-        // 5. AUTOMATIZACIÓN DEL FLUJO DE FIRMAS
-        window.firmarYGenerarContrato = async () => {
-            const propiedad = document.getElementById("propiedad-nombre").value;
-            const divisa = document.getElementById("moneda-remesa").value;
-            const banco = document.getElementById("banco-remesa").value;
-            const monto = parseFloat(document.getElementById("montoRemesa").value) || 0;
-
-            if (!divisa || !banco || monto <= 0) {
-                alert("⚠️ El ecosistema requiere la validación completa de Divisa, Banco y Monto.");
-                return;
-            }
-
-            const fee = monto * 0.0382;
-            const total = monto + fee;
-
-            const caracteres = "abcdef0123456789";
-            let txHash = "0x";
-            for (let i = 0; i < 40; i++) {
-                txHash += caracteres[Math.floor(Math.random() * caracteres.length)];
-            }
-
-            try {
-                const transaccionesRef = collection(firestore, "transacciones");
-                
-                await addDoc(transaccionesRef, {
-                    tx_hash: txHash,
-                    inversor_uid: auth.currentUser ? auth.currentUser.uid : "Inversor_Anonimo",
-                    tipo_operacion: "Emision_Contrato_RWA",
-                    activo_destino: propiedad,
-                    divisa_origen: divisa,
-                    entidad_bancaria: banco,
-                    monto_base: monto,
-                    fee_fibonacci: fee,
-                    total_liquidado: total,
-                    estado: "Verificado_y_Sellado",
-                    fecha_sello: serverTimestamp() 
-                });
-                    
+    // Cerrar click fuera
+    window.onclick = (event) => {
+        if(event.target.id == 'modal-pagos') event.target.classList.add('hidden');
+    }
+</script>
