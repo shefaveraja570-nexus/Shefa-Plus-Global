@@ -57,28 +57,44 @@
 <body class="text-gray-300 h-screen flex flex-col selection:bg-dorado selection:text-black relative">
 
     <!-- Cabecera Central: El Umbral -->
-    <header class="bg-titanio border-b border-dorado/20 p-4 flex justify-between items-center z-40 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-        <div class="flex items-center gap-4">
-            <a href="umbral.html" class="text-dorado hover:text-white transition-colors">
-                <i class="fas fa-arrow-left text-xl"></i>
-            </a>
+        <!-- Cabecera Central: El Umbral (Optimizada para Centro de Mando Móvil) -->
+    <header class="bg-titanio border-b border-dorado/20 p-3 md:p-4 flex flex-col md:flex-row justify-between items-center gap-3 z-40 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+        
+        <!-- Bloque Superior: Identidad y Retorno -->
+        <div class="w-full flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full border border-dorado flex items-center justify-center bg-black glow-dorado">
-                    <i class="fas fa-network-wired text-dorado text-sm"></i>
-                </div>
-                <div>
-                    <h1 class="text-white font-black tracking-widest uppercase text-sm md:text-base texto-gradiente">Shefa Nexus</h1>
-                    <p class="text-[0.6rem] text-gray-400 tracking-[0.2em] uppercase">Red Global Activa 🟢</p>
+                <a href="umbral.html" class="text-dorado hover:text-white transition-colors">
+                    <i class="fas fa-arrow-left text-lg"></i>
+                </a>
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full border border-dorado flex items-center justify-center bg-black glow-dorado">
+                        <i class="fas fa-network-wired text-dorado text-xs"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-black tracking-widest uppercase text-xs md:text-sm texto-gradiente">Shefa Nexus</h1>
+                        <p class="text-[0.55rem] text-gray-400 tracking-[0.2em] uppercase" id="estado-red">Red Global Activa 🟢</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="flex gap-4 text-dorado">
-            <!-- Botón para invocar el Modal de Conexión -->
-            <button onclick="abrirModalConexion()" class="hover:text-white transition bg-dorado/10 px-3 py-1.5 rounded border border-dorado/30 flex items-center gap-2">
-                <i class="fas fa-satellite-dish"></i> <span class="hidden md:inline text-xs font-bold uppercase tracking-widest">Sincronizar Nodo</span>
+
+            <!-- Botón Sincronizar (Versión Móvil Compacta) -->
+            <button onclick="abrirModalConexion()" class="text-dorado hover:text-white transition bg-dorado/10 p-2 rounded border border-dorado/30 flex items-center justify-center shadow-lg glow-dorado">
+                <i class="fas fa-satellite-dish"></i>
             </button>
         </div>
+
+        <!-- SELECTOR DE IDENTIDAD (Visible y adaptado para pantalla móvil) -->
+        <div class="w-full flex items-center justify-between bg-abismo border border-dorado/40 rounded-lg px-3 py-1.5 shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+            <span class="text-[0.6rem] text-gray-400 uppercase tracking-widest flex items-center gap-2">
+                <i class="fas fa-fingerprint text-dorado animate-pulse"></i> Matriz:
+            </span>
+            <select id="selector-identidad" class="bg-transparent text-dorado text-[0.65rem] font-black uppercase tracking-widest outline-none cursor-pointer appearance-none text-right" onchange="cambiarIdentidad()">
+                <option value="Magnético">NODO: MAGNÉTICO</option>
+                <option value="Amor Mío ✨">NODO: AMOR MÍO ✨</option>
+            </select>
+        </div>
     </header>
+
 
     <!-- Matriz Principal -->
     <main class="flex-grow flex overflow-hidden">
