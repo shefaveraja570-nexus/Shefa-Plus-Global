@@ -244,121 +244,207 @@
         </div>
     </div>
 
-    <!-- SCRIPT DEL NÚCLEO (FIREBASE Y LÓGICA UI) -->
-    <script type="module">
-        // 1. IMPORTACIONES FIREBASE V9
+    <!-    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // 2. CONFIGURACIÓN DE LA MATRIZ (Reemplaza con tus llaves exactas)
+        // ⚡ LAS LLAVES MAESTRAS DE SHEFA PLUS GLOBAL ⚡
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_PROYECTO.firebaseapp.com",
-            projectId: "TU_PROYECTO",
-            storageBucket: "TU_PROYECTO.appspot.com",
-            messagingSenderId: "TU_SENDER_ID",
-            appId: "TU_APP_ID"
+            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            projectId: "shefa-plus-global",
+            storageBucket: "shefa-plus-global.firebasestorage.app",
+            messagingSenderId: "746532074927",
+            appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
+            measurementId: "G-ELXBWZJZD8"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 3. IDENTIDAD DEL NODO
-        const nodoActual = "Magnético";
+        // --- LÓGICA DE IDENTIDAD (El Movimiento Fino) ---
+        let nodoActual = document.getElementById('selector-identidad').value;
+        let nodoDestino = (nodoActual === "Magnético") ? "Amor Mío ✨" : "Magnético";
 
-        // 4. LÓGICA DE INTERFAZ (Textarea auto-expandible)
+        window.cambiarIdentidad = function() {
+            nodoActual = document.getElementById('selector-identidad').value;
+            nodoDestino = (nodoActual === "Magnético") ? "Amor Mío ✨" : "Magnético";
+            
+            // Actualizar la interfaz visual
+            document.getElementById('input-receptor').value = nodoDestino;
+            document.getElementById('nombre-contacto-lateral').innerText = nodoDestino;
+            document.getElementById('nombre-contacto-chat').innerText = nodoDestino;
+            
+            // Notificación visual de cambio
+            const estado = document.getElementById('estado-red');
+            estado.innerText = `Operando como: ${nodoActual} 🟢`;
+            estado.classList.add('text-dorado');
+            setTimeout(() => estado.classList.remove('text-dorado'), 1000);
+        };
+
+        // --- LÓGICA DE INTERFAZ DEL CHAT ---
         const textarea = document.getElementById('input-mensaje');
         textarea.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
         });
 
-        // Simulación visual de envío de chat normal
-        window.transmitirMensajeUI = function() {
+        window.transmitirMensajeUI = async function() {
             const texto = textarea.value.trim();
             if(texto === "") return;
 
-            const contenedor = document.getElementById('matriz-mensajes');
-            const htmlMensaje = `
-                <div class="flex flex-col items-end max-w-[85%] sm:max-w-[70%] self-end mt-2 animate-pulse">
-                    <div class="bg-gradient-to-br from-titanio to-black border border-dorado/30 text-white p-3 rounded-2xl rounded-tr-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-                        <p class="text-sm leading-relaxed">${texto}</p>
-                    </div>
-                    <span class="text-[0.6rem] text-dorado mt-1 mr-1 flex items-center gap-1">
-                        Ahora <i class="fas fa-check"></i>
-                    </span>
-                </div>
-            `;
-            contenedor.insertAdjacentHTML('beforeend', htmlMensaje);
+            // Transmisión real a la Matriz
+            await addDoc(collection(db, "mensajes_nexus"), {
+                emisor: nodoActual,
+                receptor: nodoDestino,
+                texto: texto,
+                timestamp: serverTimestamp()
+            });
             textarea.value = '';
             textarea.style.height = 'auto';
-            contenedor.scrollTop = contenedor.scrollHeight;
         };
 
-        // 5. LÓGICA DEL PORTAL DE EXPANSIÓN (MODAL)
+        // Escuchar mensajes en tiempo real
+        onSnapshot(collection(db, "mensajes_nexus"), (snapshot) => {
+            const contenedor = document.getElementById('matriz-mensajes');
+            
+            // Limpiar matriz para no duplicar
+            contenedor.innerHTML = `<div class="flex justify-center mb-4 mt-2">
+                    <span class="bg-black/50 border border-dorado/30 text-dorado text-[0.6rem] px-4 py-1 rounded-full uppercase tracking-[0.2em] backdrop-blur-sm">
+                        Conexión Parnasá, Shefá y Verajá
+                    </span>
+                </div>`;
+
+            // Transformar snapshot a array y ordenar
+            let mensajes = [];
+            snapshot.forEach(doc => mensajes.push(doc.data()));
+            mensajes.sort((a, b) => {
+                const tA = a.timestamp ? a.timestamp.toMillis() : 0;
+                const tB = b.timestamp ? b.timestamp.toMillis() : 0;
+                return tA - tB;
+            });
+
+            mensajes.forEach((datos) => {
+                // Filtro militar: Solo mostrar mensajes entre estos dos nodos
+                if ((datos.emisor === nodoActual && datos.receptor === nodoDestino) || 
+                    (datos.emisor === nodoDestino && datos.receptor === nodoActual)) {
+                    
+                    const esMio = datos.emisor === nodoActual;
+                    
+                    const htmlMensaje = esMio ? `
+                        <div class="flex flex-col items-end max-w-[85%] sm:max-w-[70%] self-end mt-2">
+                            <div class="bg-gradient-to-br from-titanio to-black border border-dorado/30 text-white p-3 rounded-2xl rounded-tr-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+                                <p class="text-sm leading-relaxed">${datos.texto}</p>
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="flex flex-col items-start max-w-[85%] sm:max-w-[70%] mt-2">
+                            <div class="bg-panelGris border border-gray-700 text-gray-200 p-3 rounded-2xl rounded-tl-none shadow-md">
+                                <p class="text-sm leading-relaxed">${datos.texto}</p>
+                            </div>
+                        </div>
+                    `;
+                    contenedor.insertAdjacentHTML('beforeend', htmlMensaje);
+                }
+            });
+            contenedor.scrollTop = contenedor.scrollHeight;
+        });
+
+        // --- LÓGICA DEL PORTAL DE EXPANSIÓN (EMITIR) ---
         window.abrirModalConexion = function() {
-            const modal = document.getElementById('modal-conexion');
-            const content = document.getElementById('modal-conexion-content');
-            modal.classList.remove('hidden');
+            document.getElementById('modal-conexion').classList.remove('hidden');
             setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                content.classList.remove('scale-95');
+                document.getElementById('modal-conexion').classList.remove('opacity-0');
+                document.getElementById('modal-conexion-content').classList.remove('scale-95');
             }, 10);
         };
 
         window.cerrarModalConexion = function() {
-            const modal = document.getElementById('modal-conexion');
-            const content = document.getElementById('modal-conexion-content');
-            modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300);
+            document.getElementById('modal-conexion').classList.add('opacity-0');
+            document.getElementById('modal-conexion-content').classList.add('scale-95');
+            setTimeout(() => document.getElementById('modal-conexion').classList.add('hidden'), 300);
         };
 
-        // 6. EJECUCIÓN EN FIREBASE (EMISIÓN DE LA SORPRESA)
         window.emitirSolicitudFirebase = async function() {
             const receptor = document.getElementById('input-receptor').value;
             const mensaje = document.getElementById('input-mensaje-solicitud').value;
             const btn = event.currentTarget;
-
-            // Neuro-Diseño de Botón Cargando
             const contenidoOriginal = btn.innerHTML;
+            
             btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Sincronizando Matriz...';
-            btn.classList.add('opacity-50', 'cursor-not-allowed');
 
             try {
-                // Escritura Sagrada en la Base de Datos
                 await addDoc(collection(db, "solicitudes_nexus"), {
                     emisor: nodoActual,
                     receptor: receptor,
                     mensaje_sintonia: mensaje,
-                    estado: "pendiente_de_sincronizacion",
-                    tipo_vinculo: "alianza_sagrada",
+                    estado: "pendiente",
                     timestamp: serverTimestamp()
                 });
 
-                // Efecto de Éxito (Berajá)
                 btn.innerHTML = '<i class="fas fa-check-double"></i> Frecuencia Emitida';
-                btn.classList.remove('from-dorado', 'to-doradoOscuro');
-                btn.classList.add('bg-green-600', 'text-white');
+                btn.classList.replace('from-dorado', 'bg-green-600');
                 
                 setTimeout(() => {
                     cerrarModalConexion();
-                    // Restaurar botón para futuras acciones
                     setTimeout(() => {
                         btn.innerHTML = contenidoOriginal;
-                        btn.classList.add('from-dorado', 'to-doradoOscuro');
-                        btn.classList.remove('bg-green-600', 'text-white', 'opacity-50', 'cursor-not-allowed');
+                        btn.classList.replace('bg-green-600', 'from-dorado');
                     }, 500);
                 }, 1500);
-
-               } catch (error) {
-                console.error("Interferencia en la emisión:", error);
-                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error de Frecuencia';
-                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            } catch (error) {
+                console.error(error);
+                btn.innerHTML = 'Error de Frecuencia';
             }
         };
+
+        // --- EL OJO QUE ESCUCHA (RECIBIR SOLICITUD) ---
+        onSnapshot(collection(db, "solicitudes_nexus"), (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    const data = change.doc.data();
+                    
+                    // Si el receptor soy YO y el estado es PENDIENTE, abro el modal
+                    if (data.receptor === nodoActual && data.estado === "pendiente") {
+                        document.getElementById('entrante-emisor').innerText = data.emisor;
+                        document.getElementById('entrante-mensaje').innerText = `"${data.mensaje_sintonia}"`;
+                        document.getElementById('entrante-doc-id').value = change.doc.id;
+                        
+                        const modalEntrante = document.getElementById('modal-entrante');
+                        modalEntrante.classList.remove('hidden');
+                        setTimeout(() => {
+                            modalEntrante.classList.remove('opacity-0');
+                            document.getElementById('modal-entrante-content').classList.remove('scale-95');
+                        }, 10);
+                    }
+                }
+            });
+        });
+
+        // --- ACCIONES DEL RECEPTOR ---
+        window.aceptarSincronizacion = async function() {
+            const docId = document.getElementById('entrante-doc-id').value;
+            try {
+                await updateDoc(doc(db, "solicitudes_nexus", docId), {
+                    estado: "activa"
+                });
+                
+                document.getElementById('modal-entrante').classList.add('opacity-0');
+                document.getElementById('modal-entrante-content').classList.add('scale-95');
+                setTimeout(() => document.getElementById('modal-entrante').classList.add('hidden'), 300);
+                
+                alert("¡Sintonía Verajá establecida con éxito! El canal de comunicación y remesas está abierto.");
+            } catch (error) {
+                console.error("Error al aceptar:", error);
+            }
+        };
+
+        window.rechazarSincronizacion = function() {
+            document.getElementById('modal-entrante').classList.add('opacity-0');
+            setTimeout(() => document.getElementById('modal-entrante').classList.add('hidden'), 300);
+        };
     </script>
+    
 </body>
 </html>
