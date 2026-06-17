@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shefá Plus Global | La Red Económica Real</title>
     
-    <!-- Motor Visual (Parnasá) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Configuración del Neuro-Diseño -->
     <script>
         tailwind.config = {
             theme: {
@@ -20,7 +18,7 @@
                         abismo: '#050814',
                         titanio: '#0a1128',
                         titanioClaro: '#12182b',
-                        vida: '#10B981' // Esmeralda orgánico para el carbono
+                        vida: '#10B981'
                     },
                     fontFamily: {
                         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -59,19 +57,17 @@
 
         .barra-fibonacci {
             background: linear-gradient(90deg, #d4af37, #aa841b);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
-        /* El latido del Pilar de la Vida (Carbono) */
         @keyframes respiracion-divina {
             0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.3); }
-            50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.6); border-color: rgba(212, 175, 55, 0.8); }
+            50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.5); border-color: rgba(212, 175, 55, 0.8); }
         }
         .latido-vida {
             animation: respiracion-divina 3s infinite ease-in-out;
         }
 
-        /* El Umbral Web3 BNB Button */
         .btn-web3 {
             background: #050814;
             border: 1px solid #D4AF37;
@@ -97,7 +93,6 @@
 </head>
 <body class="min-h-screen selection:bg-dorado selection:text-black pb-20">
 
-    <!-- CABECERA: El Ojo que se Abre -->
     <header class="border-b border-dorado/20 bg-abismo/80 backdrop-blur-xl sticky top-0 z-50 p-4 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
@@ -111,205 +106,230 @@
             </div>
             
             <div class="hidden md:flex text-[0.65rem] text-gray-400 tracking-[0.2em] gap-5 font-bold uppercase">
-                <span class="hover:text-dorado transition-colors cursor-default">Parnasá</span>
-                <span class="hover:text-dorado transition-colors cursor-default">Shefá</span>
-                <span class="hover:text-dorado transition-colors cursor-default">Verajá</span>
-                <span class="hover:text-dorado transition-colors cursor-default">Jojmá</span>
-                <span class="hover:text-dorado transition-colors cursor-default">Emuná</span>
+                <span>Parnasá</span> • <span>Shefá</span> • <span>Verajá</span>
             </div>
             
             <div>
-                <button class="bg-[#F3BA2F]/10 border border-[#F3BA2F] text-[#F3BA2F] px-5 py-2.5 rounded-lg uppercase text-xs tracking-widest font-black hover:bg-[#F3BA2F] hover:text-black transition-all shadow-[0_0_15px_rgba(243,186,47,0.2)] flex items-center gap-2">
+                <button id="btn-conectar-global" onclick="window.invocarConexionWallet()" class="bg-[#F3BA2F]/10 border border-[#F3BA2F] text-[#F3BA2F] px-5 py-2.5 rounded-lg uppercase text-xs tracking-widest font-black hover:bg-[#F3BA2F] hover:text-black transition-all shadow-[0_0_15px_rgba(243,186,47,0.2)] flex items-center gap-2">
                     <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-4 h-4">
-                    Conectar Web3
+                    <span id="txt-wallet">Conectar Web3</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- HÉROE: La Visión Global -->
     <section class="relative pt-24 pb-16 px-4 text-center z-10">
         <span class="inline-block py-1 px-3 rounded-full border border-dorado/50 bg-dorado/10 text-dorado uppercase tracking-[0.3em] font-bold text-[0.65rem] mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
             <i class="fas fa-network-wired mr-2"></i> Infraestructura Criptográfica 2026
         </span>
-        <h2 class="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter text-white drop-shadow-2xl">
+        <h2 class="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter text-white">
             La Economía <br/> <span class="texto-gradiente">Real Estructurada</span>
         </h2>
         <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-10 font-light tracking-wide">
-            El río de luz fluye hacia la ciudad global. Tokenización de bienes raíces, flotas vehiculares y activos ecológicos respaldados por contratos inteligentes en la Binance Smart Chain.
+            Sincronización automatizada de activos globales mediante oráculos y contratos inteligentes descentralizados.
         </p>
     </section>
 
-    <!-- MATRIZ VISUAL: LOS 3 PILARES (Asimetría de Fibonacci) -->
     <main class="max-w-[90rem] mx-auto px-4">
-        
-        <!-- Grid Asimétrico: 5 - 4 - 3 -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-            <!-- ========================================== -->
-            <!-- 1. PILAR DE LA TIERRA (RentCast) -> span-5 -->
-            <!-- ========================================== -->
-            <article class="lg:col-span-5 bg-titanio rounded-3xl overflow-hidden borde-dorado resplandor-premium flex flex-col relative group">
-                <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-dorado font-black px-4 py-1.5 rounded-full text-[0.65rem] uppercase tracking-widest border border-dorado/50 shadow-lg">
-                    <i class="fas fa-landmark mr-2"></i> Pilar de la Tierra
-                </div>
-                
-                <div class="relative h-72 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-t from-titanio via-titanio/20 to-transparent z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Bienes Raíces Acacías" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000">
-                </div>
-                
-                <div class="p-8 pt-0 flex-grow flex flex-col justify-between relative z-20 -mt-10">
-                    <div>
-                        <h3 class="text-3xl font-black text-white uppercase tracking-tighter drop-shadow-md">Reserva Acacías</h3>
-                        <p class="text-[0.65rem] text-dorado uppercase tracking-[0.2em] mb-4">Value & Rent Estimates (RentCast API)</p>
-                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                            Bienes raíces tokenizados en el corazón del Meta. Rendimientos automatizados respaldados en la solidez del mundo físico.
-                        </p>
-                        
-                        <!-- Dashboard Fraccional -->
-                        <div class="bg-titanioClaro rounded-2xl p-5 mb-8 border border-gray-800 shadow-inner">
-                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
-                                <span class="text-gray-500">Criptofracciones</span>
-                                <span class="text-white">618 / 1000</span>
-                            </div>
-                            <div class="w-full bg-abismo rounded-full h-1.5 mb-4 overflow-hidden">
-                                <div class="barra-fibonacci h-1.5 rounded-full" style="width: 61.8%"></div>
-                            </div>
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">Valor Fracción</span>
-                                    <span class="text-xl font-black texto-gradiente">$250 USD</span>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">ROI Anual</span>
-                                    <span class="text-lg font-black text-white">9.6%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="lg:col-span-5 flex flex-col gap-6" id="contenedor-tierra">
+                <div class="text-center text-gray-500 py-10 uppercase tracking-widest text-xs">Despertando canal de la Tierra...</div>
+            </div>
 
-                    <!-- UMBRAL WEB3 -> Botón Asimétrico BNB -->
-                    <button class="btn-web3 w-full py-4 rounded-xl text-dorado font-black uppercase tracking-widest text-sm flex justify-center items-center gap-3 transition-all">
-                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-5 h-5">
-                        Inyectar BNB al Contrato
-                    </button>
-                </div>
-            </article>
+            <div class="lg:col-span-4 flex flex-col gap-6" id="contenedor-movimiento">
+                <div class="text-center text-gray-500 py-10 uppercase tracking-widest text-xs">Despertando canal del Movimiento...</div>
+            </div>
 
-            <!-- ========================================== -->
-            <!-- 2. PILAR DEL MOVIMIENTO (MarketCheck) -> span-4 -->
-            <!-- ========================================== -->
-            <article class="lg:col-span-4 bg-titanio rounded-3xl overflow-hidden borde-dorado resplandor-premium flex flex-col relative group">
-                <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-dorado font-black px-4 py-1.5 rounded-full text-[0.65rem] uppercase tracking-widest border border-dorado/50 shadow-lg">
-                    <i class="fas fa-car-side mr-2"></i> Pilar del Movimiento
-                </div>
-                
-                <div class="relative h-56 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-t from-titanio via-titanio/20 to-transparent z-10"></div>
-                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Flota Premium" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000">
-                </div>
-                
-                <div class="p-8 pt-0 flex-grow flex flex-col justify-between relative z-20 -mt-10">
-                    <div>
-                        <h3 class="text-2xl font-black text-white uppercase tracking-tighter drop-shadow-md">Flota Ejecutiva</h3>
-                        <p class="text-[0.6rem] text-dorado uppercase tracking-[0.2em] mb-4">Market Data (MarketCheck API)</p>
-                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                            Vehículos de alta gama generando rendimientos diarios mediante esquemas de renta inteligente.
-                        </p>
-                        
-                        <!-- Dashboard Fraccional -->
-                        <div class="bg-titanioClaro rounded-2xl p-4 mb-8 border border-gray-800 shadow-inner">
-                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
-                                <span class="text-gray-500">Tokens de Flota</span>
-                                <span class="text-white">340 / 500</span>
-                            </div>
-                            <div class="w-full bg-abismo rounded-full h-1.5 mb-4 overflow-hidden">
-                                <div class="barra-fibonacci h-1.5 rounded-full" style="width: 68%"></div>
-                            </div>
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">Valor Token</span>
-                                    <span class="text-lg font-black texto-gradiente">$150 USD</span>
-                                </div>
-                                <div class="text-right">
-                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">ROI Anual</span>
-                                    <span class="text-base font-black text-white">12.4%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- UMBRAL WEB3 -> Botón Asimétrico BNB -->
-                    <button class="btn-web3 w-full py-4 rounded-xl text-dorado font-black uppercase tracking-widest text-xs flex justify-center items-center gap-2 transition-all">
-                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-4 h-4">
-                        Adquirir en BNB
-                    </button>
-                </div>
-            </article>
-
-            <!-- ========================================== -->
-            <!-- 3. PILAR DE LA VIDA (Carbon Sutra) -> span-3 -->
-            <!-- ========================================== -->
-            <article class="lg:col-span-3 bg-titanio rounded-3xl overflow-hidden latido-vida border border-vida/30 flex flex-col relative group">
-                <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-vida font-black px-4 py-1.5 rounded-full text-[0.6rem] uppercase tracking-widest border border-vida/50 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
-                    <i class="fas fa-leaf mr-2"></i> Pilar de la Vida
-                </div>
-                
-                <div class="relative h-48 overflow-hidden bg-abismo flex items-center justify-center">
-                    <div class="absolute inset-0 bg-gradient-to-b from-vida/10 to-titanio z-10 pointer-events-none"></div>
-                    <!-- Pulso Visual Ecológico -->
-                    <div class="w-24 h-24 rounded-full border border-vida/40 flex items-center justify-center relative shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                        <div class="absolute inset-0 rounded-full bg-vida/10 animate-ping opacity-50"></div>
-                        <i class="fas fa-wind text-4xl text-vida drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]"></i>
-                    </div>
-                </div>
-                
-                <div class="p-6 flex-grow flex flex-col justify-between relative z-20">
-                    <div>
-                        <h3 class="text-xl font-black text-white uppercase tracking-tighter drop-shadow-md">Bonos Verdes</h3>
-                        <p class="text-[0.55rem] text-vida uppercase tracking-[0.2em] mb-4">Emissions Data (Carbon Sutra API)</p>
-                        <p class="text-gray-400 text-xs mb-6 leading-relaxed">
-                            Tokenización de captura de carbono. Rentabilidad respaldada por el futuro del planeta.
-                        </p>
-                        
-                        <!-- Dashboard Fraccional -->
-                        <div class="bg-titanioClaro rounded-2xl p-4 mb-6 border border-vida/20 shadow-inner">
-                            <div class="flex justify-between text-[0.65rem] mb-2 uppercase tracking-widest font-bold">
-                                <span class="text-gray-500">Bonos Activos</span>
-                                <span class="text-white">89 / 144</span>
-                            </div>
-                            <div class="w-full bg-abismo rounded-full h-1 mb-3 overflow-hidden">
-                                <div class="bg-vida h-1 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]" style="width: 61.8%"></div>
-                            </div>
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">Valor Bono</span>
-                                    <span class="text-sm font-black text-vida">$50 USD</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- UMBRAL WEB3 -> Botón Asimétrico BNB -->
-                    <button class="btn-web3 w-full py-3.5 rounded-xl text-dorado font-black uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2 transition-all !border-vida hover:!shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-3.5 h-3.5 filter brightness-200">
-                        Proteger con BNB
-                    </button>
-                </div>
-            </article>
+            <div class="lg:col-span-3 flex flex-col gap-6" id="contenedor-vida">
+                <div class="text-center text-gray-500 py-10 uppercase tracking-widest text-xs">Despertando canal de la Vida...</div>
+            </div>
 
         </div>
     </main>
 
-    <!-- MOTOR LÓGICO: Conexión con los Pilares de Jojmá -->
+    <footer class="border-t border-gray-800 py-8 mt-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-dorado text-xs font-black tracking-[0.2em] mb-2">PARNASÁ • SHEFÁ • VERAJÁ</p>
+            <p class="text-gray-600 text-[0.6rem] uppercase tracking-widest">Shefá Plus Global Real Estate & Web3 Protocols © 2026</p>
+        </div>
+    </footer>
+
     <script type="module">
-        // ⚡ Cuando la matriz esté lista, aquí inyectaremos los motores API
-        // import { despertarPilarTierra } from './motor_tierra_rentcast.js';
-        // import { despertarPilarMovimiento } from './motor_movimiento_marketcheck.js';
-        // import { despertarPilarVida } from './motor_vida_carbonsutra.js';
-        
-        console.log("🌌 El Umbral de la Materialización ha sido abierto. La Matriz está esperando la sangre de los motores API.");
+        // Inyección de los Pilares y Módulos de Jojmá
+        import { despertarPilarTierra } from './motor_tierra_rentcast.js';
+        import { despertarPilarMovimiento } from './motor_movimiento_marketcheck.js';
+        import { despertarPilarVida } from './motor_vida_carbonsutra.js';
+        import { conectarWallet, ejecutarPagoBNB, convertirUSD_a_BNB } from './umbral_web3_bnb.js';
+
+        // Hacer funciones Web3 accesibles globalmente desde los botones dinámicos
+        window.invocarConexionWallet = async () => {
+            const cuenta = await conectarWallet();
+            if (cuenta) {
+                document.getElementById('txt-wallet').innerText = `${cuenta.substring(0,6)}...${cuenta.substring(cuenta.length-4)}`;
+                document.getElementById('btn-conectar-global').classList.replace('text-[#F3BA2F]', 'text-green-400');
+                document.getElementById('btn-conectar-global').classList.replace('border-[#F3BA2F]', 'border-green-400');
+            }
+        };
+
+        window.ejecutarInyeccionMatriz = async (montoUSD, nombreActivo) => {
+            const bnbCalculado = convertirUSD_a_BNB(montoUSD);
+            await ejecutarPagoBNB(bnbCalculado, nombreActivo);
+        };
+
+        // Inicialización Automatizada al abrir el Portal
+        document.addEventListener("DOMContentLoaded", async () => {
+            console.log("🌌 [Matriz] Abriendo el portal visual. Conectando flujos...");
+            
+            // 🏛️ EJECUCIÓN PILAR DE LA TIERRA
+            try {
+                const activosTierra = await despertarPilarTierra();
+                const contenedorTierra = document.getElementById('contenedor-tierra');
+                contenedorTierra.innerHTML = ''; // Limpiar loader
+
+                activosTierra.forEach(activo => {
+                    const html = `
+                        <article class="bg-titanio rounded-3xl overflow-hidden borde-dorado resplandor-premium flex flex-col relative group">
+                            <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-dorado font-black px-4 py-1.5 rounded-full text-[0.65rem] uppercase tracking-widest border border-dorado/50 shadow-lg">
+                                <i class="fas fa-landmark mr-2"></i> RWA - Tierra
+                            </div>
+                            <div class="relative h-64 overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-t from-titanio via-titanio/10 to-transparent z-10"></div>
+                                <img src="${activo.imagen}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000" onerror="this.src='https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=500'">
+                            </div>
+                            <div class="p-6 pt-0 flex-grow flex flex-col justify-between relative z-20 -mt-10">
+                                <div>
+                                    <h3 class="text-2xl font-black text-white uppercase tracking-tighter">${activo.titulo}</h3>
+                                    <p class="text-[0.6rem] text-gray-500 uppercase tracking-[0.2em] mb-4">${activo.ubicacion}</p>
+                                    
+                                    <div class="bg-titanioClaro rounded-2xl p-4 mb-6 border border-gray-800 shadow-inner">
+                                        <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
+                                            <span class="text-gray-500">Fracciones</span>
+                                            <span class="text-white">${activo.fraccionesDisponibles} / ${activo.fraccionesTotales}</span>
+                                        </div>
+                                        <div class="w-full bg-abismo rounded-full h-1 mb-3 overflow-hidden">
+                                            <div class="barra-fibonacci h-1 rounded-full" style="width: ${(activo.fraccionesDisponibles/activo.fraccionesTotales)*100}%"></div>
+                                        </div>
+                                        <div class="flex justify-between items-end">
+                                            <div>
+                                                <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">Valor Token</span>
+                                                <span class="text-lg font-black texto-gradiente">$${activo.valorPorFraccionUSD} USD</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">ROI Anual</span>
+                                                <span class="text-base font-black text-white">${activo.roiProyectado}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="window.ejecutarInyeccionMatriz(${activo.valorPorFraccionUSD}, '${activo.titulo}')" class="btn-web3 w-full py-3.5 rounded-xl text-dorado font-black uppercase tracking-widest text-xs flex justify-center items-center gap-2 transition-all">
+                                    <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" class="w-4 h-4"> Inyectar BNB al Contrato
+                                </button>
+                            </div>
+                        </article>
+                    `;
+                    contenedorTierra.insertAdjacentHTML('beforeend', html);
+                });
+            } catch (err) { console.error("Fricción en canal Tierra:", err); }
+
+            // 🏎️ EJECUCIÓN PILAR DEL MOVIMIENTO
+            try {
+                const activosMovimiento = await despertarPilarMovimiento();
+                const contenedorMovimiento = document.getElementById('contenedor-movimiento');
+                contenedorMovimiento.innerHTML = '';
+
+                activosMovimiento.forEach(activo => {
+                    const html = `
+                        <article class="bg-titanio rounded-3xl overflow-hidden borde-dorado resplandor-premium flex flex-col relative group">
+                            <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-dorado font-black px-4 py-1.5 rounded-full text-[0.65rem] uppercase tracking-widest border border-dorado/50 shadow-lg">
+                                <i class="fas fa-car-side mr-2"></i> RWA - Movimiento
+                            </div>
+                            <div class="relative h-48 overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-t from-titanio via-titanio/10 to-transparent z-10"></div>
+                                <img src="${activo.imagen}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000" onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?w=500'">
+                            </div>
+                            <div class="p-6 pt-0 flex-grow flex flex-col justify-between relative z-20 -mt-8">
+                                <div>
+                                    <h3 class="text-xl font-black text-white uppercase tracking-tighter">${activo.titulo}</h3>
+                                    <p class="text-[0.55rem] text-gray-500 uppercase tracking-[0.2em] mb-4">Cat: ${activo.categoria} • ${activo.kilometraje} Mi</p>
+                                    
+                                    <div class="bg-titanioClaro rounded-2xl p-4 mb-6 border border-gray-800 shadow-inner">
+                                        <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
+                                            <span class="text-gray-500">Tokens Flota</span>
+                                            <span class="text-white">${activo.fraccionesDisponibles} / ${activo.fraccionesTotales}</span>
+                                        </div>
+                                        <div class="w-full bg-abismo rounded-full h-1 mb-3 overflow-hidden">
+                                            <div class="barra-fibonacci h-1 rounded-full" style="width: ${(activo.fraccionesDisponibles/activo.fraccionesTotales)*100}%"></div>
+                                        </div>
+                                        <div class="flex justify-between items-end">
+                                            <div>
+                                                <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">Valor Token</span>
+                                                <span class="text-base font-black texto-gradiente">$${activo.valorPorFraccionUSD} USD</span>
+                                            </div>
+                                            <div class="text-right">
+                                                <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">ROI Est.</span>
+                                                <span class="text-sm font-black text-white">${activo.roiProyectado}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="window.ejecutarInyeccionMatriz(${activo.valorPorFraccionUSD}, '${activo.titulo}')" class="btn-web3 w-full py-3.5 rounded-xl text-dorado font-black uppercase tracking-widest text-xs flex justify-center items-center gap-2 transition-all">
+                                    <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" class="w-4 h-4"> Adquirir en BNB
+                                </button>
+                            </div>
+                        </article>
+                    `;
+                    contenedorMovimiento.insertAdjacentHTML('beforeend', html);
+                });
+            } catch (err) { console.error("Fricción en canal Movimiento:", err); }
+
+            // 🌿 EJECUCIÓN PILAR DE LA VIDA
+            try {
+                const activosVida = await despertarPilarVida();
+                const contenedorVida = document.getElementById('contenedor-vida');
+                contenedorVida.innerHTML = '';
+
+                activosVida.forEach(activo => {
+                    const html = `
+                        <article class="bg-titanio rounded-3xl overflow-hidden latido-vida border border-vida/30 flex flex-col relative group">
+                            <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-vida font-black px-4 py-1.5 rounded-full text-[0.6rem] uppercase tracking-widest border border-vida/50 shadow-lg">
+                                <i class="fas fa-leaf mr-2"></i> RWA - Vida
+                            </div>
+                            <div class="relative h-40 bg-abismo flex items-center justify-center overflow-hidden">
+                                <div class="absolute inset-0 bg-gradient-to-b from-vida/10 to-titanio z-10 pointer-events-none"></div>
+                                <div class="w-20 h-20 rounded-full border border-vida/30 flex items-center justify-center relative shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                                    <div class="absolute inset-0 rounded-full bg-vida/5 animate-ping opacity-40"></div>
+                                    <i class="fas fa-wind text-3xl text-vida"></i>
+                                </div>
+                            </div>
+                              <div class="p-5 flex-grow flex flex-col justify-between relative z-20">
+                                <div>
+                                    <h3 class="text-lg font-black text-white uppercase tracking-tighter">${activo.nombre}</h3>
+                                    <p class="text-[0.55rem] text-vida uppercase tracking-[0.2em] mb-4">Captura: ${activo.toneladasDisponibles} Tns CO2</p>
+                                    
+                                    <div class="bg-titanioClaro rounded-2xl p-4 mb-6 border border-vida/20 shadow-inner">
+                                        <div class="flex justify-between text-[0.65rem] mb-2 uppercase tracking-widest font-bold">
+                                            <span class="text-gray-500">Bonos Disponibles</span>
+                                            <span class="text-white">${activo.fraccionesDisponibles}</span>
+                                        </div>
+                                        <div class="flex justify-between items-end">
+                                            <div>
+                                                <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">Valor Bono</span>
+                                                <span class="text-base font-black text-vida">$${activo.valorPorFraccionUSD} USD</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="window.ejecutarInyeccionMatriz(${activo.valorPorFraccionUSD}, '${activo.nombre}')" class="btn-web3 w-full py-3 rounded-xl text-dorado font-black uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2 transition-all !border-vida hover:!shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                                    <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" class="w-3.5 h-3.5 filter brightness-200"> Proteger con BNB
+                                </button>
+                            </div>
+                        </article>
+                    `;
+                    contenedorVida.insertAdjacentHTML('beforeend', html);
+                });
+            } catch (err) { console.error("Fricción en canal Vida:", err); }
+        });
     </script>
 </body>
 </html>
