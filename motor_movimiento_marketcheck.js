@@ -11,7 +11,7 @@
 // ⚡======================================================================⚡
 // 🗝️ EL CANDADO DE JOJMÁ: INYECTA TU LLAVE MAESTRA DE MARKETCHECK AQUÍ
 // ⚡======================================================================⚡
-const LLAVE_MAESTRA_MARKETCHECK = "AQUI_PEGA_TU_LLAVE_API_DE_MARKETCHECK";
+const LLAVE_MAESTRA_MARKETCHECK = "mc_live_OVkrDudVsnwUKPSeYHQawP2hxCVUAdDS";
 // ⚡======================================================================⚡
 
 
