@@ -91,22 +91,16 @@
 <!-- ==================================================================== -->
 <div class="mt-8 w-full max-w-md mx-auto flex flex-col gap-6 px-4 pb-10">
 
-    <!-- 1. EL TARJETÓN SAGRADO: CATÁLOGO NEXUS WEB3 (EL UMBRAL) -->
-    <a href="catalogo_nexus.html" class="relative block rounded-2xl group transition-all duration-500 hover:scale-[1.03]">
+    <div class="tarjeta-honor interactiva relative block rounded-2xl group transition-all duration-500 cursor-pointer" onclick="manejarToque(this, 'catalogo_nexus.html')">
         
-        <!-- El Aura Sagrada de Titanio Azul (Resplandor Animado) -->
-        <div class="absolute inset-0 bg-gradient-to-r from-[#0a1128] via-[#009ee3] to-[#0a1128] opacity-70 blur-xl rounded-2xl group-hover:opacity-100 group-hover:blur-2xl transition-all duration-500 animate-pulse"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0a1128] via-[#009ee3] to-[#0a1128] opacity-80 blur-xl rounded-2xl animate-[pulse_3s_ease-in-out_infinite]"></div>
 
-        <!-- La Bóveda de Oro Premium -->
         <div class="relative bg-gradient-to-br from-[#fdf5a9] via-[#d4af37] to-[#8a6810] rounded-2xl p-6 border border-[#fdf5a9]/60 shadow-[inset_0_0_20px_rgba(255,255,255,0.3)] flex flex-col overflow-hidden">
             
-            <!-- Destello Asimétrico (Neuro-Diseño) -->
             <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/30 rounded-full blur-2xl transform group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
 
-            <!-- Cabecera del Tarjetón -->
             <div class="flex items-center gap-4 mb-5 relative z-10">
-                <div class="w-12 h-12 rounded-full bg-[#050814] border-[3px] border-[#009ee3] shadow-[0_0_20px_rgba(0,158,227,0.8)] flex items-center justify-center">
-                    <!-- El Ojo de la Visión Clara -->
+                <div class="w-12 h-12 rounded-full bg-[#050814] border-[3px] border-[#009ee3] shadow-[0_0_20px_rgba(0,158,227,0.8)] flex items-center justify-center animate-pulse">
                     <i class="fas fa-eye text-transparent bg-clip-text bg-gradient-to-b from-[#d4af37] to-[#fdf5a9] text-xl drop-shadow-md"></i>
                 </div>
                 <div>
@@ -115,20 +109,82 @@
                 </div>
             </div>
 
-            <!-- Propósito Superior -->
             <p class="text-[#050814]/90 text-sm mb-6 leading-relaxed font-bold relative z-10">
                 Tokenización global de Bienes Raíces, Flotas Automotrices y Captura de Carbono. La reestructuración de la economía real impulsada por contratos inteligentes (RWA).
             </p>
 
-            <!-- Llamado a la Acción (Verajá) -->
             <div class="flex justify-between items-center relative z-10 border-t border-[#050814]/20 pt-4 mt-auto">
                 <span class="text-[#050814] text-xs font-black uppercase tracking-widest flex items-center gap-2">
                     <i class="fas fa-link text-[#009ee3]"></i> Conectar Abundancia
                 </span>
-                <div class="w-8 h-8 rounded-full bg-[#050814] flex items-center justify-center transform group-hover:translate-x-2 transition-transform shadow-lg">
-                    <i class="fas fa-arrow-right text-[#d4af37]"></i>
-                </div>
+                <span class="instruccion-toque text-[#050814] font-black tracking-widest text-[0.65rem] uppercase drop-shadow-md">Toca otra vez para entrar</span>
             </div>
+        </div>
+    </div>
+
+    <div class="tarjeta-honor interactiva relative bg-[#050814] border border-[#d4af37]/40 rounded-2xl p-6 shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:border-[#d4af37] transition-all duration-300 overflow-hidden mt-2 cursor-pointer" onclick="manejarToque(this, 'salon_inmobiliario.html')">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-[#d4af37]/15 rounded-full blur-2xl animate-pulse pointer-events-none"></div>
+        
+        <div class="flex items-center gap-3 mb-4 relative z-10">
+            <div class="w-8 h-8 rounded-full bg-[#0a1128] border border-[#d4af37]/50 shadow-[0_0_10px_rgba(212,175,55,0.5)] flex items-center justify-center animate-pulse">
+                <i class="fas fa-building text-[#d4af37]"></i>
+            </div>
+            <h3 class="text-lg font-black text-white tracking-widest uppercase">Salón Inmobiliario</h3>
+        </div>
+        
+        <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light">
+            Catálogo exclusivo de activos raíces tokenizados. Explora el valor resguardado en la propiedad Premium de Acacías.
+        </p>
+        
+        <div class="text-center border-t border-[#d4af37]/20 pt-4 relative z-10">
+            <span class="instruccion-toque text-[#d4af37] font-black tracking-widest text-[0.65rem] uppercase">Toca otra vez para entrar</span>
+        </div>
+    </div>
+
+    <div class="tarjeta-honor interactiva relative bg-[#050814] border border-[#9333ea]/40 rounded-2xl p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] hover:border-[#9333ea]/80 transition-all duration-300 overflow-hidden mt-2 cursor-pointer" onclick="manejarToque(this, 'shefa_flow.html')">
+        <div class="absolute top-0 right-0 w-20 h-20 bg-purple-900/30 rounded-full blur-2xl animate-pulse pointer-events-none"></div>
+        
+        <div class="flex items-center gap-3 mb-4 relative z-10">
+            <div class="w-8 h-8 rounded-full bg-purple-900/30 border border-purple-500/50 shadow-[0_0_10px_rgba(147,51,234,0.5)] flex items-center justify-center animate-pulse">
+                <i class="fas fa-location-arrow text-purple-400"></i>
+            </div>
+            <h3 class="text-lg font-black text-white tracking-widest uppercase">Shefa Flow Remesas</h3>
+        </div>
+        
+        <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light">
+            Conexión Sin Fronteras. Servicio global habilitado. Flujo directo y seguro para enviar valor.
+        </p>
+        
+        <div class="text-center border-t border-purple-900/50 pt-4 relative z-10">
+            <span class="instruccion-toque text-purple-400 font-black tracking-widest text-[0.65rem] uppercase">Toca otra vez para entrar</span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3 mt-4">
+        
+        <div class="tarjeta-honor interactiva relative bg-[#050814] border-[1px] border-[#009ee3] shadow-[0_0_12px_rgba(0,158,227,0.6)] rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer animate-[pulse_3s_ease-in-out_infinite]" onclick="manejarToque(this, 'sala_parnasa.html')">
+            <div class="absolute inset-0 bg-[#009ee3]/10 opacity-50 rounded-xl pointer-events-none"></div>
+            <i class="fas fa-coins text-[#009ee3] mb-2 text-lg drop-shadow-[0_0_5px_rgba(0,158,227,0.8)]"></i>
+            <h4 class="text-white text-[0.6rem] font-black uppercase tracking-widest relative z-10">Parnasá</h4>
+            <span class="instruccion-toque text-[#009ee3] text-[0.45rem] font-bold uppercase tracking-widest absolute bottom-1 text-center w-full">2 Toques</span>
+        </div>
+        
+        <div class="tarjeta-honor interactiva relative bg-[#050814] border-[1px] border-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.6)] rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer animate-[pulse_3s_ease-in-out_infinite] delay-75" onclick="manejarToque(this, 'sala_shefa.html')">
+            <div class="absolute inset-0 bg-[#d4af37]/10 opacity-50 rounded-xl pointer-events-none"></div>
+            <i class="fas fa-water text-[#d4af37] mb-2 text-lg drop-shadow-[0_0_5px_rgba(212,175,55,0.8)]"></i>
+            <h4 class="text-white text-[0.6rem] font-black uppercase tracking-widest relative z-10">Shefá</h4>
+            <span class="instruccion-toque text-[#d4af37] text-[0.45rem] font-bold uppercase tracking-widest absolute bottom-1 text-center w-full">2 Toques</span>
+        </div>
+        
+        <div class="tarjeta-honor interactiva relative bg-[#050814] border-[1px] border-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.6)] rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer animate-[pulse_3s_ease-in-out_infinite] delay-150" onclick="manejarToque(this, 'sala_veraja.html')">
+            <div class="absolute inset-0 bg-[#10B981]/10 opacity-50 rounded-xl pointer-events-none"></div>
+            <i class="fas fa-seedling text-[#10B981] mb-2 text-lg drop-shadow-[0_0_5px_rgba(16,185,129,0.8)]"></i>
+            <h4 class="text-white text-[0.6rem] font-black uppercase tracking-widest relative z-10">Verajá</h4>
+            <span class="instruccion-toque text-[#10B981] text-[0.45rem] font-bold uppercase tracking-widest absolute bottom-1 text-center w-full">2 Toques</span>
+        </div>
+
+    </div>
+
         </div>
     </a>
 
