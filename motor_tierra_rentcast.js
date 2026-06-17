@@ -11,7 +11,7 @@
 // ⚡======================================================================⚡
 // 🗝️ EL CANDADO DE JOJMÁ: INYECTA TU LLAVE MAESTRA DE RENTCAST AQUÍ
 // ⚡======================================================================⚡
-const LLAVE_MAESTRA_RENTCAST = "AQUI_PEGA_TU_LLAVE_API_DE_RENTCAST";
+const LLAVE_MAESTRA_RENTCAST = "f2d8659dc00941e6bf81f429985de8dd";
 // ⚡======================================================================⚡
 
 
