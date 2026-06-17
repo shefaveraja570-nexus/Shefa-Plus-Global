@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefá Plus Global | La Red Económica Real</title>
+    
+    <!-- Motor Visual (Parnasá) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Configuración del Neuro-Diseño -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dorado: '#D4AF37',
+                        doradoOscuro: '#AA841B',
+                        abismo: '#050814',
+                        titanio: '#0a1128',
+                        titanioClaro: '#12182b',
+                        vida: '#10B981' // Esmeralda orgánico para el carbono
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #050814;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            background-image: radial-gradient(circle at 50% 0%, #0a1128 0%, #050814 70%);
+        }
+        
+        .texto-gradiente {
+            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .borde-dorado { border: 1px solid rgba(212, 175, 55, 0.3); }
+        
+        .resplandor-premium {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .resplandor-premium:hover {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.4);
+            transform: translateY(-8px) scale(1.01);
+            border-color: #d4af37;
+        }
+
+        .barra-fibonacci {
+            background: linear-gradient(90deg, #d4af37, #aa841b);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* El latido del Pilar de la Vida (Carbono) */
+        @keyframes respiracion-divina {
+            0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); border-color: rgba(16, 185, 129, 0.3); }
+            50% { box-shadow: 0 0 35px rgba(16, 185, 129, 0.6); border-color: rgba(212, 175, 55, 0.8); }
+        }
+        .latido-vida {
+            animation: respiracion-divina 3s infinite ease-in-out;
+        }
+
+        /* El Umbral Web3 BNB Button */
+        .btn-web3 {
+            background: #050814;
+            border: 1px solid #D4AF37;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-web3::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+        .btn-web3:hover::before { left: 100%; }
+        .btn-web3:hover {
+            background: linear-gradient(90deg, #d4af37, #aa841b);
+            color: #050814;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-dorado selection:text-black pb-20">
+
+    <!-- CABECERA: El Ojo que se Abre -->
+    <header class="border-b border-dorado/20 bg-abismo/80 backdrop-blur-xl sticky top-0 z-50 p-4 shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full p-[2px] bg-gradient-to-tr from-dorado via-[#f9f295] to-dorado shadow-[0_0_20px_rgba(212,175,55,0.4)] flex items-center justify-center overflow-hidden">
+                    <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-full h-full object-cover rounded-full bg-abismo" onerror="this.src='https://via.placeholder.com/150/050814/D4AF37?text=Ojo'">
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-widest text-white uppercase leading-none">SHEFÁ <span class="texto-gradiente">PLUS</span></h1>
+                    <p class="text-[0.6rem] text-dorado tracking-[0.3em] uppercase mt-1">El Umbral de la Materialización</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex text-[0.65rem] text-gray-400 tracking-[0.2em] gap-5 font-bold uppercase">
+                <span class="hover:text-dorado transition-colors cursor-default">Parnasá</span>
+                <span class="hover:text-dorado transition-colors cursor-default">Shefá</span>
+                <span class="hover:text-dorado transition-colors cursor-default">Verajá</span>
+                <span class="hover:text-dorado transition-colors cursor-default">Jojmá</span>
+                <span class="hover:text-dorado transition-colors cursor-default">Emuná</span>
+            </div>
+            
+            <div>
+                <button class="bg-[#F3BA2F]/10 border border-[#F3BA2F] text-[#F3BA2F] px-5 py-2.5 rounded-lg uppercase text-xs tracking-widest font-black hover:bg-[#F3BA2F] hover:text-black transition-all shadow-[0_0_15px_rgba(243,186,47,0.2)] flex items-center gap-2">
+                    <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-4 h-4">
+                    Conectar Web3
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HÉROE: La Visión Global -->
+    <section class="relative pt-24 pb-16 px-4 text-center z-10">
+        <span class="inline-block py-1 px-3 rounded-full border border-dorado/50 bg-dorado/10 text-dorado uppercase tracking-[0.3em] font-bold text-[0.65rem] mb-6 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+            <i class="fas fa-network-wired mr-2"></i> Infraestructura Criptográfica 2026
+        </span>
+        <h2 class="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter text-white drop-shadow-2xl">
+            La Economía <br/> <span class="texto-gradiente">Real Estructurada</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed mb-10 font-light tracking-wide">
+            El río de luz fluye hacia la ciudad global. Tokenización de bienes raíces, flotas vehiculares y activos ecológicos respaldados por contratos inteligentes en la Binance Smart Chain.
+        </p>
+    </section>
+
+    <!-- MATRIZ VISUAL: LOS 3 PILARES (Asimetría de Fibonacci) -->
+    <main class="max-w-[90rem] mx-auto px-4">
+        
+        <!-- Grid Asimétrico: 5 - 4 - 3 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+            <!-- ========================================== -->
+            <!-- 1. PILAR DE LA TIERRA (RentCast) -> span-5 -->
+            <!-- ========================================== -->
+            <article class="lg:col-span-5 bg-titanio rounded-3xl overflow-hidden borde-dorado resplandor-premium flex flex-col relative group">
+                <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-dorado font-black px-4 py-1.5 rounded-full text-[0.65rem] uppercase tracking-widest border border-dorado/50 shadow-lg">
+                    <i class="fas fa-landmark mr-2"></i> Pilar de la Tierra
+                </div>
+                
+                <div class="relative h-72 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-titanio via-titanio/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Bienes Raíces Acacías" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000">
+                </div>
+                
+                <div class="p-8 pt-0 flex-grow flex flex-col justify-between relative z-20 -mt-10">
+                    <div>
+                        <h3 class="text-3xl font-black text-white uppercase tracking-tighter drop-shadow-md">Reserva Acacías</h3>
+                        <p class="text-[0.65rem] text-dorado uppercase tracking-[0.2em] mb-4">Value & Rent Estimates (RentCast API)</p>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Bienes raíces tokenizados en el corazón del Meta. Rendimientos automatizados respaldados en la solidez del mundo físico.
+                        </p>
+                        
+                        <!-- Dashboard Fraccional -->
+                        <div class="bg-titanioClaro rounded-2xl p-5 mb-8 border border-gray-800 shadow-inner">
+                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
+                                <span class="text-gray-500">Criptofracciones</span>
+                                <span class="text-white">618 / 1000</span>
+                            </div>
+                            <div class="w-full bg-abismo rounded-full h-1.5 mb-4 overflow-hidden">
+                                <div class="barra-fibonacci h-1.5 rounded-full" style="width: 61.8%"></div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">Valor Fracción</span>
+                                    <span class="text-xl font-black texto-gradiente">$250 USD</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">ROI Anual</span>
+                                    <span class="text-lg font-black text-white">9.6%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UMBRAL WEB3 -> Botón Asimétrico BNB -->
+                    <button class="btn-web3 w-full py-4 rounded-xl text-dorado font-black uppercase tracking-widest text-sm flex justify-center items-center gap-3 transition-all">
+                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-5 h-5">
+                        Inyectar BNB al Contrato
+                    </button>
+                </div>
+            </article>
+
+            <!-- ========================================== -->
+            <!-- 2. PILAR DEL MOVIMIENTO (MarketCheck) -> span-4 -->
+            <!-- ========================================== -->
+            <article class="lg:col-span-4 bg-titanio rounded-3xl overflow-hidden borde-dorado resplandor-premium flex flex-col relative group">
+                <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-dorado font-black px-4 py-1.5 rounded-full text-[0.65rem] uppercase tracking-widest border border-dorado/50 shadow-lg">
+                    <i class="fas fa-car-side mr-2"></i> Pilar del Movimiento
+                </div>
+                
+                <div class="relative h-56 overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-t from-titanio via-titanio/20 to-transparent z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Flota Premium" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000">
+                </div>
+                
+                <div class="p-8 pt-0 flex-grow flex flex-col justify-between relative z-20 -mt-10">
+                    <div>
+                        <h3 class="text-2xl font-black text-white uppercase tracking-tighter drop-shadow-md">Flota Ejecutiva</h3>
+                        <p class="text-[0.6rem] text-dorado uppercase tracking-[0.2em] mb-4">Market Data (MarketCheck API)</p>
+                        <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                            Vehículos de alta gama generando rendimientos diarios mediante esquemas de renta inteligente.
+                        </p>
+                        
+                        <!-- Dashboard Fraccional -->
+                        <div class="bg-titanioClaro rounded-2xl p-4 mb-8 border border-gray-800 shadow-inner">
+                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
+                                <span class="text-gray-500">Tokens de Flota</span>
+                                <span class="text-white">340 / 500</span>
+                            </div>
+                            <div class="w-full bg-abismo rounded-full h-1.5 mb-4 overflow-hidden">
+                                <div class="barra-fibonacci h-1.5 rounded-full" style="width: 68%"></div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">Valor Token</span>
+                                    <span class="text-lg font-black texto-gradiente">$150 USD</span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-[0.6rem] text-gray-500 uppercase tracking-widest">ROI Anual</span>
+                                    <span class="text-base font-black text-white">12.4%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UMBRAL WEB3 -> Botón Asimétrico BNB -->
+                    <button class="btn-web3 w-full py-4 rounded-xl text-dorado font-black uppercase tracking-widest text-xs flex justify-center items-center gap-2 transition-all">
+                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-4 h-4">
+                        Adquirir en BNB
+                    </button>
+                </div>
+            </article>
+
+            <!-- ========================================== -->
+            <!-- 3. PILAR DE LA VIDA (Carbon Sutra) -> span-3 -->
+            <!-- ========================================== -->
+            <article class="lg:col-span-3 bg-titanio rounded-3xl overflow-hidden latido-vida border border-vida/30 flex flex-col relative group">
+                <div class="absolute top-5 left-5 z-20 bg-abismo/90 backdrop-blur text-vida font-black px-4 py-1.5 rounded-full text-[0.6rem] uppercase tracking-widest border border-vida/50 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                    <i class="fas fa-leaf mr-2"></i> Pilar de la Vida
+                </div>
+                
+                <div class="relative h-48 overflow-hidden bg-abismo flex items-center justify-center">
+                    <div class="absolute inset-0 bg-gradient-to-b from-vida/10 to-titanio z-10 pointer-events-none"></div>
+                    <!-- Pulso Visual Ecológico -->
+                    <div class="w-24 h-24 rounded-full border border-vida/40 flex items-center justify-center relative shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                        <div class="absolute inset-0 rounded-full bg-vida/10 animate-ping opacity-50"></div>
+                        <i class="fas fa-wind text-4xl text-vida drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]"></i>
+                    </div>
+                </div>
+                
+                <div class="p-6 flex-grow flex flex-col justify-between relative z-20">
+                    <div>
+                        <h3 class="text-xl font-black text-white uppercase tracking-tighter drop-shadow-md">Bonos Verdes</h3>
+                        <p class="text-[0.55rem] text-vida uppercase tracking-[0.2em] mb-4">Emissions Data (Carbon Sutra API)</p>
+                        <p class="text-gray-400 text-xs mb-6 leading-relaxed">
+                            Tokenización de captura de carbono. Rentabilidad respaldada por el futuro del planeta.
+                        </p>
+                        
+                        <!-- Dashboard Fraccional -->
+                        <div class="bg-titanioClaro rounded-2xl p-4 mb-6 border border-vida/20 shadow-inner">
+                            <div class="flex justify-between text-[0.65rem] mb-2 uppercase tracking-widest font-bold">
+                                <span class="text-gray-500">Bonos Activos</span>
+                                <span class="text-white">89 / 144</span>
+                            </div>
+                            <div class="w-full bg-abismo rounded-full h-1 mb-3 overflow-hidden">
+                                <div class="bg-vida h-1 rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)]" style="width: 61.8%"></div>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="block text-[0.55rem] text-gray-500 uppercase tracking-widest">Valor Bono</span>
+                                    <span class="text-sm font-black text-vida">$50 USD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UMBRAL WEB3 -> Botón Asimétrico BNB -->
+                    <button class="btn-web3 w-full py-3.5 rounded-xl text-dorado font-black uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2 transition-all !border-vida hover:!shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                        <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-3.5 h-3.5 filter brightness-200">
+                        Proteger con BNB
+                    </button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <!-- MOTOR LÓGICO: Conexión con los Pilares de Jojmá -->
+    <script type="module">
+        // ⚡ Cuando la matriz esté lista, aquí inyectaremos los motores API
+        // import { despertarPilarTierra } from './motor_tierra_rentcast.js';
+        // import { despertarPilarMovimiento } from './motor_movimiento_marketcheck.js';
+        // import { despertarPilarVida } from './motor_vida_carbonsutra.js';
+        
+        console.log("🌌 El Umbral de la Materialización ha sido abierto. La Matriz está esperando la sangre de los motores API.");
+    </script>
+</body>
+</html>
