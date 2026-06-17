@@ -11,7 +11,7 @@
 // ⚡======================================================================⚡
 // 🗝️ EL CANDADO DE JOJMÁ: INYECTA TU LLAVE MAESTRA DE CARBONSUTRA AQUÍ
 // ⚡======================================================================⚡
-const LLAVE_MAESTRA_CARBONSUTRA = "AQUI_PEGA_TU_LLAVE_API_DE_CARBONSUTRA";
+const LLAVE_MAESTRA_CARBONSUTRA = "fQ98oU704xFvsnXcQLVDbpeCJHPglG1DcxiMLKfpeNEMGumlbzVf1lCI6ZBx";
 // ⚡======================================================================⚡
 
 
