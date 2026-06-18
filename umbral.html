@@ -22,9 +22,10 @@
             overflow-x: hidden; 
         }
         
-        /* Efecto Berajá UI */
+        /* Efecto Berajá UI - Diseño Asimétrico */
         .tarjeta-honor { 
             background: linear-gradient(145deg, #0f172a, #050b14); 
+            /* DOS ESQUINAS EN PUNTA, DOS EN CÍRCULO (Asimetría) */
             border-radius: 24px 4px 24px 4px; 
             border: 1px solid rgba(212, 175, 55, 0.1); 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
@@ -34,34 +35,55 @@
         .tarjeta-honor:hover { 
             transform: translateY(-5px); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.8); 
-            border-color: var(--dorado);
+            border-color: rgba(212, 175, 55, 0.5);
         }
         
-        /* Aura Sagrada */
+        /* Aura Sagrada (Activada al 1er Toque) */
         @keyframes pulsoAura {
             0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.9), inset 0 0 20px rgba(212, 175, 55, 0.4); transform: scale(1.01); border-color: var(--dorado); }
+            50% { box-shadow: 0 0 25px rgba(212, 175, 55, 0.9), inset 0 0 20px rgba(212, 175, 55, 0.5); transform: scale(1.02); border-color: var(--dorado); }
             100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.2); }
         }
-        .aura-activa { animation: pulsoAura 2s infinite ease-in-out; border: 1px solid var(--dorado) !important; z-index: 10; }
+        .aura-activa { 
+            animation: pulsoAura 2s infinite ease-in-out; 
+            border: 1px solid var(--dorado) !important; 
+            z-index: 10; 
+        }
         
+        /* Respiración Sagrada para los Logos (Ojo de la Visión) */
+        @keyframes respiracionSagrada {
+            0% { box-shadow: 0 0 2px var(--dorado); border-color: rgba(212, 175, 55, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 15px var(--dorado), 0 0 5px var(--azul-seguro); border-color: var(--dorado); transform: scale(1.03); }
+            100% { box-shadow: 0 0 2px var(--dorado); border-color: rgba(212, 175, 55, 0.4); transform: scale(1); }
+        }
+        .logo-sagrado {
+            border: 1px solid var(--dorado);
+            animation: respiracionSagrada 3s infinite ease-in-out;
+            background-color: black;
+        }
+
         .instruccion-toque { 
             position: absolute; 
             bottom: 10px; 
             right: 15px; 
-            font-size: 0.7rem; 
+            font-size: 0.65rem; 
             color: var(--dorado); 
-            font-weight: bold; 
+            font-weight: black; 
             letter-spacing: 1px; 
             text-transform: uppercase; 
-            animation: latido 2s infinite; 
+            display: none;
+            animation: latido 1.5s infinite; 
         }
+        .aura-activa .instruccion-toque { display: block; }
+        .texto-inactivo { display: block; position: absolute; bottom: 10px; right: 15px; font-size: 0.65rem; color: rgba(255,255,255,0.3); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .aura-activa .texto-inactivo { display: none; }
+        
         @keyframes latido { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-        /* Componentes Interactivos (Menús y Modales) */
-        .panel-lateral { position: fixed; top: 0; height: 100vh; width: 300px; max-width: 80%; background: rgba(5, 11, 20, 0.95); backdrop-filter: blur(15px); border-left: 1px solid rgba(212, 175, 55, 0.3); z-index: 100; transition: transform 0.4s ease-in-out; }
+        /* Componentes Interactivos (Menús) */
+        .panel-lateral { position: fixed; top: 0; height: 100vh; width: 320px; max-width: 85%; background: rgba(5, 11, 20, 0.98); backdrop-filter: blur(20px); border-left: 1px solid rgba(212, 175, 55, 0.3); z-index: 100; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .panel-derecho { right: 0; transform: translateX(100%); }
-        .panel-abierto { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.9); }
+        .panel-abierto { transform: translateX(0); box-shadow: -10px 0 50px rgba(0,0,0,0.9); }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen">
@@ -70,7 +92,8 @@
     <header class="border-b border-dorado/30 bg-black/95 sticky top-0 z-50 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full flex items-center justify-center bg-black shadow-[0_0_15px_rgba(212,175,55,0.6)] overflow-hidden">
+                <!-- LOGO SUPERIOR CON RESPIRACIÓN SAGRADA -->
+                <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden logo-sagrado">
                     <img src="logo-shefa.png" alt="Ojo de la Visión" class="w-full h-full object-cover">
                 </div>
                 <div>
@@ -85,14 +108,14 @@
                     <span class="absolute -top-2 -right-3 bg-[#00d2ff] text-black text-[10px] font-black px-2 py-0.5 rounded-full shadow-[0_0_10px_#00d2ff]">1</span>
                 </div>
                 <!-- MENÚ HAMBURGUESA -->
-                <i class="fas fa-bars text-dorado text-2xl cursor-pointer hover:text-white transition-colors" onclick="toggleMenuHamburguesa()"></i>
+                <i class="fas fa-bars text-dorado text-2xl cursor-pointer hover:text-white transition-colors drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]" onclick="toggleMenuHamburguesa()"></i>
             </div>
         </div>
     </header>
 
     <!-- TRANSMISIÓN DE ABUNDANCIA (Cofre Restringido) -->
     <section class="max-w-md mx-auto mt-10 p-4 w-full">
-        <div class="tarjeta-honor p-8 text-center shadow-[0_0_30px_rgba(0,210,255,0.15)] border-[#00d2ff]/30">
+        <div class="tarjeta-honor p-8 text-center shadow-[0_0_30px_rgba(0,210,255,0.15)] border-[#00d2ff]/30 cursor-default">
             <i class="fas fa-cube text-5xl text-[#00d2ff] mb-4 drop-shadow-[0_0_15px_#00d2ff]"></i>
             <h2 class="text-2xl font-black uppercase tracking-widest mb-2 text-white">Transmisión de <span class="text-dorado">Abundancia</span></h2>
             <p class="text-gray-400 text-sm mb-6">Ingresa el código de frecuencia para desbloquear activos y bendiciones.</p>
@@ -115,9 +138,9 @@
         <div class="flex flex-col gap-6 w-full">
 
             <!-- 1. CATÁLOGO NEXUS -->
-            <div class="tarjeta-honor interactiva relative block rounded-2xl group transition-all duration-500 cursor-pointer" onclick="manejarToque(this, 'catalogo_nexus.html')">
+            <div class="tarjeta-honor interactiva block group" onclick="manejarToque(this, 'catalogo_nexus.html')">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#0a1128] via-[#009ee3] to-[#0a1128] opacity-20 blur-xl rounded-2xl pointer-events-none"></div>
-                <div class="relative bg-gradient-to-br from-[#fdf5a9] via-[#d4af37] to-[#8a6810] rounded-2xl p-6 border border-[#fdf5a9]/60 shadow-[inset_0_0_20px_rgba(255,255,255,0.3)] flex flex-col overflow-hidden">
+                <div class="relative bg-gradient-to-br from-[#fdf5a9] via-[#d4af37] to-[#8a6810] rounded-[24px_4px_24px_4px] p-6 border border-[#fdf5a9]/60 shadow-[inset_0_0_20px_rgba(255,255,255,0.3)] flex flex-col overflow-hidden">
                     <div class="flex items-center gap-4 mb-5 relative z-10">
                         <div class="w-12 h-12 rounded-full bg-[#050814] border-[3px] border-[#009ee3] shadow-[0_0_20px_rgba(0,158,227,0.8)] flex items-center justify-center">
                             <i class="fas fa-eye text-transparent bg-clip-text bg-gradient-to-b from-[#d4af37] to-[#fdf5a9] text-xl drop-shadow-md"></i>
@@ -131,16 +154,17 @@
                         Tokenización global de Bienes Raíces, Flotas Automotrices y Captura de Carbono. La reestructuración de la economía real impulsada por contratos inteligentes (RWA).
                     </p>
                     <div class="flex justify-between items-center relative z-10 border-t border-[#050814]/20 pt-4 mt-auto">
-                        <span class="text-[#050814] text-xs font-black uppercase tracking-widest flex items-center gap-2">
-                            <i class="fas fa-link text-[#009ee3]"></i> Conectar Abundancia
+                        <span class="text-[#050814] text-xs font-black uppercase tracking-widest flex items-center gap-2 boton-web3 hover:scale-105 transition-transform">
+                            <i class="fas fa-link text-[#009ee3]"></i> CONECTAR ABUNDANCIA
                         </span>
-                        <span class="instruccion-toque text-[#050814]/70 tracking-widest text-[0.65rem] uppercase">2 Toques</span>
+                        <span class="texto-inactivo text-[#050814]/70">1 Toque para Aura</span>
+                        <span class="instruccion-toque text-[#050814]">¡Entrar al Catálogo!</span>
                     </div>
                 </div>
             </div>
 
             <!-- 2. SALÓN INMOBILIARIO -->
-            <div class="tarjeta-honor interactiva relative bg-[#050814] border border-[#d4af37]/40 rounded-2xl p-6 shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:border-[#d4af37] transition-all duration-300 overflow-hidden cursor-pointer" onclick="manejarToque(this, 'salon_inmobiliario.html')">
+            <div class="tarjeta-honor interactiva bg-[#050814] border border-[#d4af37]/40 p-6 shadow-[0_0_15px_rgba(212,175,55,0.2)] overflow-hidden" onclick="manejarToque(this, 'salon_inmobiliario.html')">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-[#d4af37]/15 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="flex items-center gap-3 mb-4 relative z-10">
                     <div class="w-8 h-8 rounded-full bg-[#0a1128] border border-[#d4af37]/50 shadow-[0_0_10px_rgba(212,175,55,0.5)] flex items-center justify-center">
@@ -151,13 +175,14 @@
                 <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light">
                     Catálogo exclusivo de activos raíces tokenizados. Explora el valor resguardado en la propiedad Premium de Acacías.
                 </p>
-                <div class="text-center border-t border-[#d4af37]/20 pt-4 relative z-10">
-                    <span class="text-[#d4af37] font-black tracking-widest text-[0.65rem] uppercase">Explorar Matriz</span>
+                <div class="border-t border-[#d4af37]/20 pt-4 relative z-10 h-8">
+                    <span class="texto-inactivo">1 Toque para Aura</span>
+                    <span class="instruccion-toque">¡Explorar Matriz!</span>
                 </div>
             </div>
 
             <!-- 3. SHEFA FLOW REMESAS -->
-            <div class="tarjeta-honor interactiva relative bg-[#050814] border border-purple-500/40 rounded-2xl p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] hover:border-purple-500 transition-all duration-300 overflow-hidden cursor-pointer" onclick="manejarToque(this, 'shefa_flow.html')">
+            <div class="tarjeta-honor interactiva bg-[#050814] border border-purple-500/40 p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] overflow-hidden" onclick="manejarToque(this, 'shefa_flow.html')">
                 <div class="absolute top-0 right-0 w-20 h-20 bg-purple-900/30 rounded-full blur-2xl pointer-events-none"></div>
                 <div class="flex items-center gap-3 mb-4 relative z-10">
                     <div class="w-8 h-8 rounded-full bg-purple-900/30 border border-purple-500/50 shadow-[0_0_10px_rgba(147,51,234,0.5)] flex items-center justify-center">
@@ -168,26 +193,33 @@
                 <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light">
                     Conexión Sin Fronteras. Servicio global habilitado. Flujo directo y seguro para enviar valor.
                 </p>
-                <div class="text-center border-t border-purple-900/50 pt-4 relative z-10">
-                    <span class="text-purple-400 font-black tracking-widest text-[0.65rem] uppercase">Abrir Canal</span>
+                <div class="border-t border-purple-900/50 pt-4 relative z-10 h-8">
+                    <span class="texto-inactivo">1 Toque para Aura</span>
+                    <span class="instruccion-toque text-purple-400">¡Abrir Canal!</span>
                 </div>
             </div>
 
-            <!-- 4. LAS TRES SALAS BASE DE PODER (Estructura Unificada) -->
+            <!-- 4. LAS TRES SALAS BASE DE PODER -->
             <div class="grid grid-cols-3 gap-3 mt-2">
-                <div class="tarjeta-honor interactiva relative bg-[#050814] border border-[#009ee3] shadow-[0_0_12px_rgba(0,158,227,0.4)] rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer" onclick="manejarToque(this, 'sala_parnasa.html')">
+                <div class="tarjeta-honor interactiva bg-[#050814] border border-[#009ee3]/40 shadow-[0_0_12px_rgba(0,158,227,0.2)] p-4 flex flex-col items-center justify-center h-28" onclick="manejarToque(this, 'sala_parnasa.html')">
                     <i class="fas fa-coins text-[#009ee3] mb-2 text-lg"></i>
-                    <h4 class="text-white text-[0.55rem] font-black uppercase tracking-widest text-center">Parnasá</h4>
+                    <h4 class="text-white text-[0.55rem] font-black uppercase tracking-widest text-center mb-2">Parnasá</h4>
+                    <span class="texto-inactivo text-[0.45rem]">1 Toque</span>
+                    <span class="instruccion-toque text-[#009ee3] text-[0.45rem]">Entrar</span>
                 </div>
                 
-                <div class="tarjeta-honor interactiva relative bg-[#050814] border border-[#d4af37] shadow-[0_0_12px_rgba(212,175,55,0.4)] rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer" onclick="manejarToque(this, 'sala_shefa.html')">
+                <div class="tarjeta-honor interactiva bg-[#050814] border border-[#d4af37]/40 shadow-[0_0_12px_rgba(212,175,55,0.2)] p-4 flex flex-col items-center justify-center h-28" onclick="manejarToque(this, 'sala_shefa.html')">
                     <i class="fas fa-water text-[#d4af37] mb-2 text-lg"></i>
-                    <h4 class="text-white text-[0.55rem] font-black uppercase tracking-widest text-center">Shefá</h4>
+                    <h4 class="text-white text-[0.55rem] font-black uppercase tracking-widest text-center mb-2">Shefá</h4>
+                    <span class="texto-inactivo text-[0.45rem]">1 Toque</span>
+                    <span class="instruccion-toque text-[0.45rem]">Entrar</span>
                 </div>
                 
-                <div class="tarjeta-honor interactiva relative bg-[#050814] border border-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.4)] rounded-xl p-4 flex flex-col items-center justify-center transition-all duration-300 cursor-pointer" onclick="manejarToque(this, 'sala_veraja.html')">
+                <div class="tarjeta-honor interactiva bg-[#050814] border border-[#10B981]/40 shadow-[0_0_12px_rgba(16,185,129,0.2)] p-4 flex flex-col items-center justify-center h-28" onclick="manejarToque(this, 'sala_veraja.html')">
                     <i class="fas fa-seedling text-[#10B981] mb-2 text-lg"></i>
-                    <h4 class="text-white text-[0.55rem] font-black uppercase tracking-widest text-center">Verajá</h4>
+                    <h4 class="text-white text-[0.55rem] font-black uppercase tracking-widest text-center mb-2">Verajá</h4>
+                    <span class="texto-inactivo text-[0.45rem]">1 Toque</span>
+                    <span class="instruccion-toque text-[#10B981] text-[0.45rem]">Entrar</span>
                 </div>
             </div>
 
@@ -197,7 +229,10 @@
     <!-- BÓVEDA JURISDICCIONAL (Footer Unificado Global) -->
     <footer class="bg-[#050b14] border-t border-dorado/20 py-12 shadow-[0_-10px_30px_rgba(0,0,0,0.5)] mt-auto">
         <div class="max-w-4xl mx-auto flex flex-col items-center gap-6 text-center px-6">
-            <img src="logo-shefa.png" alt="Ojo de la Visión" class="w-16 h-16 rounded-full border border-dorado/30 shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+            <!-- LOGO INFERIOR CON RESPIRACIÓN SAGRADA -->
+            <div class="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden logo-sagrado shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                <img src="logo-shefa.png" alt="Ojo de la Visión" class="w-full h-full object-cover">
+            </div>
             <p class="text-dorado font-black tracking-[0.3em] uppercase text-sm">Shefá Plus Global</p>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full max-w-xl mt-2">
@@ -210,16 +245,27 @@
         </div>
     </footer>
 
-    <!-- PANEL LATERAL DERECHO (Menú Completado) -->
+<!-- PANEL LATERAL DERECHO (Menú Expandido Neuro-Diseño) -->
     <nav id="menu-lateral" class="panel-lateral panel-derecho flex flex-col p-6">
-        <div class="flex justify-between items-center mb-10 border-b border-gray-800 pb-4">
-            <h2 class="text-dorado font-black tracking-widest uppercase text-lg">Navegación</h2>
-            <i class="fas fa-times text-2xl cursor-pointer text-gray-400 hover:text-white" onclick="toggleMenuHamburguesa()"></i>
+        <div class="flex justify-between items-center mb-8 border-b border-dorado/30 pb-4">
+            <h2 class="text-dorado font-black tracking-widest uppercase text-lg">Matriz Global</h2>
+            <i class="fas fa-times text-2xl cursor-pointer text-gray-400 hover:text-white transition-colors" onclick="toggleMenuHamburguesa()"></i>
         </div>
-        <div class="flex flex-col gap-6 flex-grow overflow-y-auto">
-            <a href="catalogo_nexus.html" class="text-white font-bold tracking-widest uppercase text-sm hover:text-dorado transition-colors">Catálogo Nexus</a>
-            <a href="salon_inmobiliario.html" class="text-white font-bold tracking-widest uppercase text-sm hover:text-dorado transition-colors">Salón Inmobiliario</a>
-            <a href="shefa_flow.html" class="text-white font-bold tracking-widest uppercase text-sm hover:text-dorado transition-colors">Shefa Flow</a>
+        <div class="flex flex-col gap-6 flex-grow overflow-y-auto pr-2">
+            <a href="shefa_flow.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-location-arrow text-[#009ee3] w-4"></i> Shefa Flow</a>
+            <a href="catalogo_nexus.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-eye text-[#d4af37] w-4"></i> Catálogo Nexus</a>
+            <a href="sala_shefa.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-water text-[#d4af37] w-4"></i> Sala de HONOR Shefa</a>
+            <a href="sala_parnasa.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-coins text-[#009ee3] w-4"></i> Sala de honor parnasá</a>
+            <a href="sala_veraja.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-seedling text-[#10B981] w-4"></i> Sala de honor verajá</a>
+            <a href="salon_inmobiliario.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-building text-[#d4af37] w-4"></i> Salón inmobiliario</a>
+            <a href="shefa_nexus_chat.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-comments text-[#00d2ff] w-4"></i> Shefa Nexus. (Chat)</a>
+            <a href="#" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3" onclick="toggleCajaCuantica()"><i class="fas fa-cube text-purple-400 w-4"></i> Caja cuántica sagrada</a>
+            
+            <div class="mt-auto pt-6 border-t border-dorado/20">
+                <button onclick="conectarAbundanciaWeb3()" class="w-full bg-gradient-to-r from-[#0a1128] to-[#050b14] border border-dorado/50 text-dorado font-black py-4 rounded-[12px_2px_12px_2px] uppercase tracking-widest hover:border-dorado transition-all shadow-[0_0_15px_rgba(212,175,55,0.2)] flex items-center justify-center gap-2 text-[0.7rem]">
+                    <i class="fas fa-link"></i> Conectar BNB / Card
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -229,20 +275,60 @@
             document.getElementById('menu-lateral').classList.toggle('panel-abierto');
         }
         function toggleCajaCuantica() {
-            console.log("Caja cuántica activada.");
+            alert("Caja Cuántica Sagrada invocada. Preparando portal de transmutación...");
         }
         function intentarDesbloqueo() {
             console.log("Validando frecuencia de abundancia...");
         }
+        
+        // Lógica Asimétrica: 2 Toques (Primero activa Aura, Segundo cruza el Umbral)
         function manejarToque(elemento, destino) {
             if (elemento.classList.contains('aura-activa')) {
+                // Segundo Toque: Materialización (Navegación)
                 window.location.href = destino;
             } else {
+                // Primer Toque: Despertar Aura Sagrada
                 document.querySelectorAll('.tarjeta-honor').forEach(t => t.classList.remove('aura-activa'));
                 elemento.classList.add('aura-activa');
             }
         }
     </script>
+
+    <!-- ======================================================= -->
+    <!-- 👑 NEUROSHEFA WEB3 CORE: EL RÍO DE LUZ (BNB CHAIN)      -->
+    <!-- ======================================================= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    
+    <script>
+        // La Bóveda Matriz (Tu llave de Oro Premium para Shefa Flow)
+        const BOVEDA_SHEFA_FLOW = "0x50ABA36cf92190b2311d258bF7D9C83fEe13905A";
+
+        async function conectarAbundanciaWeb3() {
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    console.log("Iniciando sintonía cuántica con la Blockchain...");
+                    const cuentas = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const cuentaUsuario = cuentas[0];
+                    alert(`¡Sintonía exitosa!\nBilletera conectada: ${cuentaUsuario.substring(0, 6)}...${cuentaUsuario.substring(38)}\nEl Río de Luz fluye hacia Shefa Plus Global.`);
+                } catch (error) {
+                    console.error("Fricción en el Umbral:", error);
+                    alert("Conexión rechazada. La abundancia requiere tu confirmación.");
+                }
+            } else {
+                alert("Para acceder a la Red Global Iluminada, instala MetaMask o un explorador Web3.");
+            }
+        }
+
+        // Protección del flujo para que "Conectar Abundancia" no active el aura de la tarjeta
+        document.addEventListener('DOMContentLoaded', () => {
+            const botonesWeb3 = document.querySelectorAll('.boton-web3');
+            botonesWeb3.forEach(boton => {
+                boton.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Aísla el click del contenedor principal
+                    conectarAbundanciaWeb3();
+                });
+            });
+        });
+    </script>
 </body>
-                </html>
-                
+    </html>
