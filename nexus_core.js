@@ -56,7 +56,7 @@ onAuthStateChanged(auth, async (user) => {
         
         // Extraer la identidad de la Matriz Firestore (Registro Civil)
         try {
-            const docSnap = await getDoc(doc(db, "usuarios", miUID));
+            const docSnap = await getDoc(doc(db, "inversores", miUID));
             if (docSnap.exists()) {
                 const datos = docSnap.data();
                 miNombre = datos.nombre || "Inversor Elite";
@@ -145,7 +145,7 @@ function cargarMuroPublico() {
 
 // --- 2. EL CONCILIO: LISTA DE USUARIOS GLOBALES ---
 function cargarListaUsuarios() {
-    const q = query(collection(db, "usuarios"));
+    const q = query(collection(db, "inversores"));
     onSnapshot(q, (snapshot) => {
         const lista = document.getElementById('lista-usuarios-chat');
         lista.innerHTML = '';
