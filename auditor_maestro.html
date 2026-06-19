@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHEFA NEXUS | Auditor Maestro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        titanio: '#0a0f1d',
+                        dorado: '#d4af37',
+                        panelGris: '#111827',
+                        verdeVeraja: '#10b981'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-titanio text-white font-sans min-h-screen">
+
+    <header class="border-b border-dorado/30 bg-panelGris p-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-3">
+            <i class="fas fa-eye text-dorado text-2xl drop-shadow-[0_0_8px_rgba(212,175,55,0.8)]"></i>
+            <div>
+                <h1 class="text-dorado font-bold tracking-widest text-lg uppercase">Comando General</h1>
+                <p class="text-[0.6rem] text-gray-400 tracking-widest uppercase">Auditor de Flujo Cuántico</p>
+            </div>
+        </div>
+        <button onclick="window.location.href='shefa_nexus.html'" class="text-xs text-gray-400 hover:text-white transition tracking-widest uppercase border border-gray-600 px-3 py-1 rounded">Volver al Nexus</button>
+    </header>
+
+    <main class="p-6 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-panelGris p-6 rounded-lg border-l-4 border-dorado shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                <h3 class="text-xs text-gray-400 uppercase tracking-widest mb-1">Volumen Total Inyectado</h3>
+                <p id="metrica-volumen" class="text-3xl font-bold text-white">$0.00</p>
+            </div>
+            <div class="bg-panelGris p-6 rounded-lg border-l-4 border-verdeVeraja shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                <h3 class="text-xs text-gray-400 uppercase tracking-widest mb-1">Aporte Parnasá (3.68%)</h3>
+                <p id="metrica-parnasa" class="text-3xl font-bold text-verdeVeraja">$0.00</p>
+            </div>
+            <div class="bg-panelGris p-6 rounded-lg border-l-4 border-blue-500 shadow-[0_4px_15px_rgba(0,0,0,0.5)]">
+                <h3 class="text-xs text-gray-400 uppercase tracking-widest mb-1">Transacciones Exitosas</h3>
+                <p id="metrica-txs" class="text-3xl font-bold text-blue-400">0</p>
+            </div>
+        </div>
+
+        <div class="bg-panelGris rounded-lg border border-gray-800 overflow-hidden shadow-2xl">
+            <div class="p-4 border-b border-gray-800 bg-black/20 flex justify-between items-center">
+                <h2 class="text-sm font-bold text-dorado uppercase tracking-widest">Río de Transacciones Globales</h2>
+                <span class="text-xs text-verdeVeraja border border-verdeVeraja px-2 py-1 rounded-full animate-pulse">● En Vivo</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-black/40 text-gray-400 text-xs uppercase tracking-wider">
+                        <tr>
+                            <th class="p-4">Fecha / Hora</th>
+                            <th class="p-4">UID Inversor</th>
+                            <th class="p-4">Método</th>
+                            <th class="p-4">Monto Base</th>
+                            <th class="p-4 text-dorado">Tarifa (Parnasá)</th>
+                            <th class="p-4">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matriz-auditoria" class="divide-y divide-gray-800">
+                        <tr>
+                            <td colspan="6" class="p-8 text-center text-gray-500 tracking-widest text-xs uppercase">Conectando a la Matriz de Transacciones...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="auditor_maestro.js"></script>
+</body>
+              </html>
+              
