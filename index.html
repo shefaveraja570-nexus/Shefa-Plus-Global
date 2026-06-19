@@ -20,41 +20,52 @@
         /* === FONDO TITANIO BLINDADO === */
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #0A1122; /* Azul noche profundo / Titanio */
+            background-color: #050814; /* Titanio profundo puro de NeuroShefa */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             color: #ffffff;
+            background-image: radial-gradient(circle at 50% 50%, #0a1128 0%, #000000 100%);
         }
 
-        /* === CONTENEDOR MAESTRO (LA TARJETA) === */
+        /* === CONTENEDOR MAESTRO (LA TARJETA ASIMÉTRICA) === */
         .tarjeta-nucleo {
-            background: linear-gradient(145deg, #18223B, #0E1629); /* Efecto blindado tridimensional */
-            border-radius: 24px;
+            background: linear-gradient(145deg, #0a1128, #050814); /* Efecto blindado tridimensional */
+            border-radius: 24px 4px 24px 4px; /* Asimetría disruptiva NeuroShefa */
             padding: 50px 40px;
             text-align: center;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05); /* Sombra de profundidad */
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                        inset 0 1px 0 rgba(212, 175, 55, 0.1); 
+            border: 1px solid rgba(212, 175, 55, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 20px;
+            position: relative;
+            animation: respiracionNucleo 4s infinite ease-in-out;
+        }
+
+        @keyframes respiracionNucleo {
+            0% { box-shadow: 0 0 15px rgba(0, 158, 227, 0.1), inset 0 0 5px rgba(212, 175, 55, 0.05); }
+            50% { box-shadow: 0 0 30px rgba(0, 158, 227, 0.3), inset 0 0 10px rgba(212, 175, 55, 0.2); }
+            100% { box-shadow: 0 0 15px rgba(0, 158, 227, 0.1), inset 0 0 5px rgba(212, 175, 55, 0.05); }
         }
 
         /* === TIPOGRAFÍA DE MARCA === */
         .marca-titulo {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .texto-blanco {
@@ -63,36 +74,43 @@
 
         .texto-dorado {
             color: #D4AF37; /* Dorado Premium */
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
 
         .subtitulo-frecuencia {
             font-size: 0.75rem;
-            font-weight: 400;
-            letter-spacing: 4px;
-            color: #8A95A5; /* Gris metalizado para contraste sutil */
+            font-weight: 700;
+            letter-spacing: 5px;
+            color: #8A95A5; /* Gris metalizado */
             text-transform: uppercase;
-            line-height: 1.5;
+            line-height: 1.8;
             margin-bottom: 30px;
+        }
+
+        .hz-dorado {
+            color: #10B981; /* Verde abundancia inyectado sutilmente */
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
         }
 
         /* === BOTÓN DORADO PREMIUM === */
         .btn-ingresar {
-            background: linear-gradient(145deg, #E5BA45, #C49A28);
-            color: #0A1122; /* Contraste oscuro para legibilidad */
+            background: linear-gradient(145deg, #d4af37, #a67c00);
+            color: #000000; /* Contraste oscuro máximo */
             font-size: 0.95rem;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
             text-decoration: none;
             padding: 18px 40px;
-            border-radius: 50px; /* Bordes completamente redondeados */
-            border: none;
+            border-radius: 4px; /* Borde asimétrico más sólido */
+            border: 1px solid #F0C755;
             cursor: pointer;
             width: 100%;
             max-width: 280px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3), 
-                        inset 0 2px 0 rgba(255, 255, 255, 0.2); /* Resplandor dorado */
-            transition: all 0.3s ease;
+                        inset 0 2px 0 rgba(255, 255, 255, 0.3);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -100,10 +118,10 @@
         }
 
         .btn-ingresar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5), 
-                        inset 0 2px 0 rgba(255, 255, 255, 0.3);
-            background: linear-gradient(145deg, #F0C755, #D4AF37);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.6), 
+                        inset 0 2px 0 rgba(255, 255, 255, 0.4);
+            background: linear-gradient(145deg, #F0C755, #d4af37);
         }
 
         .btn-ingresar:active {
@@ -119,13 +137,15 @@
             <h1 class="marca-titulo">
                 <span class="texto-blanco">SHEFA</span><span class="texto-dorado">PLUS</span>
             </h1>
-            <p class="subtitulo-frecuencia">FRECUENCIA GLOBAL<br>800 HZ</p>
+            <p class="subtitulo-frecuencia">FRECUENCIA GLOBAL<br><span class="hz-dorado">800 HZ</span></p>
         </div>
 
-        <a href="umbral.html" class="btn-ingresar">
+        <!-- AQUÍ ESTÁ EL ENLACE AL VIGILANTE -->
+        <a href="registro.html" class="btn-ingresar">
             INGRESAR AL<br>NÚCLEO
         </a>
     </main>
 
 </body>
 </html>
+    
