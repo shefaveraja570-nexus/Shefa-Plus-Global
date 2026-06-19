@@ -3,227 +3,397 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umbral Premium | Shefá Plus Global</title>
+    <title>Acceso Clasificado | Shefá Plus Global</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* NÚCLEO DE NEURO-DISEÑO & PROPORCIÓN FIBONACCI */
+        /* === NÚCLEO DE NEURO-DISEÑO & PROPORCIÓN FIBONACCI === */
         :root {
             --oro-plus: #d4af37;
-            --titanio-fondo: #1c1c1e;
-            --titanio-superficie: #2c2c2e;
-            --fibonacci-base: 1.618rem;
+            --verde-abundancia: #10B981;
+            --titanio-profundo: #050814;
+            --negro-absoluto: #000000;
         }
 
-        body { 
-            background: radial-gradient(circle at top center, var(--titanio-superficie) 0%, #050505 100%); 
-            color: #ffffff; 
-            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
+        * {
+            box-sizing: border-box;
             margin: 0;
-            overflow: hidden;
+            padding: 0;
         }
 
-        .boveda-cuantica { 
-            background: linear-gradient(144deg, rgba(28,28,30,0.85) 0%, rgba(44,44,46,0.95) 100%);
-            padding: calc(var(--fibonacci-base) * 2); 
-            border-radius: 5px; 
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            box-shadow: 0 0 34px rgba(0, 0, 0, 0.8), inset 0 0 13px rgba(255, 255, 255, 0.03);
-            width: 89%; 
-            max-width: 420px; 
-            backdrop-filter: blur(12px);
+        body, html {
+            width: 100%;
+            min-height: 100vh;
+            background-color: var(--negro-absoluto);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
+        /* === EL MURO BLINDADO (VIGILANTE) === */
+        .boveda-registro {
+            background-color: var(--titanio-profundo);
+            /* Borde estricto de 1.5px en Oro Premium */
+            border: 1.5px solid var(--oro-plus);
+            /* Aura Sagrada de 1px sutil pero determinante */
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2), inset 0 0 10px rgba(212, 175, 55, 0.05);
+            border-radius: 6px;
+            padding: 45px 35px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            margin: 40px 0;
+            animation: auraSagrada 4s infinite ease-in-out;
+        }
+
+        /* La corona de abundancia (Verde y Dorado) en la parte superior */
+        .boveda-registro::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--oro-plus) 0%, var(--verde-abundancia) 100%);
+            border-radius: 4px 4px 0 0;
+        }
+
+        @keyframes auraSagrada {
+            0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2), inset 0 0 5px rgba(212, 175, 55, 0.05); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 10px rgba(212, 175, 55, 0.15); }
+            100% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.2), inset 0 0 5px rgba(212, 175, 55, 0.05); }
+        }
+
+        /* === IDENTIDAD VISUAL === */
         .identidad-corporativa {
             text-align: center;
-            margin-bottom: calc(var(--fibonacci-base) * 0.5);
+            margin-bottom: 5px;
             letter-spacing: 2px;
         }
 
         .shefa {
-            color: #e2e4e9;
-            text-shadow: 0px 2px 5px rgba(0,0,0,0.9);
-            font-size: 2.2rem;
-            font-weight: 300;
+            color: #ffffff;
+            font-size: 2.4rem;
+            font-weight: 800;
         }
 
         .plus {
             color: var(--oro-plus);
             font-weight: 800;
-            text-shadow: 0px 0px 10px rgba(212, 175, 55, 0.5);
-            font-size: 2.2rem;
+            font-size: 2.4rem;
         }
 
-        .mantra {
+        .subtitulo-vigilante {
             text-align: center;
-            font-size: 0.75rem;
-            color: #777;
+            font-size: 0.65rem;
+            color: #8A95A5;
             letter-spacing: 4px;
-            margin-bottom: calc(var(--fibonacci-base) * 1.5);
+            margin-bottom: 35px;
             text-transform: uppercase;
         }
 
-        .mantra span { color: var(--oro-plus); font-weight: bold; }
+        /* === FORMULARIO BLINDADO === */
+        .grupo-input {
+            margin-bottom: 22px;
+            text-align: left;
+        }
 
-        input { 
-            width: 100%; 
-            padding: 1rem; 
-            margin-bottom: calc(var(--fibonacci-base) * 0.618); 
-            background: rgba(0, 0, 0, 0.6); 
-            border: 1px solid #444; 
-            color: #d4af37; 
-            box-sizing: border-box; 
-            border-radius: 2px; 
+        .label-sagrado {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--oro-plus);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"] {
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: #ffffff;
+            font-family: inherit;
             font-size: 0.95rem;
+            border-radius: 4px;
             transition: all 0.3s ease;
             letter-spacing: 1px;
         }
 
-        input::placeholder { color: #666; letter-spacing: 0px; }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1) sepia(1) saturate(5) hue-rotate(35deg);
+            cursor: pointer;
+        }
 
         input:focus {
             border-color: var(--oro-plus);
             outline: none;
-            box-shadow: 0 0 13px rgba(212, 175, 55, 0.2);
-            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
-        .input-validador {
-            border-bottom: 2px solid var(--oro-plus);
-            text-align: center;
-            font-weight: bold;
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
         }
 
-        button { 
-            width: 100%; 
-            padding: calc(var(--fibonacci-base) * 0.8); 
-            margin-top: calc(var(--fibonacci-base) * 0.5);
-            background: linear-gradient(90deg, #a67c00 0%, #d4af37 50%, #a67c00 100%);
-            border: none; 
-            border-radius: 2px; 
-            font-weight: 800; 
-            letter-spacing: 2px;
-            cursor: pointer; 
-            color: #111; 
-            font-size: 1rem;
+        /* Selector de Archivo (Foto) con Neuro-Diseño */
+        .foto-upload-container {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            padding: 20px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .foto-upload-container:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--oro-plus);
+        }
+
+        .foto-upload-container input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .foto-upload-texto {
+            color: var(--oro-plus);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #preview-img {
+            display: none;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--oro-plus);
+            margin-top: 10px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        /* === BOTÓN DE INGRESO === */
+        button {
+            width: 100%;
+            padding: 18px;
+            margin-top: 15px;
+            background: linear-gradient(90deg, #b8860b 0%, #d4af37 50%, #b8860b 100%);
+            border: none;
+            border-radius: 4px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            cursor: pointer;
+            color: var(--negro-absoluto);
+            font-size: 0.95rem;
             text-transform: uppercase;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
         }
 
         button:active {
             transform: scale(0.98);
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
         }
 
-        /* Estilo visual para el proceso de carga */
-        .desbloqueando {
-            opacity: 0.8;
-            cursor: wait;
+        /* Loader para subida de imagen y enrutamiento */
+        #loader {
+            display: none;
+            color: var(--verde-abundancia);
+            font-size: 0.75rem;
+            margin-top: 20px;
+            text-align: center;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 800;
+            animation: latido 1.5s infinite;
+        }
+
+        @keyframes latido {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<div class="boveda-cuantica">
+<div class="boveda-registro">
     <div class="identidad-corporativa">
         <span class="shefa">SHEFA</span> <span class="plus">PLUS</span>
     </div>
-    <div class="mantra">
-        PARNASÁ <span>•</span> SHEFA <span>•</span> VERAJÁ
+    <div class="subtitulo-vigilante">
+        Registro Civil Global • Núcleo Blindado
     </div>
     
-    <input type="text" id="nombre" placeholder="Nombre del Inversionista">
-    <input type="email" id="email" placeholder="Correo Corporativo">
-    <input type="password" id="pass" placeholder="Firma de Seguridad (Contraseña)">
-    <input type="text" id="codigo" class="input-validador" placeholder="CÓDIGO DE CRIPTOFRACCIÓN">
-    
-    <!-- Retiramos el onclick del HTML para blindarlo desde el módulo Javascript -->
-    <button id="boton-ingresar">Ingresar al Catálogo</button>
+    <form id="formulario-registro">
+        <div class="grupo-input">
+            <label class="label-sagrado">Identidad Completa (Nombre)</label>
+            <input type="text" id="nombre" placeholder="Ej: VALDEZ_01" required>
+        </div>
 
+        <div class="grupo-input">
+            <label class="label-sagrado">Punto de Origen (Fecha Nacimiento)</label>
+            <input type="date" id="fecha_nacimiento" required>
+        </div>
+
+        <div class="grupo-input">
+            <label class="label-sagrado">Coordenada Digital (Correo)</label>
+            <input type="email" id="email" placeholder="inversor@shefaplus.com" required>
+        </div>
+
+        <div class="grupo-input">
+            <label class="label-sagrado">Frecuencia de Acceso (PIN/Firma)</label>
+            <input type="password" id="pass" placeholder="••••••••" required>
+        </div>
+
+        <div class="grupo-input">
+            <label class="label-sagrado">Matriz Visual (Foto de Perfil)</label>
+            <div class="foto-upload-container" id="upload-box">
+                <div class="foto-upload-texto" id="upload-texto"><i class="fas fa-camera"></i> Subir Imagen</div>
+                <img id="preview-img" alt="Vista previa de Matriz">
+                <input type="file" id="foto_perfil" accept="image/*" required onchange="mostrarPreview(event)">
+            </div>
+        </div>
+
+        <div id="loader">Cifrando Matriz y Abriendo Bóveda...</div>
+        
+        <button type="submit" id="btn-submit">ABRIR BÓVEDA</button>
+    </form>
 </div>
 
 <!-- =================================================================== -->
-<!-- CEREBRO MATRIZ DE AUTENTICACIÓN Y ENRUTAMIENTO -->
+<!-- CEREBRO MATRIZ DE AUTENTICACIÓN, STORAGE Y ENRUTAMIENTO             -->
 <!-- =================================================================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
   import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-  // Configuración Maestra Unificada
   const firebaseConfig = {
     apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
     authDomain: "shefa-plus-global.firebaseapp.com",
-    databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com", // Integrado para sincronía perfecta
+    databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
     projectId: "shefa-plus-global",
-    storageBucket: "shefa-plus-global.appspot.com", // Homologado con el Dashboard
+    storageBucket: "shefa-plus-global.appspot.com", 
     messagingSenderId: "746532074927",
-    appId: "1:746532074927:web:70811deddc66ad88d5eb5" // Homologado con el Dashboard
+    appId: "1:746532074927:web:70811deddc66ad88d5eb5"
   };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+  const storage = getStorage(app);
 
-  // Escucha Directa: Esta técnica garantiza que el botón funcione SIEMPRE.
-  document.getElementById('boton-ingresar').addEventListener('click', async () => {
+  // Previsualización de la Matriz Visual (Foto)
+  window.mostrarPreview = function(event) {
+      const archivo = event.target.files[0];
+      if(archivo) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+              const img = document.getElementById('preview-img');
+              img.src = e.target.result;
+              img.style.display = 'block';
+              document.getElementById('upload-texto').style.display = 'none';
+          }
+          reader.readAsDataURL(archivo);
+      }
+  };
+
+  document.getElementById('formulario-registro').addEventListener('submit', async (e) => {
+    e.preventDefault(); 
     
-    const botonIngresar = document.getElementById('boton-ingresar');
-    botonIngresar.innerText = "DESBLOQUEANDO...";
-    botonIngresar.classList.add('desbloqueando');
+    const btnSubmit = document.getElementById('btn-submit');
+    const loader = document.getElementById('loader');
 
     const nombre = document.getElementById('nombre').value;
+    const fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
     const email = document.getElementById('email').value;
     const pass = document.getElementById('pass').value;
-    const codigo = document.getElementById('codigo').value;
-
-    if (codigo !== "SHEFA2026") {
-        alert("Acceso denegado: El umbral requiere un código de criptofracción válido.");
-        botonIngresar.innerText = "Ingresar al Catálogo"; 
-        botonIngresar.classList.remove('desbloqueando');
+    const archivoFoto = document.getElementById('foto_perfil').files[0];
+    
+    if (!nombre || !fecha_nacimiento || !email || !pass || !archivoFoto) {
+        alert("El Núcleo exige todos los datos para sellar la identidad.");
         return;
     }
 
+    btnSubmit.style.display = 'none';
+    loader.style.display = 'block';
+
     try {
+        // 1. Crear usuario en Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-        
-        // CORRECCIÓN CRÍTICA: Se guarda en "usuarios" para que el Dashboard lo reconozca
-        await setDoc(doc(db, "usuarios", userCredential.user.uid), {
+        const uid = userCredential.user.uid;
+
+        // 2. Subir Foto al Storage
+        const fotoRef = ref(storage, `perfiles_inversores/${uid}_${archivoFoto.name}`);
+        await uploadBytes(fotoRef, archivoFoto);
+        const fotoUrl = await getDownloadURL(fotoRef);
+
+        // 3. Guardar en Firestore (Colección 'usuarios' para unificar con el dashboard)
+        await setDoc(doc(db, "usuarios", uid), {
             nombre: nombre,
+            fecha_nacimiento: fecha_nacimiento,
             email: email,
+            foto_perfil: fotoUrl,
             rol: "inversionista_premium",
             frecuencia_ingreso: "Parnasá",
-            saldoVeraja: 0, // Formato numérico limpio para la matemática del Dashboard
-            fecha: new Date().toISOString()
+            saldoVeraja: 0,
+            fecha_registro: new Date().toISOString()
         });
-        
-        botonIngresar.innerText = "ACCESO CONCEDIDO";
-        alert("Autenticación exitosa. Bienvenido a la frecuencia de la abundancia, Inversionista.");
-        window.location.href = "dashboard.html";
 
+        loader.innerText = "ACCESO CONCEDIDO";
+        alert("Identidad forjada en el Registro Civil Global. Bienvenido a Shefa Plus.");
+        window.location.href = 'umbral.html'; 
+        
     } catch (error) {
         if (error.code === 'auth/email-already-in-use') {
+            // Reconocimiento asimétrico del Vigilante: Si ya existe, lo deja pasar
             try {
+                loader.innerText = "VERIFICANDO FIRMA...";
                 await signInWithEmailAndPassword(auth, email, pass);
-                botonIngresar.innerText = "ACCESO CONCEDIDO";
-                alert("Acceso reactivado: Bienvenido de nuevo, Inversionista.");
-                window.location.href = 'dashboard.html';
+                loader.innerText = "ACCESO CONCEDIDO";
+                window.location.href = 'umbral.html';
             } catch (loginError) {
-                botonIngresar.innerText = "Ingresar al Catálogo";
-                botonIngresar.classList.remove('desbloqueando');
-                alert("Error al intentar ingresar: Contraseña incorrecta.");
+                alert("Fricción en la firma de seguridad (Contraseña incorrecta).");
+                btnSubmit.style.display = 'block';
+                loader.style.display = 'none';
             }
         } else {
-            botonIngresar.innerText = "Ingresar al Catálogo";
-            botonIngresar.classList.remove('desbloqueando');
-            alert("Interferencia en la conexión: " + error.message);
+            alert("Interferencia en la conexión cuántica: " + error.message);
+            btnSubmit.style.display = 'block';
+            loader.style.display = 'none';
         }
     }
   });
 </script>
 </body>
     </html>
-    
