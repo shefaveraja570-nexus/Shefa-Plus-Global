@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefa Nexus | Red Global de Valor</title>
+    <title>Shefa Nexus | Red Social de Valor</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -14,7 +14,7 @@
                 extend: {
                     colors: {
                         dorado: '#D4AF37',
-                        doradoOscuro: '#AA841B',
+                        verdeVeraja: '#10B981',
                         titanio: '#0a1128',
                         abismo: '#050814',
                         panelGris: '#12182b'
@@ -27,194 +27,237 @@
     <style>
         body { 
             background-color: #050814; 
-            font-family: 'Inter', system-ui, sans-serif; 
+            font-family: 'Segoe UI', Roboto, Helvetica, sans-serif; 
             -webkit-font-smoothing: antialiased; 
-            overflow: hidden; 
+            overflow: hidden; /* Evita el scroll global, lo manejan los contenedores */
         }
+        
         .borde-dorado-sutil { border: 1px solid rgba(212, 175, 55, 0.2); }
         .glow-dorado { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-        .glow-dorado-intenso { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+        
+        /* Efecto Berajá UI */
+        .tarjeta-nexus {
+            background: linear-gradient(145deg, #0a1128, #050814);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
         .texto-gradiente {
-            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+            background: linear-gradient(90deg, #d4af37, #10B981, #d4af37);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Scrollbars Premium */
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: #050814; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
-        
-        @keyframes latido-shefa {
-            0% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-            50% { transform: scale(1.02); box-shadow: 0 0 25px rgba(212, 175, 55, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+
+        /* Navegación Inferior */
+        .nav-item {
+            color: #4a5568;
+            transition: all 0.3s ease;
+            position: relative;
         }
-        .latido-activo { animation: latido-shefa 2s infinite; }
+        .nav-item.activo {
+            color: #D4AF37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        .nav-item.activo::after {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: #D4AF37;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 5px rgba(212, 175, 55, 0.5);
+        }
     </style>
 </head>
-<body class="text-gray-300 h-screen flex flex-col selection:bg-dorado selection:text-black relative">
+<body class="text-gray-300 h-screen flex flex-col selection:bg-dorado selection:text-black">
 
     <audio id="audio-ping" src="https://assets.mixkit.co/active_storage/sfx/2190/2190-preview.mp3" preload="auto"></audio>
 
-    <div id="pantalla-login" class="fixed inset-0 bg-abismo z-[100] flex flex-col items-center justify-center p-4">
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-        <div class="bg-titanio border border-dorado/30 p-8 rounded-2xl shadow-[0_0_50px_rgba(212,175,55,0.2)] w-full max-w-md relative z-10 text-center">
-            <div class="w-20 h-20 mx-auto rounded-full border-2 border-dorado flex items-center justify-center bg-black glow-dorado mb-6">
-                <i class="fas fa-fingerprint text-3xl text-dorado"></i>
+    <header class="bg-titanio border-b border-dorado/20 p-3 flex justify-between items-center z-40 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center gap-3">
+            <a href="umbral.html" class="text-dorado hover:text-white transition-colors">
+                <i class="fas fa-arrow-left text-lg"></i>
+            </a>
+            <div class="flex items-center gap-2">
+                <img src="logo-shefa.png" alt="Ojo" class="w-8 h-8 rounded-full border border-dorado glow-dorado object-cover" onerror="this.src='https://via.placeholder.com/150/000000/d4af37?text=O'">
+                <div>
+                    <h1 class="font-black tracking-widest uppercase text-xs sm:text-sm texto-gradiente">Shefa Nexus</h1>
+                    <p class="text-[0.55rem] text-gray-400 tracking-[0.2em] uppercase" id="estado-red">Conectando a la Matriz...</p>
+                </div>
             </div>
-            <h2 class="text-2xl font-black text-white uppercase tracking-widest texto-gradiente mb-2">Shefa Nexus</h2>
-            <p class="text-sm text-gray-400 mb-8 uppercase tracking-widest">Santuario Encriptado</p>
-            
-            <input type="email" id="login-email" placeholder="Correo de la Bóveda" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 mb-4 focus:border-dorado focus:outline-none transition-colors text-center">
-            <input type="password" id="login-password" placeholder="Clave de Titanio" class="w-full bg-black border border-gray-700 text-white rounded-lg p-3 mb-6 focus:border-dorado focus:outline-none transition-colors text-center">
-            
-            <button id="btn-login" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-black uppercase tracking-widest py-3 rounded-lg hover:opacity-90 transition shadow-lg glow-dorado flex justify-center items-center gap-2">
-                <i class="fas fa-lock-open"></i> Desbloquear Bóveda
-            </button>
-            <p id="login-error" class="text-red-500 text-xs mt-4 hidden">Frecuencia denegada. Verifica tus credenciales.</p>
         </div>
-    </div>
+        <button onclick="cerrarBoveda()" class="text-gray-500 hover:text-dorado transition text-[0.6rem] uppercase tracking-widest font-bold border border-gray-700 px-2 py-1 rounded">
+            <i class="fas fa-sign-out-alt"></i> Salir
+        </button>
+    </header>
 
-    <div id="interfaz-principal" class="hidden flex-col h-full w-full">
+    <main class="flex-grow overflow-hidden relative">
         
-        <header class="bg-titanio border-b border-dorado/20 p-3 md:p-4 flex flex-col md:flex-row justify-between items-center gap-3 z-40 shrink-0 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-            <div class="w-full flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <a href="umbral.html" class="text-dorado hover:text-white transition-colors">
-                        <i class="fas fa-arrow-left text-lg"></i>
-                    </a>
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full border border-dorado flex items-center justify-center bg-black glow-dorado">
-                            <i class="fas fa-network-wired text-dorado text-xs"></i>
-                        </div>
-                        <div>
-                            <h1 class="text-white font-black tracking-widest uppercase text-xs md:text-sm texto-gradiente">Shefa Nexus</h1>
-                            <p class="text-[0.55rem] text-gray-400 tracking-[0.2em] uppercase" id="estado-red">Conectando... 🟡</p>
-                        </div>
-                    </div>
+        <section id="vista-muro" class="absolute inset-0 overflow-y-auto bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-abismo/80 p-4 pb-24">
+            
+            <div class="tarjeta-nexus p-4 mb-6">
+                <div class="flex gap-3">
+                    <img id="muro-mi-foto" src="https://via.placeholder.com/150/12182b/d4af37?text=U" class="w-10 h-10 rounded-full border border-dorado object-cover">
+                    <textarea id="input-publicacion" rows="2" class="w-full bg-transparent text-white text-sm outline-none resize-none placeholder-gray-500" placeholder="Comparte abundancia, Parnasá o noticias corporativas..."></textarea>
                 </div>
-                <button onclick="cerrarBoveda()" class="text-gray-500 hover:text-red-500 transition text-[0.6rem] uppercase tracking-widest font-bold">
-                    <i class="fas fa-sign-out-alt"></i> Salir
-                </button>
+                <div class="flex justify-between items-center mt-3 border-t border-gray-800 pt-3">
+                    <div class="flex gap-3">
+                        <button class="text-gray-400 hover:text-dorado transition"><i class="fas fa-image"></i></button>
+                        <button class="text-gray-400 hover:text-verdeVeraja transition"><i class="fas fa-chart-line"></i></button>
+                    </div>
+                    <button onclick="publicarEnMuro()" class="bg-gradient-to-r from-dorado to-doradoOscuro text-black text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded hover:opacity-90 transition glow-dorado">
+                        Publicar
+                    </button>
+                </div>
             </div>
-        </header>
 
-        <main class="flex-grow flex overflow-hidden">
-            <section class="w-full flex flex-col bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-titanio/10 relative">
-                
-                <div class="bg-panelGris border-b border-gray-800 p-3 flex justify-between items-center shrink-0">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-dorado to-black flex items-center justify-center shadow-lg border border-dorado">
-                            <i class="fas fa-star text-dorado"></i>
-                        </div>
-                        <div>
-                            <h2 class="text-white font-bold tracking-wide" id="nombre-contacto-chat">Sincronizando...</h2>
-                            <span class="text-[0.65rem] text-dorado uppercase tracking-widest">Enlace Encriptado bajo Verajá</span>
-                        </div>
+            <div id="feed-muro" class="flex flex-col gap-4">
+                <div class="text-center text-dorado text-xs tracking-widest mt-10"><i class="fas fa-circle-notch fa-spin"></i> Sincronizando Matriz...</div>
+            </div>
+        </section>
+
+        <section id="vista-chats" class="absolute inset-0 overflow-y-auto bg-abismo p-2 pb-24 hidden">
+            <div class="p-2">
+                <h2 class="text-dorado text-xs font-bold uppercase tracking-widest mb-4 border-b border-gray-800 pb-2">Conexiones Privadas</h2>
+                <div id="lista-usuarios-chat" class="flex flex-col gap-2">
                     </div>
-                    <div class="flex gap-2">
-                        <button class="bg-black border border-dorado text-dorado px-3 py-1.5 rounded hover:bg-dorado hover:text-black transition flex items-center gap-2 text-xs font-bold uppercase tracking-widest">
-                            <i class="fas fa-paper-plane"></i> <span class="hidden sm:inline">Remesa</span>
-                        </button>
+            </div>
+        </section>
+
+        <section id="vista-chat-activo" class="absolute inset-0 bg-titanio z-50 flex flex-col hidden transform transition-transform translate-x-full">
+            <div class="bg-panelGris border-b border-gray-800 p-3 flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-3">
+                    <button onclick="volverAListaChats()" class="text-dorado hover:text-white p-2"><i class="fas fa-chevron-left"></i></button>
+                    <img id="chat-foto-destino" src="https://via.placeholder.com/150" class="w-9 h-9 rounded-full border border-dorado object-cover">
+                    <div>
+                        <h2 class="text-white font-bold text-sm tracking-wide" id="chat-nombre-destino">Usuario</h2>
+                        <span class="text-[0.55rem] text-verdeVeraja uppercase tracking-widest"><i class="fas fa-lock"></i> Encriptado</span>
                     </div>
                 </div>
-
-                <div class="flex-grow overflow-y-auto p-4 flex flex-col gap-4" id="matriz-mensajes">
-                    </div>
-
-                <div class="bg-abismo border-t border-gray-800 p-3 shrink-0">
-                    <div class="flex items-end gap-2 bg-panelGris border border-gray-700 rounded-xl p-1 focus-within:border-dorado transition-colors">
-                        <button class="p-3 text-gray-400 hover:text-dorado transition shrink-0"><i class="fas fa-plus-circle text-lg"></i></button>
-                        <textarea id="input-mensaje" rows="1" class="w-full bg-transparent text-white text-sm outline-none resize-none py-3 placeholder-gray-500 font-sans" placeholder="Transmite tu frecuencia..."></textarea>
-                        <div class="flex gap-1 shrink-0 pb-1 pr-1">
-                            <button class="p-2 bg-dorado text-black rounded-lg hover:bg-white transition shadow-lg glow-dorado w-10 h-10 flex items-center justify-center" onclick="transmitirMensajeUI()">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="flex gap-2">
+                    <button onclick="abrirRemesaWeb3()" class="bg-black border border-dorado text-dorado w-8 h-8 rounded hover:bg-dorado hover:text-black transition flex items-center justify-center glow-dorado">
+                        <i class="fab fa-bnb"></i>
+                    </button>
+                    <button onclick="abrirRemesaMP()" class="bg-[#009ee3] border border-[#009ee3] text-white w-8 h-8 rounded hover:bg-white hover:text-[#009ee3] transition flex items-center justify-center shadow-lg">
+                        <i class="fas fa-handshake"></i>
+                    </button>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+
+            <div id="matriz-mensajes-privados" class="flex-grow overflow-y-auto p-4 flex flex-col gap-3 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-abismo/50">
+                </div>
+
+            <div class="bg-abismo border-t border-gray-800 p-3 shrink-0">
+                <div class="flex items-end gap-2 bg-panelGris border border-gray-700 rounded-xl p-1 focus-within:border-dorado transition-colors">
+                    <textarea id="input-mensaje-privado" rows="1" class="w-full bg-transparent text-white text-sm outline-none resize-none py-3 px-3 placeholder-gray-500" placeholder="Transmite frecuencia..."></textarea>
+                    <button onclick="enviarMensajePrivado()" class="p-2 bg-dorado text-black rounded-lg hover:bg-white transition glow-dorado w-10 h-10 flex items-center justify-center mb-1 mr-1">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="bg-panelGris border-t border-dorado/30 h-16 flex justify-around items-center shrink-0 shadow-[0_-5px_20px_rgba(0,0,0,0.5)] z-40 fixed bottom-0 w-full">
+        <button onclick="cambiarVista('muro')" id="nav-muro" class="nav-item activo flex flex-col items-center w-1/3">
+            <i class="fas fa-globe text-xl mb-1"></i>
+            <span class="text-[0.6rem] uppercase tracking-widest font-bold">Registro Civil</span>
+        </button>
+        <button onclick="cambiarVista('chats')" id="nav-chats" class="nav-item flex flex-col items-center w-1/3">
+            <div class="relative">
+                <i class="fas fa-comment-alt text-xl mb-1"></i>
+                <span class="absolute -top-1 -right-2 bg-red-500 text-white text-[0.5rem] px-1 rounded-full border border-panelGris hidden" id="badge-mensajes">0</span>
+            </div>
+            <span class="text-[0.6rem] uppercase tracking-widest font-bold">Nexus Chat</span>
+        </button>
+        <button onclick="cambiarVista('perfil')" id="nav-perfil" class="nav-item flex flex-col items-center w-1/3">
+            <i class="fas fa-fingerprint text-xl mb-1"></i>
+            <span class="text-[0.6rem] uppercase tracking-widest font-bold">Matriz (Perfil)</span>
+        </button>
+    </nav>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, onSnapshot, query, orderBy, doc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // ⚡ TUS LLAVES MAESTRAS ⚡
         const firebaseConfig = {
             apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
             authDomain: "shefa-plus-global.firebaseapp.com",
             databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
             projectId: "shefa-plus-global",
-            storageBucket: "shefa-plus-global.firebasestorage.app",
+            storageBucket: "shefa-plus-global.appspot.com",
             messagingSenderId: "746532074927",
-            appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
-            measurementId: "G-ELXBWZJZD8"
+            appId: "1:746532074927:web:70811deddc66ad88d5eb5"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
 
-        // --- MAPA DE IDENTIDADES ---
-        const identidades = {
-            "magneticoelectro310@gmail.com": "Magnético",
-            "medinalj96@gmail.com": "Amor Mío ✨"
+        // Variables de estado del usuario logueado
+        let miUID = "";
+        let miNombre = "";
+        let miFoto = "";
+
+        // Variables del chat privado activo
+        let chatDestinoUID = "";
+        let unsubsChatActivo = null;
+
+        // --- SISTEMA DE NAVEGACIÓN ---
+        window.cambiarVista = function(vista) {
+            // Actualizar botones UI
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('activo'));
+            document.getElementById(`nav-${vista}`).classList.add('activo');
+            
+            // Ocultar todas las secciones
+            document.getElementById('vista-muro').classList.add('hidden');
+            document.getElementById('vista-chats').classList.add('hidden');
+            document.getElementById('vista-chat-activo').classList.add('translate-x-full'); // Ocultar chat si estaba abierto
+            
+            // Mostrar la correcta
+            if(vista === 'muro') document.getElementById('vista-muro').classList.remove('hidden');
+            if(vista === 'chats') document.getElementById('vista-chats').classList.remove('hidden');
+            if(vista === 'perfil') alert("Abriendo configurador de Matriz (En desarrollo)");
         };
 
-        let nodoActual = "";
-        let nodoDestino = "";
-        let mensajesVistos = new Set(); // Para no sonar el ping con mensajes viejos
-
-        // --- SOLICITAR PERMISO DE NOTIFICACIONES ---
-        if ("Notification" in window) {
-            Notification.requestPermission();
-        }
-
-        // --- SISTEMA DE AUTENTICACIÓN ---
-        const pantallaLogin = document.getElementById('pantalla-login');
-        const interfazPrincipal = document.getElementById('interfaz-principal');
-
-        onAuthStateChanged(auth, (user) => {
-            if (user && identidades[user.email]) {
-                // Autenticado correctamente
-                nodoActual = identidades[user.email];
-                nodoDestino = (nodoActual === "Magnético") ? "Amor Mío ✨" : "Magnético";
+        // --- AUTENTICACIÓN DINÁMICA ---
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                miUID = user.uid;
                 
-                document.getElementById('estado-red').innerText = `Operando como: ${nodoActual} 🟢`;
-                document.getElementById('nombre-contacto-chat').innerText = nodoDestino;
-                
-                pantallaLogin.classList.add('hidden');
-                interfazPrincipal.classList.remove('hidden');
-                interfazPrincipal.classList.add('flex');
-                
-                iniciarEscuchaMatriz();
+                // Extraer mis datos desde Firestore (El Registro Civil)
+                try {
+                    const docSnap = await getDoc(doc(db, "usuarios", miUID));
+                    if (docSnap.exists()) {
+                        const datos = docSnap.data();
+                        miNombre = datos.nombre || "Inversor";
+                        miFoto = datos.foto_perfil || "https://via.placeholder.com/150";
+                        
+                        document.getElementById('estado-red').innerHTML = `${miNombre} <span class="text-verdeVeraja">● En línea</span>`;
+                        document.getElementById('muro-mi-foto').src = miFoto;
+
+                        iniciarMotorRedSocial();
+                    } else {
+                        alert("Identidad no encontrada en el Registro Civil.");
+                        signOut(auth);
+                        window.location.href = "acceso_inversores.html";
+                    }
+                } catch (error) {
+                    console.error("Error leyendo matriz:", error);
+                }
             } else {
-                // No autenticado o intruso
-                pantallaLogin.classList.remove('hidden');
-                interfazPrincipal.classList.add('hidden');
-                interfazPrincipal.classList.remove('flex');
-                if (user) signOut(auth); // Expulsar si no está en la lista dorada
-            }
-        });
-
-        // Botón Desbloquear Bóveda
-        document.getElementById('btn-login').addEventListener('click', async () => {
-            const email = document.getElementById('login-email').value.trim();
-            const pass = document.getElementById('login-password').value;
-            const btn = document.getElementById('btn-login');
-            const errorMsg = document.getElementById('login-error');
-            
-            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Verificando...';
-            errorMsg.classList.add('hidden');
-
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                btn.innerHTML = '<i class="fas fa-lock-open"></i> Desbloquear Bóveda';
-            } catch (error) {
-                btn.innerHTML = '<i class="fas fa-lock-open"></i> Desbloquear Bóveda';
-                errorMsg.classList.remove('hidden');
+                window.location.href = "acceso_inversores.html";
             }
         });
 
@@ -222,78 +265,180 @@
             signOut(auth);
         };
 
-        // --- LÓGICA DEL CHAT Y NOTIFICACIONES ---
-        const textarea = document.getElementById('input-mensaje');
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
+        // --- MOTOR PRINCIPAL: INICIAR FUNCIONES ---
+        function iniciarMotorRedSocial() {
+            cargarMuroPublico();
+            cargarListaUsuarios();
+        }
 
-        window.transmitirMensajeUI = async function() {
-            const texto = textarea.value.trim();
-            if(texto === "") return;
+        // --- 1. EL MURO PÚBLICO (REGISTRO CIVIL) ---
+        window.publicarEnMuro = async function() {
+            const texto = document.getElementById('input-publicacion').value.trim();
+            if(!texto) return;
 
-            await addDoc(collection(db, "mensajes_nexus"), {
-                emisor: nodoActual,
-                receptor: nodoDestino,
+            await addDoc(collection(db, "muro_publico"), {
+                autor_uid: miUID,
+                autor_nombre: miNombre,
+                autor_foto: miFoto,
                 texto: texto,
                 timestamp: serverTimestamp()
             });
-            textarea.value = '';
-            textarea.style.height = 'auto';
+            document.getElementById('input-publicacion').value = '';
         };
 
-        function iniciarEscuchaMatriz() {
-            const q = query(collection(db, "mensajes_nexus"), orderBy("timestamp", "asc"));
-            
+        function cargarMuroPublico() {
+            const q = query(collection(db, "muro_publico"), orderBy("timestamp", "desc"));
             onSnapshot(q, (snapshot) => {
-                const contenedor = document.getElementById('matriz-mensajes');
+                const feed = document.getElementById('feed-muro');
+                feed.innerHTML = ''; // Limpiar carga
                 
-                snapshot.docChanges().forEach((change) => {
-                    if (change.type === "added") {
-                        const datos = change.doc.data();
-                        const docId = change.doc.id;
+                if (snapshot.empty) {
+                    feed.innerHTML = '<div class="text-center text-gray-500 text-xs mt-10">La Matriz está en silencio. Escribe la primera frecuencia.</div>';
+                    return;
+                }
 
-                        // Filtro de canal privado
-                        if ((datos.emisor === nodoActual && datos.receptor === nodoDestino) || 
-                            (datos.emisor === nodoDestino && datos.receptor === nodoActual)) {
-                            
-                            const esMio = datos.emisor === nodoActual;
-                            
-                            // PING Y NOTIFICACIÓN (Solo si el mensaje es de la otra persona y es nuevo)
-                            if (!esMio && !mensajesVistos.has(docId)) {
-                                document.getElementById('audio-ping').play().catch(e => console.log("Audio bloqueado por navegador hasta interacción"));
-                                
-                                if (Notification.permission === "granted" && document.hidden) {
-                                    new Notification(`Nuevo mensaje de ${datos.emisor}`, {
-                                        body: datos.texto,
-                                        icon: "logo-shefa.png" // Asegúrate de tener este logo
-                                    });
-                                }
-                            }
-                            mensajesVistos.add(docId);
+                snapshot.forEach((doc) => {
+                    const post = doc.data();
+                    const fecha = post.timestamp ? new Date(post.timestamp.toDate()).toLocaleString() : "Transmisión reciente";
+                    
+                    const html = `
+                    <div class="tarjeta-nexus p-4 relative">
+                        <div class="flex items-center gap-3 mb-3">
+                            <img src="${post.autor_foto}" class="w-10 h-10 rounded-full border border-dorado object-cover">
+                            <div>
+                                <h3 class="text-white font-bold text-sm tracking-wide">${post.autor_nombre}</h3>
+                                <p class="text-[0.6rem] text-dorado uppercase tracking-widest">${fecha}</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 text-sm leading-relaxed">${post.texto}</p>
+                        <div class="mt-4 flex gap-4 text-gray-500 border-t border-gray-800 pt-2">
+                            <button class="hover:text-dorado text-xs transition"><i class="fas fa-hand-sparkles"></i> Bendecir (Berajá)</button>
+                            <button class="hover:text-dorado text-xs transition"><i class="fas fa-comment"></i> Responder</button>
+                        </div>
+                    </div>`;
+                    feed.insertAdjacentHTML('beforeend', html);
+                });
+            });
+        }
 
-                            // DIBUJAR BURBUJA
-                            const htmlMensaje = esMio ? `
-                                <div class="flex flex-col items-end max-w-[85%] sm:max-w-[70%] self-end mt-2">
-                                    <div class="bg-gradient-to-br from-titanio to-black border border-dorado/30 text-white p-3 rounded-2xl rounded-tr-none shadow-[0_0_15px_rgba(212,175,55,0.15)]">
-                                        <p class="text-sm leading-relaxed">${datos.texto}</p>
-                                    </div>
-                                </div>
-                            ` : `
-                                <div class="flex flex-col items-start max-w-[85%] sm:max-w-[70%] mt-2">
-                                    <div class="bg-panelGris border border-gray-700 text-gray-200 p-3 rounded-2xl rounded-tl-none shadow-md">
-                                        <p class="text-sm leading-relaxed">${datos.texto}</p>
-                                    </div>
-                                </div>
-                            `;
-                            contenedor.insertAdjacentHTML('beforeend', htmlMensaje);
-                        }
+        // --- 2. LISTA DE CONTACTOS / USUARIOS ---
+        function cargarListaUsuarios() {
+            // Traemos a todos los usuarios del Registro Civil para armar la lista de chats
+            const q = query(collection(db, "usuarios"));
+            onSnapshot(q, (snapshot) => {
+                const lista = document.getElementById('lista-usuarios-chat');
+                lista.innerHTML = '';
+                
+                snapshot.forEach((docSnap) => {
+                    const usuario = docSnap.data();
+                    const uidStr = docSnap.id;
+                    
+                    // No nos mostramos a nosotros mismos en la lista
+                    if(uidStr !== miUID) {
+                        const html = `
+                        <div onclick="abrirChatPrivado('${uidStr}', '${usuario.nombre}', '${usuario.foto_perfil}')" class="flex items-center gap-3 p-3 bg-panelGris border border-gray-800 rounded-lg cursor-pointer hover:border-dorado transition group">
+                            <img src="${usuario.foto_perfil || 'https://via.placeholder.com/150'}" class="w-12 h-12 rounded-full border border-gray-600 group-hover:border-dorado object-cover">
+                            <div class="flex-grow">
+                                <h3 class="text-white font-bold text-sm group-hover:text-dorado transition">${usuario.nombre}</h3>
+                                <p class="text-xs text-gray-500">Toca para abrir frecuencia segura</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-gray-600 group-hover:text-dorado"></i>
+                        </div>`;
+                        lista.insertAdjacentHTML('beforeend', html);
                     }
+                });
+            });
+        }
+
+        // --- 3. CHAT PRIVADO ---
+        window.abrirChatPrivado = function(uidDestino, nombreDestino, fotoDestino) {
+            chatDestinoUID = uidDestino;
+            
+            // UI
+            document.getElementById('chat-nombre-destino').innerText = nombreDestino;
+            document.getElementById('chat-foto-destino').src = fotoDestino;
+            
+            document.getElementById('vista-chat-activo').classList.remove('hidden');
+            // Timeout para que la animación CSS se note
+            setTimeout(() => {
+                document.getElementById('vista-chat-activo').classList.remove('translate-x-full');
+            }, 10);
+
+            // Generar un ID de conversación único entre los dos UIDs
+            const conversacionID = [miUID, chatDestinoUID].sort().join("_");
+
+            // Desuscribirse del chat anterior si había uno
+            if(unsubsChatActivo) unsubsChatActivo();
+
+               // Escuchar mensajes de ESTA conversación
+            const q = query(collection(db, "chats_privados", conversacionID, "mensajes"), orderBy("timestamp", "asc"));
+            unsubsChatActivo = onSnapshot(q, (snapshot) => {
+                const contenedor = document.getElementById('matriz-mensajes-privados');
+                contenedor.innerHTML = ''; // Limpiar historial viejo
+                
+                snapshot.forEach((docChange) => {
+                    const msg = docChange.data();
+                    const esMio = msg.emisor_uid === miUID;
+                    
+                    const htmlMensaje = esMio ? `
+                        <div class="flex flex-col items-end max-w-[85%] self-end mt-1">
+                            <div class="bg-gradient-to-br from-titanio to-abismo border border-dorado/30 text-white p-3 rounded-2xl rounded-tr-none shadow-[0_0_10px_rgba(212,175,55,0.1)]">
+                                <p class="text-sm">${msg.texto}</p>
+                            </div>
+                        </div>
+                    ` : `
+                        <div class="flex flex-col items-start max-w-[85%] mt-1">
+                            <div class="bg-gray-800 border border-gray-700 text-gray-200 p-3 rounded-2xl rounded-tl-none shadow-md">
+                                <p class="text-sm">${msg.texto}</p>
+                            </div>
+                        </div>
+                    `;
+                    contenedor.insertAdjacentHTML('beforeend', htmlMensaje);
                 });
                 contenedor.scrollTop = contenedor.scrollHeight;
             });
-        }
+        };
+
+        window.volverAListaChats = function() {
+            document.getElementById('vista-chat-activo').classList.add('translate-x-full');
+            setTimeout(() => {
+                document.getElementById('vista-chat-activo').classList.add('hidden');
+            }, 300); // Esperar animación
+            if(unsubsChatActivo) unsubsChatActivo();
+            chatDestinoUID = "";
+        };
+
+        window.enviarMensajePrivado = async function() {
+            if(!chatDestinoUID) return;
+            const input = document.getElementById('input-mensaje-privado');
+            const texto = input.value.trim();
+            if(!texto) return;
+
+            const conversacionID = [miUID, chatDestinoUID].sort().join("_");
+
+            await addDoc(collection(db, "chats_privados", conversacionID, "mensajes"), {
+                emisor_uid: miUID,
+                texto: texto,
+                timestamp: serverTimestamp()
+            });
+            input.value = '';
+        };
+
+        // --- 4. SISTEMA DE REMESAS (WEB3 Y MERCADO PAGO 3.68%) ---
+        window.abrirRemesaWeb3 = function() {
+            alert("Invocando Contrato Inteligente Web3 (BNB Chain).\n\nEnviando a Billetera Vinculada del usuario.");
+        };
+
+        window.abrirRemesaMP = function() {
+            const monto = prompt("Ingrese el monto a enviar por Mercado Pago (COP):");
+            if(monto && !isNaN(monto)) {
+                // Matemática de Fibonacci: 3.68% de tarifa
+                const tarifa = monto * 0.0368;
+                const total = parseFloat(monto) + tarifa;
+                alert(`Resumen de Transmisión (Proporción Fibonacci):\n\nMonto a enviar: $${monto}\nAporte Parnasá (3.68%): $${tarifa.toFixed(2)}\n\nTotal a procesar: $${total.toFixed(2)}\n\nAbriendo pasarela de Mercado Pago...`);
+            }
+        };
+
     </script>
 </body>
-    </html>
+</html
