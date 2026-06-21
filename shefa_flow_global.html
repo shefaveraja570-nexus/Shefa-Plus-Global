@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEFA PLUS GLOBAL - Catálogo RWA</title>
+    <title>SHEFA FLOW - Red de Expansión Global</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* =========================================================
-           👑 NEURO-DISEÑO: CATÁLOGO DE ACTIVOS RWA
+           👑 NEURO-DISEÑO: ORO PREMIUM & TITANIO AZUL
            ========================================================= */
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;400;600;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;400;600&display=swap');
         
         body {
-            background: #050914; /* Azul abisal súper oscuro */
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 158, 227, 0.1) 0px, transparent 50%);
+            background: linear-gradient(135deg, #0a0e17 0%, #111827 100%);
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
-            padding-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .boveda-card {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(212, 175, 55, 0.1);
+            border-radius: 20px;
         }
 
         .titulo-oro {
@@ -28,157 +35,205 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
         }
 
-        /* Tarjeta RWA (Efecto Berajá) */
-        .tarjeta-rwa {
-            background: linear-gradient(180deg, rgba(17, 24, 39, 0.9) 0%, rgba(10, 14, 23, 0.95) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .tarjeta-rwa:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.15), inset 0 1px 0 rgba(255,255,255,0.2);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-        }
-
-        .imagen-activo {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-bottom: 2px solid #d4af37;
-        }
-
-        .etiqueta-estado {
-            background: linear-gradient(90deg, #10B981 0%, #059669 100%);
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            padding: 4px 12px;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        .btn-inyeccion {
-            background: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728);
-            color: #000;
-            font-weight: 800;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .selector-titanio {
+            background: #1f2937;
+            border: 1px solid #374151;
+            color: #e5e7eb;
             transition: all 0.3s ease;
         }
-
-        .btn-inyeccion:hover {
-            filter: brightness(1.2);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        
+        .selector-titanio:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
         }
 
-        /* Barra de Progreso Fibonacci */
-        .barra-fondo {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            height: 8px;
-            overflow: hidden;
+        /* Botones Asimétricos */
+        .btn-web3 {
+            background: linear-gradient(90deg, #F3BA2F 0%, #E8B32B 100%);
+            color: #000;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .barra-progreso {
-            background: linear-gradient(90deg, #d4af37, #fcf6ba);
-            width: 61.8%; /* Proporción Áurea aplicada visualmente */
-            height: 100%;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        .btn-web3:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(243, 186, 47, 0.4);
+        }
+
+        .btn-fiat {
+            background: linear-gradient(90deg, #009EE3 0%, #0088C4 100%);
+            color: #fff;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-fiat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 158, 227, 0.4);
+        }
+
+        .btn-mastercard {
+            background: linear-gradient(90deg, #EB001B 0%, #F79E1B 100%);
+            color: #fff;
+            font-weight: 700;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-mastercard:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(235, 0, 27, 0.4);
         }
     </style>
 </head>
-<body class="p-4 sm:p-8">
+<body class="p-4">
 
-    <!-- Header de la App -->
-    <header class="flex justify-between items-center mb-10 max-w-5xl mx-auto pt-4">
-        <div>
-            <h1 class="titulo-oro text-2xl font-bold">SHEFA PLUS</h1>
-            <p class="text-xs text-gray-400 tracking-widest uppercase">Red Global Iluminada</p>
-        </div>
-        <div class="flex items-center gap-3 bg-gray-900 bg-opacity-50 px-4 py-2 rounded-full border border-gray-700">
-            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span class="text-xs font-semibold text-gray-300">SISTEMA ONLINE</span>
-        </div>
-    </header>
+    <div class="boveda-card w-full max-w-md p-8 relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-yellow-500 rounded-full mix-blend-multiply filter blur-2xl opacity-20"></div>
+        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-500 rounded-full mix-blend-multiply filter blur-2xl opacity-20"></div>
 
-    <!-- Contenedor Principal RWA -->
-    <main class="max-w-5xl mx-auto">
-        <div class="mb-8">
-            <h2 class="text-xl font-bold text-white mb-2">Bóveda de Activos Tokenizados (RWA)</h2>
-            <p class="text-gray-400 text-sm">Inyecta capital en activos del mundo real bajo la proporción divina.</p>
+        <div class="text-center mb-8 relative z-10">
+            <h2 class="text-xs tracking-widest text-gray-400 mb-1">PROTOCOLO DE MATERIALIZACIÓN</h2>
+            <h1 class="titulo-oro text-3xl font-bold mb-2">SHEFA FLOW</h1>
+            <p class="text-sm text-gray-300">Conecta tu coordenada a la red global.</p>
         </div>
 
-        <!-- Grid de Activos -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="mb-6 relative z-10">
+            <label for="pais-selector" class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wider">Nodo de Origen (23 Países)</label>
+            <select id="pais-selector" onchange="enrutarFlujo()" class="selector-titanio w-full p-3 rounded-lg appearance-none cursor-pointer">
+                <option value="" disabled selected>Selecciona tu coordenada...</option>
+                <option value="LATAM">Argentina</option>
+                <option value="LATAM">Brasil</option>
+                <option value="LATAM">Chile</option>
+                <option value="LATAM">Colombia</option>
+                <option value="LATAM">México</option>
+                <option value="LATAM">Perú</option>
+                <option value="GLOBAL">Alemania</option>
+                <option value="GLOBAL">Arabia Saudita</option>
+                <option value="GLOBAL">Canadá</option>
+                <option value="GLOBAL">China</option>
+                <option value="RESTRICTED">Cuba</option>
+                <option value="GLOBAL">Ecuador</option>
+                <option value="GLOBAL">El Salvador</option>
+                <option value="GLOBAL">España</option>
+                <option value="GLOBAL">Estados Unidos</option>
+                <option value="GLOBAL">Francia</option>
+                <option value="GLOBAL">Guatemala</option>
+                <option value="GLOBAL">Honduras</option>
+                <option value="GLOBAL">Italia</option>
+                <option value="GLOBAL">Noruega</option>
+                <option value="GLOBAL">Puerto Rico</option>
+                <option value="GLOBAL">República Dominicana</option>
+                <option value="RESTRICTED">Rusia</option>
+            </select>
+        </div>
 
-            <!-- 👑 ACTIVO 1: NODO GANADERO (VACA RAZA PREMIUM) -->
-            <article class="tarjeta-rwa relative">
-                <!-- Etiqueta Flotante -->
-                <div class="absolute top-4 right-4 z-10">
-                    <span class="etiqueta-estado shadow-lg shadow-black/50">VERIFICADO RWA</span>
-                </div>
-                
-                <!-- Imagen del Activo (Sustituir SRC con imagen real de la finca) -->
-                <img src="https://images.unsplash.com/photo-1546445317-29f4545e9d53?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ganado Raza Premium" class="imagen-activo opacity-90 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500">
-                
-                <div class="p-6">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-lg font-bold text-white">Nodo Ganadero Premium</h3>
-                        <span class="text-yellow-500 font-bold">3.68%</span>
-                    </div>
-                    <p class="text-xs text-gray-400 mb-6 line-clamp-2">Participación directa en producción ganadera élite en Acacías, Meta. Crecimiento orgánico garantizado.</p>
-                    
-                    <!-- Datos Financieros -->
-                    <div class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-black bg-opacity-40 p-3 rounded-lg border border-gray-800">
-                            <p class="text-[10px] text-gray-500 uppercase font-semibold mb-1">Mínimo de Inyección</p>
-                            <p class="text-sm font-bold text-white">$100.00 USDT</p>
-                        </div>
-                        <div class="bg-black bg-opacity-40 p-3 rounded-lg border border-gray-800">
-                            <p class="text-[10px] text-gray-500 uppercase font-semibold mb-1">Protocolo Retorno</p>
-                            <p class="text-sm font-bold text-yellow-500">Fibonacci Flow</p>
-                        </div>
-                    </div>
+        <div id="panel-monto" class="mb-6 relative z-10 hidden">
+            <label for="input-monto" class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wider">Frecuencia de Inyección (USDT/USD)</label>
+            <div class="relative">
+                <span class="absolute left-4 top-3 text-yellow-500 font-bold">$</span>
+                <input type="number" id="input-monto" placeholder="Ej: 500" class="selector-titanio w-full p-3 pl-8 rounded-lg outline-none font-bold text-white shadow-inner">
+            </div>
+        </div>
 
-                    <!-- Progreso de Recaudación -->
-                    <div class="mb-6">
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="text-gray-400">Capitalización del Nodo</span>
-                            <span class="text-white font-semibold">61.8%</span>
-                        </div>
-                        <div class="barra-fondo">
-                            <div class="barra-progreso"></div>
-                        </div>
-                    </div>
-
-                    <!-- Botón Hacia el Enrutador -->
-                    <button onclick="abrirEnrutador()" class="btn-inyeccion w-full py-4 rounded-xl shadow-lg flex justify-center items-center gap-2">
-                        <span>INICIAR INYECCIÓN</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </button>
-                </div>
-            </article>
-
-            <!-- Aquí podemos agregar Activo 2 (Ej: Oro, Bienes Raíces), etc. -->
+        <div id="panel-canales" class="space-y-4 hidden relative z-10">
             
+            <button id="canal-web3" onclick="iniciarPagoWeb3()" class="btn-web3 w-full py-4 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/><line x1="12" y1="22" x2="12" y2="15.5"/><polyline points="22 8.5 12 15.5 2 8.5"/><polyline points="2 15.5 12 8.5 22 15.5"/><line x1="12" y1="2" x2="12" y2="8.5"/></svg>
+                INYECCIÓN WEB3 (BNB / USDT)
+            </button>
+
+            <button id="canal-mercadopago" onclick="iniciarPagoFiat('MercadoPago')" class="btn-fiat w-full py-4 flex items-center justify-center gap-3 hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                MERCADO PAGO (Local)
+            </button>
+
+            <button id="canal-mastercard" onclick="iniciarPagoFiat('Mastercard_Internacional')" class="btn-mastercard w-full py-4 flex items-center justify-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="12" r="5"/><circle cx="16" cy="12" r="5"/></svg>
+                MASTERCARD / VISA INT.
+            </button>
         </div>
-    </main>
+        
+        <p id="mensaje-enrutamiento" class="text-xs text-center text-gray-400 mt-6 hidden">
+            El Río de Luz fluye bajo la proporción áurea (3.68%).
+        </p>
+        
+        <input type="hidden" id="metodo-pago" value="">
+        <div id="display-tarifa" style="display:none;"></div>
+        <div id="display-total" style="display:none;"></div>
+
+    </div>
+
+    <script type="module" src="./caja_cuantica.js"></script>
 
     <script>
-        function abrirEnrutador() {
-            // Este botón conectará el catálogo con el archivo shefa_flow_global.html que hicimos antes.
-            // Por ahora, lanza una notificación de Oro Premium.
-            alert("👑 BÓVEDA SHEFA:\n\nConectando activo con el Enrutador Global...\nAbriendo compuertas de pago.");
-            // Lógica futura real: window.location.href = "shefa_flow_global.html?activo=ganadero";
+        // 1. Mostrar paneles según el país
+        function enrutarFlujo() {
+            const selector = document.getElementById('pais-selector');
+            const zona = selector.value;
+            const paisNombre = selector.options[selector.selectedIndex].text;
+            
+            const panelMontos = document.getElementById('panel-monto');
+            const panelCanales = document.getElementById('panel-canales');
+            const btnMP = document.getElementById('canal-mercadopago');
+            const btnMaster = document.getElementById('canal-mastercard');
+            const mensaje = document.getElementById('mensaje-enrutamiento');
+
+            panelMontos.classList.remove('hidden');
+            panelCanales.classList.remove('hidden');
+            mensaje.classList.remove('hidden');
+
+            if (zona === 'LATAM') {
+                btnMP.classList.remove('hidden');
+                mensaje.innerText = `Nodo ${paisNombre} conectado. Canales locales e internacionales abiertos.`;
+            } else if (zona === 'GLOBAL') {
+                btnMP.classList.add('hidden');
+                mensaje.innerText = `Nodo ${paisNombre} conectado. Conectando a pasarelas globales e inyección Web3.`;
+            } else if (zona === 'RESTRICTED') {
+                btnMP.classList.add('hidden');
+                btnMaster.classList.add('hidden');
+                mensaje.innerText = `Nodo ${paisNombre} detectado. Protocolo descentralizado Web3 activado para evasión de fricción Fiat.`;
+            }
+        }
+
+        // 2. Ejecutar Inyección Cripto (Web3)
+        function iniciarPagoWeb3() {
+            const monto = document.getElementById('input-monto').value;
+            if (!monto || monto <= 0) {
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia (Monto) válida de Oro Puro para continuar.");
+                return;
+            }
+            // Invocamos la función maestra de tu archivo caja_cuantica.js
+            if(window.procesarPagoWeb3) {
+                // Simulamos un hash de transacción por ahora, luego se conectará a MetaMask real
+                const hashSimulado = "0x" + Math.random().toString(36).substring(2, 15);
+                window.procesarPagoWeb3(monto, hashSimulado);
+            } else {
+                alert("Fricción: El motor Web3 de Titanio Azul aún no ha cargado. Espera un segundo.");
+            }
+        }
+
+        // 3. Ejecutar Inyección Tradicional (Fiat)
+        function iniciarPagoFiat(metodoSeleccionado) {
+            const monto = document.getElementById('input-monto').value;
+            if (!monto || monto <= 0) {
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia (Monto) válida de Oro Puro para continuar.");
+                return;
+            }
+            // Seteamos el método oculto para que la caja_cuantica lo lea
+            document.getElementById('metodo-pago').value = metodoSeleccionado;
+            
+            // Invocamos la función maestra de tu archivo caja_cuantica.js
+            if(window.ejecutarTransmision) {
+                window.ejecutarTransmision();
+            } else {
+                alert("Fricción: El motor Fiat de Titanio Azul aún no ha cargado. Espera un segundo.");
+            }
         }
     </script>
 </body>
 </html>
+                                                   </html>
