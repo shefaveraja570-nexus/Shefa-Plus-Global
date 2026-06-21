@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHEFA PLUS GLOBAL | Pitch Deck Cuántico</title>
+    <style>
+        /* =========================================================
+           👑 NEURO-DISEÑO: TITANIO AZUL, ORO PREMIUM Y ASIMETRÍA
+           ========================================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;600;800&display=swap');
+        
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.6);
+            --titanium-dark: #050914;
+            --titanium-light: #111827;
+            --emerald-success: #10B981;
+            --white-pure: #FFFFFF;
+            --transition-epic: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; overflow: hidden; }
+
+        body { background: var(--titanium-dark); color: var(--white-pure); width: 100vw; height: 100vh; }
+
+        /* Videos de Fondo Cinematográficos */
+        .video-background {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+            z-index: 0; opacity: 0.4; mix-blend-mode: screen; filter: grayscale(50%) contrast(120%);
+        }
+
+        /* Capa Oscura de Titanio */
+        .overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(5,9,20,0.9) 0%, rgba(17,24,39,0.7) 100%);
+            z-index: 1;
+        }
+
+        /* Contenedor de Diapositivas */
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2; opacity: 0; transform: scale(1.1); pointer-events: none; transition: var(--transition-epic);
+            padding: 5%;
+        }
+        .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+
+        /* Tipografía Premium */
+        h1, h2 { font-family: 'Cinzel', serif; text-transform: uppercase; text-align: center; }
+        .title-gold {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            font-size: 4vw; font-weight: 800; text-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            margin-bottom: 20px;
+        }
+        .subtitle { font-size: 1.5vw; color: var(--gold-primary); letter-spacing: 5px; margin-bottom: 40px; }
+
+        /* 👑 Diseño Asimétrico (Rompiendo el Patrón) */
+        .asymmetric-card {
+            background: rgba(17, 24, 39, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+            display: flex; gap: 40px; align-items: center; max-width: 1200px; width: 100%;
+        }
+
+        /* Botón de Interacción Cuántica */
+        .btn-epic {
+            background: linear-gradient(90deg, var(--gold-primary) 0%, #FBE18D 100%);
+            color: var(--titanium-dark); padding: 20px 50px; font-size: 18px; font-weight: 800;
+            border: none; cursor: pointer; text-transform: uppercase; letter-spacing: 3px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+            transition: all 0.4s ease; box-shadow: 0 0 30px var(--gold-glow);
+            position: absolute; bottom: 50px; right: 50px; z-index: 10;
+        }
+        .btn-epic:hover { transform: scale(1.05) translateX(-10px); box-shadow: 0 0 50px rgba(212, 175, 55, 0.8); }
+
+        /* =========================================================
+           COMPONENTES ESPECÍFICOS DE LAS DIAPOSITIVAS
+           ========================================================= */
+        
+        /* Slide 2: Fibonacci Growth */
+        .fibonacci-container { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .fibo-number { font-size: 8vw; font-family: 'Cinzel', serif; color: var(--emerald-success); text-shadow: 0 0 40px var(--emerald-success); font-weight: 800; }
+        .fibo-label { font-size: 1.2vw; color: var(--gray-text); text-transform: uppercase; letter-spacing: 3px; }
+
+        /* Slide 3: Shefa Nexus Mockup */
+        .nexus-mockup {
+            width: 350px; height: 600px; background: var(--titanium-light);
+            border-radius: 30px; border: 2px solid var(--gold-primary);
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2); position: relative;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .nexus-header { padding: 20px; background: rgba(0,0,0,0.5); text-align: center; border-bottom: 1px solid var(--gold-primary); }
+        .nexus-chat { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .bubble { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; font-size: 14px; width: 85%; }
+        .bubble.sent { align-self: flex-end; background: linear-gradient(135deg, rgba(212,175,55,0.2), transparent); border: 1px solid var(--gold-primary); }
+        
+        /* Animación del Inyector de Remesa */
+        .remittance-flash {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--emerald-success); z-index: 100; opacity: 0; pointer-events: none;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+        }
+        .remittance-flash.fire { animation: flashEffect 2s forwards; }
+        @keyframes flashEffect {
+            0% { opacity: 0; transform: scale(0.8); }
+            20% { opacity: 0.95; transform: scale(1); }
+            80% { opacity: 0.95; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.1); }
+        }
+
+        .img-placeholder { width: 40%; border-radius: 15px; border: 1px solid var(--gold-primary); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    </style>
+</head>
+<body>
+
+    <!-- Botón de Navegación Global -->
+    <button class="btn-epic" onclick="nextSlide()" id="nextBtn">Iniciar Secuencia ⚡</button>
+
+    <!-- ==========================================
+         SLIDE 1: EL UMBRAL DE LA MATERIALIZACIÓN
+         ========================================== -->
+    <section class="slide active" id="slide-1">
+        <!-- Video Red Global (Sustento Visual) -->
+        <video class="video-background" autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-global-world-map-connection-lines-animation-22646-large.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        
+        <div style="z-index: 2; text-align: center;">
+            <div class="subtitle">ESTRUCTURA FINANCIERA GLOBAL</div>
+            <h1 class="title-gold">SHEFA PLUS GLOBAL</h1>
+            <p style="font-size: 1.2vw; color: var(--gray-text); max-width: 800px; margin: 0 auto; line-height: 1.8;">
+                No somos un banco. Somos el Umbral de la Materialización. Una bóveda de Titanio Azul diseñada bajo la proporción áurea para reestructurar la economía del mundo.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 2: CRECIMIENTO DIVINO (FIBONACCI)
+         ========================================== -->
+    <section class="slide" id="slide-2">
+        <video class="video-background" autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-hud-interface-with-abstract-data-3004-large.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+
+        <div class="asymmetric-card" style="z-index: 2;">
+            <div style="flex: 1;">
+                <h2 style="color: var(--gold-primary); text-align: left; font-size: 2.5vw;">Efecto de Red Áureo</h2>
+                <p style="color: var(--gray-text); margin-top: 20px; line-height: 1.6; font-size: 1.1vw;">
+                    Olvídate del crecimiento lineal. Hemos programado el ADN de la plataforma con la secuencia de Fibonacci. Cada usuario que entra a la red, acelera el rendimiento orgánico matemático.
+                </p>
+            </div>
+            <div class="fibonacci-container" style="flex: 1;">
+                <div class="fibo-label">Rendimiento Activo (USDT)</div>
+                <div class="fibo-number" id="fibo-display">$1.00</div>
+                <div class="subtitle" style="margin: 0; font-size: 1vw;">Crecimiento +3.68%</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SLIDE 3: SHEFA NEXUS (INYECCIÓN DE CAPITAL)
+         ========================================== -->
+    <section class="slide" id="slide-3">
+        <img src="https://images.unsplash.com/photo-1639762681485-074b7f4ec651?q=80&w=2070&auto=format&fit=crop" class="video-background" style="opacity: 0.2;">
+        <div class="overlay"></div>
+
+        <div style="z-index: 2; display: flex; width: 100%; max-width: 1400px; justify-content: space-around; align-items: center;">
+            
+            <div style="max-width: 500px;">
+                <h1 class="title-gold" style="font-size: 3vw; text-align: left;">SHEFA NEXUS</h1>
+                <div class="subtitle" style="text-align: left; font-size: 1vw;">COMUNICACIÓN = MONETIZACIÓN</div>
+                <p style="color: var(--gray-text); line-height: 1.8; font-size: 1.2vw; margin-bottom: 30px;">
+                    ¿Por qué salir del chat para abrir un banco? La remesa cuántica ocurre donde está la atención. Un solo toque dentro de la conversación y el Río de Luz cruza las fronteras.
+                </p>
+                <button class="btn-epic" style="position: static; clip-path: none; border-radius: 10px;" onclick="dispararRemesa()">Ejecutar Remesa en Vivo</button>
+            </div>
+
+            <!-- Interfaz Móvil Falsa -->
+            <div class="nexus-mockup">
+                <div class="remittance-flash" id="flash-screen">
+                    <div style="font-size: 40px;">⚡</div>
+                    <div style="font-size: 30px; font-weight: 800; color: white; margin-top: 10px;">$1,000 USDT</div>
+                    <div style="color: white; font-size: 12px; letter-spacing: 2px;">INYECTADOS CON ÉXITO</div>
+                </div>
+
+                <div class="nexus-header">
+                    <h3 style="color: var(--gold-primary); font-family: 'Montserrat';">Socio Global</h3>
+                    <span style="font-size: 10px; color: var(--emerald-success);">En línea - Frecuencia 800Hz</span>
+                </div>
+                <div class="nexus-chat">
+                    <div class="bubble">La ronda de inversión está abierta. Necesitamos el capital operativo.</div>
+                    <div class="bubble sent" id="chat-msg-2" style="opacity: 0; transition: opacity 0.5s;">Sintonía absoluta. Te transfiero el flujo ahora mismo.</div>
+                </div>
+                <div style="background: rgba(0,0,0,0.8); padding: 15px; border-top: 1px solid var(--gold-primary); display: flex; gap: 10px;">
+                    <div style="flex: 1; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 10px;">Mensaje...</div>
+                    <div style="background: var(--gold-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">💎</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⚡ LÓGICA CUÁNTICA DEL PITCH DECK -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 3;
+        
+        // Secuencia Fibonacci Real
+        const fibonacciSequence = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597];
+
+        function nextSlide() {
+            // Ocultar actual
+            document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+            
+            // Avanzar
+            currentSlide++;
+            if (currentSlide > totalSlides) currentSlide = 1; // Bucle infinito
+            
+            // Mostrar nueva
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+
+            // Cambiar texto del botón
+            const btn = document.getElementById('nextBtn');
+            if (currentSlide === 1) btn.innerText = "Iniciar Secuencia ⚡";
+            if (currentSlide === 2) {
+                btn.innerText = "Descubrir Nexus 💎";
+                iniciarFibonacci();
+            }
+            if (currentSlide === 3) btn.innerText = "Reconectar Matriz 🔄";
+        }
+
+        // Animación Matemática Divina (Slide 2)
+        function iniciarFibonacci() {
+            const display = document.getElementById('fibo-display');
+            let index = 0;
+            display.innerText = `$1.00`;
+            
+            const intervalo = setInterval(() => {
+                index++;
+                if (index < fibonacciSequence.length) {
+                    display.innerText = `$${fibonacciSequence[index].toLocaleString()}.00`;
+                    display.style.transform = "scale(1.2)";
+                    setTimeout(() => display.style.transform = "scale(1)", 150);
+                } else {
+                    clearInterval(intervalo);
+                }
+            }, 800); // Salta al siguiente número cada 800ms
+        }
+
+        // Animación de Impacto Remesa (Slide 3)
+        function dispararRemesa() {
+            // Mostrar mensaje en el chat
+            document.getElementById('chat-msg-2').style.opacity = "1";
+            
+            // Disparar flash cuántico tras un breve retraso
+            setTimeout(() => {
+                const flash = document.getElementById('flash-screen');
+                flash.classList.remove('fire');
+                void flash.offsetWidth; // Reiniciar animación
+                flash.classList.add('fire');
+            }, 800);
+        }
+    </script>
+</body>
+  </html>
