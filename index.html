@@ -3,149 +3,284 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefa Plus Global | Inicio</title>
-    <!-- Importando fuente premium y minimalista -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
-    
+    <title>SHEFA PLUS GLOBAL | El Umbral de la Economía Futura</title>
     <style>
-        /* === RESETEO GENERAL === */
+        /* =========================================================
+           👑 ARQUITECTURA MONOLÍTICA: TITANIO AZUL Y ORO PREMIUM
+           ========================================================= */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Montserrat:wght@300;400;600;800&display=swap');
+
+        :root {
+            --gold-premium: #D4AF37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --titanium-dark: #050914;
+            --titanium-light: #111827;
+            --white-pure: #FFFFFF;
+            --gray-text: #9CA3AF;
+            --emerald-accent: #10B981;
+            --radius-fibo: 21px;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* === FONDO TITANIO BLINDADO === */
-        body {
+            margin: 0; padding: 0; box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
-            background-color: #050814; /* Titanio profundo puro de NeuroShefa */
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: #ffffff;
-            background-image: radial-gradient(circle at 50% 50%, #0a1128 0%, #000000 100%);
+            scroll-behavior: smooth;
         }
 
-        /* === CONTENEDOR MAESTRO (LA TARJETA ASIMÉTRICA) === */
-        .tarjeta-nucleo {
-            background: linear-gradient(145deg, #0a1128, #050814); /* Efecto blindado tridimensional */
-            border-radius: 24px 4px 24px 4px; /* Asimetría disruptiva NeuroShefa */
-            padding: 50px 40px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
-                        inset 0 1px 0 rgba(212, 175, 55, 0.1); 
-            border: 1px solid rgba(212, 175, 55, 0.2);
+        body {
+            background-color: var(--titanium-dark);
+            color: var(--white-pure);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ⚡ HEADER Y LOGO CÓSMICO */
+        .navbar-shefa {
+            position: absolute;
+            top: 0; 
+            left: 0; 
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            background: linear-gradient(180deg, rgba(5,9,20,0.95) 0%, transparent 100%);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-cosmico {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            object-position: center 40%;
+            border-radius: 50%;
+            border: 2px solid var(--gold-premium);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6), inset 0 0 10px rgba(212, 175, 55, 0.4);
+            animation: floatLogo 4s infinite ease-in-out;
+        }
+
+        .brand-text {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--gold-premium);
+            letter-spacing: 4px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 35px rgba(16, 185, 129, 0.9); }
+        }
+
+        /* ⚡ SECCIÓN HERO: EL MONOLITO DE BIENVENIDA */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            gap: 20px;
-            position: relative;
-            animation: respiracionNucleo 4s infinite ease-in-out;
-        }
-
-        @keyframes respiracionNucleo {
-            0% { box-shadow: 0 0 15px rgba(0, 158, 227, 0.1), inset 0 0 5px rgba(212, 175, 55, 0.05); }
-            50% { box-shadow: 0 0 30px rgba(0, 158, 227, 0.3), inset 0 0 10px rgba(212, 175, 55, 0.2); }
-            100% { box-shadow: 0 0 15px rgba(0, 158, 227, 0.1), inset 0 0 5px rgba(212, 175, 55, 0.05); }
-        }
-
-        /* === TIPOGRAFÍA DE MARCA === */
-        .marca-titulo {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            padding: 120px 20px 40px 20px; /* Padding top ajustado por el header */
+            background: radial-gradient(circle at center, rgba(22, 37, 68, 0.4) 0%, var(--titanium-dark) 80%);
+            text-align: center;
         }
 
-        .texto-blanco {
-            color: #FFFFFF;
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+            letter-spacing: 6px;
+            line-height: 1.1;
+            margin-bottom: 15px;
         }
 
-        .texto-dorado {
-            color: #D4AF37; /* Dorado Premium */
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-        }
-
-        .subtitulo-frecuencia {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 5px;
-            color: #8A95A5; /* Gris metalizado */
+        .hero-subtitle {
+            font-size: 14px;
+            color: var(--emerald-accent);
             text-transform: uppercase;
-            line-height: 1.8;
+            letter-spacing: 5px;
+            font-weight: 800;
             margin-bottom: 30px;
         }
 
-        .hz-dorado {
-            color: #10B981; /* Verde abundancia inyectado sutilmente */
-            font-weight: 800;
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        .hero-desc {
+            max-width: 700px;
+            font-size: 16px;
+            color: var(--gray-text);
+            line-height: 1.8;
+            margin-bottom: 40px;
         }
 
-        /* === BOTÓN DORADO PREMIUM === */
-        .btn-ingresar {
-            background: linear-gradient(145deg, #d4af37, #a67c00);
-            color: #000000; /* Contraste oscuro máximo */
-            font-size: 0.95rem;
+        /* Botón de Entrada Asimétrico */
+        .btn-enter {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--gold-premium) 0%, #FBE18D 100%);
+            color: var(--titanium-dark);
+            padding: 20px 45px;
+            font-size: 14px;
             font-weight: 800;
             text-transform: uppercase;
+            letter-spacing: 3px;
             text-decoration: none;
-            padding: 18px 40px;
-            border-radius: 4px; /* Borde asimétrico más sólido */
-            border: 1px solid #F0C755;
-            cursor: pointer;
-            width: 100%;
-            max-width: 280px;
-            letter-spacing: 2px;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3), 
-                        inset 0 2px 0 rgba(255, 255, 255, 0.3);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            clip-path: polygon(10% 0, 100% 0%, 90% 100%, 0% 100%);
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px var(--gold-glow);
+        }
+
+        .btn-enter:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        /* ⚡ LOS TRES BLOQUES DISRUPTIVOS (PARNASÁ, SHEFÁ, VERAJÁ) */
+        .grid-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .section-header {
             text-align: center;
+            margin-bottom: 80px;
         }
 
-        .btn-ingresar:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.6), 
-                        inset 0 2px 0 rgba(255, 255, 255, 0.4);
-            background: linear-gradient(145deg, #F0C755, #d4af37);
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--gold-premium);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
         }
 
-        .btn-ingresar:active {
-            transform: translateY(1px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        .bloques-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        /* Tarjetas Asimétricas */
+        .bloque-card {
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 40px 30px;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+        }
+
+        /* Cortes asimétricos alternados usando clip-path corporativo */
+        .b-1 { clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%); }
+        .b-2 { clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%); border-color: var(--emerald-accent); }
+        .b-3 { clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%); }
+
+        .bloque-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold-premium);
+            background: rgba(212, 175, 55, 0.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .bloque-num {
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            color: var(--gold-premium);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .bloque-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .bloque-card p {
+            color: var(--gray-text);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Animación de flotación */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsividad móvil */
+        @media (max-width: 768px) {
+            .navbar-shefa { padding: 20px; }
+            .brand-text { font-size: 16px; }
+            .logo-cosmico { width: 55px; height: 55px; }
+            .main-title { font-size: 2.5rem; }
+            .bloques-container { grid-template-columns: 1fr; }
+            .bloque-card { clip-path: none !important; border-radius: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <main class="tarjeta-nucleo">
-        <div class="identidad-corporativa">
-            <h1 class="marca-titulo">
-                <span class="texto-blanco">SHEFA</span><span class="texto-dorado">PLUS</span>
-            </h1>
-            <p class="subtitulo-frecuencia">FRECUENCIA GLOBAL<br><span class="hz-dorado">800 HZ</span></p>
+    <!-- 👑 NAVEGACIÓN MAESTRA Y ESPACIO DE LOGO CÓSMICO -->
+    <header class="navbar-shefa">
+        <div class="logo-container">
+            <img src="ojo_cuantico.png" alt="Sello Cósmico Shefa" class="logo-cosmico">
+            <span class="brand-text">SHEFA PLUS <span style="color: var(--emerald-accent);">GLOBAL</span></span>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="main-title">SHEFA PLUS GLOBAL</h1>
+        <div class="hero-subtitle">El Umbral de la Materialización</div>
+        <p class="hero-desc">
+            Bienvenido a la infraestructura definitiva. Un monolito tecnológico de Titanio Sólido e Inquebrantable diseñado bajo la proporción divina para reestructurar la economía del planeta. El Río de Luz fluye aquí.
+        </p>
+        <a href="umbral.html" class="btn-enter">Ingresar al Umbral ⚡</a>
+    </section>
+
+    <section class="grid-section">
+        <div class="section-header">
+            <h2>Nuestros Valores Matrices</h2>
+            <p style="color: var(--gray-text); font-size: 12px; text-transform: uppercase; letter-spacing: 2px;">La fusión del sustento, el flujo y el crecimiento</p>
         </div>
 
-        <!-- AQUÍ ESTÁ EL ENLACE AL VIGILANTE -->
-        <a href="acceso_inversores.html" class="btn-ingresar">
-            INGRESAR AL<br>NÚCLEO
-        </a>
-    </main>
+        <div class="bloques-container">
+            
+            <div class="bloque-card b-1">
+                <div class="bloque-num">NODO 01 // PARNASÁ</div>
+                <h3>Tokenización RWA</h3>
+                <p>
+                    Conectamos la abundancia del mundo físico con la velocidad digital. Nuestros catálogos de inversión tokenizan activos del mundo real (Real World Assets), permitiendo micro-fracciones de alto rendimiento blindadas bajo contratos inteligentes inmutables.
+                </p>
+            </div>
+
+            <div class="bloque-card b-2">
+                <div class="bloque-num" style="color: var(--emerald-accent);">NODO 02 // SHEFÁ</div>
+                <h3>Shefa Nexus (800Hz)</h3>
+                <p>
+                    La comunicación es el verdadero canal de monetización. Nuestra plataforma de mensajería privada encriptada le permite a los operadores chatear en tiempo real y despachar remesas globales híbridas con un solo toque, eliminando las fronteras del dinero fiat tradicional.
+                </p>
+            </div>
+
+            <div class="bloque-card b-3">
+                <div class="bloque-num">NODO 03 // VERAJÁ</div>
+                <h3>Crecimiento Fibonacci</h3>
+                <p>
+                    Rompemos los esquemas de pérdidas del viejo sistema financiero. Programamos algoritmos de adopción masiva basados en la secuencia matemática divina de Fibonacci, premiando la lealtad y la expansión orgánica de nuestra red con un incremento de aceleración del 3.68%.
+                </p>
+            </div>
+
+        </div>
+    </section>
 
 </body>
-</html>
-    
+    </html>
