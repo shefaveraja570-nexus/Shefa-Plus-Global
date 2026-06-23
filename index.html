@@ -226,6 +226,67 @@
             .bloques-container { grid-template-columns: 1fr; }
             .bloque-card { clip-path: none !important; border-radius: 15px; }
         }
+        /* ESTILOS DE LA TARJETA DE EXPANSIÓN (Secuencia Fibonacci) */
+.tarjeta-expansion {
+    margin-top: 34px; 
+    margin-bottom: 55px;
+    padding: 21px; 
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(45, 45, 63, 0.8));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Borde dorado premium alineado a tu diseño */
+    border-radius: 13px; 
+    color: #FDFBF7;
+    text-align: center;
+    box-shadow: 0 8px 21px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tarjeta-expansion:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 13px 34px rgba(212, 175, 55, 0.2); 
+    border-color: var(--gold-premium);
+}
+
+.expansion-contenido .icono-global {
+    font-size: 34px;
+    margin-bottom: 13px;
+}
+
+.expansion-contenido h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 21px;
+    color: var(--gold-premium); 
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.expansion-contenido p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 21px;
+    line-height: 1.618;
+}
+
+.btn-expansion {
+    display: inline-block;
+    padding: 13px 21px; 
+    background: var(--gold-premium);
+    color: #111827;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-size: 13px;
+    transition: background 0.3s ease;
+}
+
+.btn-expansion:hover {
+    background: #FFC107;
+        }
+                                  
     </style>
 </head>
 <body>
@@ -246,6 +307,18 @@
         </p>
         <a href="umbral.html" class="btn-enter">Ingresar al Umbral ⚡</a>
     </section>
+    <!-- INICIO: TARJETA DE EXPANSIÓN GLOBAL -->
+<div class="tarjeta-expansion">
+    <div class="expansion-contenido">
+        <div class="icono-global">🌐</div>
+        <h3>Catálogo de Expansión Global</h3>
+        <p>Explora en tiempo real los negocios, aliados y Real World Assets (RWA) que ya forman parte de nuestro ecosistema comercial.</p>
+        <!-- Enlace actualizado a tu nuevo archivo -->
+        <a href="activos-en-vivo.html" class="btn-expansion">Ver Negocios en Vivo ➔</a>
+    </div>
+</div>
+<!-- FIN: TARJETA DE EXPANSIÓN GLOBAL -->
+    
 
     <section class="grid-section">
         <div class="section-header">
