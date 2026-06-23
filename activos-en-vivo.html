@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dulce Tentación | Santa Rosa de Cabal</title>
+    <style>
+        /* =========================================
+           ARQUITECTURA SAGRADA & FIBONACCI VARIABLES
+           ========================================= */
+        :root {
+            /* Secuencia Fibonacci para espaciados (px) */
+            --f-1: 8px;
+            --f-2: 13px;
+            --f-3: 21px;
+            --f-4: 34px;
+            --f-5: 55px;
+            --f-6: 89px;
+
+            /* Proporción Áurea para Tipografía */
+            --text-base: 16px;
+            --text-h1: calc(var(--text-base) * 1.618 * 1.618); /* ~42px */
+            --text-h2: calc(var(--text-base) * 1.618);        /* ~26px */
+            
+            /* Paleta de Colores del Antojo */
+            --color-vainilla: #FDFBF7;
+            --color-chocolate: #3E2723;
+            --color-fresa: #D84315;
+            --color-crema: #FFF3E0;
+            --color-oro: #FFB300;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-vainilla);
+            color: var(--color-chocolate);
+            line-height: 1.618; /* Altura de línea áurea */
+            padding-bottom: var(--f-6);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(62, 39, 35, 0.7), rgba(62, 39, 35, 0.7)), url('https://images.unsplash.com/photo-1563805042-7684c8a9e9ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+            padding: var(--f-6) var(--f-4);
+            text-align: center;
+            color: white;
+            border-bottom: var(--f-1) solid var(--color-oro);
+        }
+
+        .hero h1 {
+            font-size: var(--text-h1);
+            margin-bottom: var(--f-3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: var(--text-base);
+            margin-bottom: var(--f-4);
+            opacity: 0.9;
+        }
+
+        /* CATEGORÍAS TABS */
+        .categorias-nav {
+            display: flex;
+            overflow-x: auto;
+            padding: var(--f-3);
+            gap: var(--f-2);
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 var(--f-1) var(--f-2) rgba(0,0,0,0.05);
+        }
+
+        .cat-btn {
+            background: var(--color-crema);
+            border: none;
+            padding: var(--f-2) var(--f-3);
+            border-radius: var(--f-4);
+            font-weight: bold;
+            color: var(--color-chocolate);
+            white-space: nowrap;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cat-btn.active {
+            background: var(--color-fresa);
+            color: white;
+        }
+
+        /* GRID DE PRODUCTOS */
+        .seccion-menu {
+            padding: var(--f-4) var(--f-3);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--f-4);
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--f-2);
+            overflow: hidden;
+            box-shadow: 0 var(--f-1) var(--f-3) rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: var(--color-crema);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem; /* Emoji placeholder */
+        }
+
+        .card-content {
+            padding: var(--f-3);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: var(--f-1);
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: var(--f-3);
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: var(--f-2);
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-fresa);
+        }
+
+        .btn-add {
+            background: var(--color-fresa);
+            color: white;
+            border: none;
+            padding: var(--f-1) var(--f-3);
+            border-radius: var(--f-4);
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* BARRA FLOTANTE DE PAGO INTELIGENTE */
+        .smart-cart {
+            position: fixed;
+            bottom: var(--f-3);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: var(--color-chocolate);
+            color: white;
+            padding: var(--f-2) var(--f-3);
+            border-radius: var(--f-4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 var(--f-2) var(--f-4) rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .smart-cart .btn-pay {
+            background: var(--color-oro);
+            color: var(--color-chocolate);
+            border: none;
+            padding: var(--f-1) var(--f-3);
+            border-radius: var(--f-4);
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <h1>Dulce Tentación</h1>
+        <p>El sabor que hace vibrar a Santa Rosa. Pide tu desayuno, pan fresco o helado en 3 clics.</p>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="categorias-nav">
+        <button class="cat-btn active">Panadería Fresca</button>
+        <button class="cat-btn">Desayunos</button>
+        <button class="cat-btn">Heladería</button>
+        <button class="cat-btn">Antojos de Sal</button>
+    </nav>
+
+    <!-- CATÁLOGO: PANADERÍA FRESCA -->
+    <main class="seccion-menu" id="menu-panaderia">
+        <article class="card">
+            <div class="card-img">🍞</div>
+            <div class="card-content">
+                <h3 class="card-title">Pan Aliñado Fresco</h3>
+                <p class="card-desc">Suave, esponjoso y recién salido del horno. Ideal para empezar el día.</p>
+                <div class="card-footer">
+                    <span class="price">$2.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">🥖</div>
+            <div class="card-content">
+                <h3 class="card-title">Pan Especial & Seda</h3>
+                <p class="card-desc">La textura perfecta para acompañar tu café santarrosano.</p>
+                <div class="card-footer">
+                    <span class="price">$3.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">🍘</div>
+            <div class="card-content">
+                <h3 class="card-title">Tostadas Crujientes</h3>
+                <p class="card-desc">Paquete de tostadas tradicionales para compartir.</p>
+                <div class="card-footer">
+                    <span class="price">$3.500</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- CATÁLOGO: DESAYUNOS (Se ocultarían por JS según el tab, pero aquí mostramos la maqueta completa) -->
+    <main class="seccion-menu" id="menu-desayunos">
+        <article class="card">
+            <div class="card-img">🍳</div>
+            <div class="card-content">
+                <h3 class="card-title">Omelette Pollo y Maicitos</h3>
+                <p class="card-desc">El desayuno poderoso con la mejor sazón de la casa.</p>
+                <div class="card-footer">
+                    <span class="price">$12.500</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">🥓</div>
+            <div class="card-content">
+                <h3 class="card-title">Plato de 2 Chorizos</h3>
+                <p class="card-desc">El clásico imperdible con arepa de la región.</p>
+                <div class="card-footer">
+                    <span class="price">$15.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+    </main>
+    
+    <!-- CATÁLOGO: HELADERÍA -->
+    <main class="seccion-menu" id="menu-heladeria">
+        <article class="card">
+            <div class="card-img">🍨</div>
+            <div class="card-content">
+                <h3 class="card-title">Copa Dulce Tentación</h3>
+                <p class="card-desc">Helado premium con salsa de chocolate, barquillos y trozos de galleta.</p>
+                <div class="card-footer">
+                    <span class="price">$14.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- BARRA DE PAGO INTELIGENTE -->
+    <div class="smart-cart">
+        <div>
+            <span style="font-size: 12px; opacity: 0.8;">Total estimado</span><br>
+            <strong style="font-size: 18px;" id="total-price">$0</strong>
+        </div>
+        <!-- Aquí irá tu enlace dinámico de la pasarela -->
+        <a href="#" class="btn-pay">Pagar Pedido ➔</a>
+    </div>
+
+    <!-- SCRIPT BÁSICO PARA SIMULAR EL CARRITO -->
+    <script>
+        let total = 0;
+        const botones = document.querySelectorAll('.btn-add');
+        const displayTotal = document.getElementById('total-price');
+
+        botones.forEach(boton => {
+            boton.addEventListener('click', function() {
+                // Extraer precio del texto (simulación rápida)
+                const precioTexto = this.previousElementSibling.innerText.replace('$', '').replace('.', '');
+                total += parseInt(precioTexto);
+                
+                // Formatear a pesos colombianos
+                displayTotal.innerText = '$' + total.toLocaleString('es-CO');
+                
+                // Efecto visual de botón
+                this.innerText = '✓ Agregado';
+                this.style.background = '#4CAF50';
+                setTimeout(() => {
+                    this.innerText = '+ Agregar';
+                    this.style.background = 'var(--color-fresa)';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+  </html>
