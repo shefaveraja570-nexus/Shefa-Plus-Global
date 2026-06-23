@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heladería - Dulce Tentación</title>
+    <style>
+        /* Variables con proporciones armónicas (Fibonacci) para un diseño fluido */
+        :root {
+            --fib-xs: 5px;
+            --fib-sm: 8px;
+            --fib-md: 13px;
+            --fib-lg: 21px;
+            --fib-xl: 34px;
+            
+            /* Paleta de colores basada en tu interfaz */
+            --color-bg: #f8f9fa;
+            --color-card: #ffffff;
+            --color-text-main: #333333;
+            --color-text-mut: #6c757d;
+            --color-accent: #d84315; /* Naranja/Rojo de precios y botones */
+            --color-cart-bg: #3e2723; /* Marrón oscuro del total */
+            --color-btn-pay: #ffb300; /* Amarillo del botón pagar */
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--color-bg);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 120px; /* Espacio para que el carrito no tape contenido */
+        }
+
+        /* Contenedor del Catálogo Grid */
+        .catalogo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--fib-lg);
+            padding: var(--fib-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Tarjeta de Producto */
+        .producto-card {
+            background-color: var(--color-card);
+            border-radius: var(--fib-lg);
+            overflow: hidden;
+            box-shadow: 0 4px 13px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Espacio para la foto */
+        .producto-img-box {
+            width: 100%;
+            height: 180px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Texto temporal mientras no hay foto */
+        .img-placeholder-text {
+            color: #adb5bd;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        /* Imagen real (oculta hasta que tenga source) */
+        .producto-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .producto-info {
+            padding: var(--fib-lg);
+        }
+
+        .producto-titulo {
+            margin: 0 0 var(--fib-sm) 0;
+            font-size: 1.15em;
+            color: var(--color-text-main);
+            font-weight: 600;
+        }
+
+        .producto-desc {
+            font-size: 0.85em;
+            color: var(--color-text-mut);
+            margin-bottom: var(--fib-md);
+            line-height: 1.5;
+        }
+
+        .producto-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: var(--fib-md);
+        }
+
+        .producto-precio {
+            color: var(--color-accent);
+            font-weight: 700;
+            font-size: 1.25em;
+        }
+
+        .btn-agregar {
+            background-color: var(--color-accent);
+            color: white;
+            border: none;
+            padding: var(--fib-sm) var(--fib-lg);
+            border-radius: 34px; /* Botón tipo píldora */
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(216, 67, 21, 0.3);
+        }
+
+        .btn-agregar:active {
+            transform: scale(0.95);
+        }
+
+        /* Carrito Flotante Inferior (Nexus Style) */
+        .carrito-flotante {
+            position: fixed;
+            bottom: var(--fib-md);
+            left: var(--fib-md);
+            right: var(--fib-md);
+            background-color: var(--color-cart-bg);
+            border-radius: var(--fib-xl);
+            padding: var(--fib-md) var(--fib-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 21px rgba(0,0,0,0.25);
+            z-index: 1000;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .carrito-textos {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carrito-label {
+            color: #d7ccc8;
+            font-size: 0.75em;
+            margin-bottom: 2px;
+        }
+
+        .carrito-total {
+            color: white;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .btn-pagar {
+            background-color: var(--color-btn-pay);
+            color: var(--color-cart-bg);
+            border: none;
+            padding: 10px var(--fib-lg);
+            border-radius: 34px;
+            font-weight: 700;
+            font-size: 0.95em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="catalogo-grid" id="contenedor-helados">
+        </div>
+
+    <div class="carrito-flotante">
+        <div class="carrito-textos">
+            <span class="carrito-label">Total estimado</span>
+            <h3 class="carrito-total" id="total-estimado">$0</h3>
+        </div>
+        <button class="btn-pagar">Pagar Pedido ➔</button>
+    </div>
+
+    <script>
+        // Array de datos estructurado (Ideal para reemplazar con el fetch de tu DB después)
+        const inventarioHelados = [
+            {
+                id: 'helado-01',
+                nombre: 'Cono Sencillo Artesanal',
+                descripcion: 'Delicioso helado de vainilla o chocolate servido en nuestro cono crujiente recién hecho.',
+                precio: 4500,
+                imagen: '' // Aquí irá la URL de la foto: 'https://...'
+            },
+            {
+                id: 'helado-02',
+                nombre: 'Copa Sundae Tentación',
+                descripcion: 'Helado doble bañado con salsa de frutos rojos, crema chantilly fresca y la cereza icónica.',
+                precio: 8500,
+                imagen: ''
+            },
+            {
+                id: 'helado-03',
+                nombre: 'Banana Split Clásica',
+                descripcion: 'Tres bolas de helado premium sobre banano fresco, bañadas en chocolate, caramelo y maní.',
+                precio: 12000,
+                imagen: ''
+            },
+            {
+                id: 'helado-04',
+                nombre: 'Malteada Supreme',
+                descripcion: 'Batido extra espeso de tu sabor favorito coronado con crema batida y trozos de galleta.',
+                precio: 10500,
+                imagen: ''
+            }
+        ];
+
+        let totalCarrito = 0;
+
+        // Función para formatear moneda
+        const formatearCOP = (valor) => {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 0
+            }).format(valor);
+        };
+
+        // Función para renderizar el catálogo dinámicamente
+        const renderizarCatalogo = () => {
+            const contenedor = document.getElementById('contenedor-helados');
+            contenedor.innerHTML = ''; // Limpiar antes de renderizar
+
+            inventarioHelados.forEach(producto => {
+                // Lógica para mostrar placeholder si no hay imagen
+                const estiloImagen = producto.imagen ? `style="opacity: 1;" src="${producto.imagen}"` : '';
+
+                const tarjetaHTML = `
+                    <div class="producto-card">
+                        <div class="producto-img-box">
+                            <span class="img-placeholder-text">Espacio Foto - ${producto.nombre}</span>
+                            <img class="producto-img" alt="${producto.nombre}" ${estiloImagen}>
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-titulo">${producto.nombre}</h3>
+                            <p class="producto-desc">${producto.descripcion}</p>
+                            <div class="producto-footer">
+                                <span class="producto-precio">${formatearCOP(producto.precio)}</span>
+                                <button class="btn-agregar" onclick="agregarAlCarrito(${producto.precio})">+ Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                contenedor.innerHTML += tarjetaHTML;
+            });
+        };
+
+        // Función para actualizar el total en la barra flotante
+        const agregarAlCarrito = (precio) => {
+            totalCarrito += precio;
+            document.getElementById('total-estimado').innerText = formatearCOP(totalCarrito);
+            
+            // Opcional: Pequeña animación háptica / visual para el usuario
+            if(navigator.vibrate) navigator.vibrate(50); 
+        };
+
+        // Iniciar renderizado al cargar
+        document.addEventListener('DOMContentLoaded', renderizarCatalogo);
+
+    </script>
+</body>
+</html>
