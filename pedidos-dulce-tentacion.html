@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Digital | Dulce Tentación</title>
+    <style>
+        :root {
+            --f-1: 8px; --f-2: 13px; --f-3: 21px; --f-4: 34px; --f-5: 55px; --f-6: 89px;
+            --color-vainilla: #FDFBF7;
+            --color-chocolate: #3E2723;
+            --color-fresa: #D84315;
+            --color-crema: #FFF3E0;
+            --color-oro: #FFB300;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+
+        body {
+            background-color: var(--color-vainilla);
+            color: var(--color-chocolate);
+            padding-bottom: 120px; /* Espacio para la barra de pago */
+        }
+
+        /* 👑 ESPACIO PARA EL LOGO DE LA EMPRESA */
+        .header-logo {
+            background: white;
+            padding: var(--f-4) var(--f-3);
+            text-align: center;
+            border-bottom: 3px solid var(--color-oro);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-logo img {
+            max-width: 200px; /* Tamaño ideal para el logo */
+            height: auto;
+            border-radius: 8px;
+            /* Aquí irá el logo. Si no hay imagen aún, se muestra este recuadro gris */
+            background-color: #f0f0f0; 
+            display: inline-block;
+        }
+
+        .header-logo h1 {
+            font-size: 24px;
+            margin-top: var(--f-2);
+            color: var(--color-chocolate);
+        }
+
+        .categorias-nav {
+            display: flex; overflow-x: auto; padding: var(--f-3); gap: var(--f-2);
+            background: white; position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .cat-btn {
+            background: var(--color-crema); border: none; padding: 10px 20px;
+            border-radius: 20px; font-weight: bold; color: var(--color-chocolate);
+            white-space: nowrap; cursor: pointer; transition: 0.3s;
+        }
+
+        .cat-btn.active { background: var(--color-fresa); color: white; }
+
+        .titulo-seccion {
+            padding: var(--f-4) var(--f-3) 0;
+            font-size: 22px;
+            border-bottom: 2px solid var(--color-oro);
+            display: inline-block;
+            margin: 0 var(--f-3);
+        }
+
+        .seccion-menu {
+            padding: var(--f-3);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--f-4);
+        }
+
+        .card {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex; flex-direction: column;
+        }
+
+        /* 📸 ESPACIO PARA LAS FOTOS DE LOS PRODUCTOS */
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover; /* Ajusta la foto sin deformarla */
+            background-color: #e9ecef; /* Fondo gris mientras carga la foto */
+        }
+
+        .card-content { padding: var(--f-3); display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
+        .card-desc { font-size: 14px; color: #666; margin-bottom: 15px; flex-grow: 1; }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 15px; }
+        .price { font-size: 18px; font-weight: bold; color: var(--color-fresa); }
+        .btn-add { background: var(--color-fresa); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+
+        .smart-cart {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px; background: var(--color-chocolate);
+            color: white; padding: 15px 20px; border-radius: 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000;
+        }
+
+        .smart-cart .btn-pay { background: var(--color-oro); color: var(--color-chocolate); border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HEADER: IDENTIFICACIÓN DE LA EMPRESA -->
+    <header class="header-logo">
+        <!-- Reemplaza "logo-dulce-tentacion.png" con el nombre de tu archivo de logo -->
+        <img src="logo-dulce-tentacion.png" alt="Logo Dulce Tentación" id="logo-principal">
+        <h1>Dulce Tentación</h1>
+        <p style="opacity: 0.7; font-size: 14px;">Servicio a Domicilio: 365 78 08</p>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="categorias-nav">
+        <button class="cat-btn active">Desayunos</button>
+        <button class="cat-btn">Otros Productos</button>
+    </nav>
+
+    <!-- 2. CATÁLOGO: DESAYUNOS (Basado en la foto del menú) -->
+    <h2 class="titulo-seccion">Desayunos</h2>
+    <main class="seccion-menu" id="menu-desayunos">
+        
+        <article class="card">
+            <!-- Reemplaza "foto-omelette.jpg" con la foto real -->
+            <img src="foto-omelette.jpg" class="card-img" alt="Omelette Jamón y Queso">
+            <div class="card-content">
+                <h3 class="card-title">Omelettes (Jamón y Queso)</h3>
+                <p class="card-desc">Delicioso omelette preparado al instante con los ingredientes más frescos.</p>
+                <div class="card-footer">
+                    <span class="price">$10.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-omelette-pollo.jpg" class="card-img" alt="Omelette Pollo y Maicitos">
+            <div class="card-content">
+                <h3 class="card-title">Omelettes (Pollo y Maicitos)</h3>
+                <p class="card-desc">Nuestra especialidad para un desayuno con toda la energía.</p>
+                <div class="card-footer">
+                    <span class="price">$12.500</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-huevos-revueltos.jpg" class="card-img" alt="Huevos Revueltos">
+            <div class="card-content">
+                <h3 class="card-title">Huevos Revueltos / Pericos</h3>
+                <p class="card-desc">Clásicos de la región, acompañados de tostada o arepa.</p>
+                <div class="card-footer">
+                    <span class="price">$6.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-cacerola.jpg" class="card-img" alt="Huevos en Cacerola">
+            <div class="card-content">
+                <h3 class="card-title">Huevos en Cacerola</h3>
+                <p class="card-desc">Tradición pura servida caliente directo a tu mesa.</p>
+                <div class="card-footer">
+                    <span class="price">$7.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-2-chorizos.jpg" class="card-img" alt="Plato 2 Chorizos">
+            <div class="card-content">
+                <h3 class="card-title">Plato de 2 Chorizos</h3>
+                <p class="card-desc">El clásico imperdible Santarrosano con arepa de la región.</p>
+                <div class="card-footer">
+                    <span class="price">$15.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- 3. CATÁLOGO: OTROS PRODUCTOS (Antojos y Sal) -->
+    <h2 class="titulo-seccion">Otros Productos</h2>
+    <main class="seccion-menu" id="menu-otros">
+        
+        <article class="card">
+            <img src="foto-empanada.jpg" class="card-img" alt="Empanada de carne">
+            <div class="card-content">
+                <h3 class="card-title">Empanada de Carne</h3>
+                <p class="card-desc">Crujiente por fuera y jugosa por dentro.</p>
+                <div class="card-footer">
+                    <span class="price">$3.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-pastel-pollo.jpg" class="card-img" alt="Pasteles de pollo">
+            <div class="card-content">
+                <h3 class="card-title">Pastel de Pollo (Frito o Hojaldre)</h3>
+                <p class="card-desc">El bocadillo perfecto para acompañar tu bebida caliente.</p>
+                <div class="card-footer">
+                    <span class="price">$4.500</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-dedo-queso.jpg" class="card-img" alt="Dedo de queso">
+            <div class="card-content">
+                <h3 class="card-title">Dedo de Queso con Arequipe</h3>
+                <p class="card-desc">La combinación ideal entre dulce y salado.</p>
+                <div class="card-footer">
+                    <span class="price">$3.500</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <img src="foto-panzeroti.jpg" class="card-img" alt="Panzeroti">
+            <div class="card-content">
+                <h3 class="card-title">Panzeroti Ranchero / Hawaiano</h3>
+                <p class="card-desc">Recién horneados y llenos de sabor.</p>
+                <div class="card-footer">
+                    <span class="price">$5.000</span>
+                    <button class="btn-add">+ Agregar</button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- BARRA DE PAGO INTELIGENTE -->
+    <div class="smart-cart">
+        <div>
+            <span style="font-size: 12px; opacity: 0.8;">Total estimado</span><br>
+            <strong style="font-size: 18px;" id="total-price">$0</strong>
+        </div>
+        <!-- Aquí conectas tu link de Mercado Pago -->
+        <a href="LINK_DE_MERCADO_PAGO_AQUI" class="btn-pay">Pagar Pedido ➔</a>
+    </div>
+
+    <script>
+        let total = 0;
+        const botones = document.querySelectorAll('.btn-add');
+        const displayTotal = document.getElementById('total-price');
+
+        botones.forEach(boton => {
+            boton.addEventListener('click', function() {
+                // Extrae el precio y suma
+                const precioTexto = this.previousElementSibling.innerText.replace('$', '').replace('.', '');
+                total += parseInt(precioTexto);
+                
+                // Actualiza la pantalla
+                displayTotal.innerText = '$' + total.toLocaleString('es-CO');
+                
+                // Efecto visual
+                const originalText = this.innerText;
+                const originalColor = this.style.background;
+                
+                this.innerText = '✓ Listo';
+                this.style.background = '#4CAF50';
+                
+                setTimeout(() => {
+                    this.innerText = originalText;
+                    this.style.background = originalColor;
+                }, 800);
+            });
+        });
+    </script>
+</body>
+</html>
