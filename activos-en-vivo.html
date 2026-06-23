@@ -199,38 +199,63 @@
             text-decoration: none;
         }
 
-        .btn-nexus-heladeria {
+        /* Contenedor de la barra de navegación para deslizamiento horizontal en móviles */
+.categorias-nav {
+    display: flex;
+    gap: 13px; /* Espacio armónico Fibonacci entre botones */
+    overflow-x: auto; /* Permite deslizar horizontalmente */
+    padding: 13px 21px; /* Espaciado para que las sombras 3D no se corten */
+    scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+}
+/* Oculta la barra de scroll en Chrome/Safari/Edge */
+.categorias-nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* Clase Maestra 3D para todos los botones */
+.btn-nexus-3d {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #fdf2e9; /* Tono crema sutil */
-    color: #d84315; /* El color de acento de tu marca */
+    gap: 5px; /* Espaciado entre el dibujo y el texto */
+    background-color: #fdf2e9; 
+    color: #d84315; 
     text-decoration: none;
     font-weight: 700;
     font-size: 14px;
-    padding: 8px 21px; /* Proporciones Fibonacci para el espaciado */
-    border-radius: 34px; /* Curva armónica */
-    /* Efecto Nexus 3D: Sombra exterior suave + sombra interior en la base */
+    padding: 10px 21px; 
+    border-radius: 34px; 
     box-shadow: 0 4px 8px rgba(0,0,0,0.1), inset 0 -3px 0 rgba(216, 67, 21, 0.2);
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     cursor: pointer;
-    -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul feo en móviles */
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap; /* Obliga a que el botón se mantenga en una sola línea */
+    border: none;
 }
 
 /* Efecto al tocar o pasar el mouse */
-.btn-nexus-heladeria:hover,
-.btn-nexus-heladeria:focus {
+.btn-nexus-3d:hover,
+.btn-nexus-3d:focus {
     background-color: #d84315;
     color: #ffffff;
     box-shadow: 0 8px 13px rgba(216, 67, 21, 0.3), inset 0 -3px 0 rgba(0,0,0,0.2);
-    transform: translateY(-2px); /* Se eleva un poco */
+    transform: translateY(-2px); 
 }
 
 /* Efecto al hacer clic (Se hunde el botón 3D) */
-.btn-nexus-heladeria:active {
+.btn-nexus-3d:active {
     transform: translateY(1px);
     box-shadow: 0 2px 5px rgba(216, 67, 21, 0.4), inset 0 2px 0 rgba(0,0,0,0.1);
-            }
+}
+
+/* ESTADO ACTIVO: Para que el cliente sepa en qué catálogo está parado */
+.btn-nexus-3d.active {
+    background-color: #d84315;
+    color: #ffffff;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); /* Efecto hundido permanente */
+    transform: translateY(1px);
+        }
+            
             
     </style>
 </head>
