@@ -198,6 +198,40 @@
             font-weight: bold;
             text-decoration: none;
         }
+
+        .btn-nexus-heladeria {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdf2e9; /* Tono crema sutil */
+    color: #d84315; /* El color de acento de tu marca */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 21px; /* Proporciones Fibonacci para el espaciado */
+    border-radius: 34px; /* Curva armónica */
+    /* Efecto Nexus 3D: Sombra exterior suave + sombra interior en la base */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1), inset 0 -3px 0 rgba(216, 67, 21, 0.2);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul feo en móviles */
+}
+
+/* Efecto al tocar o pasar el mouse */
+.btn-nexus-heladeria:hover,
+.btn-nexus-heladeria:focus {
+    background-color: #d84315;
+    color: #ffffff;
+    box-shadow: 0 8px 13px rgba(216, 67, 21, 0.3), inset 0 -3px 0 rgba(0,0,0,0.2);
+    transform: translateY(-2px); /* Se eleva un poco */
+}
+
+/* Efecto al hacer clic (Se hunde el botón 3D) */
+.btn-nexus-heladeria:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 5px rgba(216, 67, 21, 0.4), inset 0 2px 0 rgba(0,0,0,0.1);
+            }
+            
     </style>
 </head>
 <body>
@@ -213,7 +247,10 @@
         <button class="cat-btn active">Panadería Fresca</button>
         <a href="pedidos-dulce-tentacion.html" class="cat-btn" style="text-decoration: none;">Desayunos</a>
 
-        <button class="cat-btn">Heladería</button>
+        <a href="catalogo-helados.html" class="btn-nexus-heladeria">
+    🍨 Heladería
+</a>
+
         <button class="cat-btn">Antojos de Sal</button>
     </nav>
 
