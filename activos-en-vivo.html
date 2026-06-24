@@ -9,7 +9,6 @@
            ARQUITECTURA SAGRADA & FIBONACCI VARIABLES
            ========================================= */
         :root {
-            /* Secuencia Fibonacci para espaciados (px) */
             --f-1: 8px;
             --f-2: 13px;
             --f-3: 21px;
@@ -17,12 +16,10 @@
             --f-5: 55px;
             --f-6: 89px;
 
-            /* Proporción Áurea para Tipografía */
             --text-base: 16px;
-            --text-h1: calc(var(--text-base) * 1.618 * 1.618); /* ~42px */
-            --text-h2: calc(var(--text-base) * 1.618);        /* ~26px */
+            --text-h1: calc(var(--text-base) * 1.618 * 1.618); 
+            --text-h2: calc(var(--text-base) * 1.618);        
             
-            /* Paleta de Colores del Antojo */
             --color-vainilla: #FDFBF7;
             --color-chocolate: #3E2723;
             --color-fresa: #D84315;
@@ -40,13 +37,12 @@
         body {
             background-color: var(--color-vainilla);
             color: var(--color-chocolate);
-            line-height: 1.618; /* Altura de línea áurea */
-            padding-bottom: var(--f-6);
+            line-height: 1.618; 
+            padding-bottom: 130px; /* Expandido para el botón sagrado */
         }
 
         /* HERO SECTION */
         .hero {
-            /* Fondo ligeramente más oscuro para que el Logo Premium resalte al máximo */
             background: linear-gradient(rgba(46, 27, 21, 0.85), rgba(46, 27, 21, 0.85)), url('https://images.unsplash.com/photo-1563805042-7684c8a9e9ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
             padding: var(--f-6) var(--f-3);
             text-align: center;
@@ -57,27 +53,48 @@
             align-items: center;
         }
 
-        /* 👑 CLASE MAESTRA PARA EL LOGO PREMIUM EN LA PORTADA */
+        /* 👑 LOGO PREMIUM EN LA PORTADA */
         .hero-logo {
             width: 100%;
-            max-width: 550px; /* Tamaño ideal en escritorio/móvil */
+            max-width: 550px; 
             height: auto;
             border-radius: var(--f-2);
             box-shadow: 0 var(--f-2) var(--f-4) rgba(0,0,0,0.6);
             margin-bottom: var(--f-3);
-            border: 2px solid rgba(255, 179, 0, 0.5); /* Resplandor dorado áureo */
-            background-color: var(--color-chocolate); /* Fondo por si la imagen tiene transparencias */
+            border: 2px solid rgba(255, 179, 0, 0.5); 
+            background-color: var(--color-chocolate); 
         }
 
-        .hero p {
-            font-size: var(--text-base);
-            margin-bottom: var(--f-4);
-            opacity: 0.95;
+        /* ✒️ TEXTO DE ARQUITECTO DIGITAL */
+        .texto-arquitecto {
+            margin: 0 auto var(--f-4) auto;
             max-width: 600px;
-            letter-spacing: 0.5px;
+            line-height: 1.618; 
         }
 
-        /* 📲 BOTÓN WHATSAPP CORPORATIVO E IMPECABLE */
+        .texto-arquitecto strong {
+            display: block;
+            font-size: 18px; 
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px; 
+            background: linear-gradient(135deg, #FFD700, #FFF8DC, #F39C12, #FFB300);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 15px rgba(255, 215, 0, 0.2);
+            margin-bottom: var(--f-1);
+        }
+
+        .texto-arquitecto span {
+            display: block;
+            font-size: 15px;
+            color: var(--color-vainilla);
+            letter-spacing: 1px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        /* 📲 BOTÓN WHATSAPP CORPORATIVO */
         .btn-whatsapp {
             display: inline-flex;
             align-items: center;
@@ -106,30 +123,25 @@
             box-shadow: 0 2px 5px rgba(37, 211, 102, 0.4), inset 0 2px 0 rgba(0,0,0,0.1);
         }
 
-        /* CATEGORÍAS TABS */
-        /* Contenedor de la barra de navegación para deslizamiento horizontal en móviles */
+        /* CATEGORÍAS TABS 3D */
         .categorias-nav {
             display: flex;
-            gap: 13px; /* Espacio armónico Fibonacci entre botones */
-            overflow-x: auto; /* Permite deslizar horizontalmente */
-            padding: 13px 21px; /* Espaciado para que las sombras 3D no se corten */
-            scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+            gap: 13px; 
+            overflow-x: auto; 
+            padding: 13px 21px; 
+            scrollbar-width: none; 
             background: white;
             position: sticky;
             top: 0;
             z-index: 100;
         }
-        /* Oculta la barra de scroll en Chrome/Safari/Edge */
-        .categorias-nav::-webkit-scrollbar {
-            display: none;
-        }
+        .categorias-nav::-webkit-scrollbar { display: none; }
 
-        /* Clase Maestra 3D para todos los botones */
         .btn-nexus-3d {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 5px; /* Espaciado entre el dibujo y el texto */
+            gap: 5px; 
             background-color: #fdf2e9; 
             color: #d84315; 
             text-decoration: none;
@@ -141,31 +153,19 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
-            white-space: nowrap; /* Obliga a que el botón se mantenga en una sola línea */
+            white-space: nowrap; 
             border: none;
         }
 
-        /* Efecto al tocar o pasar el mouse */
-        .btn-nexus-3d:hover,
-        .btn-nexus-3d:focus {
-            background-color: #d84315;
-            color: #ffffff;
+        .btn-nexus-3d:hover, .btn-nexus-3d:focus {
+            background-color: #d84315; color: #ffffff;
             box-shadow: 0 8px 13px rgba(216, 67, 21, 0.3), inset 0 -3px 0 rgba(0,0,0,0.2);
             transform: translateY(-2px); 
         }
 
-        /* Efecto al hacer clic (Se hunde el botón 3D) */
         .btn-nexus-3d:active {
             transform: translateY(1px);
             box-shadow: 0 2px 5px rgba(216, 67, 21, 0.4), inset 0 2px 0 rgba(0,0,0,0.1);
-        }
-
-        /* ESTADO ACTIVO: Para que el cliente sepa en qué catálogo está parado */
-        .btn-nexus-3d.active {
-            background-color: #d84315;
-            color: #ffffff;
-            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); /* Efecto hundido permanente */
-            transform: translateY(1px);
         }
 
         /* GRID DE PRODUCTOS */
@@ -177,152 +177,71 @@
         }
 
         .card {
-            background: white;
-            border-radius: var(--f-2);
-            overflow: hidden;
-            box-shadow: 0 var(--f-1) var(--f-3) rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s ease;
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06); display: flex; flex-direction: column;
+            border: 1px solid #f0f0f0; transition: transform 0.3s ease;
         }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 21px rgba(0,0,0,0.1); }
 
-        .card:hover {
-            transform: translateY(-5px);
+        /* ARQUITECTURA DE IMÁGENES AUREAS */
+        .card-img-container {
+            width: 100%; padding-top: 65%; position: relative; background-color: #EAECEE;
         }
-
         .card-img {
-            height: 200px;
-            background-color: var(--color-crema);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem; /* Emoji placeholder */
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
         }
 
-        .card-content {
-            padding: var(--f-3);
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+        .card-content { padding: var(--f-3); display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 20px; font-weight: 900; margin-bottom: 4px; color: var(--color-chocolate); }
+        .card-desc { font-size: 14px; color: #555; margin-bottom: 15px; flex-grow: 1; line-height: 1.5; }
+        
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #ccc; padding-top: 15px; }
+        .price { font-size: 22px; font-weight: 900; color: var(--color-fresa); }
+        
+        .btn-add { 
+            background: var(--color-fresa); color: white; border: none; 
+            padding: 10px 20px; border-radius: 20px; font-weight: bold; 
+            cursor: pointer; transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(216, 67, 21, 0.3);
         }
+        .btn-add:hover { background: #922B21; }
 
-        .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: var(--f-1);
-        }
-
-        .card-desc {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: var(--f-3);
-            flex-grow: 1;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #eee;
-            padding-top: var(--f-2);
-        }
-
-        .price {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--color-fresa);
-        }
-
-        .btn-add {
-            background: var(--color-fresa);
-            color: white;
-            border: none;
-            padding: var(--f-1) var(--f-3);
-            border-radius: var(--f-4);
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* BARRA FLOTANTE DE PAGO INTELIGENTE */
+        /* ✨ BARRA FLOTANTE Y BOTÓN DORADO MÁGICO ✨ */
         .smart-cart {
-            position: fixed;
-            bottom: var(--f-3);
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            background: var(--color-chocolate);
-            color: white;
-            padding: var(--f-2) var(--f-3);
-            border-radius: var(--f-4);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 var(--f-2) var(--f-4) rgba(0,0,0,0.3);
-            z-index: 1000;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 450px; background: var(--color-chocolate);
+            color: white; padding: 15px 25px; border-radius: 35px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000;
+            border: 1px solid rgba(255, 179, 0, 0.2);
         }
 
-        .smart-cart .btn-pay {
-            background: var(--color-oro);
-            color: var(--color-chocolate);
-            border: none;
-            padding: var(--f-1) var(--f-3);
-            border-radius: var(--f-4);
-            font-weight: bold;
-            text-decoration: none;
+        .smart-cart .btn-pay { 
+            background: linear-gradient(135deg, #FFD700, #F39C12, #FFB300);
+            color: #3E2723; border: 2px solid #FFF8DC;
+            padding: 12px 24px; border-radius: 25px; 
+            font-weight: 900; text-decoration: none; text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6), inset 0 2px 4px rgba(255,255,255,0.5);
+            animation: resplandorDorado 2s infinite alternate;
         }
 
-        /* =========================================
-   ✒️ ESTILO: TEXTO DE ARQUITECTO DIGITAL
-   ========================================= */
-.texto-arquitecto {
-    margin: 0 auto var(--f-4) auto;
-    max-width: 600px;
-    line-height: 1.618; /* Proporción Áurea exacta */
-}
-
-/* El Gancho Principal (Efecto Oro Metálico) */
-.texto-arquitecto strong {
-    display: block;
-    font-size: 18px; 
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2px; /* Espaciado arquitectónico */
-    /* Magia de Gradiente Dorado */
-    background: linear-gradient(135deg, #FFD700, #FFF8DC, #F39C12, #FFB300);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0px 4px 15px rgba(255, 215, 0, 0.2);
-    margin-bottom: var(--f-1);
-}
-
-/* La Llamada a la Acción (Limpia y elegante) */
-.texto-arquitecto span {
-    display: block;
-    font-size: 15px;
-    color: var(--color-vainilla);
-    letter-spacing: 1px;
-    opacity: 0.9;
-    font-weight: 400;
-            }
-                
+        @keyframes resplandorDorado {
+            0% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+            100% { box-shadow: 0 4px 25px rgba(255, 215, 0, 0.8), 0 0 12px rgba(255, 255, 255, 0.6); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- HERO SECTION -->
     <header class="hero">
-        <!-- 👑 LOGO PREMIUM INYECTADO AQUÍ -->
         <img src="logo-premium-tentacion.png" alt="Dulce Tentación Logo" class="hero-logo">
         
-        <!-- 🏛️ TEXTO ARQUITECTURA DIGITAL -->
-<p class="texto-arquitecto">
-    <strong>El sabor que hace vibrar a Santa Rosa.</strong>
-    <strong>Pide tu desayuno, pan fresco o helado en 3 clics.</strong>
-</p>
+        <p class="texto-arquitecto">
+            <strong>El sabor que hace vibrar a Santa Rosa.</strong>
+            <span>Pide tu desayuno, pan fresco o helado en 3 clics.</span>
+        </p>
 
-
-        <!-- 📲 BOTÓN WHATSAPP. Reemplaza el número 573000000000 por el número real del asesor/dueño -->
         <a href="https://wa.me/573022915641?text=Hola,%20vengo%20del%20Catálogo%20Virtual.%20Quiero%20hacer%20un%20pedido%20en%20Dulce%20Tentación" class="btn-whatsapp" target="_blank">
             <svg style="width: 24px; height: 24px; fill: white; margin-right: 5px;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
@@ -331,28 +250,18 @@
         </a>
     </header>
 
-    <!-- NAVEGACIÓN -->
     <nav class="categorias-nav">
-        <!-- 🔗 BOTONES CONECTADOS A TUS ARCHIVOS -->
-        <a href="catalogo-panaderia.html" class="btn-nexus-3d">
-            🥖 Panadería Fresca
-        </a>
-        <a href="catalogo-desayunos.html" class="btn-nexus-3d">
-            🍳 Desayunos
-        </a>
-        <a href="catalogo-helados.html" class="btn-nexus-3d">
-            🍨 Heladería
-        </a>
-        <a href="catalogo-antojos-sal.html" class="btn-nexus-3d">
-            🥟 Antojos de Sal
-        </a>
+        <a href="catalogo-panaderia.html" class="btn-nexus-3d">🥖 Panadería Fresca</a>
+        <a href="catalogo-desayunos.html" class="btn-nexus-3d">🍳 Desayunos</a>
+        <a href="catalogo-helados.html" class="btn-nexus-3d">🍨 Heladería</a>
+        <a href="catalogo-antojos-sal.html" class="btn-nexus-3d">🥟 Antojos de Sal</a>
     </nav>
 
-
-    <!-- CATÁLOGO: PANADERÍA FRESCA -->
     <main class="seccion-menu" id="menu-panaderia">
         <article class="card">
-            <div class="card-img">🍞</div>
+            <div class="card-img-container">
+                <img src="foto-pan-alinado.jpg" class="card-img" alt="Pan Aliñado Fresco">
+            </div>
             <div class="card-content">
                 <h3 class="card-title">Pan Aliñado Fresco</h3>
                 <p class="card-desc">Suave, esponjoso y recién salido del horno. Ideal para empezar el día.</p>
@@ -364,7 +273,9 @@
         </article>
 
         <article class="card">
-            <div class="card-img">🥖</div>
+            <div class="card-img-container">
+                <img src="foto-pan-seda.jpg" class="card-img" alt="Pan Especial & Seda">
+            </div>
             <div class="card-content">
                 <h3 class="card-title">Pan Especial & Seda</h3>
                 <p class="card-desc">La textura perfecta para acompañar tu café santarrosano.</p>
@@ -376,7 +287,9 @@
         </article>
 
         <article class="card">
-            <div class="card-img">🍘</div>
+            <div class="card-img-container">
+                <img src="foto-tostadas.jpg" class="card-img" alt="Tostadas Crujientes">
+            </div>
             <div class="card-content">
                 <h3 class="card-title">Tostadas Crujientes</h3>
                 <p class="card-desc">Paquete de tostadas tradicionales para compartir.</p>
@@ -388,10 +301,11 @@
         </article>
     </main>
 
-    <!-- CATÁLOGO: DESAYUNOS (Se ocultarían por JS según el tab, pero aquí mostramos la maqueta completa) -->
     <main class="seccion-menu" id="menu-desayunos">
         <article class="card">
-            <div class="card-img">🍳</div>
+            <div class="card-img-container">
+                <img src="foto-omelette-pollo.jpg" class="card-img" alt="Omelette Pollo y Maicitos">
+            </div>
             <div class="card-content">
                 <h3 class="card-title">Omelette Pollo y Maicitos</h3>
                 <p class="card-desc">El desayuno poderoso con la mejor sazón de la casa.</p>
@@ -403,7 +317,9 @@
         </article>
 
         <article class="card">
-            <div class="card-img">🥓</div>
+            <div class="card-img-container">
+                <img src="foto-2-chorizos.jpg" class="card-img" alt="Plato de 2 Chorizos">
+            </div>
             <div class="card-content">
                 <h3 class="card-title">Plato de 2 Chorizos</h3>
                 <p class="card-desc">El clásico imperdible con arepa de la región.</p>
@@ -415,10 +331,11 @@
         </article>
     </main>
     
-    <!-- CATÁLOGO: HELADERÍA -->
     <main class="seccion-menu" id="menu-heladeria">
         <article class="card">
-            <div class="card-img">🍨</div>
+            <div class="card-img-container">
+                <img src="foto-copa-sundae.jpg" class="card-img" alt="Copa Dulce Tentación">
+            </div>
             <div class="card-content">
                 <h3 class="card-title">Copa Dulce Tentación</h3>
                 <p class="card-desc">Helado premium con salsa de chocolate, barquillos y trozos de galleta.</p>
@@ -430,17 +347,14 @@
         </article>
     </main>
 
-    <!-- BARRA DE PAGO INTELIGENTE -->
     <div class="smart-cart">
         <div>
-            <span style="font-size: 12px; opacity: 0.8;">Total estimado</span><br>
-            <strong style="font-size: 18px;" id="total-price">$0</strong>
+            <span style="font-size: 13px; color: #EAECEE; text-transform: uppercase; letter-spacing: 1px;">Total de tu antojo</span><br>
+            <strong style="font-size: 24px; color: #FFF;" id="total-price">$0</strong>
         </div>
-        <!-- Aquí irá tu enlace dinámico de la pasarela -->
-        <a href="#" class="btn-pay">Pagar Pedido ➔</a>
+        <a href="#" class="btn-pay">Pagar Ahora ⚡</a>
     </div>
 
-    <!-- SCRIPT BÁSICO PARA SIMULAR EL CARRITO -->
     <script>
         let total = 0;
         const botones = document.querySelectorAll('.btn-add');
@@ -448,20 +362,21 @@
 
         botones.forEach(boton => {
             boton.addEventListener('click', function() {
-                // Extraer precio del texto (simulación rápida)
                 const precioTexto = this.previousElementSibling.innerText.replace('$', '').replace('.', '');
                 total += parseInt(precioTexto);
                 
-                // Formatear a pesos colombianos
                 displayTotal.innerText = '$' + total.toLocaleString('es-CO');
                 
-                // Efecto visual de botón
-                this.innerText = '✓ Agregado';
-                this.style.background = '#4CAF50';
+                const originalText = this.innerText;
+                const originalBg = this.style.background;
+                
+                this.innerText = '✓ Listo';
+                this.style.background = '#27AE60';
+                
                 setTimeout(() => {
-                    this.innerText = '+ Agregar';
-                    this.style.background = 'var(--color-fresa)';
-                }, 1000);
+                    this.innerText = originalText;
+                    this.style.background = originalBg;
+                }, 800);
             });
         });
     </script>
