@@ -352,14 +352,22 @@
             <span style="font-size: 13px; color: #EAECEE; text-transform: uppercase; letter-spacing: 1px;">Total de tu antojo</span><br>
             <strong style="font-size: 24px; color: #FFF;" id="total-price">$0</strong>
         </div>
-        <a href="#" class="btn-pay">Pagar Ahora ⚡</a>
+        <a href="#" class="btn-pay" id="btn-pagar-ahora">Pagar Ahora ⚡</a>
     </div>
 
     <script>
         let total = 0;
         const botones = document.querySelectorAll('.btn-add');
         const displayTotal = document.getElementById('total-price');
+        const btnPagar = document.getElementById('btn-pagar-ahora');
 
+        // 🚨 AQUÍ PONES TU LINK DE MERCADO PAGO PARA RECIBIR LA PLATA 🚨
+        const linkPasarela = "https://link.mercadopago.com.co/AQUIVAELTUYO"; 
+        
+        // 🚨 NÚMERO DEL DUEÑO (A donde llega el pedido) 🚨
+        const numeroDueño = "573022915641"; 
+
+        // 1. LÓGICA DE SUMAR AL CARRITO
         botones.forEach(boton => {
             boton.addEventListener('click', function() {
                 const precioTexto = this.previousElementSibling.innerText.replace('$', '').replace('.', '');
@@ -367,10 +375,11 @@
                 
                 displayTotal.innerText = '$' + total.toLocaleString('es-CO');
                 
+                // Efecto visual magnético de confirmación
                 const originalText = this.innerText;
                 const originalBg = this.style.background;
                 
-                this.innerText = '✓ Listo';
+                this.innerText = '✓ Agregado';
                 this.style.background = '#27AE60';
                 
                 setTimeout(() => {
@@ -379,6 +388,35 @@
                 }, 800);
             });
         });
+
+        // 2. LÓGICA DE AUTOMATIZACIÓN (WHATSAPP + MERCADO PAGO)
+        if(btnPagar) {
+            btnPagar.addEventListener('click', function(evento) {
+                // Evita que la página salte hacia arriba
+                evento.preventDefault(); 
+
+                if (total === 0) {
+                    alert("¡Aún no has agregado ningún antojo a tu pedido!");
+                    return;
+                }
+
+                // Generar el "Contrato Inteligente" / Recibo que le llega al dueño
+                let mensaje = `*NUEVO PEDIDO - DULCE TENTACIÓN*%0A`;
+                mensaje += `Total a pagar: *$${total.toLocaleString('es-CO')}*%0A%0A`;
+                mensaje += `El cliente está siendo dirigido a la pasarela segura para realizar su pago.%0A`;
+                mensaje += `Medios habilitados: Nequi, PSE, Efecty, Tarjetas.%0A%0A`;
+                mensaje += `🔗 Link de respaldo: ${linkPasarela}`;
+
+                // ACCIÓN 1: Abrir WhatsApp para notificar al dueño (en pestaña nueva)
+                window.open(`https://wa.me/${numeroDueño}?text=${mensaje}`, '_blank');
+                
+                // ACCIÓN 2: Redirigir al cliente a Mercado Pago para que pague (en la pestaña actual, tras 1.5 segundos)
+                setTimeout(() => {
+                    window.location.href = linkPasarela; 
+                }, 1500);
+            });
+        }
     </script>
+
 </body>
     </html>
