@@ -271,6 +271,41 @@
             font-weight: bold;
             text-decoration: none;
         }
+
+        /* =========================================
+   ✒️ ESTILO: TEXTO DE ARQUITECTO DIGITAL
+   ========================================= */
+.texto-arquitecto {
+    margin: 0 auto var(--f-4) auto;
+    max-width: 600px;
+    line-height: 1.618; /* Proporción Áurea exacta */
+}
+
+/* El Gancho Principal (Efecto Oro Metálico) */
+.texto-arquitecto strong {
+    display: block;
+    font-size: 18px; 
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Espaciado arquitectónico */
+    /* Magia de Gradiente Dorado */
+    background: linear-gradient(135deg, #FFD700, #FFF8DC, #F39C12, #FFB300);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0px 4px 15px rgba(255, 215, 0, 0.2);
+    margin-bottom: var(--f-1);
+}
+
+/* La Llamada a la Acción (Limpia y elegante) */
+.texto-arquitecto span {
+    display: block;
+    font-size: 15px;
+    color: var(--color-vainilla);
+    letter-spacing: 1px;
+    opacity: 0.9;
+    font-weight: 400;
+            }
+                
     </style>
 </head>
 <body>
@@ -280,7 +315,12 @@
         <!-- 👑 LOGO PREMIUM INYECTADO AQUÍ -->
         <img src="logo-premium-tentacion.png" alt="Dulce Tentación Logo" class="hero-logo">
         
-        <p>El sabor que hace vibrar a Santa Rosa. Pide tu desayuno, pan fresco o helado en 3 clics.</p>
+        <!-- 🏛️ TEXTO ARQUITECTURA DIGITAL -->
+<p class="texto-arquitecto">
+    <strong>El sabor que hace vibrar a Santa Rosa.</strong>
+    <span>Pide tu desayuno, pan fresco o helado en 3 clics.</span>
+</p>
+
 
         <!-- 📲 BOTÓN WHATSAPP. Reemplaza el número 573000000000 por el número real del asesor/dueño -->
         <a href="https://wa.me/573022915641?text=Hola,%20vengo%20del%20Catálogo%20Virtual.%20Quiero%20hacer%20un%20pedido%20en%20Dulce%20Tentación" class="btn-whatsapp" target="_blank">
