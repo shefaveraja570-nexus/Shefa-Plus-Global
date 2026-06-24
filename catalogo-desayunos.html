@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Digital | Dulce Tentación</title>
+    <title>Desayunos Premium | Dulce Tentación</title>
     <style>
+        /* =========================================
+           ARQUITECTURA SAGRADA & FIBONACCI VARIABLES
+           ========================================= */
         :root {
             --f-1: 8px; --f-2: 13px; --f-3: 21px; --f-4: 34px; --f-5: 55px; --f-6: 89px;
             --color-vainilla: #FDFBF7;
@@ -19,7 +22,8 @@
         body {
             background-color: var(--color-vainilla);
             color: var(--color-chocolate);
-            padding-bottom: 120px; /* Espacio para la barra de pago */
+            line-height: 1.618;
+            padding-bottom: 130px; /* Espacio para la barra de pago */
         }
 
         /* 👑 CABECERA PREMIUM PARA EL LOGO */
@@ -37,74 +41,101 @@
             height: auto;
             display: inline-block;
         }
-        
 
-        
-        .header-logo h1 {
-            font-size: 24px;
-            margin-top: var(--f-2);
-            color: var(--color-chocolate);
-        }
-
+        /* 📲 NAVEGACIÓN 3D HORIZONTAL ECOSISTEMA */
         .categorias-nav {
-            display: flex; overflow-x: auto; padding: var(--f-3); gap: var(--f-2);
-            background: white; position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex; gap: 13px; overflow-x: auto; padding: 13px 21px;
+            scrollbar-width: none; background: white; position: sticky; top: 0; z-index: 100;
+            border-bottom: 1px solid #eee;
+        }
+        .categorias-nav::-webkit-scrollbar { display: none; }
+
+        .btn-nexus-3d {
+            display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+            background-color: #fdf2e9; color: #d84315; text-decoration: none;
+            font-weight: 700; font-size: 14px; padding: 10px 21px; border-radius: 34px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1), inset 0 -3px 0 rgba(216, 67, 21, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            white-space: nowrap; border: none;
         }
 
-        .cat-btn {
-            background: var(--color-crema); border: none; padding: 10px 20px;
-            border-radius: 20px; font-weight: bold; color: var(--color-chocolate);
-            white-space: nowrap; cursor: pointer; transition: 0.3s;
+        .btn-nexus-3d.active {
+            background-color: #d84315; color: #ffffff;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.2); transform: translateY(1px);
         }
 
-        .cat-btn.active { background: var(--color-fresa); color: white; }
-
+        /* TÍTULOS Y SECCIONES */
+        .seccion-header {
+            text-align: center; padding: var(--f-4) var(--f-3) 0;
+        }
         .titulo-seccion {
-            padding: var(--f-4) var(--f-3) 0;
-            font-size: 22px;
-            border-bottom: 2px solid var(--color-oro);
-            display: inline-block;
-            margin: 0 var(--f-3);
+            font-size: 28px; color: var(--color-chocolate); text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 900; margin-bottom: 5px;
+        }
+        .subtitulo-seccion {
+            font-size: 16px; color: #666; font-style: italic; margin-top: 0;
         }
 
         .seccion-menu {
-            padding: var(--f-3);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--f-4);
+            padding: var(--f-4) var(--f-3);
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--f-4);
         }
 
+        /* TARJETAS DE PRODUCTO PREPARADAS PARA FOTOS REALES */
         .card {
             background: white; border-radius: 12px; overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            display: flex; flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06); display: flex; flex-direction: column;
+            border: 1px solid #f0f0f0; transition: transform 0.3s ease;
         }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 21px rgba(0,0,0,0.1); }
 
-        /* 📸 ESPACIO PARA LAS FOTOS DE LOS PRODUCTOS */
         .card-img {
             width: 100%;
             height: 220px;
-            object-fit: cover; /* Ajusta la foto sin deformarla */
-            background-color: #e9ecef; /* Fondo gris mientras carga la foto */
+            object-fit: cover;
+            background-color: #e9ecef;
         }
 
         .card-content { padding: var(--f-3); display: flex; flex-direction: column; flex-grow: 1; }
-        .card-title { font-size: 18px; font-weight: bold; margin-bottom: 5px; }
-        .card-desc { font-size: 14px; color: #666; margin-bottom: 15px; flex-grow: 1; }
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 15px; }
-        .price { font-size: 18px; font-weight: bold; color: var(--color-fresa); }
-        .btn-add { background: var(--color-fresa); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+        .card-title { font-size: 20px; font-weight: 900; margin-bottom: 4px; color: var(--color-chocolate); }
+        .card-desc { font-size: 14px; color: #555; margin-bottom: 15px; flex-grow: 1; line-height: 1.5; }
+        
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #ccc; padding-top: 15px; }
+        .price { font-size: 22px; font-weight: 900; color: var(--color-fresa); }
+        
+        .btn-add { 
+            background: var(--color-fresa); color: white; border: none; 
+            padding: 10px 20px; border-radius: 20px; font-weight: bold; 
+            cursor: pointer; transition: background 0.3s;
+            box-shadow: 0 4px 6px rgba(216, 67, 21, 0.3);
+        }
+        .btn-add:hover { background: #922B21; }
 
+        /* ✨ BARRA FLOTANTE Y BOTÓN DORADO MÁGICO ✨ */
         .smart-cart {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px; background: var(--color-chocolate);
-            color: white; padding: 15px 20px; border-radius: 30px;
+            width: 90%; max-width: 450px; background: var(--color-chocolate);
+            color: white; padding: 15px 25px; border-radius: 35px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 1000;
+            border: 1px solid rgba(255, 179, 0, 0.2);
         }
 
-        .smart-cart .btn-pay { background: var(--color-oro); color: var(--color-chocolate); border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; text-decoration: none; }
+        /* EL TOQUE DORADO */
+        .smart-cart .btn-pay { 
+            background: linear-gradient(135deg, #FFD700, #F39C12, #FFB300);
+            color: #3E2723; border: 2px solid #FFF8DC;
+            padding: 12px 24px; border-radius: 25px; 
+            font-weight: 900; text-decoration: none; text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6), inset 0 2px 4px rgba(255,255,255,0.5);
+            animation: resplandorDorado 2s infinite alternate;
+        }
+
+        @keyframes resplandorDorado {
+            0% { box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+            100% { box-shadow: 0 4px 25px rgba(255, 215, 0, 0.8), 0 0 12px rgba(255, 255, 255, 0.6); }
+        }
     </style>
 </head>
 <body>
@@ -114,18 +145,32 @@
         <img src="logo-premium-tentacion.png" alt="Dulce Tentación Logo">
     </header>
 
-    <!-- NAVEGACIÓN -->
+    <!-- NAVEGACIÓN 3D INTERCONECTADA -->
     <nav class="categorias-nav">
-        <button class="cat-btn active">Desayunos</button>
-        <button class="cat-btn">Otros Productos</button>
+        <a href="catalogo-panaderia.html" class="btn-nexus-3d">
+            🥖 Panadería Fresca
+        </a>
+        <a href="catalogo-desayunos.html" class="btn-nexus-3d active">
+            🍳 Desayunos
+        </a>
+        <a href="catalogo-helados.html" class="btn-nexus-3d">
+            🍨 Heladería
+        </a>
+        <a href="catalogo-antojos-sal.html" class="btn-nexus-3d">
+            🥟 Antojos de Sal
+        </a>
     </nav>
 
-    <!-- 2. CATÁLOGO: DESAYUNOS (Basado en la foto del menú) -->
-    <h2 class="titulo-seccion">Desayunos</h2>
+    <!-- ENCABEZADO DE DESAYUNOS -->
+    <div class="seccion-header">
+        <h2 class="titulo-seccion">Desayunos</h2>
+        <p class="subtitulo-seccion">La mejor energía para empezar el día con el auténtico sabor santarrosano.</p>
+    </div>
+
+    <!-- CATÁLOGO: DESAYUNOS -->
     <main class="seccion-menu" id="menu-desayunos">
         
         <article class="card">
-            <!-- Reemplaza "foto-omelette.jpg" con la foto real -->
             <img src="foto-omelette.jpg" class="card-img" alt="Omelette Jamón y Queso">
             <div class="card-content">
                 <h3 class="card-title">Omelettes (Jamón y Queso)</h3>
@@ -186,8 +231,13 @@
         </article>
     </main>
 
-    <!-- 3. CATÁLOGO: OTROS PRODUCTOS (Antojos y Sal) -->
-    <h2 class="titulo-seccion">Otros Productos</h2>
+    <!-- ENCABEZADO DE OTROS PRODUCTOS -->
+    <div class="seccion-header">
+        <h2 class="titulo-seccion">Otros Productos</h2>
+        <p class="subtitulo-seccion">Perfectos para acompañar o para un buen capricho a media mañana.</p>
+    </div>
+
+    <!-- CATÁLOGO: OTROS PRODUCTOS -->
     <main class="seccion-menu" id="menu-otros">
         
         <article class="card">
@@ -240,14 +290,14 @@
 
     </main>
 
-    <!-- BARRA DE PAGO INTELIGENTE -->
+    <!-- BARRA DE PAGO INTELIGENTE CON BOTÓN DORADO -->
     <div class="smart-cart">
         <div>
-            <span style="font-size: 12px; opacity: 0.8;">Total estimado</span><br>
-            <strong style="font-size: 18px;" id="total-price">$0</strong>
+            <span style="font-size: 13px; color: #EAECEE; text-transform: uppercase; letter-spacing: 1px;">Total de tu antojo</span><br>
+            <strong style="font-size: 24px; color: #FFF;" id="total-price">$0</strong>
         </div>
         <!-- Aquí conectas tu link de Mercado Pago -->
-        <a href="LINK_DE_MERCADO_PAGO_AQUI" class="btn-pay">Pagar Pedido ➔</a>
+        <a href="LINK_DE_MERCADO_PAGO_AQUI" class="btn-pay">Pagar Ahora ⚡</a>
     </div>
 
     <script>
@@ -269,7 +319,7 @@
                 const originalColor = this.style.background;
                 
                 this.innerText = '✓ Listo';
-                this.style.background = '#4CAF50';
+                this.style.background = '#27AE60';
                 
                 setTimeout(() => {
                     this.innerText = originalText;
@@ -279,4 +329,5 @@
         });
     </script>
 </body>
-</html>
+            </html>
+    
