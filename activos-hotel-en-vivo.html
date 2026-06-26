@@ -3,83 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva Hotel Central Park | Activos en Vivo</title>
+    <title>Hotel Central Park | Gestión Visual</title>
     <style>
         :root { --fib-gold: #D4AF37; --bg-main: #0a0a0a; }
-        body { background: var(--bg-main); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        body { background: var(--bg-main); color: #fff; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
         
-        .container { max-width: 900px; margin: auto; }
-        
-        /* Efecto respiración aurea */
-        @keyframes respirar {
-            0% { box-shadow: 0 0 5px var(--fib-gold); }
-            50% { box-shadow: 0 0 20px var(--fib-gold); }
-            100% { box-shadow: 0 0 5px var(--fib-gold); }
-        }
-
         .hab-card {
             background: #151515;
-            border: 2px solid var(--fib-gold);
+            border: 1px solid var(--fib-gold);
             border-radius: 21px;
             padding: 21px;
-            margin-bottom: 21px;
-            animation: respirar 3s infinite;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            margin-bottom: 34px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
+        /* Contenedor de fotos (Scroll Horizontal) */
+        .gallery-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            padding-bottom: 10px;
+        }
+        .gallery-container img {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--fib-gold);
+        }
+
+        .info-row { display: flex; justify-content: space-between; align-items: center; }
+        .precio { font-size: 20px; color: var(--fib-gold); font-weight: bold; }
         .btn-reserva {
             background: transparent;
             color: var(--fib-gold);
             border: 2px solid var(--fib-gold);
-            padding: 13px 21px;
+            padding: 10px 15px;
             border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
             transition: 0.3s;
         }
-
         .btn-reserva:hover { background: var(--fib-gold); color: #000; }
-        .precio { font-size: 24px; color: var(--fib-gold); }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>🛎️ Hotel Central Park: Activos Disponibles</h1>
+    <h2 style="text-align:center; color:var(--fib-gold);">🛎️ Hotel Central Park</h2>
     <div id="lista-habitaciones"></div>
 </div>
 
 <script>
-    // Matriz de habitaciones del Hotel Central Park
+    // Ahora cada habitación tiene su array de fotos
     const habitaciones = [
-        { id: "101", tipo: "Suite Ejecutiva", precio: "150.000" },
-        { id: "102", tipo: "Habitación Doble", precio: "120.000" },
-        { id: "103", tipo: "Habitación Sencilla", precio: "90.000" },
-        { id: "201", tipo: "Suite Central", precio: "180.000" }
+        { 
+            id: "101", tipo: "Suite Ejecutiva", precio: "150.000", 
+            fotos: ["https://via.placeholder.com/120x80", "https://via.placeholder.com/120x80"] 
+        },
+        { 
+            id: "102", tipo: "Habitación Doble", precio: "120.000", 
+            fotos: ["https://via.placeholder.com/120x80", "https://via.placeholder.com/120x80"] 
+        }
     ];
 
     const contenedor = document.getElementById('lista-habitaciones');
 
     habitaciones.forEach(hab => {
+        let fotosHTML = hab.fotos.map(foto => `<img src="${foto}" alt="Habitación">`).join('');
+        
         contenedor.innerHTML += `
             <div class="hab-card">
-                <div>
-                    <h3>Habitación ${hab.id} - ${hab.tipo}</h3>
-                    <p class="precio">$ ${hab.precio} COP</p>
+                <h3>${hab.id} - ${hab.tipo}</h3>
+                <div class="gallery-container">${fotosHTML}</div>
+                <div class="info-row">
+                    <span class="precio">$ ${hab.precio} COP</span>
+                    <button class="btn-reserva" onclick="pagar('${hab.id}', '${hab.precio}')">🛎️ Reservar</button>
                 </div>
-                <button class="btn-reserva" onclick="pagar('${hab.id}', '${hab.precio}')">
-                    🛎️ Reservar Ahora
-                </button>
             </div>
         `;
     });
 
     function pagar(id, precio) {
-        // Vinculación a WhatsApp con lógica de automatización
-        const mensaje = `Hola, quiero reservar la Habitación ${id} por un valor de $${precio}. ¿Está disponible?`;
-        window.open(`https://wa.me/573118582529?text=${encodeURIComponent(mensaje)}`, '_blank');
+        window.open(`https://wa.me/573118582529?text=Hola, quiero reservar la Habitación ${id} de $${precio}.`, '_blank');
     }
 </script>
 </body>
