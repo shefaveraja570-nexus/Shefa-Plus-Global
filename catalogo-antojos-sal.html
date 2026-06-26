@@ -234,35 +234,97 @@
             <span style="font-size: 13px; color: #EAECEE; text-transform: uppercase; letter-spacing: 1px;">Total de tu antojo</span><br>
             <strong style="font-size: 24px; color: #FFF;" id="total-price">$0</strong>
         </div>
-        <a href="#" class="btn-pay">Pagar Ahora ⚡</a>
+        <a href="#" class="btn-pay" id="btn-pagar-ahora">Pagar Ahora ⚡</a>
     </div>
 
-    <!-- SCRIPT DE SUMA -->
     <script>
         let total = 0;
+        let carrito = {}; // La matriz inteligente que memoriza qué compra el cliente 🚀
+
         const botones = document.querySelectorAll('.btn-add');
         const displayTotal = document.getElementById('total-price');
+        const btnPagar = document.getElementById('btn-pagar-ahora');
 
+        // 🚨 TU LINK MAESTRO DE MERCADO PAGO 🚨
+        const linkPasarela = "https://link.mercadopago.com.co/shefaplusglobal2026"; 
+        
+        // 🚨 NÚMERO DEL DUEÑO (A donde llega el pedido con especificaciones) 🚨
+        const numeroDueño = "573022915641"; 
+
+        // 1. LÓGICA DE DETECCIÓN Y CONTEO DE PRODUCTOS
         botones.forEach(boton => {
             boton.addEventListener('click', function() {
-                const precioTexto = this.previousElementSibling.innerText.replace('$', '').replace('.', '');
-                total += parseInt(precioTexto);
+                // Buscamos la tarjeta contenedora para capturar el nombre real del producto
+                const cardContent = this.closest('.card-content');
+                const productoNombre = cardContent.querySelector('.card-title').innerText;
                 
+                // Extraer el precio limpio (eliminando el $ y los puntos de miles)
+                const precioTexto = this.previousElementSibling.innerText.replace('$', '').replace(/\./g, '').trim();
+                const precioUnidad = parseInt(precioTexto);
+
+                // Sumar al gran total acumulado
+                total += precioUnidad;
                 displayTotal.innerText = '$' + total.toLocaleString('es-CO');
-                
+
+                // Registrar o incrementar el producto en la matriz contable
+                if (carrito[productoNombre]) {
+                    carrito[productoNombre].cantidad += 1;
+                } else {
+                    carrito[productoNombre] = {
+                        cantidad: 1,
+                        precio: precioUnidad
+                    };
+                }
+
+                // Efecto visual magnético de confirmación Shefa
                 const originalText = this.innerText;
                 const originalBg = this.style.background;
                 
-                this.innerText = '✓ Listo';
-                this.style.background = '#27AE60'; 
+                this.innerText = '✓ Agregado';
+                this.style.background = '#27AE60';
                 
                 setTimeout(() => {
                     this.innerText = originalText;
-                    this.style.background = originalBg; 
+                    this.style.background = originalBg;
                 }, 800);
             });
         });
+
+        // 2. AUTOMATIZACIÓN DUAL AUTOMÁTICA (WHATSAPP DETALLADO + REDIRECCIÓN)
+        if(btnPagar) {
+            btnPagar.addEventListener('click', function(evento) {
+                evento.preventDefault(); 
+
+                if (total === 0) {
+                    alert("¡Aún no has agregado ningún antojo a tu pedido, mi hermano!");
+                    return;
+                }
+
+                // Construir las especificaciones detalladas línea por línea para el dueño
+                let detalleProductos = "";
+                for (const producto in carrito) {
+                    let subtotalItem = carrito[producto].precio * carrito[producto].cantidad;
+                    detalleProductos += `• ${carrito[producto].cantidad}x ${producto} ($${subtotalItem.toLocaleString('es-CO')})%0A`;
+                }
+
+                // Diseñar el Contrato Inteligente definitivo con saltos de línea estructurados
+                let mensaje = `🚨 *NUEVO PEDIDO - DULCE TENTACIÓN* 🚨%0A%0A`;
+                mensaje += `*🛒 ESPECIFICACIONES DEL PEDIDO:*%0A${detalleProductos}%0A`;
+                mensaje += `*💰 TOTAL A PAGAR:* *$${total.toLocaleString('es-CO')}*%0A%0A`;
+                mensaje += `El cliente está siendo dirigido a la pasarela segura para realizar su pago.%0A%0A`;
+                mensaje += `🔗 *Link de respaldo:* ${linkPasarela}`;
+
+                // ACCIÓN 1: Disparar el WhatsApp al dueño con todo el desglose detallado (Pestaña Nueva)
+                window.open(`https://wa.me/${numeroDueño}?text=${mensaje}`, '_blank');
+                
+                // ACCIÓN 2: Desviar la pantalla del cliente a Mercado Pago en piloto automático (Tras 1.5 segundos)
+                setTimeout(() => {
+                    window.location.href = linkPasarela; 
+                }, 1500);
+            });
+        }
     </script>
+
 </body>
                   </html>
                   
