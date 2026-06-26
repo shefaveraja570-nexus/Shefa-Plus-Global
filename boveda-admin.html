@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bóveda Administrativa | DULCE TENTACIÓN</title>
+    <style>
+        /* NEURO-DISEÑO CON SECUENCIA FIBONACCI */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #0A0A0A; color: #FFF; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 21px; }
+        
+        .boveda-container {
+            background: #1A1A1A;
+            border-radius: 21px;
+            padding: 34px 21px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 34px rgba(241, 196, 15, 0.2);
+            border-top: 3px solid #F1C40F;
+        }
+
+        h1 { font-size: 21px; text-align: center; margin-bottom: 8px; color: #F1C40F; text-transform: uppercase; letter-spacing: 2px;}
+        p.subtitle { font-size: 13px; text-align: center; color: #888; margin-bottom: 34px; }
+
+        .input-group { margin-bottom: 21px; }
+        label { display: block; font-size: 13px; margin-bottom: 8px; color: #CCC; text-transform: uppercase; }
+        
+        input, select {
+            width: 100%;
+            padding: 13px;
+            background: #2A2A2A;
+            border: 1px solid #444;
+            color: #FFF;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        input:focus, select:focus { border-color: #F1C40F; }
+
+        .file-upload {
+            background: #2A2A2A;
+            border: 2px dashed #444;
+            padding: 21px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 34px;
+        }
+
+        .btn-inyectar {
+            width: 100%;
+            background: linear-gradient(135deg, #F1C40F, #D4AC0D);
+            color: #000;
+            padding: 21px;
+            border: none;
+            border-radius: 13px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 8px 21px rgba(241, 196, 15, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-inyectar:active { transform: scale(0.95); }
+        .btn-inyectar:disabled { background: #555; color: #888; cursor: not-allowed; box-shadow: none; }
+    </style>
+</head>
+<body>
+
+    <div class="boveda-container">
+        <h1>Bóveda de Inyección</h1>
+        <p class="subtitle">Santuario Central DULCE TENTACIÓN</p>
+
+        <form id="form-inyeccion">
+            <div class="input-group">
+                <label>Nombre del Producto</label>
+                <input type="text" id="nombre" placeholder="Ej: Pan Aliñado Fresco" required>
+            </div>
+
+            <div class="input-group">
+                <label>Precio (Sin puntos ni $)</label>
+                <input type="number" id="precio" placeholder="Ej: 5000" required>
+            </div>
+
+            <div class="input-group">
+                <label>Catálogo de Destino</label>
+                <select id="categoria" required>
+                    <option value="panaderia">Panadería Fresca</option>
+                    <option value="desayunos">Desayunos Sorpresa</option>
+                    <option value="heladeria">Heladería y Postres</option>
+                    <option value="antojos">Antojos de Sal</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Foto del Producto</label>
+                <div class="file-upload" onclick="document.getElementById('foto').click()">
+                    <span id="file-name" style="font-size: 13px; color: #F1C40F;">📸 Tocar para abrir cámara o galería</span>
+                    <input type="file" id="foto" accept="image/*" style="display: none;" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-inyectar" id="btn-inyectar">Inyectar al Comercio ⚡</button>
+        </form>
+    </div>
+
+    <!-- CEREBRO DE FIREBASE (MÓDULOS CDN PARA NAVEGADOR) -->
+    <script type="module">
+        // Importar las funciones de la matriz cuántica
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+
+        // TUS LLAVES MAESTRAS EXACTAS
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            projectId: "shefa-plus-global",
+            storageBucket: "shefa-plus-global.firebasestorage.app",
+            messagingSenderId: "746532074927",
+            appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
+            measurementId: "G-ELXBWZJZD8"
+        };
+
+        // Inicializar la conexión cósmica
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Capturar elementos de la pantalla
+        const form = document.getElementById('form-inyeccion');
+        const btnSubmit = document.getElementById('btn-inyectar');
+        const fileInput = document.getElementById('foto');
+        const fileNameDisplay = document.getElementById('file-name');
+
+        // Mostrar el nombre de la foto al seleccionarla
+        fileInput.addEventListener('change', function() {
+            if(this.files[0]) {
+                fileNameDisplay.innerText = "✓ " + this.files[0].name;
+                fileNameDisplay.style.color = "#27AE60";
+            }
+        });
+
+        // Lógica de inyección al presionar el botón dorado
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btnSubmit.innerText = "Sintonizando Matriz ⚡...";
+            btnSubmit.disabled = true;
+
+            try {
+                // Leer datos del formulario
+                const nombre = document.getElementById('nombre').value;
+                const precio = Number(document.getElementById('precio').value);
+                const categoria = document.getElementById('categoria').value;
+                const fotoArchivo = fileInput.files[0];
+
+                let imagen_url = "-";
+
+                // 1. Subir imagen al Disco Duro (Storage)
+                if(fotoArchivo) {
+                    btnSubmit.innerText = "Subiendo Foto 📸...";
+                    // Crear nombre único basado en el tiempo
+                    const storageRef = ref(storage, 'productos_catalogo/' + Date.now() + '_' + fotoArchivo.name);
+                    await uploadBytes(storageRef, fotoArchivo);
+                    
+                    // Obtener el link de descarga pública
+                    imagen_url = await getDownloadURL(storageRef);
+                }
+
+                // 2. Inyectar documento en la colección maestra (Firestore)
+                btnSubmit.innerText = "Inyectando Código 🧬...";
+                await addDoc(collection(db, "catalogo_comercio"), {
+                    nombre: nombre,
+                    precio: precio,
+                    categoria: categoria,
+                    imagen_url: imagen_url,
+                    disponible: true
+                });
+
+                // Celebración de éxito
+                alert("¡INYECCIÓN PERFECTA! 🎁 El producto ya está vivo en la web.");
+                form.reset();
+                fileNameDisplay.innerText = "📸 Tocar para abrir cámara o galería";
+                fileNameDisplay.style.color = "#F1C40F";
+
+            } catch (error) {
+                console.error("Error en la inyección:", error);
+                alert("Ocurrió una interferencia: " + error.message);
+            } finally {
+                // Restaurar botón
+                btnSubmit.innerText = "Inyectar al Comercio ⚡";
+                btnSubmit.disabled = false;
+            }
+        });
+    </script>
+</body>
+  </html>
