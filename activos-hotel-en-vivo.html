@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva Hotel Central Park | Activos en Vivo</title>
+    <style>
+        :root { --fib-gold: #D4AF37; --bg-main: #0a0a0a; }
+        body { background: var(--bg-main); color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        
+        .container { max-width: 900px; margin: auto; }
+        
+        /* Efecto respiración aurea */
+        @keyframes respirar {
+            0% { box-shadow: 0 0 5px var(--fib-gold); }
+            50% { box-shadow: 0 0 20px var(--fib-gold); }
+            100% { box-shadow: 0 0 5px var(--fib-gold); }
+        }
+
+        .hab-card {
+            background: #151515;
+            border: 2px solid var(--fib-gold);
+            border-radius: 21px;
+            padding: 21px;
+            margin-bottom: 21px;
+            animation: respirar 3s infinite;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-reserva {
+            background: transparent;
+            color: var(--fib-gold);
+            border: 2px solid var(--fib-gold);
+            padding: 13px 21px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-reserva:hover { background: var(--fib-gold); color: #000; }
+        .precio { font-size: 24px; color: var(--fib-gold); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛎️ Hotel Central Park: Activos Disponibles</h1>
+    <div id="lista-habitaciones"></div>
+</div>
+
+<script>
+    // Matriz de habitaciones del Hotel Central Park
+    const habitaciones = [
+        { id: "101", tipo: "Suite Ejecutiva", precio: "150.000" },
+        { id: "102", tipo: "Habitación Doble", precio: "120.000" },
+        { id: "103", tipo: "Habitación Sencilla", precio: "90.000" },
+        { id: "201", tipo: "Suite Central", precio: "180.000" }
+    ];
+
+    const contenedor = document.getElementById('lista-habitaciones');
+
+    habitaciones.forEach(hab => {
+        contenedor.innerHTML += `
+            <div class="hab-card">
+                <div>
+                    <h3>Habitación ${hab.id} - ${hab.tipo}</h3>
+                    <p class="precio">$ ${hab.precio} COP</p>
+                </div>
+                <button class="btn-reserva" onclick="pagar('${hab.id}', '${hab.precio}')">
+                    🛎️ Reservar Ahora
+                </button>
+            </div>
+        `;
+    });
+
+    function pagar(id, precio) {
+        // Vinculación a WhatsApp con lógica de automatización
+        const mensaje = `Hola, quiero reservar la Habitación ${id} por un valor de $${precio}. ¿Está disponible?`;
+        window.open(`https://wa.me/573118582529?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+</script>
+</body>
+</html>
