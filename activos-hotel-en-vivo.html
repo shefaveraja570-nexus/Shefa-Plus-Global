@@ -35,11 +35,14 @@
             border-image: var(--logo-gradient) 1;
         }
         
-        .logo-header img {
-            max-width: 250px;
+                .logo-header img {
+            width: 100%;           /* Expande el logo para llenar el contenedor */
+            max-width: 377px;      /* Frecuencia Fibonacci (377) para el tope máximo de expansión */
             height: auto;
             border-radius: 8px;
+            filter: drop-shadow(0px 5px 13px rgba(0,0,0,0.1)); /* Sombra neuro-diseño para que resalte del fondo blanco */
         }
+
 
         /* Layout Asimétrico y Disruptivo */
         .grid-assets { 
