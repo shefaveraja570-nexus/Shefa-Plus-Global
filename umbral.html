@@ -68,7 +68,7 @@
             right: 15px; 
             font-size: 0.65rem; 
             color: var(--dorado); 
-            font-weight: black; 
+            font-weight: 900; 
             letter-spacing: 1px; 
             text-transform: uppercase; 
             display: none;
@@ -79,6 +79,40 @@
         .aura-activa .texto-inactivo { display: none; }
         
         @keyframes latido { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* Estilo para el Botón Disruptivo (Pitch Cuántico) */
+        .btn-salto-cuantico {
+            position: relative;
+            display: inline-block;
+            padding: 18px 40px;
+            background: linear-gradient(90deg, var(--dorado) 0%, #FBE18D 100%);
+            color: var(--negro-puro);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            border-radius: 4px 24px 4px 24px; /* Asimetría Berajá */
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            overflow: hidden;
+        }
+        .btn-salto-cuantico:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.8);
+        }
+        .luz-interna {
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: destello 3s infinite;
+        }
+        @keyframes destello {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
 
         /* Componentes Interactivos (Menús) */
         .panel-lateral { position: fixed; top: 0; height: 100vh; width: 320px; max-width: 85%; background: rgba(5, 11, 20, 0.98); backdrop-filter: blur(20px); border-left: 1px solid rgba(212, 175, 55, 0.3); z-index: 100; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -103,7 +137,7 @@
             
             <div class="flex items-center gap-6">
                 <!-- CAJA CUÁNTICA SAGRADA (Carrito) -->
-                <div class="relative cursor-pointer hover:scale-110 transition-transform" onclick="toggleCajaCuantica()">
+                <div class="relative cursor-pointer hover:scale-110 transition-transform" onclick="enfocarCofre()">
                     <i class="fas fa-cube text-dorado text-2xl"></i>
                     <span class="absolute -top-2 -right-3 bg-[#00d2ff] text-black text-[10px] font-black px-2 py-0.5 rounded-full shadow-[0_0_10px_#00d2ff]">1</span>
                 </div>
@@ -114,7 +148,7 @@
     </header>
 
     <!-- TRANSMISIÓN DE ABUNDANCIA (Cofre Restringido) -->
-    <section class="max-w-md mx-auto mt-10 p-4 w-full">
+    <section id="seccion-cofre" class="max-w-md mx-auto mt-10 p-4 w-full scroll-mt-24">
         <div class="tarjeta-honor p-8 text-center shadow-[0_0_30px_rgba(0,210,255,0.15)] border-[#00d2ff]/30 cursor-default">
             <i class="fas fa-cube text-5xl text-[#00d2ff] mb-4 drop-shadow-[0_0_15px_#00d2ff]"></i>
             <h2 class="text-2xl font-black uppercase tracking-widest mb-2 text-white">Transmisión de <span class="text-dorado">Abundancia</span></h2>
@@ -139,78 +173,77 @@
 
             <!-- 1. CATÁLOGO NEXUS -->
             <div class="tarjeta-honor interactiva block group cursor-pointer" onclick="manejarToque(this, 'catalogo_nexus.html')">
-    <!-- Aura Sagrada: Gradiente animado -->
-    <div class="absolute inset-0 bg-gradient-to-r from-[#0a1128] via-[#009ee3] to-[#0a1128] opacity-30 blur-2xl rounded-2xl animate-pulse pointer-events-none"></div>
-    
-    <div class="relative bg-gradient-to-br from-[#fdf5a9] via-[#d4af37] to-[#8a6810] rounded-[24px_4px_24px_4px] p-6 border border-[#fdf5a9]/60 shadow-[inset_0_0_20px_rgba(255,255,255,0.4)] flex flex-col overflow-hidden transition-transform duration-500 hover:scale-[1.02]">
-        <div class="flex items-center gap-4 mb-5 relative z-10">
-            <div class="w-12 h-12 rounded-full bg-[#050814] border-[3px] border-[#009ee3] shadow-[0_0_20px_rgba(0,158,227,0.8)] flex items-center justify-center animate-bounce">
-                <i class="fas fa-eye text-transparent bg-clip-text bg-gradient-to-b from-[#d4af37] to-[#fdf5a9] text-xl drop-shadow-md"></i>
-            </div>
-            <div>
-                <h3 class="text-xl font-black text-[#050814] uppercase tracking-tighter leading-none">Catálogo Nexus</h3>
-                <span class="text-[#050814] text-[0.6rem] font-bold uppercase tracking-[0.3em]">Umbral de Materialización</span>
-            </div>
-        </div>
-        <p class="text-[#050814]/90 text-sm mb-6 leading-relaxed font-bold relative z-10">
-            Tokenización global de Bienes Raíces, Flotas Automotrices y Captura de Carbono. La reestructuración de la economía real impulsada por contratos inteligentes (RWA).
-        </p>
-        <!-- Botón Hipnótico -->
-            <button onclick="manejarToque(this, 'catalogo_nexus.html')" class="w-full py-3 bg-[#050814] text-[#d4af37] font-black uppercase tracking-widest rounded-lg border-2 border-[#050814] hover:shadow-[0_0_15px_rgba(212,175,55,0.6)] transition-all relative z-10">
-    INGRESAR AHORA
-            </button>
-            
-    
-        <span class="text-[10px] text-[#050814]/60 text-center mt-2 font-bold uppercase">Toque el aura para activar</span>
-    </div>
+                <!-- Aura Sagrada: Gradiente animado -->
+                <div class="absolute inset-0 bg-gradient-to-r from-[#0a1128] via-[#009ee3] to-[#0a1128] opacity-30 blur-2xl rounded-2xl animate-pulse pointer-events-none"></div>
+                
+                <div class="relative bg-gradient-to-br from-[#fdf5a9] via-[#d4af37] to-[#8a6810] rounded-[24px_4px_24px_4px] p-6 border border-[#fdf5a9]/60 shadow-[inset_0_0_20px_rgba(255,255,255,0.4)] flex flex-col overflow-hidden transition-transform duration-500 hover:scale-[1.02]">
+                    <div class="flex items-center gap-4 mb-5 relative z-10">
+                        <div class="w-12 h-12 rounded-full bg-[#050814] border-[3px] border-[#009ee3] shadow-[0_0_20px_rgba(0,158,227,0.8)] flex items-center justify-center animate-bounce">
+                            <i class="fas fa-eye text-transparent bg-clip-text bg-gradient-to-b from-[#d4af37] to-[#fdf5a9] text-xl drop-shadow-md"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-[#050814] uppercase tracking-tighter leading-none">Catálogo Nexus</h3>
+                            <span class="text-[#050814] text-[0.6rem] font-bold uppercase tracking-[0.3em]">Umbral de Materialización</span>
+                        </div>
+                    </div>
+                    <p class="text-[#050814]/90 text-sm mb-6 leading-relaxed font-bold relative z-10">
+                        Tokenización global de Bienes Raíces, Flotas Automotrices y Captura de Carbono. La reestructuración de la economía real impulsada por contratos inteligentes (RWA).
+                    </p>
+                    <!-- Botón Hipnótico (pointer-events-none para que el div maneje el click) -->
+                    <button class="w-full py-3 bg-[#050814] text-[#d4af37] font-black uppercase tracking-widest rounded-lg border-2 border-[#050814] hover:shadow-[0_0_15px_rgba(212,175,55,0.6)] transition-all relative z-10 pointer-events-none">
+                        INGRESAR AHORA
+                    </button>
+                    <span class="text-[10px] text-[#050814]/60 text-center mt-2 font-bold uppercase">Toque el aura para activar</span>
+                </div>
+                <span class="texto-inactivo text-[#050814]/80">1 Toque</span>
+                <span class="instruccion-toque text-[#050814]">Cruzar Umbral</span>
             </div>
             
 
             <!-- 2. SALÓN INMOBILIARIO -->
             <div class="tarjeta-honor interactiva bg-[#050814] border border-[#d4af37]/40 p-6 shadow-[0_0_15px_rgba(212,175,55,0.2)] overflow-hidden flex flex-col cursor-pointer hover:border-[#d4af37] transition-all duration-300" onclick="manejarToque(this, 'salon_inmobiliario.html')">
-    <!-- Aura Sagrada -->
-    <div class="absolute top-0 right-0 w-24 h-24 bg-[#d4af37]/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-    
-    <div class="flex items-center gap-3 mb-4 relative z-10">
-        <div class="w-8 h-8 rounded-full bg-[#0a1128] border border-[#d4af37]/50 shadow-[0_0_10px_rgba(212,175,55,0.5)] flex items-center justify-center">
-            <i class="fas fa-building text-[#d4af37]"></i>
-        </div>
-        <h3 class="text-lg font-black text-white tracking-widest uppercase">Salón Inmobiliario</h3>
-    </div>
-    <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light flex-grow">
-        Catálogo exclusivo de activos raíces tokenizados. Explora el valor resguardado en la propiedad Premium de Acacías.
-    </p>
-    <!-- Botón Hipnótico -->
-    
-        <button onclick="('salon_inmobiliario.html')" class="w-full py-3 border border-[#d4af37] text-[#d4af37] font-bold uppercase tracking-widest rounded-lg hover:bg-[#d4af37] hover:text-[#050814] hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all relative z-10">
-    VER ACTIVOS
-        </button>
-        
-    
-</div>
+                <!-- Aura Sagrada -->
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#d4af37]/10 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+                
+                <div class="flex items-center gap-3 mb-4 relative z-10">
+                    <div class="w-8 h-8 rounded-full bg-[#0a1128] border border-[#d4af37]/50 shadow-[0_0_10px_rgba(212,175,55,0.5)] flex items-center justify-center">
+                        <i class="fas fa-building text-[#d4af37]"></i>
+                    </div>
+                    <h3 class="text-lg font-black text-white tracking-widest uppercase">Salón Inmobiliario</h3>
+                </div>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light flex-grow">
+                    Catálogo exclusivo de activos raíces tokenizados. Explora el valor resguardado en la propiedad Premium de Acacías.
+                </p>
+                <!-- Botón Hipnótico -->
+                <button class="w-full py-3 border border-[#d4af37] text-[#d4af37] font-bold uppercase tracking-widest rounded-lg hover:bg-[#d4af37] hover:text-[#050814] hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all relative z-10 pointer-events-none">
+                    VER ACTIVOS
+                </button>
+                <span class="texto-inactivo">1 Toque</span>
+                <span class="instruccion-toque">Ingresar Salón</span>
+            </div>
 
 
             <!-- 3. SHEFA FLOW REMESAS -->
-            <div class="tarjeta-honor interactiva bg-[#050814] border border-purple-500/40 p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] overflow-hidden flex flex-col cursor-pointer hover:border-purple-400 transition-all duration-300" onclick="manejarToque(this, 'shefa_flow.html')">
-    <!-- Aura Sagrada -->
-    <div class="absolute top-0 right-0 w-20 h-20 bg-purple-900/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-    
-    <div class="flex items-center gap-3 mb-4 relative z-10">
-        <div class="w-8 h-8 rounded-full bg-purple-900/30 border border-purple-500/50 shadow-[0_0_10px_rgba(147,51,234,0.5)] flex items-center justify-center">
-            <i class="fas fa-location-arrow text-purple-400"></i>
-        </div>
-        <h3 class="text-lg font-black text-white tracking-widest uppercase">Shefa Flow Remesas</h3>
-    </div>
-    <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light flex-grow">
-        Conexión Sin Fronteras. Servicio global habilitado. Flujo directo y seguro para enviar valor.
-    </p>
-    <!-- Botón Hipnótico -->
-        <button onclick="manejarToque(this, 'shefa_flow_global.html')" class="w-full py-3 border border-purple-500 text-purple-400 font-bold uppercase tracking-widest rounded-lg hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(147,51,234,0.5)] transition-all relative z-10">
-    ABRIR CANAL
-        </button>
-        
-    
-</div>
+            <div class="tarjeta-honor interactiva bg-[#050814] border border-purple-500/40 p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] overflow-hidden flex flex-col cursor-pointer hover:border-purple-400 transition-all duration-300" onclick="manejarToque(this, 'shefa_flow_global.html')">
+                <!-- Aura Sagrada -->
+                <div class="absolute top-0 right-0 w-20 h-20 bg-purple-900/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+                
+                <div class="flex items-center gap-3 mb-4 relative z-10">
+                    <div class="w-8 h-8 rounded-full bg-purple-900/30 border border-purple-500/50 shadow-[0_0_10px_rgba(147,51,234,0.5)] flex items-center justify-center">
+                        <i class="fas fa-location-arrow text-purple-400"></i>
+                    </div>
+                    <h3 class="text-lg font-black text-white tracking-widest uppercase">Shefa Flow Remesas</h3>
+                </div>
+                <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light flex-grow">
+                    Conexión Sin Fronteras. Servicio global habilitado. Flujo directo y seguro para enviar valor.
+                </p>
+                <!-- Botón Hipnótico -->
+                <button class="w-full py-3 border border-purple-500 text-purple-400 font-bold uppercase tracking-widest rounded-lg hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(147,51,234,0.5)] transition-all relative z-10 pointer-events-none">
+                    ABRIR CANAL
+                </button>
+                <span class="texto-inactivo">1 Toque</span>
+                <span class="instruccion-toque text-purple-400">Canal Abierto</span>
+            </div>
 
             <!-- 4. LAS TRES SALAS BASE DE PODER -->
             <div class="grid grid-cols-3 gap-3 mt-2">
@@ -237,13 +270,14 @@
             </div>
 
         </div>
-        <!-- ⚡ BOTÓN DISRUPTIVO: EL SALTO AL PITCH CUÁNTICO -->
-<div class="w-full flex justify-center mt-12 mb-8">
-    <a href="pitch_cuantico.html" class="btn-salto-cuantico">
-        <span class="luz-interna"></span>
-        <span class="texto-boton">Cruzar al Pitch Cuántico ⚡</span>
-    </a>
-</div>
+        
+        !-- ⚡ BOTÓN DISRUPTIVO: EL SALTO AL PITCH CUÁNTICO -->
+        <div class="w-full flex justify-center mt-12 mb-8">
+            <a href="pitch_cuantico.html" class="btn-salto-cuantico">
+                <span class="luz-interna"></span>
+                <span class="texto-boton">Cruzar al Pitch Cuántico ⚡</span>
+            </a>
+        </div>
         
     </main>
 
@@ -266,152 +300,76 @@
         </div>
     </footer>
 
-<!-- PANEL LATERAL DERECHO (Menú Expandido Neuro-Diseño) -->
+    <!-- PANEL LATERAL DERECHO (Menú Expandido Neuro-Diseño) -->
     <nav id="menu-lateral" class="panel-lateral panel-derecho flex flex-col p-6">
         <div class="flex justify-between items-center mb-8 border-b border-dorado/30 pb-4">
             <h2 class="text-dorado font-black tracking-widest uppercase text-lg">Matriz Global</h2>
             <i class="fas fa-times text-2xl cursor-pointer text-gray-400 hover:text-white transition-colors" onclick="toggleMenuHamburguesa()"></i>
         </div>
         <div class="flex flex-col gap-6 flex-grow overflow-y-auto pr-2">
-            <a href="shefa_flow.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-location-arrow text-[#009ee3] w-4"></i> Shefa Flow</a>
+            <a href="shefa_flow_global.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-location-arrow text-[#009ee3] w-4"></i> Shefa Flow</a>
             <a href="catalogo_nexus.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-eye text-[#d4af37] w-4"></i> Catálogo Nexus</a>
-            <a href="sala_shefa.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-water text-[#d4af37] w-4"></i> Sala de HONOR Shefa</a>
+            <a href="sala_shefa.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-water text-[#d4af37] w-4"></i> Sala de HONOR Shefá</a>
             <a href="sala_parnasa.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-coins text-[#009ee3] w-4"></i> Sala de honor parnasá</a>
             <a href="sala_veraja.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-seedling text-[#10B981] w-4"></i> Sala de honor verajá</a>
             <a href="salon_inmobiliario.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-building text-[#d4af37] w-4"></i> Salón inmobiliario</a>
-            <a href="shefa_nexus.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-comments text-[#00d2ff] w-4"></i> shefa nexus (Chat)</a>
-            <a href="liberar_veraja.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3" onclick="toggleCajaCuantica()"><i class="fas fa-cube text-purple-400 w-4"></i> Caja cuántica sagrada</a>
+            <a href="shefa_nexus.html" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3"><i class="fas fa-comments text-[#00d2ff] w-4"></i> Shefá Nexus (Chat)</a>
+            <a href="#seccion-cofre" class="text-white font-bold tracking-widest uppercase text-[0.7rem] hover:text-dorado transition-colors flex items-center gap-3" onclick="toggleMenuHamburguesa(); enfocarCofre();"><i class="fas fa-cube text-purple-400 w-4"></i> Caja cuántica sagrada</a>
             
             <div class="mt-auto pt-6 border-t border-dorado/20">
-                <button onclick="conectarAbundanciaWeb3()" class="w-full bg-gradient-to-r from-[#0a1128] to-[#050b14] border border-dorado/50 text-dorado font-black py-4 rounded-[12px_2px_12px_2px] uppercase tracking-widest hover:border-dorado transition-all shadow-[0_0_15px_rgba(212,175,55,0.2)] flex items-center justify-center gap-2 text-[0.7rem]">
-                    <i class="fas fa-link"></i> Conectar BNB / Card
+                <button onclick="conectarAbundanciaWeb3()" class="w-full text-left text-[#009ee3] font-black uppercase text-xs tracking-widest hover:text-dorado transition-colors mt-4">
+                    <i class="fas fa-wallet mr-2"></i> Conectar Billetera Web3
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- SCRIPTS DE CONTROL DE INTERFAZ -->
+    <!-- ⚡ CEREBRO LÓGICO: NEURO-INTERACCIONES -->
     <script>
-        function toggleMenuHamburguesa() {
-            document.getElementById('menu-lateral').classList.toggle('panel-abierto');
-        }
-        function toggleCajaCuantica() {
-            alert("Caja Cuántica Sagrada invocada. Preparando portal de transmutación...");
-        }
-        function intentarDesbloqueo() {
-            console.log("Validando frecuencia de abundancia...");
-        }
-        
-        // Lógica Asimétrica: 2 Toques (Primero activa Aura, Segundo cruza el Umbral)
-        function manejarToque(elemento, destino) {
+        // Lógica de Doble Toque (Efecto Aura Sagrada Berajá)
+        function manejarToque(elemento, urlDestino) {
+            // Si la tarjeta ya tiene el aura activa, ejecuta el cruce del umbral (redirección)
             if (elemento.classList.contains('aura-activa')) {
-                // Segundo Toque: Materialización (Navegación)
-                window.location.href = destino;
+                window.location.href = urlDestino;
             } else {
-                // Primer Toque: Despertar Aura Sagrada
-                document.querySelectorAll('.tarjeta-honor').forEach(t => t.classList.remove('aura-activa'));
+                // Primer toque: Apaga las demás y enciende el Aura Sagrada en la actual
+                document.querySelectorAll('.tarjeta-honor').forEach(tarjeta => {
+                    tarjeta.classList.remove('aura-activa');
+                });
                 elemento.classList.add('aura-activa');
             }
         }
 
-            /* 👑 NEURO-DISEÑO DEL SALTO CUÁNTICO */
-    .btn-salto-cuantico {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 21px 55px; /* Fibonacci: 21 y 55 */
-        background: linear-gradient(135deg, var(--titanio) 0%, #111827 100%);
-        border: 1px solid var(--dorado);
-        color: var(--dorado);
-        font-family: 'Segoe UI', Tahoma, sans-serif;
-        font-size: 16px;
-        font-weight: 900;
-        text-transform: uppercase;
-        text-decoration: none;
-        letter-spacing: 3px;
-        
-        /* Asimetría Extrema y Disruptiva */
-        clip-path: polygon(8% 0, 100% 0%, 92% 100%, 0% 100%);
-        overflow: hidden;
-        
-        /* Proporción Áurea en la transición */
-        transition: all 0.618s cubic-bezier(0.25, 1, 0.5, 1); 
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-        cursor: pointer;
-    }
+        // Lógica del Panel Lateral (Matriz Global)
+        function toggleMenuHamburguesa() {
+            const menu = document.getElementById('menu-lateral');
+            menu.classList.toggle('panel-abierto');
+        }
 
-    .btn-salto-cuantico::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(90deg, var(--dorado), #FBE18D, #AA771C);
-        z-index: 0; opacity: 0; transition: opacity 0.618s ease;
-    }
+        // Lógica de la Caja Cuántica
+        function enfocarCofre() {
+            const cofre = document.getElementById('seccion-cofre');
+            cofre.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                document.getElementById('codigo-cuantico').focus();
+            }, 800);
+        }
 
-    .btn-salto-cuantico .luz-interna {
-        position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.9), transparent);
-        transform: rotate(45deg) translateY(-100%);
-        z-index: 1; transition: none;
-    }
-
-    .btn-salto-cuantico .texto-boton {
-        position: relative; z-index: 2; transition: color 0.618s ease;
-    }
-
-    /* EFECTO BERAJÁ UI (Derrame de abundancia) */
-    .btn-salto-cuantico:hover {
-        transform: scale(1.0368); /* Frecuencia matemática 3.68% */
-        box-shadow: 0 20px 50px rgba(212, 175, 55, 0.5);
-        border: 1px solid transparent;
-    }
-    .btn-salto-cuantico:hover::before { opacity: 1; }
-    .btn-salto-cuantico:hover .texto-boton { color: var(--negro-puro); }
-    .btn-salto-cuantico:hover .luz-interna { animation: destelloShefa 1.618s forwards; }
-
-    @keyframes destelloShefa {
-        0% { transform: rotate(45deg) translateY(-100%); }
-        100% { transform: rotate(45deg) translateY(100%); }
-                }
-        
-    </script>
-
-    <!-- ======================================================= -->
-    <!-- 👑 NEUROSHEFA WEB3 CORE: EL RÍO DE LUZ (BNB CHAIN)      -->
-    <!-- ======================================================= -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
-    
-    <script>
-        // La Bóveda Matriz (Tu llave de Oro Premium para Shefa Flow)
-        const BOVEDA_SHEFA_FLOW = "0x50ABA36cf92190b2311d258bF7D9C83fEe13905A";
-
-        async function conectarAbundanciaWeb3() {
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    console.log("Iniciando sintonía cuántica con la Blockchain...");
-                    const cuentas = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const cuentaUsuario = cuentas[0];
-                    alert(`¡Sintonía exitosa!\nBilletera conectada: ${cuentaUsuario.substring(0, 6)}...${cuentaUsuario.substring(38)}\nEl Río de Luz fluye hacia Shefa Plus Global.`);
-                } catch (error) {
-                    console.error("Fricción en el Umbral:", error);
-                    alert("Conexión rechazada. La abundancia requiere tu confirmación.");
-                }
+        // Intento de desbloqueo del cofre restringido
+        function intentarDesbloqueo() {
+            const codigo = document.getElementById('codigo-cuantico').value;
+            if(codigo.trim() === "") {
+                alert("La matriz requiere un código de frecuencia válido.");
             } else {
-                alert("Para acceder a la Red Global Iluminada, instala MetaMask o un explorador Web3.");
+                // Aquí en el futuro se conectará con Firebase para validar el código
+                alert("Sincronizando frecuencia cuántica... Escaneando red.");
             }
         }
 
-        // Protección del flujo para que "Conectar Abundancia" no active el aura de la tarjeta
-        document.addEventListener('DOMContentLoaded', () => {
-            const botonesWeb3 = document.querySelectorAll('.boton-web3');
-            botonesWeb3.forEach(boton => {
-                boton.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Aísla el click del contenedor principal
-                    conectarAbundanciaWeb3();
-                });
-            });
-    
+        // Simulación conexión Web3
+        function conectarAbundanciaWeb3() {
+            alert("Inicializando protocolo de conexión de Billetera...");
+        }
     </script>
 </body>
-    </html>
+                </html>
