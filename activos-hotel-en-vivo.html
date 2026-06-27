@@ -6,14 +6,41 @@
     <title>Activos en Vivo | Central Park</title>
     <style>
         :root { 
-            --sacred-gold: #D4AF37; 
-            --cosmic-navy: #1877F2; 
-            --titanium: #1A1A1A; 
-            --bg-deep: #0A0A0A; 
+            --neuro-white: #FAFAFA; /* Blanco clínico, limpio y abundante */
+            --text-dark: #1A1A1A; /* Titanio oscuro para contraste */
+            --neuro-blue: #1877F2; /* Azul corporativo para los botones */
+            --logo-gradient: linear-gradient(90deg, #E91E63, #9B59B6, #1877F2); /* Fucsia -> Morado -> Azul */
+            --border-light: #E0E0E0;
         }
-        body { background: var(--bg-deep); color: #fff; font-family: 'Inter', sans-serif; padding: 21px; margin: 0; }
+        
+        body { 
+            background: var(--neuro-white); 
+            color: var(--text-dark); 
+            font-family: 'Inter', sans-serif; 
+            padding: 21px; 
+            margin: 0; 
+        }
+        
         .container { max-width: 1200px; margin: auto; }
         
+        /* Contenedor del Logo Principal */
+        .logo-header {
+            text-align: center;
+            margin-bottom: 55px;
+            padding: 21px;
+            background: #FFFFFF;
+            border-radius: 21px;
+            box-shadow: 0 4px 13px rgba(0,0,0,0.05);
+            border-bottom: 3px solid transparent;
+            border-image: var(--logo-gradient) 1;
+        }
+        
+        .logo-header img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 8px;
+        }
+
         /* Layout Asimétrico y Disruptivo */
         .grid-assets { 
             display: grid; 
@@ -22,13 +49,20 @@
         }
 
         .hab-card {
-            background: var(--titanium);
-            border: 2px solid var(--sacred-gold);
+            background: #FFFFFF;
+            border: 1px solid var(--border-light);
+            /* Borde superior con el gradiente del logo */
+            border-top: 5px solid;
+            border-image: var(--logo-gradient) 1;
             border-radius: 21px 55px 21px 55px; /* Asimetría Fibonacci */
             padding: 34px;
-            transition: transform 0.3s ease;
+            box-shadow: 0 8px 21px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .hab-card:hover { transform: translateY(-10px); }
+        .hab-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 13px 34px rgba(0,0,0,0.1);
+        }
 
         .gallery-container {
             display: flex;
@@ -37,35 +71,60 @@
             margin: 21px 0;
             padding-bottom: 10px;
             scrollbar-width: thin;
-            scrollbar-color: var(--sacred-gold) var(--titanium);
+            scrollbar-color: var(--neuro-blue) var(--neuro-white);
         }
         .gallery-container img {
             width: 150px;
             height: 100px;
             object-fit: cover;
             border-radius: 8px;
-            border: 1px solid var(--cosmic-navy);
+            border: 1px solid var(--border-light);
         }
 
-        .precio { font-size: 24px; color: var(--sacred-gold); font-weight: bold; margin: 13px 0; display: block; }
+        .precio { 
+            font-size: 24px; 
+            color: var(--text-dark); 
+            font-weight: 900; 
+            margin: 13px 0; 
+            display: block; 
+        }
+
+        /* Aura Sagrada Respirando de 1px */
+        @keyframes respiracion-sagrada {
+            0% { box-shadow: 0 0 1px 0px rgba(24, 119, 242, 0.5); }
+            50% { box-shadow: 0 0 3px 1px rgba(233, 30, 99, 0.6); border-color: #9B59B6; } /* Expande sutilmente a fucsia/morado */
+            100% { box-shadow: 0 0 1px 0px rgba(24, 119, 242, 0.5); }
+        }
+
         .btn-reserva {
-            background: transparent;
-            color: var(--sacred-gold);
-            border: 2px solid var(--sacred-gold);
+            background: var(--neuro-blue);
+            color: #FFFFFF;
+            border: 1px solid var(--neuro-blue);
             padding: 13px 21px;
             border-radius: 34px;
             cursor: pointer;
             width: 100%;
             font-weight: 800;
             text-transform: uppercase;
+            animation: respiracion-sagrada 3s infinite;
+            transition: all 0.3s ease;
         }
-        .btn-reserva:hover { background: var(--sacred-gold); color: #000; }
+        
+        .btn-reserva:hover { 
+            background: #1159b8; 
+            transform: scale(1.02);
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1 style="text-align: center; color: var(--sacred-gold);">🏛️ ACTIVOS CENTRAL PARK</h1>
+    <!-- Tarjeta del Logo del Hotel -->
+    <div class="logo-header">
+        <img src="1000030581.png" alt="Logo Hotel Central Park Yopal">
+        <h2 style="margin-top: 13px; color: var(--text-dark); font-weight: 800;">CATÁLOGO DE ACTIVOS</h2>
+    </div>
+
     <div id="lista-habitaciones" class="grid-assets"></div>
 </div>
 
@@ -75,17 +134,18 @@
         id: 101 + i,
         tipo: i % 2 === 0 ? "Suite Ejecutiva" : "Habitación Confort",
         precio: (90 + (i * 10)) + ".000",
-        fotos: Array(10).fill("https://via.placeholder.com/150x100?text=Habitacion+Foto")
+        // 10 espacios de fotos intactos por cada tarjeta
+        fotos: Array(10).fill("https://via.placeholder.com/150x100/E0E0E0/1A1A1A?text=Foto+Hotel")
     }));
 
     const contenedor = document.getElementById('lista-habitaciones');
 
     habitaciones.forEach(hab => {
-        const fotosHTML = hab.fotos.map(foto => `<img src="${foto}" loading="lazy" alt="Foto Habitación">`).join('');
+        const fotosHTML = hab.fotos.map(foto => `<img src="${foto}" loading="lazy" alt="Foto Habitación Central Park">`).join('');
         
         contenedor.innerHTML += `
             <div class="hab-card">
-                <h3>Habitación ${hab.id} | ${hab.tipo}</h3>
+                <h3 style="margin-top: 0; color: var(--neuro-blue);">Habitación ${hab.id} | ${hab.tipo}</h3>
                 <div class="gallery-container">${fotosHTML}</div>
                 <span class="precio">$ ${hab.precio} COP</span>
                 <button class="btn-reserva" onclick="pagar('${hab.id}', '${hab.precio}')">🛎️ RESERVAR AHORA</button>
