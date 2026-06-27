@@ -186,22 +186,24 @@
 
 
             <!-- 3. SHEFA FLOW REMESAS -->
-            <div class="tarjeta-honor interactiva bg-[#050814] border border-purple-500/40 p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] overflow-hidden" onclick="manejarToque(this, 'shefa_flow.html')">
-                <div class="absolute top-0 right-0 w-20 h-20 bg-purple-900/30 rounded-full blur-2xl pointer-events-none"></div>
-                <div class="flex items-center gap-3 mb-4 relative z-10">
-                    <div class="w-8 h-8 rounded-full bg-purple-900/30 border border-purple-500/50 shadow-[0_0_10px_rgba(147,51,234,0.5)] flex items-center justify-center">
-                        <i class="fas fa-location-arrow text-purple-400"></i>
-                    </div>
-                    <h3 class="text-lg font-black text-white tracking-widest uppercase">Shefa Flow Remesas</h3>
-                </div>
-                <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light">
-                    Conexión Sin Fronteras. Servicio global habilitado. Flujo directo y seguro para enviar valor.
-                </p>
-                <div class="border-t border-purple-900/50 pt-4 relative z-10 h-8">
-                    <span class="texto-inactivo">1 Toque para Aura</span>
-                    <span class="instruccion-toque text-purple-400">¡Abrir Canal!</span>
-                </div>
-            </div>
+            <div class="tarjeta-honor interactiva bg-[#050814] border border-purple-500/40 p-6 shadow-[0_0_15px_rgba(147,51,234,0.2)] overflow-hidden flex flex-col cursor-pointer hover:border-purple-400 transition-all duration-300" onclick="manejarToque(this, 'shefa_flow.html')">
+    <!-- Aura Sagrada -->
+    <div class="absolute top-0 right-0 w-20 h-20 bg-purple-900/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+    
+    <div class="flex items-center gap-3 mb-4 relative z-10">
+        <div class="w-8 h-8 rounded-full bg-purple-900/30 border border-purple-500/50 shadow-[0_0_10px_rgba(147,51,234,0.5)] flex items-center justify-center">
+            <i class="fas fa-location-arrow text-purple-400"></i>
+        </div>
+        <h3 class="text-lg font-black text-white tracking-widest uppercase">Shefa Flow Remesas</h3>
+    </div>
+    <p class="text-gray-400 text-sm mb-6 leading-relaxed relative z-10 font-light flex-grow">
+        Conexión Sin Fronteras. Servicio global habilitado. Flujo directo y seguro para enviar valor.
+    </p>
+    <!-- Botón Hipnótico -->
+    <button class="w-full py-3 border border-purple-500 text-purple-400 font-bold uppercase tracking-widest rounded-lg hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(147,51,234,0.5)] transition-all relative z-10">
+        ABRIR CANAL
+    </button>
+</div>
 
             <!-- 4. LAS TRES SALAS BASE DE PODER -->
             <div class="grid grid-cols-3 gap-3 mt-2">
