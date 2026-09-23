@@ -3,504 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefá Plus Global - Inmobiliaria Premium</title>
+    <title>SHEFA NEXUS | Bóveda RWA y Matriz Global</title>
     
+    <!-- Librerías de Diseño y Neuro-Interfaz -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Firebase SDK (Compatibilidad máxima para móviles) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        dorado: '#d4af37',
-                        doradoOscuro: '#aa841b',
-                        fondoNegro: '#050814',
-                        tarjetaGris: '#0a1128',
-                        titanio: '#12182b'
+                        oro: '#d4af37',
+                        oroRadiante: '#fcf6ba',
+                        titanioOscuro: '#050814',
+                        titanioLuz: '#0a1128',
+                        azulFacebook: '#1877F2'
                     }
                 }
             }
         }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;600;800;900&display=swap');
+
         body {
-            background-color: #050814;
+            background: radial-gradient(circle at 50% 0%, #0a1128 0%, #050814 100%);
             color: #ffffff;
             font-family: 'Inter', system-ui, sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
-        .borde-dorado { border: 1px solid rgba(212, 175, 55, 0.3); }
-        .resplandor-dorado {
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
-            transition: all 0.4s ease;
+        
+        .texto-cinzel { font-family: 'Cinzel', serif; }
+
+        /* Efecto Berajá UI: Tarjetas Asimétricas */
+        .boveda-titanio {
+            background: rgba(10, 17, 40, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(24, 119, 242, 0.1);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .resplandor-dorado:hover {
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            transform: translateY(-5px);
-            border-color: #d4af37;
+        .boveda-titanio:hover {
+            border-color: rgba(212, 175, 55, 0.7);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.95), inset 0 0 30px rgba(212, 175, 55, 0.2);
+            transform: translateY(-6px);
         }
-        .texto-gradiente {
-            background: linear-gradient(90deg, #d4af37, #fdf5a9, #d4af37);
+
+        .texto-oro-puro {
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35);
         }
-        .barra-progreso {
-            background: linear-gradient(90deg, #d4af37, #aa841b);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-        /* Efecto Fuego Sagrado para Mercado Pago */
-        .fuego-fiat {
+
+        /* Botón de Inyección con Azul Facebook y Oro */
+        .btn-facebook-premium {
+            background: linear-gradient(135deg, #1877F2 0%, #115cbf 100%);
+            border: 1px solid rgba(212, 175, 55, 0.5);
             position: relative;
             overflow: hidden;
+            transition: all 0.4s ease;
         }
-        .fuego-fiat::before {
+        .btn-facebook-premium::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, #FF4500, #d4af37, transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 0;
-            pointer-events: none;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(252, 246, 186, 0.4), transparent);
+            transition: all 0.5s;
         }
-        .fuego-fiat:hover::before {
-            opacity: 0.2;
-            animation: pulse 1.618s infinite alternate;
+        .btn-facebook-premium:hover::before {
+            left: 100%;
         }
-        .fuego-fiat > * {
-            position: relative;
-            z-index: 1;
+        .btn-facebook-premium:hover {
+            box-shadow: 0 0 30px rgba(24, 119, 242, 0.6);
+            border-color: #fcf6ba;
+        }
+
+        /* Río de Luz Berajá */
+        @keyframes pulso-verde {
+            0%, 100% { color: #10B981; text-shadow: 0 0 12px rgba(16, 185, 129, 0.7); }
+            50% { color: #34D399; text-shadow: 0 0 25px rgba(52, 211, 153, 1); }
+        }
+        .rio-de-luz {
+            font-weight: 900;
+            animation: pulso-verde 3s infinite ease-in-out;
+        }
+
+        /* El Ojo del Despertar */
+        .ojo-despertar {
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
+            animation: flotar 4s infinite ease-in-out;
+            cursor: pointer;
+        }
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
         }
     </style>
 </head>
-<body class="antialiased min-h-screen selection:bg-dorado selection:text-black">
+<body class="antialiased selection:bg-oro selection:text-black">
 
-    <header class="border-b border-dorado/5 bg-fondoNegro/90 backdrop-blur-md sticky top-0 z-40 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div id="logo-sagrado" class="w-[50px] h-[50px] rounded-full p-[1px] bg-gradient-to-tr from-[#d4af37] via-[#f9f295] to-[#d4af37] shadow-[0_0_13px_rgba(212,175,55,0.4)] hover:scale-105 transition-transform duration-500 flex-shrink-0 flex items-center justify-center overflow-hidden cursor-pointer">
-                    <img src="logo-shefa.png" alt="Shefá Plus Global" class="w-full h-full object-cover rounded-full bg-fondoNegro pointer-events-none">
+    <!-- Encabezado y Ojo (Llave a la Bóveda Secreta) -->
+    <header class="border-b border-oro/20 bg-titanioOscuro/95 backdrop-blur-xl sticky top-0 z-40 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <!-- Toca este ojo 3 veces rápido para abrir la Bóveda Administrativa -->
+                <div id="ojo-maestro" onclick="verificarAccesoSecreto()" class="w-[55px] h-[55px] rounded-full p-[2px] bg-gradient-to-tr from-oro via-oroRadiante to-oro ojo-despertar flex-shrink-0 flex items-center justify-center overflow-hidden bg-black">
+                    <i class="fas fa-eye text-oro text-2xl"></i>
                 </div>
-
                 <div>
-                    <h1 class="text-xl font-black tracking-widest text-white uppercase">SHEFÁ <span class="texto-gradiente">PLUS</span></h1>
-                    <p class="text-[0.65rem] text-gray-400 tracking-[0.2em] uppercase">Global Real Estate</p>
+                    <h1 class="text-2xl font-black tracking-widest text-white uppercase texto-cinzel">SHEFÁ <span class="texto-oro-puro">PLUS</span></h1>
+                    <p class="text-[0.65rem] text-azulFacebook tracking-[0.3em] uppercase font-bold">Matriz de Materialización Global</p>
                 </div>
             </div>
             
-            <div class="hidden lg:flex text-[0.65rem] text-dorado tracking-[0.2em] gap-4 font-bold">
-                <span>PARNASÁ</span> • <span>SHEFÁ</span> • <span>VERAJÁ</span>
-            </div>
-            
-            <div class="flex gap-3 items-center">
-                <button class="bg-tarjetaGris border border-dorado text-dorado px-4 py-2 rounded-lg uppercase text-xs tracking-widest font-bold hover:bg-dorado hover:text-black transition-all shadow-[0_0_15px_rgba(212,175,55,0.2)] flex items-center gap-2">
-                    <i class="fas fa-link text-xs"></i> Billetera
-                </button>
-                <a href="https://link.mercadopago.com.co/shefaplusglobal2026" target="_blank" class="fuego-fiat px-4 py-2 bg-transparent border border-[#009ee3] text-[#009ee3] rounded-lg font-black uppercase text-xs tracking-wider flex items-center justify-center gap-2 hover:bg-[#009ee3] hover:text-white transition-all shadow-[0_0_10px_rgba(0,158,227,0.2)]">
-                    <i class="fas fa-handshake text-sm"></i> Fiat Rápido
-                </a>
+            <div class="flex text-[0.7rem] text-oro tracking-[0.3em] gap-4 md:gap-6 font-black texto-cinzel">
+                <span>PARNASÁ</span> <span class="text-gray-600">•</span> 
+                <span>SHEFÁ</span> <span class="text-gray-600">•</span> 
+                <span>VERAJÁ</span>
             </div>
         </div>
     </header>
 
-    <section class="relative py-20 px-4">
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-fondoNegro"></div>
+    <!-- Umbral Principal -->
+    <section class="relative py-16 md:py-24 px-4 overflow-hidden border-b border-oro/10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center opacity-10 mix-blend-luminosity"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-titanioOscuro/80 to-titanioOscuro"></div>
         
-        <div class="relative max-w-7xl mx-auto text-center">
-            <span class="text-dorado uppercase tracking-[0.3em] font-bold text-xs mb-4 block"><i class="fas fa-globe mr-2"></i>Tokenización de Activos Reales (RWA)</span>
-            <h2 class="text-4xl md:text-6xl font-black mb-6 texto-gradiente uppercase tracking-tight">Umbral de Expansión Global</h2>
-            <p class="text-gray-300 max-w-3xl mx-auto text-sm md:text-lg leading-relaxed mb-8 font-light">
-                El salón premium para la adquisición fraccionada y total de bienes raíces de alto valor. Desde extensas llanuras hasta arquitectura de vanguardia en Acacías, Meta, estructurado bajo contratos inteligentes blindados en la matriz.
+        <div class="relative max-w-5xl mx-auto text-center z-10">
+            <span class="text-oro uppercase tracking-[0.4em] font-black text-xs mb-6 block drop-shadow-[0_0_10px_rgba(212,175,55,0.8)]">
+                <i class="fas fa-globe mr-2"></i>Expansión Crecimiento Fibonacci
+            </span>
+            <h2 class="text-4xl md:text-7xl font-black mb-6 texto-oro-puro uppercase tracking-tight leading-tight texto-cinzel">EL UMBRAL DE LA <br> MATERIALIZACIÓN</h2>
+            <p class="text-gray-300 max-w-3xl mx-auto text-sm md:text-lg leading-relaxed font-light tracking-wide">
+                La red global iluminada es la economía real. El sistema donde el flujo de luz y bendición conecta el código sólido con el sustento divino.
             </p>
         </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 py-12">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 border-b border-gray-800 pb-4 gap-4">
+    <!-- Contenedor Dinámico del Catálogo (Aquí inyecta Firebase) -->
+    <section class="max-w-7xl mx-auto px-4 py-16 relative z-10">
+        <div class="flex justify-between items-end mb-12 border-b border-gray-800/80 pb-6">
             <div>
-                <h3 class="text-2xl font-black text-white uppercase tracking-widest"><i class="fas fa-chart-line text-dorado mr-3"></i>Catálogo RWA Premium</h3>
-                <p class="text-gray-500 mt-2 text-sm uppercase tracking-wider">Propiedades exclusivas respaldadas en Blockchain</p>
+                <h3 class="text-2xl md:text-3xl font-black text-white uppercase tracking-widest texto-cinzel">
+                    <i class="fas fa-chart-line text-azulFacebook mr-3"></i>Activos RWA en Vivo
+                </h3>
             </div>
-            <div class="w-full md:w-auto text-right">
-                <select class="w-full md:w-auto bg-tarjetaGris text-white border border-gray-700 rounded-lg p-3 text-sm font-bold tracking-wider focus:border-dorado outline-none">
-                    <option>📍 Ubicación: Acacías, Meta</option>
-                    <option>📍 Ubicación: Global</option>
-                </select>
+            <!-- Indicador de Sincronización Cuántica -->
+            <div class="flex items-center gap-2 text-[0.6rem] text-gray-400 uppercase tracking-widest font-bold">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-ping"></div>
+                Matriz Sincronizada
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <!-- Finca Matriz -->
-            <div class="bg-tarjetaGris rounded-2xl overflow-hidden borde-dorado resplandor-dorado flex flex-col relative group">
-                <div class="absolute top-4 left-4 z-10 bg-dorado text-black font-black px-3 py-1 rounded-full text-[0.65rem] uppercase tracking-widest shadow-lg">
-                    <i class="fas fa-gem mr-1"></i> RWA - Finca Matriz
-                </div>
-                <div class="absolute top-4 right-4 z-10 bg-black/80 backdrop-blur text-white px-3 py-1 rounded-full text-[0.65rem] border border-gray-700 uppercase tracking-widest">
-                    <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
-                </div>
-                
-                <div class="relative h-64 overflow-hidden">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition duration-500 z-0"></div>
-                    <img src="finca_premium.png" alt="Finca 1000 Hectáreas" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                </div>
-                
-                <div class="p-6 flex-grow flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Finca Matriz de Expansión</h4>
-                        <p class="text-gray-400 text-xs mb-4 leading-relaxed">Extensión territorial premium de 1000 hectáreas estructurada para proyectos de alto rendimiento agrícola, ganadero y desarrollo sostenible.</p>
-                        
-                        <div class="bg-titanio rounded-xl p-4 mb-6 border border-gray-700 shadow-inner">
-                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
-                                <span class="text-gray-400">Fracciones Disponibles</span>
-                                <span class="text-dorado">850 / 1000</span>
-                            </div>
-                            <div class="w-full bg-black rounded-full h-2 mb-3 border border-gray-800">
-                                <div class="barra-progreso h-2 rounded-full" style="width: 15%"></div>
-                            </div>
-                            <div class="flex justify-between text-xs uppercase tracking-widest">
-                                <span class="text-gray-500">Valor x Token</span>
-                                <span class="text-white font-black">$1,500 USD</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 w-full mt-2">
-                        <a href="https://link.mercadopago.com.co/shefaplusglobal2026" target="_blank" class="fuego-fiat w-full bg-transparent border border-dorado text-dorado font-black py-3 rounded-xl hover:border-[#FF4500] transition-all uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2 group">
-                            <i class="fas fa-fire-alt text-[#FF4500]"></i> Fiat (COP)
-                        </a>
-                        <button onclick="abrirPasarelaMercadoPago('Finca Matriz de Expansión')" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-black py-3 rounded-xl hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2">
-                            <i class="fas fa-wallet text-sm"></i> Conectar Web3
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Casa Residencial -->
-            <div class="bg-tarjetaGris rounded-2xl overflow-hidden borde-dorado resplandor-dorado flex flex-col relative group">
-                <div class="absolute top-4 left-4 z-10 bg-dorado text-black font-black px-3 py-1 rounded-full text-[0.65rem] uppercase tracking-widest shadow-lg">
-                    <i class="fas fa-home mr-1"></i> RWA - Residencial
-                </div>
-                <div class="absolute top-4 right-4 z-10 bg-black/80 backdrop-blur text-white px-3 py-1 rounded-full text-[0.65rem] border border-gray-700 uppercase tracking-widest">
-                    <i class="fas fa-map-marker-alt text-dorado mr-1"></i> Acacías, Meta
-                </div>
-                
-                <div class="relative h-64 overflow-hidden">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition duration-500 z-0"></div>
-                    <img src="1000020650.jpg" alt="Casa Residencial" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
-                </div>
-                
-                <div class="p-6 flex-grow flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Casa Residencial Premium</h4>
-                        <p class="text-gray-400 text-xs mb-4 leading-relaxed">Arquitectura de vanguardia con acabados de lujo. Propiedad de alto valor lista para la tokenización y estructurada bajo contratos inteligentes.</p>
-                        
-                        <div class="bg-titanio rounded-xl p-4 mb-6 border border-gray-700 shadow-inner">
-                            <div class="flex justify-between text-xs mb-2 uppercase tracking-widest font-bold">
-                                <span class="text-gray-400">Fracciones Disponibles</span>
-                                <span class="text-dorado">210 / 500</span>
-                            </div>
-                            <div class="w-full bg-black rounded-full h-2 mb-3 border border-gray-800">
-                                <div class="barra-progreso h-2 rounded-full" style="width: 58%"></div>
-                            </div>
-                            <div class="flex justify-between text-xs uppercase tracking-widest">
-                                <span class="text-gray-500">Valor x Token</span>
-                                <span class="text-white font-black">$500 USD</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-3 w-full mt-2">
-                        <a href="https://link.mercadopago.com.co/shefaplusglobal2026" target="_blank" class="fuego-fiat w-full bg-transparent border border-dorado text-dorado font-black py-3 rounded-xl hover:border-[#FF4500] transition-all uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2 group">
-                            <i class="fas fa-fire-alt text-[#FF4500]"></i> Fiat (COP)
-                        </a>
-                        <button onclick="abrirPasarelaMercadoPago('Casa Residencial Premium')" class="w-full bg-gradient-to-r from-dorado to-doradoOscuro text-black font-black py-3 rounded-xl hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] transition-all uppercase tracking-widest text-[0.65rem] flex justify-center items-center gap-2">
-                            <i class="fas fa-wallet text-sm"></i> Conectar Web3
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Grid de Crecimiento Orgánico -->
+        <div id="matriz-rwa" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Los activos inyectados desde Firebase aparecerán aquí asimétricamente -->
         </div>
     </section>
 
-    <footer class="border-t border-gray-800 py-8 mt-12 bg-black">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-gray-500 text-[0.65rem] uppercase tracking-[0.3em] mb-2 font-bold">
-                Reestructuración Económica Global
-            </p>
-            <p class="text-dorado text-xs font-black tracking-[0.2em] mb-4">
-                PARNASÁ • SHEFÁ • VERAJÁ
-            </p>
-            <a href="/legal/terminos.html" class="text-gray-600 hover:text-dorado text-[0.6rem] uppercase tracking-widest transition-colors border-b border-gray-800 pb-1">
-                Marco Legal y Contratos Inteligentes
-            </a>
+    <!-- ========================================== -->
+    <!-- BÓVEDA ADMINISTRATIVA SECRETA (NIVEL 7)    -->
+    <!-- ========================================== -->
+    <div id="boveda-secreta" class="fixed inset-0 z-[100] bg-titanioOscuro/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-500 overflow-y-auto">
+        <div class="boveda-titanio p-6 md:p-10 rounded-[2rem] w-full max-w-lg relative transform scale-95 transition-transform duration-500 my-auto" id="boveda-content">
             
-            <div class="mt-8 flex justify-center items-center flex-col">
-                <img src="logo-shefa.png" alt="El Ojo de Shefa Global" class="w-12 h-12 rounded-full border border-dorado opacity-50 hover:opacity-100 transition-opacity mb-2 bg-fondoNegro">
-                <h4 class="text-gray-400 text-[0.7rem] uppercase tracking-widest">SHEFÁ PLUS <span class="text-dorado">GLOBAL</span></h4>
-                <p class="text-gray-600 text-[0.5rem] uppercase tracking-[0.2em] mt-1">© 2026 Todos los derechos reservados.</p>
+            <button onclick="cerrarBoveda()" class="absolute top-6 right-6 text-gray-500 hover:text-oro transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+
+            <div class="w-16 h-16 mx-auto rounded-full border-2 border-azulFacebook flex items-center justify-center bg-titanioOscuro shadow-[0_0_30px_rgba(24,119,242,0.4)] mb-6">
+                <i class="fas fa-lock text-2xl text-azulFacebook"></i>
             </div>
-        </div>
-    </footer>
 
-    <!-- BÓVEDA OCULTA ADMINISTRATIVA -->
-    <div id="boveda-admin" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-titanio border-2 border-dorado p-8 rounded-3xl w-full max-w-md relative shadow-[0_0_50px_rgba(212,175,55,0.3)] transform scale-95 transition-transform duration-300" id="boveda-admin-content">
-            <div class="w-16 h-16 mx-auto rounded-full border border-dorado flex items-center justify-center bg-black shadow-[0_0_15px_rgba(212,175,55,0.5)] mb-4">
-                <i class="fas fa-eye text-2xl text-dorado"></i>
-            </div>
-            <h2 class="text-white font-black text-xl mb-1 text-center uppercase tracking-widest">Matriz de Inyección</h2>
-            <p class="text-dorado text-[0.6rem] uppercase tracking-[0.2em] text-center mb-6">Acceso Administrativo Nivel 7</p>
+            <h3 class="text-white text-xl font-black mb-1 uppercase tracking-widest texto-cinzel text-center">Bóveda de Inyección</h3>
+            <p class="text-oro text-[0.65rem] uppercase tracking-[0.3em] font-bold mb-8 text-center">Control de Mando Moto G04 • Nivel 7</p>
             
-            <label class="text-[0.6rem] text-gray-400 uppercase tracking-widest mb-1 block">Nombre del Activo (Finca, Casa)</label>
-            <input type="text" id="admin-nombre" placeholder="Ej: Finca Élite Acacías" class="w-full bg-black border border-gray-700 p-3 rounded-lg mb-4 text-white font-bold focus:border-dorado outline-none transition-colors">
-            
-            <label class="text-[0.6rem] text-gray-400 uppercase tracking-widest mb-1 block">Valor Total (USD)</label>
-            <input type="number" id="admin-precio" placeholder="Ej: 500000" class="w-full bg-black border border-gray-700 p-3 rounded-lg mb-4 text-white font-bold focus:border-dorado outline-none transition-colors">
-            
-            <label class="text-[0.6rem] text-gray-400 uppercase tracking-widest mb-1 block">Cantidad de Fracciones (Tokens)</label>
-            <input type="number" id="admin-fracciones" placeholder="Ej: 1000" class="w-full bg-black border border-gray-700 p-3 rounded-lg mb-6 text-white font-bold focus:border-dorado outline-none transition-colors">
-            
-            <button onclick="guardarActivoEnFirebase()" class="w-full bg-dorado text-black font-black uppercase tracking-widest p-4 rounded-xl hover:bg-white transition-colors shadow-lg flex items-center justify-center gap-2" id="btn-inyeccion">
-                <i class="fas fa-database"></i> Inyectar a la Red
-            </button>
-            <button onclick="cerrarBoveda()" class="w-full text-gray-500 hover:text-red-500 uppercase tracking-widest text-xs font-bold mt-4 transition-colors">
-                Sellar Bóveda
-            </button>
-        </div>
-    </div>
-
-    <!-- MODAL DE SINTONIZACIÓN WEB3 -->
-    <div id="modal-pagos" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-300">
-        <div class="bg-titanio border border-dorado/50 p-8 rounded-3xl w-full max-w-sm relative shadow-[0_0_80px_rgba(212,175,55,0.2)] text-center transform scale-95 transition-transform duration-300" id="modal-pagos-content">
-            
-            <button onclick="cerrarPasarela()" class="absolute top-4 right-4 text-gray-500 hover:text-white transition">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-
-            <h3 class="text-white text-lg font-black mb-1 uppercase tracking-widest">Sintonizar Billetera</h3>
-            <p class="text-dorado text-[0.6rem] uppercase tracking-[0.2em] mb-6" id="pago-activo-nombre">Inversión RWA</p>
-            
-            <div class="flex flex-col gap-4">
-                <button onclick="conectarWeb3Chain()" class="w-full p-4 bg-gradient-to-r from-gray-800 to-black border border-gray-600 text-white rounded-xl font-black uppercase tracking-wider flex items-center justify-center gap-3 hover:border-dorado transition-colors">
-                    <img src="https://cryptologos.cc/logos/bnb-bnb-logo.png" alt="BNB" class="w-5 h-5"> Conectar BNB Chain
-                </button>
-
-                <div class="relative flex py-2 items-center">
-                    <div class="flex-grow border-t border-gray-700"></div>
-                    <span class="flex-shrink-0 mx-4 text-gray-500 text-[0.6rem] uppercase tracking-widest">Ó Puente Fiat</span>
-                    <div class="flex-grow border-t border-gray-700"></div>
+            <form id="form-inyeccion" class="space-y-4">
+                <div>
+                    <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Nombre del Activo (Ej: Complejo Nexus)</label>
+                    <input type="text" id="rwa-nombre" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors shadow-inner">
                 </div>
-
-                <a href="https://link.mercadopago.com.co/shefaplusglobal2026" target="_blank" class="fuego-fiat w-full p-4 bg-transparent border border-[#009ee3] text-[#009ee3] rounded-xl font-black uppercase tracking-wider flex items-center justify-center gap-3 hover:bg-[#009ee3] hover:text-white transition-all shadow-[0_0_20px_rgba(0,158,227,0.2)]">
-                    <i class="fas fa-handshake text-xl"></i> Pagar con Mercado Pago
-                </a>
-
-                <div class="mt-4 pt-4 border-t border-gray-800">
-                    <p class="text-[0.6rem] text-gray-500 uppercase tracking-widest mb-3">Respaldado por las Grandes Potencias</p>
-                    <div class="flex justify-center gap-6 opacity-70">
-                        <i class="fab fa-cc-visa text-white text-4xl hover:text-[#1a1f71] hover:opacity-100 transition-all"></i>
-                        <i class="fab fa-cc-mastercard text-white text-4xl hover:text-[#eb001b] hover:opacity-100 transition-all"></i>
-                        <i class="fas fa-university text-white text-4xl hover:text-[#004481] hover:opacity-100 transition-all" title="BBVA"></i>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Valor Total (USD)</label>
+                        <input type="number" id="rwa-valor" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors">
+                    </div>
+                    <div>
+                        <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Fracciones (Tokens)</label>
+                        <input type="number" id="rwa-fracciones" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors">
                     </div>
                 </div>
-            </div>
-            <p class="text-[0.55rem] text-gray-600 mt-6 uppercase tracking-widest">Transacción encriptada P2P • Nivel Bancario</p>
-            
+
+                <div>
+                    <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Río de Luz (Rendimiento % Anual)</label>
+                    <input type="number" step="0.1" id="rwa-rendimiento" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-green-400 font-bold focus:border-azulFacebook outline-none transition-colors">
+                </div>
+
+                <div>
+                    <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">URL de Imagen (Naturaleza/Arquitectura)</label>
+                    <input type="url" id="rwa-imagen" required placeholder="https://..." class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors">
+                </div>
+
+                <button type="submit" class="btn-facebook-premium w-full mt-6 py-5 text-white rounded-xl font-black uppercase tracking-widest text-[0.75rem] flex items-center justify-center gap-3">
+                    <i class="fas fa-database text-oroRadiante"></i> Materializar en la Red Global
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- NÚCLEO DE JS Y FIREBASE -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+    <!-- MÓDULO DE INTELIGENCIA Y CONEXIÓN FIREBASE -->
+    <script>
+        // 1. CONFIGURACIÓN FIREBASE (Reemplaza con tus claves del proyecto Shefa Plus Global)
         const firebaseConfig = {
-            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
-            authDomain: "shefa-plus-global.firebaseapp.com",
-            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
-            projectId: "shefa-plus-global",
-            storageBucket: "shefa-plus-global.firebasestorage.app",
-            messagingSenderId: "746532074927",
-            appId: "1:746532074927:web:70811deddc66ad88d5eb5a",
-            measurementId: "G-ELXBWZJZD8"
+            apiKey: "TU_API_KEY",
+            authDomain: "shefaplusglobal.firebaseapp.com",
+            projectId: "shefaplusglobal",
+            storageBucket: "shefaplusglobal.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
         };
+        
+        // Inicializar la Matriz de Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+        // 2. LÓGICA DE LA BÓVEDA SECRETA (Neuro-Interacción)
+        let conteoOjo = 0;
+        let temporizadorOjo;
 
-        // --- 1. LÓGICA DE LA BÓVEDA OCULTA (5 Toques Sagrados) ---
-        let tapCount = 0;
-        let tapTimer;
-
-        document.getElementById('logo-sagrado').addEventListener('click', () => {
-            tapCount++;
-            clearTimeout(tapTimer);
+        function verificarAccesoSecreto() {
+            conteoOjo++;
+            clearTimeout(temporizadorOjo);
             
-            tapTimer = setTimeout(() => {
-                tapCount = 0;
-            }, 2000);
+            // Si tocas el Ojo 3 veces en menos de 2 segundos, se abre la Bóveda
+            if (conteoOjo >= 3) {
+                abrirBoveda();
+                conteoOjo = 0;
+            } else {
+                temporizadorOjo = setTimeout(() => { conteoOjo = 0; }, 2000);
+            }
+        }
 
-            if (tapCount >= 5) {
-                const boveda = document.getElementById('boveda-admin');
-                const contenido = document.getElementById('boveda-admin-content');
+        function abrirBoveda() {
+            const boveda = document.getElementById('boveda-secreta');
+            const content = document.getElementById('boveda-content');
+            boveda.classList.remove('hidden');
+            setTimeout(() => {
+                boveda.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function cerrarBoveda() {
+            const boveda = document.getElementById('boveda-secreta');
+            const content = document.getElementById('boveda-content');
+            boveda.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => { boveda.classList.add('hidden'); }, 500);
+        }
+
+        // 3. INYECCIÓN DE DATOS (Parnasá Fluyendo hacia Firestore)
+        document.getElementById('form-inyeccion').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('button');
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inyectando...';
+            
+            const nuevoActivo = {
+                nombre: document.getElementById('rwa-nombre').value,
+                valorTotal: parseFloat(document.getElementById('rwa-valor').value),
+                fracciones: parseInt(document.getElementById('rwa-fracciones').value),
+                rendimiento: parseFloat(document.getElementById('rwa-rendimiento').value),
+                imagen: document.getElementById('rwa-imagen').value,
+                fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            try {
+                // Guardar en la colección 'activos_rwa'
+                await db.collection('activos_rwa').add(nuevoActivo);
                 
-                boveda.classList.remove('hidden');
-                boveda.classList.add('flex');
-                
-                setTimeout(() => {
-                    bovedboveda = boveda; // mantener referencia
-                    boveda.classList.remove('opacity-0');
-                    boveda.classList.add('opacity-100');
-                    contenido.classList.remove('scale-95');
-                    contenido.classList.add('scale-100');
-                }, 10);
-                
-                tapCount = 0;
+                alert('👑 VISIÓN GLOBAL SHEFA:\n\nActivo materializado exitosamente en la red.');
+                e.target.reset();
+                cerrarBoveda();
+            } catch (error) {
+                console.error("Fricción en la matriz:", error);
+                alert('⚠️ Error al inyectar el activo.');
+            } finally {
+                btn.innerHTML = textoOriginal;
             }
         });
 
-        // --- 2. FUNCIONES GLOBALES DE INTERFAZ EXPUESTAS (window) ---
-        window.cerrarBoveda = () => {
-            const boveda = document.getElementById('boveda-admin');
-            const contenido = document.getElementById('boveda-admin-content');
-            
-            boveda.classList.remove('opacity-100');
-            boveda.classList.add('opacity-0');
-            contenido.classList.remove('scale-100');
-            contenido.classList.add('scale-95');
-            
-            setTimeout(() => {
-                boveda.classList.add('hidden');
-                boveda.classList.remove('flex');
-                document.getElementById('admin-nombre').value = '';
-                document.getElementById('admin-precio').value = '';
-                document.getElementById('admin-fracciones').value = '';
-            }, 300);
-        };
+        // 4. RENDERIZADO EN TIEMPO REAL (Efecto Berajá UI y Fibonacci)
+        // Escuchamos la colección para pintar la cuadrícula automáticamente
+        db.collection('activos_rwa').orderBy('fechaCreacion', 'desc').onSnapshot((snapshot) => {
+            const matriz = document.getElementById('matriz-rwa');
+            matriz.innerHTML = ''; // Limpiamos la matriz para repintar el flujo de luz
 
-        window.abrirPasarelaMercadoPago = (nombreActivo) => {
-            const modal = document.getElementById('modal-pagos');
-            const contenido = document.getElementById('modal-pagos-content');
-            document.getElementById('pago-activo-nombre').innerText = "Inversión: " + nombreActivo;
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modal.classList.add('opacity-100');
-                contenido.classList.remove('scale-95');
-                contenido.classList.add('scale-100');
-            }, 10);
-        };
-
-        window.cerrarPasarela = () => {
-            const modal = document.getElementById('modal-pagos');
-            const contenido = document.getElementById('modal-pagos-content');
-            
-            modal.classList.remove('opacity-100');
-            modal.classList.add('opacity-0');
-            contenido.classList.remove('scale-100');
-            contenido.classList.add('scale-95');
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 300);
-        };
-
-        window.conectarWeb3Chain = async () => {
-    if (typeof window.ethereum !== 'undefined') {
-        try {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            
-            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-            if (chainId !== '0x38') {
-                try {
-                    await window.ethereum.request({
-                        method: 'wallet_switchEthereumChain',
-                        params: [{ chainId: '0x38' }],
-                    });
-                } catch (switchError) {
-                    console.log("Por favor cambia manualmente a la red BNB Chain.");
-                }
-            }
-
-            alert("¡Billetera Sintonizada con Éxito en la Red BNB!\nCuenta: " + accounts[0]);
-            window.cerrarPasarela();
-        } catch (error) {
-            console.error("Usuario rechazó la conexión Web3", error);
-        }
-    } else {
-        const dAppUrl = window.location.href.replace(/^https?:\/\//, '');
-        const metamaskDeepLink = `https://metamask.app.link/dapp/${dAppUrl}`;
-        
-        const abrirMetaMask = confirm("Estás en un navegador convencional. ¿Deseas abrir este portal automáticamente dentro del navegador seguro de MetaMask (BNB Chain)?");
-        
-        if (abrirMetaMask) {
-            window.location.href = metamaskDeepLink;
-        } else {
-            alert("Por favor, abre este portal desde el navegador interno de Trust Wallet, MetaMask o Binance Web3 Wallet para sintonizar BNB Chain.");
-        }
-    }
-};
-
-
-        window.guardarActivoEnFirebase = async () => {
-            const btn = document.getElementById('btn-inyeccion');
-            const nombre = document.getElementById('admin-nombre').value;
-            const precio = parseFloat(document.getElementById('admin-precio').value);
-            const fracciones = parseInt(document.getElementById('admin-fracciones').value);
-
-            if(!nombre || !precio || !fracciones) {
-                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Datos Incompletos';
-                btn.classList.add('bg-red-500', 'text-white');
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-database"></i> Inyectar a la Red';
-                    btn.classList.remove('bg-red-500', 'text-white');
-                }, 2000);
+            // Si no hay activos, mostramos un nodo ancla
+            if(snapshot.empty) {
+                matriz.innerHTML = `<div class="col-span-full text-center text-gray-500 text-sm tracking-widest uppercase py-10">La matriz espera la inyección del primer activo RWA.</div>`;
                 return;
             }
 
-            try {
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inyectando...';
+            let contador = 0;
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const tokenValue = (data.valorTotal / data.fracciones).toFixed(2);
                 
-                await addDoc(collection(db, "activosTierra"), {
-                    titulo: nombre,
-                    valorTotalUSD: precio,
-                    fraccionesTotales: fracciones,
-                    fraccionesDisponibles: fracciones,
-                    fechaInyeccion: serverTimestamp()
-                });
+                // Aplicamos Asimetría: El primer activo (el más reciente) ocupa más espacio (2 columnas en desktop)
+                const claseAsimetrica = (contador === 0) ? 'md:col-span-2 lg:col-span-2' : 'col-span-1';
+                
+                const tarjetaHTML = `
+                    <div class="${claseAsimetrica} boveda-titanio rounded-[2rem] overflow-hidden flex flex-col relative group">
+                        <div class="absolute top-5 left-5 z-20 bg-azulFacebook text-white font-black px-4 py-1.5 rounded-full text-[0.6rem] uppercase tracking-widest shadow-[0_0_15px_rgba(24,119,242,0.6)]">
+                            <i class="fas fa-link mr-1"></i> Nodo Activo
+                        </div>
+                        
+                        <div class="relative h-64 md:h-72 overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-titanioLuz via-transparent to-transparent z-10"></div>
+                            <img src="${data.imagen}" alt="${data.nombre}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-1000 ease-out">
+                        </div>
+                        
+                        <div class="p-6 md:p-8 flex-grow flex flex-col justify-between relative z-20 -mt-8 bg-gradient-to-b from-transparent to-titanioLuz">
+                            <div>
+                                <h4 class="text-xl md:text-2xl font-black text-white mb-4 uppercase tracking-widest texto-cinzel drop-shadow-lg">${data.nombre}</h4>
+                                
+                                <div class="bg-titanioOscuro rounded-2xl p-4 mb-5 border border-gray-700/50 shadow-[inset_0_0_15px_rgba(0,0,0,0.8)]">
+                                    <div class="flex justify-between items-end mb-3">
+                                        <div>
+                                            <span class="block text-gray-500 text-[0.6rem] uppercase tracking-widest font-bold mb-1">Fracciones Disp.</span>
+                                            <span class="text-oro font-black text-lg">${data.fracciones}</span>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="block text-gray-500 text-[0.6rem] uppercase tracking-widest font-bold mb-1">Río de Luz</span>
+                                            <span class="rio-de-luz text-lg">+${data.rendimiento}%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex justify-between items-center border-t border-gray-800/80 pt-3">
+                                        <span class="text-gray-400 text-[0.65rem] uppercase tracking-widest font-bold">Valor x Token</span>
+                                        <span class="text-white font-black text-xl tracking-wider">$${tokenValue} <span class="text-azulFacebook text-xs">USD</span></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                btn.innerHTML = '<i class="fas fa-check"></i> Activo Blindado';
-                btn.classList.replace('bg-dorado', 'bg-green-500');
-                btn.classList.add('text-white');
+                            <button onclick="window.location.href='https://link.mercadopago.com.co/shefaplusglobal2026'" class="btn-facebook-premium w-full font-black py-4 rounded-xl uppercase tracking-widest text-[0.7rem] flex justify-center items-center gap-2 mt-auto shadow-lg">
+                                <i class="fas fa-bolt text-oroRadiante"></i> Inyectar Capital
+                            </button>
+                        </div>
+                    </div>
+                `;
                 
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-database"></i> Inyectar a la Red';
-                    btn.classList.replace('bg-green-500', 'bg-dorado');
-                    btn.classList.remove('text-white');
-                    window.cerrarBoveda();
-                }, 2000);
-
-            } catch (error) {
-                console.error("Error en la inyección: ", error);
-                btn.innerHTML = '<i class="fas fa-times"></i> Falla en la Matriz';
-                btn.classList.replace('bg-dorado', 'bg-red-500');
-                btn.classList.add('text-white');
-                
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-database"></i> Inyectar a la Red';
-                    btn.classList.replace('bg-red-500', 'bg-dorado');
-                    btn.classList.remove('text-white');
-                }, 2000);
-            }
-        };
+                matriz.innerHTML += tarjetaHTML;
+                contador++;
+            });
+        });
     </script>
 </body>
 </html>
