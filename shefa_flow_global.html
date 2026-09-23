@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEFA FLOW | El Umbral de la Materialización Global</title>
+    <title>SHEFA PLUS GLOBAL | El Umbral de la Materialización</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -18,17 +18,18 @@
             align-items: center;
             justify-content: center;
             overflow-x: hidden;
+            margin: 0;
+            padding: 1rem;
         }
 
         .boveda-card {
-            background: rgba(10, 17, 40, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(10, 17, 40, 0.96);
+            backdrop-filter: blur(25px);
             border: 1px solid rgba(212, 175, 55, 0.45);
-            box-shadow: 0 0 75px rgba(0, 0, 0, 0.98), inset 0 0 35px rgba(0, 119, 255, 0.15);
+            box-shadow: 0 0 85px rgba(0, 0, 0, 0.98), inset 0 0 40px rgba(0, 119, 255, 0.15);
             border-radius: 36px;
         }
 
-        /* Letras de Oro Puro */
         .titulo-oro {
             font-family: 'Cinzel', serif;
             background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
@@ -44,7 +45,6 @@
             text-transform: uppercase;
         }
 
-        /* Números Verdes Luminosos (Pulsación Viva Berajá / Crecimiento Fibonacci) */
         @keyframes pulso-verde-luminoso {
             0%, 100% { 
                 color: #10B981; 
@@ -74,7 +74,6 @@
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
-        /* Botones Asimétricos de Poder Global */
         .btn-metamask {
             background: linear-gradient(90deg, #F3BA2F 0%, #E8B32B 100%);
             color: #050814;
@@ -109,14 +108,14 @@
         }
     </style>
 </head>
-<body class="p-4">
+<body>
 
-    <div class="boveda-card w-full max-w-lg p-8 md:p-10 relative overflow-hidden">
-        <!-- Destellos de Energía de Fondo (Titanio Azul y Oro Divino) -->
+    <div class="boveda-card w-full max-w-xl p-8 md:p-10 relative overflow-hidden">
+        <!-- Destellos de Energía Dorada y Titanio Azul -->
         <div class="absolute -top-12 -right-12 w-48 h-48 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15"></div>
         <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
 
-        <!-- Encabezado con el Ojo del Despertar (El Despertar de una Nueva Era) -->
+        <!-- Encabezado con el Ojo del Despertar -->
         <div class="text-center mb-8 relative z-10">
             <div class="w-18 h-18 mx-auto mb-4 rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-amber-200 to-yellow-600 ojo-despertar flex items-center justify-center bg-black">
                 <div class="w-full h-full bg-[#0a1128] rounded-full flex items-center justify-center">
@@ -124,77 +123,96 @@
                 </div>
             </div>
             <h2 class="texto-corporativo text-[0.65rem] tracking-[0.35em] text-blue-400 mb-1">EL UMBRAL DE LA MATERIALIZACIÓN</h2>
-            <h1 class="titulo-oro text-3xl md:text-4xl font-black mb-2">SHEFA FLOW</h1>
-            <p class="texto-corporativo text-[0.7rem] text-yellow-500/90 tracking-widest">Berajá y Expansión Global</p>
+            <h1 class="titulo-oro text-3xl md:text-4xl font-black mb-2">SHEFA PLUS GLOBAL</h1>
+            <p class="texto-corporativo text-[0.7rem] text-yellow-500/90 tracking-widest">Berajá y Expansión Global Asimétrica</p>
         </div>
 
-        <!-- Panel de Selección de Nodo Georregional -->
+        <!-- Panel de Selección de Nodo Georregional (Latam + USA + España) -->
         <div class="mb-6 relative z-10">
-            <label for="nodo-selector" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300 mb-2">Nodo Georregional de Poder</label>
-            <select id="nodo-selector" onchange="gestionarNodo()" class="selector-titanio w-full p-3.5 rounded-xl appearance-none cursor-pointer text-sm font-semibold">
-                <option value="" disabled selected>Selecciona tu coordenada de expansión...</option>
-                <option value="LATAM">🇨🇴 Latinoamérica (Mercado Pago + Web3)</option>
-                <option value="USA">🇺🇸 Estados Unidos (Solo Web3 - USD)</option>
-                <option value="ESPANA">🇪🇸 España / Europa (Solo Web3 - EUR)</option>
+            <label for="nodo-selector" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300 mb-2">Selecciona tu Coordenada Georregional</label>
+            <select id="nodo-selector" onchange="gestionarNodoGeo()" class="selector-titanio w-full p-3.5 rounded-xl appearance-none cursor-pointer text-sm font-semibold">
+                <option value="" disabled selected>Elige país de origen...</option>
+                <optgroup label="🇨🇴 Latinoamérica (Mercado Pago + Web3)">
+                    <option value="COL">🇨🇴 Colombia (Núcleo Operativo Principal)</option>
+                    <option value="ARG">🇦🇷 Argentina</option>
+                    <option value="BRA">🇧🇷 Brasil</option>
+                    <option value="MEX">🇲🇽 México</option>
+                    <option value="CHL">🇨🇱 Chile</option>
+                    <option value="PER">🇵🇪 Perú</option>
+                    <option value="URY">🇺🇾 Uruguay</option>
+                    <option value="ECU">🇪🇨 Ecuador</option>
+                </optgroup>
+                <optgroup label="🇺🇸 & 🇪🇸 Potencias Globales (Solo Web3)">
+                    <option value="USA">🇺🇸 Estados Unidos (Solo Web3 - USD)</option>
+                    <option value="ESP">🇪🇸 España (Solo Web3 - EUR)</option>
+                </optgroup>
             </select>
         </div>
 
-        <!-- Panel de Frecuencia / Monto con Números Verdes Luminosos -->
+        <!-- Panel de Frecuencia / Monto -->
         <div id="panel-monto" class="mb-6 relative z-10">
             <div class="flex justify-between items-center mb-2">
-                <label for="input-monto" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300">Frecuencia de Inyección Áurea</label>
-                <span class="text-[0.65rem] text-yellow-400/80">Proporción 1.618</span>
+                <label for="input-monto" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300">Frecuencia de Inyección (Proporción Áurea)</label>
+                <span class="text-[0.65rem] text-yellow-400/80">Fibonacci 1.618</span>
             </div>
             <div class="relative">
                 <span class="absolute left-4 top-3.5 text-yellow-500 font-bold text-base" id="simbolo-moneda">$</span>
-                <input type="number" id="input-monto" placeholder="Ej: 100" class="selector-titanio w-full p-3.5 pl-10 rounded-xl outline-none numero-verde-luminoso text-lg">
+                <input type="number" id="input-monto" placeholder="Ej: 1500" class="selector-titanio w-full p-3.5 pl-10 rounded-xl outline-none numero-verde-luminoso text-lg">
             </div>
         </div>
 
-        <!-- Canales Absolutos de Poder y Transmisión -->
+        <!-- Canales de Transmisión Dinámicos -->
         <div id="panel-canales" class="space-y-4 relative z-10">
-            <!-- Botón de Mercado Pago (Exclusivo para Latam) -->
+            <!-- Botón de Mercado Pago (Se muestra solo si es Latam) -->
             <button id="btn-canal-mp" onclick="ejecutarMercadoPago()" class="btn-mercadopago w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg hidden cursor-pointer">
-                <i class="fas fa-handshake text-base"></i> MERCADO PAGO (LATAM / FIAT)
+                <i class="fas fa-handshake text-base"></i> Pagar con Mercado Pago (Latam)
             </button>
 
-            <!-- Botón Universal Web3 (MetaMask - Activo en todas partes, único en USA y España) -->
+            <!-- Botón Universal Web3 (MetaMask - Activo para Todos, Exclusivo en USA y España) -->
             <button id="btn-canal-web3" onclick="ejecutarMetaMask()" class="btn-metamask w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg cursor-pointer">
-                <i class="fas fa-cube text-base"></i> INYECCIÓN METAMASK (WEB3 / GLOBAL)
+                <i class="fas fa-cube text-base"></i> Inyección Web3 / MetaMask (Global)
             </button>
         </div>
         
-        <!-- Estado del Río de Luz con Números Verdes Luminosos -->
+        <!-- Estado del Río de Luz -->
         <div class="texto-corporativo text-[0.65rem] text-center text-gray-400 mt-6 border-t border-blue-900/40 pt-4 relative z-10">
-            Río de Luz <span class="numero-verde-luminoso">Shefa-Berajá</span> fluyendo sin límites en la economía global.
+            Río de Luz <span class="numero-verde-luminoso">Shefa-Berajá</span> fluyendo sin fronteras hacia la economía real.
         </div>
     </div>
 
     <script>
-        function gestionarNodo() {
+        function gestionarNodoGeo() {
             const nodo = document.getElementById('nodo-selector').value;
             const simbolo = document.getElementById('simbolo-moneda');
             const btnMP = document.getElementById('btn-canal-mp');
-            const btnWeb3 = document.getElementById('btn-canal-web3');
+            
+            // Países de Latam que usan Mercado Pago
+            const paisesLatamMP = ['COL', 'ARG', 'BRA', 'MEX', 'CHL', 'PER', 'URY', 'ECU'];
 
-            if (nodo === 'LATAM') {
+            if (paisesLatamMP.includes(nodo)) {
                 simbolo.innerText = '$';
-                btnMP.classList.remove('hidden'); // En Latam hay Mercado Pago y Web3
+                btnMP.classList.remove('hidden'); // En Latam se habilitan ambos: Mercado Pago y Web3
             } else if (nodo === 'USA') {
                 simbolo.innerText = '$';
                 btnMP.classList.add('hidden'); // En USA solo Web3
-            } else if (nodo === 'ESPANA') {
+            } else if (nodo === 'ESP') {
                 simbolo.innerText = '€';
                 btnMP.classList.add('hidden'); // En España solo Web3
             }
         }
 
-        // Motor Web3 (MetaMask - Universal para Global, USA y España)
+        // Motor de Transacción Descentralizada (Web3 / MetaMask)
         async function ejecutarMetaMask() {
             const monto = document.getElementById('input-monto').value;
-            const nodo = document.getElementById('nodo-selector').value;
+            const nodoSelect = document.getElementById('nodo-selector');
+            const nodo = nodoSelect.value;
+
+            if (!nodo) {
+                alert("👑 BÓVEDA SHEFA:\n\nPor favor, selecciona primero tu coordenada georregional.");
+                return;
+            }
             if (!monto || monto <= 0) {
-                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida de Oro Puro para materializar.");
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida para materializar la inyección.");
                 return;
             }
 
@@ -202,25 +220,27 @@
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0];
-                    alert(`👑 BÓVEDA SHEFA WEB3 (${nodo || 'GLOBAL'}):\n\nWallet vinculada (${account.substring(0,6)}...)\nInyección descentralizada de ${monto} lista para firmar.`);
+                    alert(`👑 BÓVEDA SHEFA WEB3 (${nodo}):\n\nWallet sintonizada (${account.substring(0,6)}...)\nInyección de ${monto} lista para autorizar en la blockchain.`);
                 } catch (error) {
                     console.error(error);
                     alert("Fricción detectada en la red o el usuario canceló la firma.");
                 }
             } else {
-                window.location.href = `https://metamask.app.link/dapp/shefaplusglobal.com?monto=${monto}`;
+                window.location.href = `https://metamask.app.link/dapp/shefaplusglobal.com?monto=${monto}&nodo=${nodo}`;
             }
         }
 
-        // Motor Mercado Pago (Exclusivo para Latam)
+        // Motor de Pasarela Fiduciaria (Mercado Pago - Exclusivo Latam)
         function ejecutarMercadoPago() {
             const monto = document.getElementById('input-monto').value;
+            const nodo = document.getElementById('nodo-selector').value;
+
             if (!monto || monto <= 0) {
-                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida de Oro Puro para materializar.");
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida para materializar la inyección.");
                 return;
             }
-            // Enlace de cobro oficial optimizado para Mercado Pago en Latinoamérica
-            const urlMercadoPago = `https://www.mercadopago.com.co/checkout/v1/redirect?pref_id=SHEFA_GLOBAL_LATAM_${monto}`;
+            // Enlace oficial de Mercado Pago configurado para el nodo seleccionado en Latam
+            const urlMercadoPago = `https://link.mercadopago.com.co/shefaplusglobal2026?monto=${monto}&nodo=${nodo}`;
             window.location.href = urlMercadoPago;
         }
     </script>
