@@ -28,7 +28,7 @@
             border-radius: 28px;
         }
 
-        /* Letras de Oro Puro (Cinzel & Gradientes) */
+        /* Letras de Oro Puro */
         .titulo-oro {
             font-family: 'Cinzel', serif;
             background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
@@ -38,7 +38,6 @@
             text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
 
-        /* Letras Corporativas de Máxima Claridad */
         .texto-corporativo {
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 0.1em;
@@ -65,7 +64,7 @@
         .selector-titanio {
             background: #12182b;
             border: 1px solid rgba(212, 175, 55, 0.3);
-            color: #e5e7eb;
+            color: #ffffff;
             transition: all 0.3s ease;
         }
         
@@ -175,15 +174,15 @@
 
         <!-- Panel de Canales de Transmisión -->
         <div id="panel-canales" class="space-y-4 hidden relative z-10">
-            <button id="canal-web3" onclick="iniciarPagoWeb3()" class="btn-web3 w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg">
+            <button id="canal-web3" onclick="iniciarPagoWeb3()" class="btn-web3 w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg cursor-pointer">
                 <i class="fas fa-cube text-base"></i> INYECCIÓN WEB3 (BNB / USDT)
             </button>
 
-            <button id="canal-mercadopago" onclick="iniciarPagoFiat('MercadoPago')" class="btn-fiat w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg hidden">
+            <button id="canal-mercadopago" onclick="iniciarPagoFiat('MercadoPago')" class="btn-fiat w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg hidden cursor-pointer">
                 <i class="fas fa-handshake text-base"></i> MERCADO PAGO (Latam Local)
             </button>
 
-            <button id="canal-mastercard" onclick="iniciarPagoFiat('Mastercard_Internacional')" class="btn-mastercard w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg">
+            <button id="canal-mastercard" onclick="iniciarPagoFiat('Mastercard_Internacional')" class="btn-mastercard w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg cursor-pointer">
                 <i class="fas fa-credit-card text-base"></i> MASTERCARD / VISA INT.
             </button>
         </div>
@@ -221,34 +220,66 @@
             }
         }
 
-        // Ejecución Inyección Web3
-        function iniciarPagoWeb3() {
+        // Inyección Web3 Real (Conexión a Wallet y Transacción de Capital)
+        async function iniciarPagoWeb3() {
             const monto = document.getElementById('input-monto').value;
             if (!monto || monto <= 0) {
                 alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia (Monto) válida de Oro Puro para materializar.");
                 return;
             }
-            if(window.procesarPagoWeb3) {
-                const hashSimulado = "0x" + Math.random().toString(36).substring(2, 15);
-                window.procesarPagoWeb3(monto, hashSimulado);
+
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    // Solicitar conexión a la Wallet (MetaMask, Trust Wallet en Moto G04)
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    
+                    alert(`👑 BÓVEDA SHEFA WEB3:\n\nWallet conectada: ${account.substring(0,6)}...${account.substring(38)}\nIniciando transferencia de $${monto} USDT/BNB a la tesorería global...`);
+                    
+                    // Aquí puedes acoplar la llamada real al contrato inteligente o transacción nativa
+                    // const transactionParameters = { ... };
+                    // const txHash = await window.ethereum.request({ method: 'eth_sendTransaction', params: [transactionParameters] });
+
+                } catch (error) {
+                    console.error(error);
+                    alert("Fricción detectada en la red Web3 o usuario canceló la firma.");
+                }
             } else {
-                alert(`Activando pasarela Web3 para inyección de $${monto} USDT/BNB en red descentralizada.`);
+                // Si el navegador móvil no tiene inyección directa, abrimos pasarela descentralizada de respaldo o enlace de pago web3
+                window.open(`https://metamask.app.link/dapp/shefaplusglobal.com?monto=${monto}`, '_blank');
             }
         }
 
-        // Ejecución Inyección Tradicional (Fiat)
+        // Inyección Tradicional Fiat Real (Redirección a pasarela de cobro con monto dinámico)
         function iniciarPagoFiat(metodoSeleccionado) {
             const monto = document.getElementById('input-monto').value;
+            const paisSelector = document.getElementById('pais-selector');
+            const pais = paisSelector.options[paisSelector.selectedIndex] ? paisSelector.options[paisSelector.selectedIndex].text : 'Global';
+
             if (!monto || monto <= 0) {
                 alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia (Monto) válida de Oro Puro para materializar.");
                 return;
             }
             document.getElementById('metodo-pago').value = metodoSeleccionado;
-            
-            if(window.ejecutarTransmision) {
-                window.ejecutarTransmision();
-            } else {
-                alert(`Transmisión vía [${metodoSeleccionado}] iniciada por un valor de $${monto} USD/COP.`);
+
+            if (metodoSeleccionado === 'MercadoPago') {
+                // Generación de enlace de redirección dinámico hacia Mercado Pago o pasarela local configurada
+                // Reemplaza con tu enlace real de cobro o preferencia de Mercado Pago
+                const urlMercadoPago = `https://www.mercadopago.com.co/checkout/v1/redirect?pref_id=TU_PREFERENCE_ID_O_LINK&amount=${monto}&pais=${encodeURIComponent(pais)}`;
+                
+                alert(`👑 BÓVEDA SHEFA FIAT:\n\nRedirigiendo al nodo de Mercado Pago (${pais}) por un valor de $${monto} USD/Moneda Local...`);
+                
+                // Redirección real (Descomenta cuando tengas tu link de Mercado Pago configurado)
+                // window.location.href = urlMercadoPago;
+
+            } else if (metodoSeleccionado === 'Mastercard_Internacional') {
+                // Pasarela internacional de tarjetas (Stripe / Pasarela Global)
+                const urlInternacional = `https://checkout.shefaplusglobal.com/pay?amount=${monto}&gateway=mastercard`;
+                
+                alert(`👑 BÓVEDA SHEFA GLOBAL:\n\nAbriendo pasarela internacional segura Mastercard / Visa por un valor de $${monto} USD...`);
+                
+                // Redirección real
+                // window.location.href = urlInternacional;
             }
         }
     </script>
