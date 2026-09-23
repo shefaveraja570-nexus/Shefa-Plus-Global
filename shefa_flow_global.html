@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHEFA FLOW | El Umbral de la Materialización</title>
+    <title>SHEFA FLOW | El Umbral de la Materialización Global</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -21,38 +21,38 @@
         }
 
         .boveda-card {
-            background: rgba(10, 17, 40, 0.9);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(212, 175, 55, 0.35);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(212, 175, 55, 0.15);
-            border-radius: 28px;
+            background: rgba(10, 17, 40, 0.94);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 0 70px rgba(0, 0, 0, 0.98), inset 0 0 35px rgba(0, 119, 255, 0.15);
+            border-radius: 34px;
         }
 
-        /* Letras de Oro Puro */
+        /* Letras de Oro Puro (Estándar Premium) */
         .titulo-oro {
             font-family: 'Cinzel', serif;
             background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.4);
         }
 
         .texto-corporativo {
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
         }
 
-        /* Números Verdes Luminosos (Pulsación Viva Berajá) */
+        /* Números Verdes Luminosos (Pulsación Viva Berajá / Crecimiento Fibonacci) */
         @keyframes pulso-verde-luminoso {
             0%, 100% { 
                 color: #10B981; 
-                text-shadow: 0 0 10px rgba(16, 185, 129, 0.6), 0 0 20px rgba(16, 185, 129, 0.3); 
+                text-shadow: 0 0 14px rgba(16, 185, 129, 0.75), 0 0 28px rgba(16, 185, 129, 0.45); 
             }
             50% { 
                 color: #34D399; 
-                text-shadow: 0 0 20px rgba(52, 211, 153, 0.9), 0 0 35px rgba(52, 211, 153, 0.5); 
+                text-shadow: 0 0 25px rgba(52, 211, 153, 1), 0 0 45px rgba(52, 211, 153, 0.7); 
             }
         }
         .numero-verde-luminoso {
@@ -63,7 +63,7 @@
 
         .selector-titanio {
             background: #12182b;
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(0, 119, 255, 0.4);
             color: #ffffff;
             transition: all 0.3s ease;
         }
@@ -71,187 +71,149 @@
         .selector-titanio:focus {
             outline: none;
             border-color: #d4af37;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
         }
 
-        /* Botones Asimétricos de Poder */
-        .btn-web3 {
+        /* Botones Asimétricos de Poder Global */
+        .btn-metamask {
             background: linear-gradient(90deg, #F3BA2F 0%, #E8B32B 100%);
             color: #050814;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: 14px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .btn-web3:hover {
+        .btn-metamask:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(243, 186, 47, 0.6);
+            box-shadow: 0 0 35px rgba(243, 186, 47, 0.75);
         }
 
-        .btn-fiat {
-            background: linear-gradient(90deg, #009EE3 0%, #0088C4 100%);
+        .btn-mercadopago {
+            background: linear-gradient(90deg, #009EE3 0%, #0077B5 100%);
             color: #fff;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: 14px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .btn-fiat:hover {
+        .btn-mercadopago:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(0, 158, 227, 0.6);
+            box-shadow: 0 0 35px rgba(0, 158, 227, 0.75);
         }
 
-        .btn-mastercard {
-            background: linear-gradient(90deg, #EB001B 0%, #F79E1B 100%);
+        .btn-europa {
+            background: linear-gradient(90deg, #1D4ED8 0%, #2563EB 100%);
             color: #fff;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: 14px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        .btn-mastercard:hover {
+        .btn-europa:hover {
             transform: translateY(-3px);
-            box-shadow: 0 0 25px rgba(235, 0, 27, 0.6);
+            box-shadow: 0 0 35px rgba(37, 99, 235, 0.75);
         }
 
         .ojo-despertar {
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.5);
             animation: flotar-ojo 4s infinite ease-in-out;
         }
         @keyframes flotar-ojo {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
-        }
-
-        /* Modal Cuántico de Pasarela Segura */
-        .modal-vault {
-            background: rgba(5, 8, 20, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(212, 175, 55, 0.5);
+            50% { transform: translateY(-8px); }
         }
     </style>
 </head>
 <body class="p-4">
 
     <div class="boveda-card w-full max-w-lg p-8 md:p-10 relative overflow-hidden">
-        <!-- Destellos de Energía de Fondo -->
-        <div class="absolute -top-12 -right-12 w-40 h-40 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15"></div>
-        <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15"></div>
+        <!-- Destellos de Energía de Fondo (Titanio Azul y Oro Divino) -->
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-15"></div>
+        <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-blue-600 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
 
-        <!-- Encabezado con el Ojo del Despertar -->
+        <!-- Encabezado con el Ojo del Despertar (Nueva Era 2026) -->
         <div class="text-center mb-8 relative z-10">
-            <div class="w-16 h-16 mx-auto mb-4 rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-amber-200 to-yellow-600 ojo-despertar flex items-center justify-center bg-black">
+            <div class="w-18 h-18 mx-auto mb-4 rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-amber-200 to-yellow-600 ojo-despertar flex items-center justify-center bg-black">
                 <div class="w-full h-full bg-[#0a1128] rounded-full flex items-center justify-center">
                     <i class="fas fa-eye text-yellow-400 text-2xl"></i>
                 </div>
             </div>
-            <h2 class="texto-corporativo text-[0.65rem] tracking-[0.3em] text-gray-400 mb-1">PROTOCOLO DE MATERIALIZACIÓN 2026</h2>
+            <h2 class="texto-corporativo text-[0.65rem] tracking-[0.35em] text-blue-400 mb-1">EL UMBRAL DE LA MATERIALIZACIÓN</h2>
             <h1 class="titulo-oro text-3xl md:text-4xl font-black mb-2">SHEFA FLOW</h1>
-            <p class="texto-corporativo text-[0.7rem] text-yellow-500/90 tracking-widest">El Umbral de la Economía Global</p>
+            <p class="texto-corporativo text-[0.7rem] text-yellow-500/90 tracking-widest">Berajá, Parnasá y Expansión Global</p>
         </div>
 
-        <!-- Panel de Coordenadas / Nodo Regional -->
+        <!-- Panel de Selección de Nodo Regional (Incluyendo España / EUR) -->
         <div class="mb-6 relative z-10">
-            <label for="pais-selector" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300 mb-2">Nodo Regional de Expansión (Latam & EE.UU.)</label>
-            <select id="pais-selector" onchange="enrutarFlujo()" class="selector-titanio w-full p-3.5 rounded-xl appearance-none cursor-pointer text-sm font-semibold">
-                <option value="" disabled selected>Selecciona tu coordenada de poder...</option>
-                <option value="LATAM">Argentina</option>
-                <option value="LATAM">Bolivia</option>
-                <option value="LATAM">Brasil</option>
-                <option value="LATAM">Chile</option>
-                <option value="LATAM">Colombia</option>
-                <option value="LATAM">Ecuador</option>
-                <option value="LATAM">El Salvador</option>
-                <option value="LATAM">Guatemala</option>
-                <option value="LATAM">Honduras</option>
-                <option value="LATAM">México</option>
-                <option value="LATAM">Perú</option>
-                <option value="GLOBAL">Estados Unidos (Estándar USD)</option>
+            <label for="nodo-selector" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300 mb-2">Nodo Georregional de Poder</label>
+            <select id="nodo-selector" onchange="gestionarNodo()" class="selector-titanio w-full p-3.5 rounded-xl appearance-none cursor-pointer text-sm font-semibold">
+                <option value="" disabled selected>Selecciona tu coordenada de expansión...</option>
+                <option value="EUROPA">🇪🇸 España / Unión Europea (EUR)</option>
+                <option value="LATAM">🇨🇴 Colombia / Latam (COP / USD)</option>
+                <option value="GLOBAL">🌐 Red Global / Internacional (USD)</option>
             </select>
         </div>
 
-        <!-- Panel de Frecuencia / Monto con Números Verdes Luminosos -->
-        <div id="panel-monto" class="mb-6 relative z-10 hidden">
+        <!-- Panel de Frecuencia / Monto con Números Verdes Luminosos (Secuencia Fibonacci) -->
+        <div id="panel-monto" class="mb-6 relative z-10">
             <div class="flex justify-between items-center mb-2">
-                <label for="input-monto" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300">Frecuencia de Inyección (USDT / USD)</label>
-                <span class="text-[0.65rem] text-gray-400">Flujo Áureo (3.68%)</span>
+                <label for="input-monto" class="texto-corporativo block text-[0.7rem] font-semibold text-gray-300">Frecuencia de Inyección Áurea</label>
+                <span class="text-[0.65rem] text-yellow-400/80">Proporción 1.618</span>
             </div>
             <div class="relative">
-                <span class="absolute left-4 top-3.5 text-yellow-500 font-bold text-base">$</span>
-                <input type="number" id="input-monto" placeholder="Ej: 50" class="selector-titanio w-full p-3.5 pl-10 rounded-lg outline-none numero-verde-luminoso text-lg">
+                <span class="absolute left-4 top-3.5 text-yellow-500 font-bold text-base" id="simbolo-moneda">$</span>
+                <input type="number" id="input-monto" placeholder="Ej: 100" class="selector-titanio w-full p-3.5 pl-10 rounded-xl outline-none numero-verde-luminoso text-lg">
             </div>
         </div>
 
-        <!-- Panel de Canales de Transmisión -->
-        <div id="panel-canales" class="space-y-4 hidden relative z-10">
-            <button id="canal-web3" onclick="iniciarPagoWeb3()" class="btn-web3 w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg cursor-pointer">
-                <i class="fas fa-cube text-base"></i> INYECCIÓN WEB3 (BNB / USDT)
+        <!-- Canales Absolutos de Poder y Transmisión -->
+        <div id="panel-canales" class="space-y-4 relative z-10">
+            <!-- Botón Dinámico de Europa (EUR) -->
+            <button id="btn-canal-europa" onclick="ejecutarEuropa()" class="btn-europa w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg hidden cursor-pointer">
+                <i class="fas fa-euro-sign text-base"></i> PASARELA EUROPA (SEPA / TARJETA EUR)
             </button>
 
-            <button id="canal-mercadopago" onclick="iniciarPagoFiat('MercadoPago')" class="btn-fiat w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg hidden cursor-pointer">
-                <i class="fas fa-handshake text-base"></i> MERCADO PAGO (Latam Local)
+            <!-- Botón Dinámico de Mercado Pago (Latam) -->
+            <button id="btn-canal-mp" onclick="ejecutarMercadoPago()" class="btn-mercadopago w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg hidden cursor-pointer">
+                <i class="fas fa-handshake text-base"></i> MERCADO PAGO (LATAM / FIAT)
             </button>
 
-            <button id="canal-mastercard" onclick="iniciarPagoFiat('Mastercard_Internacional')" class="btn-mastercard w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg cursor-pointer">
-                <i class="fas fa-credit-card text-base"></i> MASTERCARD / VISA INT.
+            <!-- Botón Universal Web3 (MetaMask) -->
+            <button onclick="ejecutarMetaMask()" class="btn-metamask w-full py-4 flex items-center justify-center gap-3 text-xs tracking-widest uppercase shadow-lg cursor-pointer">
+                <i class="fas fa-cube text-base"></i> INYECCIÓN METAMASK (WEB3 / GLOBAL)
             </button>
         </div>
         
         <!-- Estado del Río de Luz con Números Verdes Luminosos -->
-        <div id="mensaje-enrutamiento" class="texto-corporativo text-[0.65rem] text-center text-gray-400 mt-6 hidden border-t border-gray-800 pt-4">
-            Río de Luz <span class="numero-verde-luminoso">Shefa-Berajá</span> fluyendo matemáticamente en la red.
-        </div>
-    </div>
-
-    <!-- Modal de Pasarela Segura Integrada (Evita errores DNS y de API externa) -->
-    <div id="modal-pasarela" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden p-4">
-        <div class="modal-vault w-full max-w-md p-6 rounded-2xl relative border border-yellow-500/40 text-center">
-            <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-yellow-500/20 flex items-center justify-center border border-yellow-500/50">
-                <i class="fas fa-shield-alt text-yellow-400 text-xl"></i>
-            </div>
-            <h3 id="modal-titulo" class="titulo-oro text-lg font-bold mb-2">BÓVEDA SEGURA SHEFA</h3>
-            <p id="modal-descripcion" class="text-xs text-gray-300 mb-6 leading-relaxed">Procesando pasarela internacional para el nodo seleccionado...</p>
-            
-            <div class="bg-[#050814] p-4 rounded-xl border border-gray-800 mb-6">
-                <span class="text-[0.65rem] text-gray-400 block uppercase tracking-widest mb-1">Frecuencia Asignada</span>
-                <span id="modal-monto-display" class="numero-verde-luminoso text-2xl">$0.00</span>
-            </div>
-
-            <div class="flex gap-3">
-                <button onclick="cerrarPasarela()" class="w-1/2 py-3 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl text-xs font-bold uppercase transition">Cancelar</button>
-                <button onclick="ejecutarTransaccionFinal()" class="w-1/2 py-3 bg-gradient-to-r from-yellow-500 to-amber-600 text-black rounded-xl text-xs font-extrabold uppercase shadow-lg hover:brightness-110 transition">Autorizar Pago</button>
-            </div>
+        <div class="texto-corporativo text-[0.65rem] text-center text-gray-400 mt-6 border-t border-blue-900/40 pt-4 relative z-10">
+            Río de Luz <span class="numero-verde-luminoso">Shefa-Berajá</span> fluyendo sin límites en la economía global.
         </div>
     </div>
 
     <script>
-        let pasarelaActual = '';
-        let montoGlobal = 0;
+        function gestionarNodo() {
+            const nodo = document.getElementById('nodo-selector').value;
+            const simbolo = document.getElementById('simbolo-moneda');
+            const btnEuropa = document.getElementById('btn-canal-europa');
+            const btnMP = document.getElementById('btn-canal-mp');
 
-        function enrutarFlujo() {
-            const selector = document.getElementById('pais-selector');
-            const zona = selector.value;
-            const paisNombre = selector.options[selector.selectedIndex].text;
-            
-            const panelMontos = document.getElementById('panel-monto');
-            const panelCanales = document.getElementById('panel-canales');
-            const btnMP = document.getElementById('canal-mercadopago');
-            const mensaje = document.getElementById('mensaje-enrutamiento');
-
-            panelMontos.classList.remove('hidden');
-            panelCanales.classList.remove('hidden');
-            mensaje.classList.remove('hidden');
-
-            if (zona === 'LATAM') {
-                btnMP.classList.remove('hidden');
-                mensaje.innerHTML = `Nodo Regional [<span class="text-white font-bold">${paisNombre}</span>] sincronizado. Canales locales e inyección Web3 activos.`;
-            } else if (zona === 'GLOBAL') {
+            if (nodo === 'EUROPA') {
+                simbolo.innerText = '€';
+                btnEuropa.classList.remove('hidden');
                 btnMP.classList.add('hidden');
-                mensaje.innerHTML = `Nodo Internacional [<span class="text-white font-bold">${paisNombre}</span>] conectado al estándar USD y Web3.`;
+            } else if (nodo === 'LATAM') {
+                simbolo.innerText = '$';
+                btnEuropa.classList.add('hidden');
+                btnMP.classList.remove('hidden');
+            } else {
+                simbolo.innerText = '$';
+                btnEuropa.classList.add('hidden');
+                btnMP.classList.add('hidden');
             }
         }
 
-        async function iniciarPagoWeb3() {
+        // Motor Web3 (MetaMask)
+        async function ejecutarMetaMask() {
             const monto = document.getElementById('input-monto').value;
             if (!monto || monto <= 0) {
-                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia (Monto) válida de Oro Puro para materializar.");
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida de Oro Puro para materializar.");
                 return;
             }
 
@@ -259,59 +221,38 @@
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0];
-                    alert(`👑 BÓVEDA SHEFA WEB3:\n\nWallet vinculada (${account.substring(0,6)}...)\nInyección de $${monto} USDT/BNB lista para firmar.`);
+                    alert(`👑 BÓVEDA SHEFA WEB3:\n\nWallet vinculada (${account.substring(0,6)}...)\nInyección descentralizada de $${monto} lista para firmar.`);
                 } catch (error) {
                     console.error(error);
-                    alert("Fricción detectada en la red Web3 o el usuario canceló la firma.");
+                    alert("Fricción detectada en la red o el usuario canceló la firma.");
                 }
             } else {
                 window.location.href = `https://metamask.app.link/dapp/shefaplusglobal.com?monto=${monto}`;
             }
         }
 
-        // Activador de Pasarela Fiat Segura (Modal Inteligente para evitar errores COW00 y DNS)
-        function iniciarPagoFiat(metodo) {
+        // Motor Mercado Pago (Latam)
+        function ejecutarMercadoPago() {
             const monto = document.getElementById('input-monto').value;
-            const paisSelector = document.getElementById('pais-selector');
-            const pais = paisSelector.options[paisSelector.selectedIndex] ? paisSelector.options[paisSelector.selectedIndex].text : 'Global';
-
             if (!monto || monto <= 0) {
-                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia (Monto) válida de Oro Puro para materializar.");
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida de Oro Puro para materializar.");
                 return;
             }
+            const urlMercadoPago = `https://www.mercadopago.com.co/checkout/v1/redirect?pref_id=SHEFA_GLOBAL_LATAM_${monto}`;
+            window.location.href = urlMercadoPago;
+        }
 
-            pasarelaActual = metodo;
-            montoGlobal = monto;
-
-            const modal = document.getElementById('modal-pasarela');
-            const tituloModal = document.getElementById('modal-titulo');
-            const descModal = document.getElementById('modal-descripcion');
-            const montoDisplay = document.getElementById('modal-monto-display');
-
-            montoDisplay.innerText = `$${Number(monto).toLocaleString()} USD`;
-
-            if (metodo === 'MercadoPago') {
-                tituloModal.innerText = `BÓVEDA MERCADO PAGO (${pais})`;
-                descModal.innerText = `Canal fiat local activado para el nodo de ${pais}. Conectando pasarela segura de cobro regional.`;
-            } else {
-                tituloModal.innerText = `BÓVEDA MASTERCARD / VISA INT.`;
-                descModal.innerText = `Pasarela global encriptada con estándar de titanio para transacciones internacionales.`;
+        // Motor Europa / Euros (España)
+        function ejecutarEuropa() {
+            const monto = document.getElementById('input-monto').value;
+            if (!monto || monto <= 0) {
+                alert("👑 BÓVEDA SHEFA:\n\nIngresa una frecuencia válida en Euros para materializar.");
+                return;
             }
-
-            modal.classList.remove('hidden');
-        }
-
-        function cerrarPasarela() {
-            document.getElementById('modal-pasarela').classList.add('hidden');
-        }
-
-        function ejecutarTransaccionFinal() {
-            const paisSelector = document.getElementById('pais-selector');
-            const pais = paisSelector.options[paisSelector.selectedIndex] ? paisSelector.options[paisSelector.selectedIndex].text : 'Global';
-            
-            // Simulación de redirección segura o llamada a pasarela validada sin errores DNS
-            alert(`✨ MATERIALIZACIÓN EXITOSA EN CURSO:\n\nProcesando $${montoGlobal} a través de ${pasarelaActual} (${pais}).\nEl Río de Luz Shefa fluye sin interrupciones.`);
-            cerrarPasarela();
+            // Enlace de pasarela segura optimizado para la zona Euro (España)
+            const urlEuropa = `https://checkout.shefaplusglobal.com/eur?amount=${monto}`;
+            // Redirección directa al canal de cobro europeo en Euros
+            window.location.href = `https://www.paypal.com/ncp/payment?hosted_button_id=SHEFA_EUROPA_${monto}`;
         }
     </script>
 </body>
