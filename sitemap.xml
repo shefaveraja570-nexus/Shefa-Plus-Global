@@ -1,43 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- ===================================================================== -->
-<!-- SITEMAP DE BERAJÁ - MATRIZ DE RASTREO PARA GOOGLE ($0 COP)            -->
-<!-- Jerarquía de Rastreo basada en la Secuencia Áurea de Fibonacci        -->
-<!-- ===================================================================== -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  
-  <!-- NODO 1: El Umbral Principal (Prioridad Máxima Fibonacci 1.0) -->
-  <url>
-    <loc>https://shefaplusglobal.com/</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        
+    <!-- Nodo Central: El Umbral de la Materialización -->
+    <url>
+        <loc>https://shefaplusglobal.com/</loc>
+        <lastmod>2026-05-24T00:00:00+00:00</lastmod>
+        <changefreq>always</changefreq>
+        <priority>1.00</priority>
+    </url>
 
-  <!-- NODO 2: Cámara de Operaciones y Portal Web3 (Prioridad 0.8) -->
-  <url>
-    <loc>https://shefaplusglobal.com/portal</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
+    <!-- Bóveda de Parnasá (Inversión RWA) -->
+    <url>
+        <loc>https://shefaplusglobal.com/salon-honor</loc>
+        <lastmod>2026-05-24T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.90</priority>
+    </url>
 
-  <!-- NODO 3: Gestión de Remesas y Red Global (Prioridad 0.5) -->
-  <url>
-    <loc>https://shefaplusglobal.com/remesas</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+    <!-- Flujo de Abundancia (Conexión Web3 y Fiat) -->
+    <url>
+        <loc>https://shefaplusglobal.com/inyeccion-capital</loc>
+        <lastmod>2026-05-24T00:00:00+00:00</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.85</priority>
+    </url>
 
-  <!-- NODO 4: Bóveda de Perfil de Usuario (Prioridad 0.3) -->
-  <url>
-    <loc>https://shefaplusglobal.com/perfil</loc>
-    <lastmod>2026-09-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
+    <!-- Estructura Corporativa (Visión y Expansión) -->
+    <url>
+        <loc>https://shefaplusglobal.com/vision-global</loc>
+        <lastmod>2026-05-24T00:00:00+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.80</priority>
+    </url>
 </urlset>
