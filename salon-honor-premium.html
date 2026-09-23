@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shefa Plus Global | Salón de Honor</title>
+    <!-- SDK de Firebase (Compatibilidad Modular) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        // ==========================================
+        // PARNASÁ: INYECTA TUS CREDENCIALES AQUÍ
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "TU_PROYECTO.firebaseapp.com",
+            projectId: "TU_PROYECTO",
+            storageBucket: "TU_PROYECTO.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+
+        let auth, db;
+        try {
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+        } catch (e) {
+            console.log("Firebase no configurado aún. Iniciando modo simulación visual (Efecto Berajá UI).");
+        }
+
+        // Lógica de Interfaz y Neuro-Diseño
+        document.addEventListener('DOMContentLoaded', () => {
+            const portalAcceso = document.getElementById('portal-acceso');
+            const dashboardPremium = document.getElementById('dashboard-premium');
+            const btnIngresar = document.getElementById('btn-ingresar');
+            const btnWeb3 = document.getElementById('btn-web3');
+            const simulacionSaldo = document.getElementById('saldo-maestro');
+            
+            // Simulación de ingreso cuántico (Bypass para ver el diseño antes de conectar DB)
+            btnIngresar.addEventListener('click', (e) => {
+                e.preventDefault();
+                portalAcceso.style.opacity = '0';
+                setTimeout(() => {
+                    portalAcceso.style.display = 'none';
+                    dashboardPremium.style.display = 'block';
+                    setTimeout(() => {
+                        dashboardPremium.style.opacity = '1';
+                        iniciarRioDeLuz();
+                    }, 100);
+                }, 500);
+            });
+
+            // Animación de secuencia Fibonacci para el saldo
+            function iniciarRioDeLuz() {
+                let saldoActual = 0;
+                const saldoObjetivo = 350000;
+                const incremento = 7000; // Crecimiento exponencial
+                
+                const intervalo = setInterval(() => {
+                    saldoActual += incremento;
+                    if(saldoActual >= saldoObjetivo) {
+                        saldoActual = saldoObjetivo;
+                        clearInterval(intervalo);
+                    }
+                    simulacionSaldo.innerText = "$ " + saldoActual.toLocaleString('es-CO');
+                }, 30);
+            }
+        });
+    </script>
+
+    <style>
+        /* ==========================================
+           SHEFÁ: NEURO-DISEÑO Y PROPORCIÓN ÁUREA
+           ========================================== */
+        :root {
+            --azul-facebook: #1877F2;
+            --oro-premium: #FFD700;
+            --titanio-fondo: #0A0E17;
+            --titanio-panel: rgba(20, 26, 41, 0.7);
+            --cristal-borde: rgba(255, 255, 255, 0.08);
+            --fibonacci-base: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--titanio-fondo);
+            background-image: radial-gradient(circle at 50% 0%, rgba(24, 119, 242, 0.15) 0%, transparent 70%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* El Ojo (Visión Global) */
+        .visor-cuantico {
+            width: 80px;
+            height: 80px;
+            margin: calc(var(--fibonacci-base) * 5) auto calc(var(--fibonacci-base) * 3);
+            border-radius: 50%;
+            border: 2px solid var(--oro-premium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+            position: relative;
+        }
+
+        .nucleo-ojo {
+            width: 30px;
+            height: 30px;
+            background: var(--azul-facebook);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--azul-facebook), inset 0 0 10px #ffffff;
+            animation: respiracion 4s ease-in-out infinite;
+        }
+
+        @keyframes respiracion {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 35px var(--azul-facebook); }
+        }
+
+        /* Glassmorphism Premium */
+        .panel-cristal {
+            background: var(--titanio-panel);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--cristal-borde);
+            border-radius: 24px;
+            padding: calc(var(--fibonacci-base) * 3);
+            margin: calc(var(--fibonacci-base) * 2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            transition: all 0.4s ease;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 5px;
+        }
+
+        .texto-oro {
+            color: var(--oro-premium);
+        }
+
+        p.subtitulo {
+            text-align: center;
+            font-size: 14px;
+            color: #8A94A6;
+            margin-bottom: calc(var(--fibonacci-base) * 4);
+            line-height: 1.5;
+        }
+
+        /* Entradas de Datos */
+        .input-grupo {
+            margin-bottom: calc(var(--fibonacci-base) * 2.5);
+        }
+
+        .input-neuro {
+            width: 100%;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .input-neuro:focus {
+            border-color: var(--azul-facebook);
+        }
+
+        /* Botones Asimétricos (Disrupción) */
+        .btn-asimetrico {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--titanio-fondo);
+            background: linear-gradient(135deg, #FFD700 0%, #FFAA00 100%);
+            border-radius: 20px 5px 20px 5px; /* Asimetría */
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: calc(var(--fibonacci-base) * 2);
+        }
+
+        .btn-web3 {
+            background: linear-gradient(135deg, #1877F2 0%, #0D47A1 100%);
+            color: #ffffff;
+            box-shadow: 0 10px 20px rgba(24, 119, 242, 0.2);
+            border-radius: 5px 20px 5px 20px; /* Asimetría Inversa */
+        }
+
+        /* DASHBOARD INTERIOR */
+        #dashboard-premium {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .boveda-saldo {
+            text-align: center;
+            padding: calc(var(--fibonacci-base) * 4) 0;
+        }
+
+        .boveda-saldo h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #8A94A6;
+            letter-spacing: 2px;
+        }
+
+        .boveda-saldo .cifra-maestra {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--oro-premium);
+            margin: 10px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Tablero de Abundancia Global */
+        .tablero-global {
+            margin-top: calc(var(--fibonacci-base) * 3);
+        }
+
+        .fila-transaccion {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--cristal-borde);
+        }
+
+        .fila-transaccion:last-child {
+            border-bottom: none;
+        }
+
+        .tx-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tx-icono {
+            width: 35px;
+            height: 35px;
+            background: rgba(24, 119, 242, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--azul-facebook);
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .tx-detalles h4 {
+            font-size: 14px;
+            color: #fff;
+        }
+        
+        .tx-detalles p {
+            font-size: 11px;
+            color: #8A94A6;
+        }
+
+        .tx-monto {
+            font-size: 15px;
+            font-weight: bold;
+            color: #4CAF50; /* Verde de crecimiento */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VISIÓN GLOBAL: EL OJO -->
+    <div class="visor-cuantico">
+        <div class="nucleo-ojo"></div>
+    </div>
+
+    <!-- PORTAL DE ACCESO (LA LLAVE CUÁNTICA) -->
+    <div id="portal-acceso" class="panel-cristal">
+        <h1>Salón de <span class="texto-oro">Honor</span></h1>
+        <p class="subtitulo">Autenticación cifrada para el Río de Luz. Conecta con el sistema financiero global.</p>
+
+        <form id="form-acceso">
+            <div class="input-grupo">
+                <input type="email" class="input-neuro" placeholder="ID de Ciudadano (Email)" required>
+            </div>
+            <div class="input-grupo">
+                <input type="password" class="input-neuro" placeholder="Llave Criptográfica" required>
+            </div>
+            <button id="btn-ingresar" class="btn-asimetrico">Cruzar Umbral</button>
+        </form>
+    </div>
+
+    <!-- BÓVEDA Y TABLERO (MATERIALIZACIÓN) -->
+    <div id="dashboard-premium">
+        <!-- Balance Personal -->
+        <div class="panel-cristal boveda-saldo">
+            <h2>Capital en el Río de Luz</h2>
+            <div id="saldo-maestro" class="cifra-maestra">$ 0</div>
+            <p class="subtitulo" style="margin-bottom: 20px;">Valor respaldado en Activos Tierra y RWA</p>
+            
+            <button class="btn-asimetrico">Inyectar Fiat (MercadoPago)</button>
+            <button id="btn-web3" class="btn-asimetrico btn-web3">Conectar Web3 (WalletConnect)</button>
+        </div>
+
+        <!-- Efecto Verajá: Crecimiento Orgánico Visible -->
+        <div class="panel-cristal tablero-global">
+            <h1 style="font-size: 18px; text-align: left; margin-bottom: 15px;">Flujo de Abundancia Global</h1>
+            
+            <div class="fila-transaccion">
+                <div class="tx-info">
+                    <div class="tx-icono">0x7</div>
+                    <div class="tx-detalles">
+                        <h4>Nodo Bogotá</h4>
+                        <p>Inyección a RWA-01</p>
+                    </div>
+                </div>
+                <div class="tx-monto">+ $1,250.00</div>
+            </div>
+
+            <div class="fila-transaccion">
+                <div class="tx-info">
+                    <div class="tx-icono">M</div>
+                    <div class="tx-detalles">
+                        <h4>Remesa Nexus</h4>
+                        <p>Transferencia P2P exitosa</p>
+                    </div>
+                </div>
+                <div class="tx-monto">+ $350.00</div>
+            </div>
+
+            <div class="fila-transaccion">
+                <div class="tx-info">
+                    <div class="tx-icono">0xA</div>
+                    <div class="tx-detalles">
+                        <h4>Nodo Global</h4>
+                        <p>Capitalización BNB Chain</p>
+                    </div>
+                </div>
+                <div class="tx-monto">+ $8,900.00</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+  </html>
+  
