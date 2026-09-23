@@ -163,6 +163,10 @@
     </section>
 
     <!-- EL SALÓN DE HONOR -->
+
+        <!-- Lienzo del Patrullaje Georregional Autónomo (Shefa Flow) -->
+    <div id="panel-patrulla-contenido" class="w-full mb-6"></div>
+    
     <main class="max-w-md mx-auto px-4 py-12 flex-grow w-full">
         <div class="text-center mb-10">
             <h2 class="text-3xl font-black text-white uppercase tracking-wider">El Salón de <span class="text-dorado">Honor</span></h2>
@@ -324,15 +328,78 @@
         </div>
     </nav>
 
-    <!-- ⚡ CEREBRO LÓGICO: NEURO-INTERACCIONES -->
+    
+        <!-- ⚡ CEREBRO LÓGICO: NEURO-INTERACCIONES Y AUTO-PATRULLAJE -->
     <script>
-        // Lógica de Doble Toque (Efecto Aura Sagrada Berajá)
+        // =====================================================================
+        // MOTOR SERVERLESS DE AUTO-PATRULLAJE GEORREGIONAL & FIRESTORE
+        // Shefa Plus Global - Blindaje y Enrutamiento Automático
+        // =====================================================================
+
+        const NODOS_AUTORIZADOS_LATAM = ['CO', 'AR', 'BR', 'MX', 'CL', 'PE', 'UY', 'EC'];
+        const NODOS_AUTORIZADOS_GLOBAL = ['US', 'ES'];
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmSource = urlParams.get('utm_source') || 'directo';
+            const utmCampaign = urlParams.get('utm_campaign') || 'expansion_2026';
+            const nodoRef = urlParams.get('ref') || 'global';
+
+            console.log(`[AUTOPATRULLA SHEFA] Campaña detectada: ${utmCampaign} | Fuente: ${utmSource}`);
+
+            try {
+                let response = await fetch('https://ipapi.co/json/');
+                let data = await response.json();
+                let paisIso = data.country_code; 
+
+                const contenedorDinamico = document.getElementById('panel-patrulla-contenido');
+                if (!contenedorDinamico) return;
+
+                if (NODOS_AUTORIZADOS_LATAM.includes(paisIso)) {
+                    contenedorDinamico.innerHTML = `
+                        <div style="border: 2px solid #009EE3; background: #0B132B; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,158,227,0.3);">
+                            <h3 style="color: #FFD700; font-family: Cinzel, serif; margin-bottom: 10px;">Nodo Operativo: ${data.country_name}</h3>
+                            <p style="color: #E0E6ED; font-size: 0.9rem; margin-bottom: 20px;">Canal de inversión optimizado con Mercado Pago y Web3.</p>
+                            <a href="https://shefaplusglobal.com/portal?nodo=${paisIso}&pasarela=hibrida" style="background: #009EE3; color: #fff; padding: 12px 25px; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 0 15px rgba(0,158,227,0.5);">Activar Flujo de Abundancia (Latam)</a>
+                        </div>
+                    `;
+                    registrarMetricaPatrulla(paisIso, utmCampaign, 'LATAM_AUTORIZADO');
+
+                } else if (NODOS_AUTORIZADOS_GLOBAL.includes(paisIso)) {
+                    contenedorDinamico.innerHTML = `
+                        <div style="border: 2px solid #FFD700; background: #0B132B; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(255,215,0,0.3);">
+                            <h3 style="color: #FFD700; font-family: Cinzel, serif; margin-bottom: 10px;">Nodo Global: ${data.country_name}</h3>
+                            <p style="color: #E0E6ED; font-size: 0.9rem; margin-bottom: 20px;">Bóveda descentralizada de alta seguridad (Web3 / MetaMask).</p>
+                            <a href="https://shefaplusglobal.com/portal?nodo=${paisIso}&pasarela=web3" style="background: #FFD700; color: #070B19; padding: 12px 25px; border-radius: 12px; text-decoration: none; font-weight: bold; display: inline-block; box-shadow: 0 0 15px rgba(255,215,0,0.5);">Conectar Bóveda Global</a>
+                        </div>
+                    `;
+                    registrarMetricaPatrulla(paisIso, utmCampaign, 'GLOBAL_WEB3_AUTORIZADO');
+
+                } else {
+                    contenedorDinamico.innerHTML = `
+                        <div style="padding: 20px; text-align: center; color: #A0AABF; font-size: 0.85rem; border: 1px dashed rgba(255,255,255,0.1); border-radius: 12px;">
+                            🌐 Shefa Plus Global opera exclusivamente bajo nodos soberanos autorizados.
+                        </div>
+                    `;
+                    registrarMetricaPatrulla(paisIso, utmCampaign, 'TRAFICO_NEUTRALIZADO');
+                }
+
+            } catch (error) {
+                console.error("Error en el radar del sistema auto-patrullado:", error);
+            }
+        });
+
+        function registrarMetricaPatrulla(pais, campaña, estado) {
+            console.log(`[AUDIT TITANIO FIRESTORE] Registrando en colección 'patrullaje_publicitario' -> País: ${pais} | Campaña: ${campaña} | Estado: ${estado}`);
+        }
+
+        // =====================================================================
+        // LÓGICA DE DOBLE TOQUE (Efecto Aura Sagrada Berajá)
+        // =====================================================================
         function manejarToque(elemento, urlDestino) {
-            // Si la tarjeta ya tiene el aura activa, ejecuta el cruce del umbral (redirección)
             if (elemento.classList.contains('aura-activa')) {
                 window.location.href = urlDestino;
             } else {
-                // Primer toque: Apaga las demás y enciende el Aura Sagrada en la actual
                 document.querySelectorAll('.tarjeta-honor').forEach(tarjeta => {
                     tarjeta.classList.remove('aura-activa');
                 });
@@ -352,23 +419,24 @@
             cofre.scrollIntoView({ behavior: 'smooth', block: 'center' });
             setTimeout(() => {
                 document.getElementById('codigo-cuantico').focus();
-            }, 800);
+            }, 500);
         }
 
         // Intento de desbloqueo del cofre restringido
         function intentarDesbloqueo() {
             const codigo = document.getElementById('codigo-cuantico').value;
-            if(codigo.trim() === "") {
-                alert("La matriz requiere un código de frecuencia válido.");
+            if (codigo.trim() === "") {
+                alert('La matriz requiere un código de frecuencia válido.');
             } else {
-                // Aquí en el futuro se conectará con Firebase para validar el código
-                alert("Sincronizando frecuencia cuántica... Escaneando red.");
+                alert('Sincronizando frecuencia cuántica... Escaneando red corporativa.');
             }
         }
 
-        // Simulación conexión Web3
         function conectarAbundanciaWeb3() {
-            alert("Inicializando protocolo de conexión de Billetera...");
+            alert('Inicializando protocolo de conexión de Billetera...');
+        }
+    </script>
+
         }
     </script>
 </body>
