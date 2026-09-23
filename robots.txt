@@ -1,18 +1,18 @@
-# =====================================================================
-# GUARDIÁN DE TITANIO - ROBOTS.TXT
-# Shefa Plus Global - Patrullaje de Rastreo Autónomo
-# =====================================================================
+# =========================================================
+# SHEFA PLUS GLOBAL | EL UMBRAL DE LA MATERIALIZACIÓN
+# BLINDAJE PREMIUM - TITANIO Y ORO
+# =========================================================
 
 User-agent: *
 Allow: /
-Allow: /portal
-Allow: /remesas
-Allow: /assets/
+Allow: /salon-honor
+Allow: /inyeccion-capital
+Allow: /vision-global
 
-# Proteger nodos sensibles de backend y configuraciones internas (Parnasá)
-Disallow: /admin/
+# Bloqueo de fricciones (Seguridad de Titanio Azul)
+Disallow: /api/
 Disallow: /config/
-Disallow: /firebase-private/
+Disallow: /firebase-admin/
 
-# Dirección Directa al Mapa del Sitio para Indexación Automática e Inmediata
+# Sincronización del Río de Luz
 Sitemap: https://shefaplusglobal.com/sitemap.xml
