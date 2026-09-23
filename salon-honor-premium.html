@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Shefa Plus Global | Salón de Honor</title>
-    <!-- SDK de Firebase (Compatibilidad Modular) -->
+    
+    <!-- SDK de Firebase (Compatibilidad Modular de Titanio) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot, collection, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         // ==========================================
-        // PARNASÁ: INYECTA TUS CREDENCIALES AQUÍ
+        // PARNASÁ: CONEXIÓN AL NÚCLEO (FIREBASE)
+        // Reemplaza esto con los datos de tu consola
         // ==========================================
         const firebaseConfig = {
             apiKey: "TU_API_KEY",
@@ -22,51 +24,97 @@
             appId: "TU_APP_ID"
         };
 
-        let auth, db;
-        try {
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-        } catch (e) {
-            console.log("Firebase no configurado aún. Iniciando modo simulación visual (Efecto Berajá UI).");
-        }
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        // Lógica de Interfaz y Neuro-Diseño
         document.addEventListener('DOMContentLoaded', () => {
             const portalAcceso = document.getElementById('portal-acceso');
             const dashboardPremium = document.getElementById('dashboard-premium');
             const btnIngresar = document.getElementById('btn-ingresar');
-            const btnWeb3 = document.getElementById('btn-web3');
-            const simulacionSaldo = document.getElementById('saldo-maestro');
+            const emailInput = document.getElementById('email-ciudadano');
+            const passwordInput = document.getElementById('llave-cripto');
+            const modoTexto = document.getElementById('modo-texto');
+            const toggleModo = document.getElementById('toggle-modo');
+            const saldoMaestro = document.getElementById('saldo-maestro');
             
-            // Simulación de ingreso cuántico (Bypass para ver el diseño antes de conectar DB)
-            btnIngresar.addEventListener('click', (e) => {
+            let modoRegistro = false;
+
+            // Alternar entre Registro e Ingreso
+            toggleModo.addEventListener('click', () => {
+                modoRegistro = !modoRegistro;
+                if(modoRegistro) {
+                    btnIngresar.innerText = "FORJAR IDENTIDAD";
+                    modoTexto.innerHTML = "¿Ya eres ciudadano? <span style='color: var(--oro-premium); cursor: pointer;'>Cruzar Umbral</span>";
+                } else {
+                    btnIngresar.innerText = "CRUZAR UMBRAL";
+                    modoTexto.innerHTML = "¿Aún no tienes llave? <span style='color: var(--oro-premium); cursor: pointer;'>Regístrate aquí</span>";
+                }
+            });
+
+            // Lógica de Autenticación y Base de Datos
+            btnIngresar.addEventListener('click', async (e) => {
                 e.preventDefault();
+                const email = emailInput.value;
+                const password = passwordInput.value;
+
+                if(!email || !password) {
+                    alert("El neuro-diseño requiere ID y Llave para cruzar.");
+                    return;
+                }
+
+                btnIngresar.innerText = "Sincronizando Nodos...";
+
+                try {
+                    if(modoRegistro) {
+                        // Crear nuevo ciudadano
+                        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                        const user = userCredential.user;
+                        
+                        // Guardar en Firestore (Colección blindada)
+                        await setDoc(doc(db, "usuarios_globales", user.uid), {
+                            correo: user.email,
+                            saldo_invertido: 0,
+                            fecha_creacion: new Date().toISOString()
+                        });
+                        
+                        desplegarDashboard(0);
+                    } else {
+                        // Ingresar ciudadano existente
+                        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                        const user = userCredential.user;
+                        
+                        // Leer saldo desde Firestore
+                        const docRef = doc(db, "usuarios_globales", user.uid);
+                        const docSnap = await getDoc(docRef);
+                        
+                        if (docSnap.exists()) {
+                            desplegarDashboard(docSnap.data().saldo_invertido);
+                        } else {
+                            desplegarDashboard(0);
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error en la matriz:", error.code);
+                    alert("Fricción detectada: " + error.message);
+                    btnIngresar.innerText = modoRegistro ? "FORJAR IDENTIDAD" : "CRUZAR UMBRAL";
+                }
+            });
+
+            // Efecto Verajá UI: Transición al Dashboard
+            function desplegarDashboard(saldo) {
                 portalAcceso.style.opacity = '0';
                 setTimeout(() => {
                     portalAcceso.style.display = 'none';
                     dashboardPremium.style.display = 'block';
+                    
+                    // Formatear Saldo
+                    saldoMaestro.innerText = "$ " + saldo.toLocaleString('es-CO');
+                    
                     setTimeout(() => {
                         dashboardPremium.style.opacity = '1';
-                        iniciarRioDeLuz();
                     }, 100);
                 }, 500);
-            });
-
-            // Animación de secuencia Fibonacci para el saldo
-            function iniciarRioDeLuz() {
-                let saldoActual = 0;
-                const saldoObjetivo = 350000;
-                const incremento = 7000; // Crecimiento exponencial
-                
-                const intervalo = setInterval(() => {
-                    saldoActual += incremento;
-                    if(saldoActual >= saldoObjetivo) {
-                        saldoActual = saldoObjetivo;
-                        clearInterval(intervalo);
-                    }
-                    simulacionSaldo.innerText = "$ " + saldoActual.toLocaleString('es-CO');
-                }, 30);
             }
         });
     </script>
@@ -79,7 +127,7 @@
             --azul-facebook: #1877F2;
             --oro-premium: #FFD700;
             --titanio-fondo: #0A0E17;
-            --titanio-panel: rgba(20, 26, 41, 0.7);
+            --titanio-radiante: rgba(30, 39, 56, 0.8);
             --cristal-borde: rgba(255, 255, 255, 0.08);
             --fibonacci-base: 8px;
         }
@@ -94,7 +142,7 @@
 
         body {
             background-color: var(--titanio-fondo);
-            background-image: radial-gradient(circle at 50% 0%, rgba(24, 119, 242, 0.15) 0%, transparent 70%);
+            background-image: radial-gradient(circle at 50% 0%, rgba(24, 119, 242, 0.12) 0%, transparent 60%);
             color: #ffffff;
             min-height: 100vh;
             overflow-x: hidden;
@@ -110,35 +158,35 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
             position: relative;
         }
 
         .nucleo-ojo {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             background: var(--azul-facebook);
             border-radius: 50%;
-            box-shadow: 0 0 20px var(--azul-facebook), inset 0 0 10px #ffffff;
+            box-shadow: 0 0 25px var(--azul-facebook), inset 0 0 12px #ffffff;
             animation: respiracion 4s ease-in-out infinite;
         }
 
         @keyframes respiracion {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 35px var(--azul-facebook); }
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 40px var(--azul-facebook); }
         }
 
-        /* Glassmorphism Premium */
+        /* Glassmorphism Premium (Titanio Radiante) */
         .panel-cristal {
-            background: var(--titanio-panel);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: var(--titanio-radiante);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--cristal-borde);
             border-radius: 24px;
-            padding: calc(var(--fibonacci-base) * 3);
+            padding: calc(var(--fibonacci-base) * 4);
             margin: calc(var(--fibonacci-base) * 2);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            transition: all 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         h1 {
@@ -146,7 +194,7 @@
             font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .texto-oro {
@@ -158,7 +206,7 @@
             font-size: 14px;
             color: #8A94A6;
             margin-bottom: calc(var(--fibonacci-base) * 4);
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         /* Entradas de Datos */
@@ -168,18 +216,19 @@
 
         .input-neuro {
             width: 100%;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.08);
             color: #fff;
-            padding: 16px;
+            padding: 18px;
             border-radius: 12px;
             font-size: 16px;
             outline: none;
-            transition: border 0.3s;
+            transition: all 0.3s ease;
         }
 
         .input-neuro:focus {
             border-color: var(--azul-facebook);
+            box-shadow: 0 0 15px rgba(24, 119, 242, 0.2);
         }
 
         /* Botones Asimétricos (Disrupción) */
@@ -187,23 +236,35 @@
             width: 100%;
             padding: 18px;
             border: none;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 15px;
+            font-weight: 800;
             color: var(--titanio-fondo);
             background: linear-gradient(135deg, #FFD700 0%, #FFAA00 100%);
-            border-radius: 20px 5px 20px 5px; /* Asimetría */
+            border-radius: 20px 6px 20px 6px;
             cursor: pointer;
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.25);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-top: calc(var(--fibonacci-base) * 2);
+            transition: transform 0.2s ease;
+        }
+        
+        .btn-asimetrico:active {
+            transform: scale(0.98);
         }
 
         .btn-web3 {
-            background: linear-gradient(135deg, #1877F2 0%, #0D47A1 100%);
+            background: linear-gradient(135deg, var(--azul-facebook) 0%, #0D47A1 100%);
             color: #ffffff;
-            box-shadow: 0 10px 20px rgba(24, 119, 242, 0.2);
-            border-radius: 5px 20px 5px 20px; /* Asimetría Inversa */
+            box-shadow: 0 10px 25px rgba(24, 119, 242, 0.25);
+            border-radius: 6px 20px 6px 20px;
+        }
+
+        #toggle-modo {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #8A94A6;
         }
 
         /* DASHBOARD INTERIOR */
@@ -226,11 +287,11 @@
         }
 
         .boveda-saldo .cifra-maestra {
-            font-size: 42px;
+            font-size: 46px;
             font-weight: 900;
             color: var(--oro-premium);
-            margin: 10px 0;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            margin: 12px 0;
+            text-shadow: 0 0 25px rgba(255, 215, 0, 0.35);
         }
 
         /* Tablero de Abundancia Global */
@@ -242,7 +303,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 16px 0;
             border-bottom: 1px solid var(--cristal-borde);
         }
 
@@ -253,36 +314,37 @@
         .tx-info {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
 
         .tx-icono {
-            width: 35px;
-            height: 35px;
-            background: rgba(24, 119, 242, 0.1);
+            width: 38px;
+            height: 38px;
+            background: rgba(24, 119, 242, 0.15);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--azul-facebook);
-            font-weight: bold;
-            font-size: 12px;
+            font-weight: 800;
+            font-size: 13px;
         }
 
         .tx-detalles h4 {
-            font-size: 14px;
+            font-size: 15px;
             color: #fff;
+            margin-bottom: 3px;
         }
         
         .tx-detalles p {
-            font-size: 11px;
+            font-size: 12px;
             color: #8A94A6;
         }
 
         .tx-monto {
-            font-size: 15px;
-            font-weight: bold;
-            color: #4CAF50; /* Verde de crecimiento */
+            font-size: 16px;
+            font-weight: 800;
+            color: #4CAF50;
         }
     </style>
 </head>
@@ -300,13 +362,17 @@
 
         <form id="form-acceso">
             <div class="input-grupo">
-                <input type="email" class="input-neuro" placeholder="ID de Ciudadano (Email)" required>
+                <input type="email" id="email-ciudadano" class="input-neuro" placeholder="ID de Ciudadano (Email)" required>
             </div>
             <div class="input-grupo">
-                <input type="password" class="input-neuro" placeholder="Llave Criptográfica" required>
+                <input type="password" id="llave-cripto" class="input-neuro" placeholder="Llave Criptográfica" required>
             </div>
-            <button id="btn-ingresar" class="btn-asimetrico">Cruzar Umbral</button>
+            <button id="btn-ingresar" class="btn-asimetrico">CRUZAR UMBRAL</button>
         </form>
+        
+        <div id="toggle-modo">
+            <p id="modo-texto">¿Aún no tienes llave? <span style='color: var(--oro-premium); cursor: pointer;'>Regístrate aquí</span></p>
+        </div>
     </div>
 
     <!-- BÓVEDA Y TABLERO (MATERIALIZACIÓN) -->
@@ -315,15 +381,15 @@
         <div class="panel-cristal boveda-saldo">
             <h2>Capital en el Río de Luz</h2>
             <div id="saldo-maestro" class="cifra-maestra">$ 0</div>
-            <p class="subtitulo" style="margin-bottom: 20px;">Valor respaldado en Activos Tierra y RWA</p>
+            <p class="subtitulo" style="margin-bottom: 24px;">Valor respaldado en Activos Tierra y RWA</p>
             
-            <button class="btn-asimetrico">Inyectar Fiat (MercadoPago)</button>
-            <button id="btn-web3" class="btn-asimetrico btn-web3">Conectar Web3 (WalletConnect)</button>
+            <button class="btn-asimetrico">INYECTAR FIAT (MERCADOPAGO)</button>
+            <button id="btn-web3" class="btn-asimetrico btn-web3">CONECTAR WEB3 (WALLETCONNECT)</button>
         </div>
 
         <!-- Efecto Verajá: Crecimiento Orgánico Visible -->
         <div class="panel-cristal tablero-global">
-            <h1 style="font-size: 18px; text-align: left; margin-bottom: 15px;">Flujo de Abundancia Global</h1>
+            <h1 style="font-size: 19px; text-align: left; margin-bottom: 18px;">Flujo de Abundancia Global</h1>
             
             <div class="fila-transaccion">
                 <div class="tx-info">
@@ -361,5 +427,4 @@
     </div>
 
 </body>
-  </html>
-  
+</html>
