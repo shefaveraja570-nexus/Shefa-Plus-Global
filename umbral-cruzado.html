@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefa Plus Global - El Salón de Honor</title>
+    <style>
+        /* =========================================================
+           1. PARNASÁ: LA BÓVEDA DE TITANIO RADIANTE Y AZUL FACEBOOK
+           La base inquebrantable de la nueva economía.
+        ========================================================= */
+        :root {
+            /* Frecuencia de Seguridad, Escala y Confianza */
+            --azul-facebook: #1877F2; 
+            --titanio-radiante: #E0E6ED; 
+            --titanio-profundo: #050814; 
+            --titanio-boveda: #0a1128; 
+            
+            /* Frecuencia de Abundancia y Flujo (Shefá) */
+            --oro-premium: #d4af37;
+            --oro-resplandor: rgba(212, 175, 55, 0.45);
+            --oro-flujo: #fdf5a9;
+            --oro-oscuro: #aa841b;
+
+            /* 2. BERAJÁ: CRECIMIENTO DIVINO (Escala Fibonacci en REM) */
+            --fibo-1: 0.1rem;
+            --fibo-2: 0.2rem;
+            --fibo-3: 0.3rem;
+            --fibo-5: 0.5rem;
+            --fibo-8: 0.8rem;
+            --fibo-13: 1.3rem;
+            --fibo-21: 2.1rem;
+            --fibo-34: 3.4rem;
+            --fibo-55: 5.5rem;
+            --fibo-89: 8.9rem;
+            --fibo-144: 14.4rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--titanio-profundo);
+            color: var(--titanio-radiante);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Mantenemos la energía concentrada en la bóveda */
+            position: relative;
+        }
+
+        /* El Río de Luz Constante (Shefá) regando la interfaz */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -20%; left: -20%; width: 140%; height: 140%;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(24, 119, 242, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
+            animation: rotacion-shefa 21s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* =========================================================
+           3. EL SALÓN DE HONOR (Asimetría Disruptiva)
+        ========================================================= */
+        .boveda-honor {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(10, 17, 40, 0.85); /* Titanio Bóveda Translúcido */
+            backdrop-filter: blur(var(--fibo-21));
+            /* ASIMETRÍA BERAJÁ UI: Rompiendo el sistema visual */
+            border-radius: var(--fibo-89) var(--fibo-13) var(--fibo-55) var(--fibo-5);
+            border-top: var(--fibo-3) solid var(--azul-facebook);
+            border-left: 1px solid rgba(224, 230, 237, 0.1);
+            padding: var(--fibo-89) var(--fibo-55);
+            display: grid;
+            grid-template-columns: 1fr 1.618fr; /* Proporción Áurea Interna */
+            gap: var(--fibo-55);
+            box-shadow: 0 var(--fibo-34) var(--fibo-89) rgba(5, 8, 20, 0.95),
+                        inset 0 0 var(--fibo-55) rgba(24, 119, 242, 0.05);
+            transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* =========================================================
+           EL OJO QUE SE ABRE (El Despertar)
+        ========================================================= */
+        .columna-vision {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .el-ojo-sagrado {
+            width: var(--fibo-144);
+            height: var(--fibo-144);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--oro-premium), var(--oro-oscuro));
+            padding: var(--fibo-2);
+            position: relative;
+            box-shadow: 0 0 var(--fibo-55) var(--oro-resplandor);
+            animation: latido-beraja 4s ease-in-out infinite;
+        }
+
+        .iris-titanio {
+            width: 100%;
+            height: 100%;
+            background-color: var(--titanio-profundo);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Reflejo del Río de Luz en el Ojo */
+        .iris-titanio::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(224, 230, 237, 0.1) 50%, transparent 60%);
+            animation: barrido-luz 5s linear infinite;
+        }
+
+        .pupila-facebook {
+            width: var(--fibo-34);
+            height: var(--fibo-34);
+            background-color: var(--azul-facebook);
+            border-radius: 50%;
+            box-shadow: 0 0 var(--fibo-21) var(--azul-facebook),
+                        inset 0 0 var(--fibo-8) var(--titanio-radiante);
+        }
+
+        .etiqueta-exito {
+            margin-top: var(--fibo-34);
+            background: rgba(24, 119, 242, 0.1);
+            border: 1px solid var(--azul-facebook);
+            color: var(--titanio-radiante);
+            padding: var(--fibo-8) var(--fibo-21);
+            border-radius: var(--fibo-34);
+            font-size: var(--fibo-13);
+            text-transform: uppercase;
+            letter-spacing: var(--fibo-3);
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           LA PALABRA MATERIALIZADA (Texto y Contexto)
+        ========================================================= */
+        .columna-mensaje {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        h1.titulo-gloria {
+            font-size: var(--fibo-55);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--titanio-radiante);
+            margin-bottom: var(--fibo-21);
+        }
+
+        .texto-oro-radiante {
+            background: linear-gradient(90deg, var(--oro-premium), var(--oro-flujo), var(--oro-premium));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: brillo-divino 6s linear infinite;
+        }
+
+        p.neuro-texto {
+            font-size: var(--fibo-21);
+            color: var(--titanio-radiante);
+            opacity: 0.9;
+            line-height: 1.618; /* Proporción Áurea perfecta */
+            margin-bottom: var(--fibo-34);
+            border-left: var(--fibo-3) solid var(--azul-facebook);
+            padding-left: var(--fibo-21);
+        }
+
+        .datos-conexion {
+            display: flex;
+            gap: var(--fibo-34);
+            margin-bottom: var(--fibo-55);
+            width: 100%;
+        }
+
+        .dato-bloque {
+            background: var(--titanio-profundo);
+            border: 1px solid rgba(224, 230, 237, 0.1);
+            padding: var(--fibo-21);
+            border-radius: var(--fibo-13);
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dato-bloque::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: var(--fibo-3);
+            background: var(--oro-premium);
+        }
+
+        .dato-bloque:nth-child(2)::before {
+            background: var(--azul-facebook);
+        }
+
+        .dato-etiqueta {
+            font-size: var(--fibo-13);
+            color: #A0AABF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--fibo-5);
+            display: block;
+        }
+
+        .dato-valor {
+            font-size: var(--fibo-21);
+            color: var(--titanio-radiante);
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           BOTÓN BERAJÁ UI (El Salto hacia la Matriz)
+        ========================================================= */
+        .btn-matriz {
+            background: linear-gradient(135deg, var(--oro-premium) 0%, var(--oro-oscuro) 100%);
+            color: var(--titanio-profundo);
+            font-size: var(--fibo-13);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: var(--fibo-3);
+            padding: var(--fibo-21) var(--fibo-55);
+            border: none;
+            cursor: pointer;
+            /* Asimetría extrema para guiar la interacción */
+            border-radius: var(--fibo-3) var(--fibo-34) var(--fibo-3) var(--fibo-34);
+            box-shadow: 0 var(--fibo-13) var(--fibo-34) var(--oro-resplandor);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--fibo-13);
+        }
+
+        .btn-matriz:hover {
+            transform: scale(1.05) translateY(calc(var(--fibo-5) * -1));
+            box-shadow: 0 var(--fibo-21) var(--fibo-55) rgba(212, 175, 55, 0.6),
+                        0 0 var(--fibo-34) rgba(24, 119, 242, 0.4);
+            /* Inversión orgánica de la asimetría */
+            border-radius: var(--fibo-34) var(--fibo-3) var(--fibo-34) var(--fibo-3);
+            color: var(--titanio-profundo);
+        }
+
+        /* =========================================================
+           ANIMACIONES NEURO-DISEÑADAS
+        ========================================================= */
+        @keyframes rotacion-shefa {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes latido-beraja {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 var(--fibo-34) var(--oro-resplandor); }
+            50% { transform: scale(1.05); box-shadow: 0 0 var(--fibo-89) var(--oro-resplandor), 0 0 var(--fibo-21) var(--oro-premium); }
+        }
+
+        @keyframes barrido-luz {
+            0% { transform: rotate(45deg) translateY(-150%); }
+            100% { transform: rotate(45deg) translateY(150%); }
+        }
+
+        @keyframes brillo-divino {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* =========================================================
+           RESPONSIVIDAD DIVINA (Para control desde dispositivos)
+        ========================================================= */
+        @media (max-width: 900px) {
+            .boveda-honor {
+                grid-template-columns: 1fr;
+                padding: var(--fibo-55) var(--fibo-34);
+                border-radius: var(--fibo-55) var(--fibo-8) var(--fibo-34) var(--fibo-3);
+                text-align: center;
+            }
+            .columna-mensaje { align-items: center; }
+            p.neuro-texto { border-left: none; border-top: var(--fibo-3) solid var(--azul-facebook); padding-left: 0; padding-top: var(--fibo-21); }
+            .datos-conexion { flex-direction: column; gap: var(--fibo-21); }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="boveda-honor">
+        
+        <!-- COLUMNA IZQUIERDA: EL OJO Y LA VISIÓN -->
+        <section class="columna-vision">
+            <div class="el-ojo-sagrado">
+                <div class="iris-titanio">
+                    <div class="pupila-facebook"></div>
+                </div>
+            </div>
+            <div class="etiqueta-exito">
+                Sincronización Exitosa
+            </div>
+        </section>
+
+        <!-- COLUMNA DERECHA: LA MATERIALIZACIÓN -->
+        <section class="columna-mensaje">
+            <h1 class="titulo-gloria">El Umbral <br><span class="texto-oro-radiante">Ha Sido Cruzado</span></h1>
+            
+            <p class="neuro-texto">
+                Bienvenido al Salón de Honor. Estructura blindada en Titanio, respaldada en Oro Premium. Acabas de integrarte a la Red Global iluminada donde el Río de Luz y la abundancia fluyen de manera constante y orgánica.
+            </p>
+
+            <div class="datos-conexion">
+                <div class="dato-bloque">
+                    <span class="dato-etiqueta">Estado de Red</span>
+                    <span class="dato-valor texto-oro-radiante">Parnasá Activo</span>
+                </div>
+                <div class="dato-bloque">
+                    <span class="dato-etiqueta">Contrato Inteligente</span>
+                    <span class="dato-valor">Verificado</span>
+                </div>
+            </div>
+
+            <!-- Botón de retorno al flujo principal o al panel de usuario -->
+            <a href="index.html" class="btn-matriz">
+                Ingresar a la Ciudad Global
+            </a>
+        </section>
+
+    </main>
+
+    <!-- SCRIPT DE MEDICIÓN ORGÁNICA (El radar autómata) -->
+    <script>
+        // Este script registra el cruce del umbral en el entorno local
+        console.log("%c[SHEFA PLUS GLOBAL] %cUmbral Cruzado - Nodo Sincronizado", "color: #1877F2; font-weight: bold;", "color: #E0E6ED;");
+        console.log("%cLa expansión exponencial (Fibonacci) ha sumado un nuevo integrante a la economía real.", "color: #FFD700;");
+    </script>
+
+</body>
+  </html>
+  
