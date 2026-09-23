@@ -1,0 +1,18 @@
+# =====================================================================
+# GUARDIÁN DE TITANIO - ROBOTS.TXT
+# Shefa Plus Global - Patrullaje de Rastreo Autónomo
+# =====================================================================
+
+User-agent: *
+Allow: /
+Allow: /portal
+Allow: /remesas
+Allow: /assets/
+
+# Proteger nodos sensibles de backend y configuraciones internas (Parnasá)
+Disallow: /admin/
+Disallow: /config/
+Disallow: /firebase-private/
+
+# Dirección Directa al Mapa del Sitio para Indexación Automática e Inmediata
+Sitemap: https://shefaplusglobal.com/sitemap.xml
