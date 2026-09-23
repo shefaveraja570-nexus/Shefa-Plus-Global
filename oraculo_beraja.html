@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHEFA PLUS GLOBAL | Oráculo Berajá</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Montserrat:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            background: radial-gradient(circle at 50% 0%, #0a1128 0%, #050814 85%);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estructura Blindada Titanio Azul */
+        .boveda-titanio {
+            background: rgba(10, 17, 40, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(0, 119, 255, 0.25);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.95), inset 0 0 30px rgba(0, 119, 255, 0.1);
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tarjeta-asimetrica {
+            background: linear-gradient(145deg, #12182b 0%, #0a1128 100%);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+        }
+        .tarjeta-asimetrica:hover {
+            border-color: rgba(212, 175, 55, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Oro Premium */
+        .texto-oro {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 15px rgba(212, 175, 55, 0.35);
+        }
+
+        /* Río de Luz Berajá (Números Verdes) */
+        @keyframes pulso-verde-luminoso {
+            0%, 100% { 
+                color: #10B981; 
+                text-shadow: 0 0 12px rgba(16, 185, 129, 0.7), 0 0 25px rgba(16, 185, 129, 0.4); 
+            }
+            50% { 
+                color: #34D399; 
+                text-shadow: 0 0 20px rgba(52, 211, 153, 0.95), 0 0 40px rgba(52, 211, 153, 0.6); 
+            }
+        }
+        .beraja-verde {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            animation: pulso-verde-luminoso 2.5s infinite ease-in-out;
+        }
+
+        /* Ojo del Despertar */
+        .ojo-despertar {
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.45);
+            animation: flotar-ojo 4s infinite ease-in-out;
+        }
+        @keyframes flotar-ojo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* Botones de Inyección */
+        .btn-fibonacci {
+            background: linear-gradient(90deg, #d4af37 0%, #aa771c 100%);
+            color: #050814;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .btn-fibonacci::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.5s;
+        }
+        .btn-fibonacci:hover::after {
+            left: 100%;
+        }
+        .btn-fibonacci:hover {
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.6);
+        }
+
+        .texto-corporativo {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        
+        .linea-fibonacci {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0) 0%, rgba(212, 175, 55, 0.8) 50%, rgba(212, 175, 55, 0) 100%);
+            height: 1px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="boveda-titanio w-full max-w-5xl p-6 md:p-10">
+        <!-- Destellos de Titanio Azul y Oro -->
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-yellow-500 rounded-full mix-blend-multiply filter blur-[80px] opacity-20 pointer-events-none"></div>
+        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-600 rounded-full mix-blend-multiply filter blur-[80px] opacity-30 pointer-events-none"></div>
+
+        <!-- Encabezado del Oráculo -->
+        <header class="text-center mb-10 relative z-10 pt-2">
+            <div class="w-16 h-16 mx-auto mb-5 rounded-full p-[2px] bg-gradient-to-tr from-yellow-500 via-amber-200 to-yellow-600 ojo-despertar flex items-center justify-center bg-black">
+                <div class="w-full h-full bg-[#0a1128] rounded-full flex items-center justify-center">
+                    <i class="fas fa-eye text-yellow-400 text-2xl"></i>
+                </div>
+            </div>
+            <h2 class="texto-corporativo text-[0.65rem] tracking-[0.4em] text-blue-400 mb-2 font-bold">INTELIGENCIA MATEMÁTICA BERAJÁ</h2>
+            <h1 class="texto-oro text-3xl md:text-5xl font-black mb-3">EL ORÁCULO BERAJÁ</h1>
+            <p class="texto-corporativo text-[0.7rem] text-gray-400">Lectura de Parnasá y Proyección de Crecimiento Áureo (1.618)</p>
+        </header>
+
+        <!-- Grid Asimétrico (Efecto Berajá UI) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
+            
+            <!-- Panel Izquierdo: Estado Actual del Río de Luz (Ocupa 5 columnas) -->
+            <section class="lg:col-span-5 tarjeta-asimetrica rounded-3xl p-8 flex flex-col justify-center">
+                <p class="texto-corporativo text-[0.65rem] text-gray-400 mb-2">Valor Total Materializado</p>
+                <div class="mb-6">
+                    <span class="text-yellow-500 text-2xl font-bold align-top">$</span>
+                    <span class="beraja-verde text-5xl md:text-6xl" id="saldo-actual">8,900</span>
+                    <span class="text-gray-500 text-sm ml-1">USD</span>
+                </div>
+                
+                <div class="linea-fibonacci mb-6"></div>
+
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-400 tracking-wider">Crecimiento Orgánico</span>
+                        <span class="text-xs font-bold text-yellow-400">+ 13.4%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-400 tracking-wider">Última Inyección (Nodo)</span>
+                        <span class="text-xs font-bold text-white">Acacías RWA</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-400 tracking-wider">Fase Fibonacci</span>
+                        <span class="text-xs font-bold text-blue-400">Nivel 5 (Expansión)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Panel Derecho: La Revelación del Oráculo (Ocupa 7 columnas) -->
+            <section class="lg:col-span-7 tarjeta-asimetrica rounded-3xl p-8 border-l-4 border-l-yellow-500">
+                <div class="flex items-center gap-3 mb-6">
+                    <i class="fas fa-bolt text-yellow-400 text-xl"></i>
+                    <h3 class="texto-oro text-xl md:text-2xl">PROYECCIÓN ÁUREA DE EXPANSIÓN</h3>
+                </div>
+                
+                <p class="text-sm text-gray-300 font-light leading-relaxed mb-6">
+                    El Oráculo ha analizado tu flujo de Parnasá. Para mantener la secuencia de abundancia ininterrumpida y alcanzar el siguiente nivel de expansión global, el algoritmo matemático de Fibonacci sugiere la siguiente inyección exacta de capital:
+                </p>
+
+                <!-- El Cálculo Matemático Divino -->
+                <div class="bg-[#050814] border border-blue-900/50 rounded-2xl p-6 mb-8 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-32 h-32 bg-blue-600/10 rounded-full blur-2xl"></div>
+                    <p class="texto-corporativo text-[0.65rem] text-blue-400 mb-1">Inyección Estratégica Recomendada</p>
+                    <div class="flex items-end gap-2">
+                        <span class="text-yellow-500 text-xl font-bold mb-1">$</span>
+                        <span class="texto-oro text-4xl font-black" id="inyeccion-sugerida">14,400</span>
+                        <span class="text-gray-500 text-xs mb-2">USD (Proporción 1.618)</span>
+                    </div>
+                    <p class="text-[0.65rem] text-gray-400 mt-2 italic">Destino sugerido: <strong class="text-white">Fracciones Comerciales (Nodo España)</strong></p>
+                </div>
+
+                <!-- Botones de Acción (El Umbral) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Web3 Universal -->
+                    <button onclick="ejecutarOraculoWeb3()" class="btn-fibonacci py-4 rounded-xl text-[0.7rem] font-bold tracking-widest uppercase flex items-center justify-center gap-2 cursor-pointer shadow-lg">
+                        <i class="fas fa-cube text-base"></i> Materializar en Web3
+                    </button>
+                    <!-- Latam Fiat -->
+                    <button onclick="ejecutarOraculoFiat()" class="bg-gradient-to-r from-blue-700 to-blue-900 hover:from-blue-600 hover:to-blue-800 text-white border border-blue-500/30 py-4 rounded-xl text-[0.7rem] font-bold tracking-widest uppercase flex items-center justify-center gap-2 transition-all shadow-lg cursor-pointer">
+                        <i class="fas fa-handshake text-base"></i> Canal Mercado Pago
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Lógica del Oráculo Berajá (Matemática Divina de Fibonacci)
+        document.addEventListener('DOMContentLoaded', () => {
+            const saldoActual = 8900; // Saldo base simulado del usuario
+            const proporcionAurea = 1.618;
+            
+            // El Oráculo calcula el próximo salto aplicando la proporción áurea
+            const proximaInyeccion = Math.round(saldoActual * proporcionAurea);
+            
+            // Animación de formateo de números
+            document.getElementById('saldo-actual').innerText = saldoActual.toLocaleString('en-US');
+            document.getElementById('inyeccion-sugerida').innerText = proximaInyeccion.toLocaleString('en-US');
+        });
+
+        // Motor Web3 (MetaMask)
+        async function ejecutarOraculoWeb3() {
+            const monto = document.getElementById('inyeccion-sugerida').innerText.replace(/,/g, '');
+            if (typeof window.ethereum !== 'undefined') {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    alert(`👑 ORÁCULO BERAJÁ:\n\nWallet Web3 conectada: ${accounts[0].substring(0,6)}...\nPreparando inyección áurea de $${monto} USD en la red descentralizada.`);
+                } catch (error) {
+                    alert("Fricción detectada. El usuario interrumpió el flujo de luz Web3.");
+                }
+            } else {
+                window.location.href = `https://metamask.app.link/dapp/shefaplusglobal.com/oraculo?monto=${monto}`;
+            }
+        }
+
+        // Motor Fiat (Mercado Pago Latam)
+        function ejecutarOraculoFiat() {
+            const monto = document.getElementById('inyeccion-sugerida').innerText.replace(/,/g, '');
+            const urlMercadoPago = `https://link.mercadopago.com.co/oraculoberaja?monto=${monto}`;
+            window.location.href = urlMercadoPago;
+        }
+    </script>
+</body>
+  </html>
+                                                                                  
