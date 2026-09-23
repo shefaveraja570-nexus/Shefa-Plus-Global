@@ -414,18 +414,41 @@
         };
 
         window.conectarWeb3Chain = async () => {
-            if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            
+            const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+            if (chainId !== '0x38') {
                 try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    alert("¡Billetera Sintonizada con Éxito!\nCuenta: " + accounts[0]);
-                    window.cerrarPasarela();
-                } catch (error) {
-                    console.error("Usuario rechazó la conexión Web3", error);
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x38' }],
+                    });
+                } catch (switchError) {
+                    console.log("Por favor cambia manualmente a la red BNB Chain.");
                 }
-            } else {
-                alert("Por favor, abre este portal desde una wallet compatible con Web3 (como MetaMask o TrustWallet).");
             }
-        };
+
+            alert("¡Billetera Sintonizada con Éxito en la Red BNB!\nCuenta: " + accounts[0]);
+            window.cerrarPasarela();
+        } catch (error) {
+            console.error("Usuario rechazó la conexión Web3", error);
+        }
+    } else {
+        const dAppUrl = window.location.href.replace(/^https?:\/\//, '');
+        const metamaskDeepLink = `https://metamask.app.link/dapp/${dAppUrl}`;
+        
+        const abrirMetaMask = confirm("Estás en un navegador convencional. ¿Deseas abrir este portal automáticamente dentro del navegador seguro de MetaMask (BNB Chain)?");
+        
+        if (abrirMetaMask) {
+            window.location.href = metamaskDeepLink;
+        } else {
+            alert("Por favor, abre este portal desde el navegador interno de Trust Wallet, MetaMask o Binance Web3 Wallet para sintonizar BNB Chain.");
+        }
+    }
+};
+
 
         window.guardarActivoEnFirebase = async () => {
             const btn = document.getElementById('btn-inyeccion');
