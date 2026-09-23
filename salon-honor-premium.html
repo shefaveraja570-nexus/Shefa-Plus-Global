@@ -8,20 +8,21 @@
     <!-- SDK de Firebase (Compatibilidad Modular de Titanio) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         // ==========================================
-        // PARNASÁ: CONEXIÓN AL NÚCLEO (FIREBASE)
-        // Reemplaza esto con los datos de tu consola
+        // PARNASÁ: CREDENCIALES REALES INYECTADAS
         // ==========================================
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_PROYECTO.firebaseapp.com",
-            projectId: "TU_PROYECTO",
-            storageBucket: "TU_PROYECTO.appspot.com",
-            messagingSenderId: "TU_SENDER_ID",
-            appId: "TU_APP_ID"
+            apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            projectId: "shefa-plus-global",
+            storageBucket: "shefa-plus-global.firebasestorage.app",
+            messagingSenderId: "746532074927",
+            appId: "1:746532074927:web:a86d0e7c613733ddd5eb5a",
+            measurementId: "G-M8VTTN16Y9"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -67,11 +68,11 @@
 
                 try {
                     if(modoRegistro) {
-                        // Crear nuevo ciudadano
+                        // Crear nuevo ciudadano en Authentication
                         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                         const user = userCredential.user;
                         
-                        // Guardar en Firestore (Colección blindada)
+                        // Guardar en Firestore dentro de 'usuarios_globales'
                         await setDoc(doc(db, "usuarios_globales", user.uid), {
                             correo: user.email,
                             saldo_invertido: 0,
@@ -427,4 +428,5 @@
     </div>
 
 </body>
-</html>
+    </html>
+    
