@@ -12,7 +12,7 @@
         import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         // ==========================================
-        // PARNASÁ: CREDENCIALES REALES INYECTADAS
+        // PARNASÁ: CREDENCIALES REALES DE FIREBASE
         // ==========================================
         const firebaseConfig = {
             apiKey: "AIzaSyAnkRzBz5SbYhRk8Y0irzZA7ujpuy0Dxu4",
@@ -53,11 +53,11 @@
                 }
             });
 
-            // Lógica de Autenticación y Base de Datos
+            // Lógica de Autenticación y Base de Datos con Auto-Recuperación
             btnIngresar.addEventListener('click', async (e) => {
                 e.preventDefault();
-                const email = emailInput.value;
-                const password = passwordInput.value;
+                const email = emailInput.value.trim();
+                const password = passwordInput.value.trim();
 
                 if(!email || !password) {
                     alert("El neuro-diseño requiere ID y Llave para cruzar.");
@@ -67,37 +67,53 @@
                 btnIngresar.innerText = "Sincronizando Nodos...";
 
                 try {
+                    let user;
                     if(modoRegistro) {
-                        // Crear nuevo ciudadano en Authentication
-                        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                        const user = userCredential.user;
-                        
-                        // Guardar en Firestore dentro de 'usuarios_globales'
+                        try {
+                            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                            user = userCredential.user;
+                            
+                            // Guardar en Firestore dentro de 'usuarios_globales'
+                            await setDoc(doc(db, "usuarios_globales", user.uid), {
+                                correo: user.email,
+                                saldo_invertido: 0,
+                                fecha_creacion: new Date().toISOString()
+                            });
+                        } catch (regError) {
+                            if (regError.code === 'auth/email-already-in-use') {
+                                // Si ya existe, intentamos iniciar sesión automáticamente para evitar fricción
+                                const loginFallback = await signInWithEmailAndPassword(auth, email, password);
+                                user = loginFallback.user;
+                            } else {
+                                throw regError;
+                            }
+                        }
+                    } else {
+                        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                        user = userCredential.user;
+                    }
+                    
+                    // Leer saldo desde Firestore
+                    const docRef = doc(db, "usuarios_globales", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    
+                    let saldoFinal = 0;
+                    if (docSnap.exists()) {
+                        saldoFinal = docSnap.data().saldo_invertido || 0;
+                    } else {
+                        // Si el usuario existe en Auth pero no en Firestore, creamos su nodo al vuelo
                         await setDoc(doc(db, "usuarios_globales", user.uid), {
                             correo: user.email,
                             saldo_invertido: 0,
                             fecha_creacion: new Date().toISOString()
-                        });
-                        
-                        desplegarDashboard(0);
-                    } else {
-                        // Ingresar ciudadano existente
-                        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                        const user = userCredential.user;
-                        
-                        // Leer saldo desde Firestore
-                        const docRef = doc(db, "usuarios_globales", user.uid);
-                        const docSnap = await getDoc(docRef);
-                        
-                        if (docSnap.exists()) {
-                            desplegarDashboard(docSnap.data().saldo_invertido);
-                        } else {
-                            desplegarDashboard(0);
-                        }
+                        }, { merge: true });
                     }
+                    
+                    desplegarDashboard(saldoFinal);
+
                 } catch (error) {
                     console.error("Error en la matriz:", error.code);
-                    alert("Fricción detectada: " + error.message);
+                    alert("Fricción detectada: Verifique su Llave Criptográfica o estado de red (" + error.code + ")");
                     btnIngresar.innerText = modoRegistro ? "FORJAR IDENTIDAD" : "CRUZAR UMBRAL";
                 }
             });
@@ -428,5 +444,4 @@
     </div>
 
 </body>
-    </html>
-    
+</html>
