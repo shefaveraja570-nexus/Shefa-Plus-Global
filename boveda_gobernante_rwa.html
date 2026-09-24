@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bóveda Gobernador | El Umbral de la Materialización</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Infraestructura Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <style>
+        /* === NEURO-DISEÑO: TITANIO RADIANTE, ORO Y AZUL FACEBOOK === */
+        :root { 
+            --oro-premium: #FFD700; 
+            --oro-flujo: #d4af37;
+            --titanio-azul: #0a1128; 
+            --titanio-profundo: #050814;
+            --azul-facebook: #1877F2;
+        }
+        
+        body { 
+            background-color: var(--titanio-profundo); 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background-image: radial-gradient(circle at 50% -20%, var(--titanio-azul) 0%, var(--titanio-profundo) 85%); 
+            min-height: 100vh;
+            overflow-x: hidden; 
+        }
+
+        /* El Ojo de la Visión Clara */
+        .ojo-despertar {
+            box-shadow: 0 0 35px rgba(24, 119, 242, 0.5);
+            animation: respiracion-shefa 3s infinite ease-in-out;
+            border: 2px solid var(--azul-facebook);
+        }
+
+        @keyframes respiracion-shefa {
+            0%, 100% { box-shadow: 0 0 20px rgba(24, 119, 242, 0.4); transform: scale(1); border-color: var(--azul-facebook); }
+            50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.7), inset 0 0 20px rgba(255, 215, 0, 0.3); transform: scale(1.03); border-color: var(--oro-premium); }
+        }
+
+        /* Efecto Berajá UI: Asimetría Disruptiva */
+        .boveda-asimetrica { 
+            background: linear-gradient(145deg, rgba(10, 17, 40, 0.95), rgba(5, 8, 20, 0.98)); 
+            border-radius: 34px 5px 34px 5px; /* Geometría Fibonacci */
+            border: 1px solid rgba(255, 215, 0, 0.2); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+            position: relative; 
+        }
+        
+        /* Inputs Blindados en Titanio */
+        .input-blindado {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(24, 119, 242, 0.4);
+            border-radius: 13px 3px 13px 3px;
+            color: var(--oro-premium);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .input-blindado:focus {
+            outline: none;
+            border-color: var(--oro-premium);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px);
+            background: rgba(10, 17, 40, 0.8);
+        }
+
+        /* Botón de Expansión Global */
+        .btn-expansion {
+            background: linear-gradient(90deg, var(--azul-facebook) 0%, #0056b3 100%);
+            border-radius: 21px 5px 21px 5px; /* Fibonacci */
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 4px;
+            transition: all 0.5s ease;
+            border: 1px solid transparent;
+        }
+        .btn-expansion:hover {
+            background: linear-gradient(90deg, var(--oro-flujo) 0%, var(--oro-premium) 100%);
+            color: var(--titanio-profundo);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+            transform: scale(1.04);
+            border-color: #fff;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col items-center justify-center p-4">
+
+    <main class="w-full max-w-lg mt-6">
+        
+        <!-- VISIÓN GLOBAL MATERIALIZADA -->
+        <div class="text-center mb-10 relative">
+            <div class="absolute inset-0 bg-[#1877F2]/20 blur-[60px] rounded-full"></div>
+            <div class="w-24 h-24 mx-auto mb-5 bg-[#050814] rounded-full flex items-center justify-center ojo-despertar relative z-10">
+                <i class="fas fa-eye text-[#FFD700] text-4xl"></i>
+            </div>
+            <h1 class="text-3xl font-black uppercase tracking-widest text-white relative z-10">
+                Shefa <span class="text-[#FFD700]">Plus</span>
+            </h1>
+            <p class="text-[0.65rem] text-[#1877F2] tracking-[0.4em] uppercase font-bold mt-2">
+                Umbral de Materialización RWA
+            </p>
+        </div>
+
+        <!-- BÓVEDA DE INYECCIÓN -->
+        <section class="boveda-asimetrica p-8 relative z-10">
+            <h2 class="text-xs font-black text-gray-300 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-[#1877F2]/30 pb-3">
+                <i class="fas fa-microchip text-[#1877F2]"></i> Nodo Acacías | Carga Activa
+            </h2>
+
+            <div class="space-y-6">
+                <!-- Parnasá -->
+                <div>
+                    <label class="block text-[0.65rem] text-[#FFD700] uppercase tracking-widest mb-2 font-bold">Identidad del Activo Real</label>
+                    <input type="text" id="rwa-titulo" placeholder="Ej: Lote Premium Acacías" class="input-blindado w-full p-4 text-sm font-bold tracking-wider placeholder-gray-600">
+                </div>
+
+                <div>
+                    <label class="block text-[0.65rem] text-[#FFD700] uppercase tracking-widest mb-2 font-bold">Valor Estructural (USD/Fiat)</label>
+                    <input type="number" id="rwa-valor" placeholder="Valorización inicial" class="input-blindado w-full p-4 text-sm font-bold tracking-wider placeholder-gray-600">
+                </div>
+
+                <!-- Verajá -->
+                <div>
+                    <label class="block text-[0.65rem] text-[#FFD700] uppercase tracking-widest mb-2 font-bold">Vector de Crecimiento (Fibonacci %)</label>
+                    <input type="number" id="rwa-porcentaje" placeholder="Ej: 1.618" step="0.001" class="input-blindado w-full p-4 text-sm font-bold tracking-wider placeholder-gray-600">
+                </div>
+
+                <!-- Shefá: Flujo Visual -->
+                <div class="mt-4">
+                    <label class="block text-[0.7rem] text-[#1877F2] font-black uppercase tracking-widest mb-3">
+                        <i class="fas fa-satellite"></i> Transmitir Visión (Fotografía)
+                    </label>
+                    <div class="relative bg-[#050814]/80 border-2 border-dashed border-[#1877F2]/60 p-6 rounded-[13px_3px_13px_3px] text-center hover:bg-[#1877F2]/20 transition-all duration-300 group">
+                        <input type="file" id="rwa-imagen" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                        <i class="fas fa-cloud-upload-alt text-2xl text-gray-500 group-hover:text-[#FFD700] transition-colors mb-2"></i>
+                        <br>
+                        <span class="text-[0.7rem] text-gray-400 tracking-widest font-bold pointer-events-none" id="texto-archivo">CONECTAR CÁMARA O GALERÍA</span>
+                    </div>
+                </div>
+
+                <!-- Monitor Cuántico -->
+                <div id="panel-estado-inyeccion" class="mt-4 text-[0.75rem] empty:hidden transition-all"></div>
+
+                <!-- Detonador de Expansión -->
+                <button onclick="inyectarActivoGlobal()" class="btn-expansion w-full py-5 text-white shadow-[0_0_25px_rgba(24,119,242,0.5)] mt-6">
+                    <i class="fas fa-bolt mr-2"></i> Inyectar a la Red Global
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- CEREBRO LÓGICO DE EXPANSIÓN -->
+    <script>
+        // 1. INICIALIZAR LA MATRIZ FIRESTORE (Parnasá)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY_FIREBASE", // Reemplaza con tus llaves de Firebase
+            authDomain: "shefaplusglobal.firebaseapp.com",
+            projectId: "shefaplusglobal",
+            storageBucket: "shefaplusglobal.appspot.com",
+            messagingSenderId: "TU_SENDER_ID",
+            appId: "TU_APP_ID"
+        };
+        
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // 2. LLAVE DE LUZ INYECTADA (El Puente Cuántico Shefá)
+        const IMGBB_API_KEY = 'abe8598ad0435a92fcc3ecfb2db4fecc'; 
+
+        // Interfaz de Respuesta Visual (Neuro-Feedback)
+        document.getElementById('rwa-imagen').addEventListener('change', function(e) {
+            const nombreArchivo = e.target.files[0]?.name || "CONECTAR CÁMARA O GALERÍA";
+            document.getElementById('texto-archivo').innerHTML = `<span class="text-[#FFD700]">${nombreArchivo}</span>`;
+        });
+
+        async function inyectarActivoGlobal() {
+            const tituloActivo = document.getElementById('rwa-titulo').value;
+            const valorFiat = document.getElementById('rwa-valor').value;
+            const porcentajeVeraja = document.getElementById('rwa-porcentaje').value;
+            const inputImagen = document.getElementById('rwa-imagen');
+            const panelEstado = document.getElementById('panel-estado-inyeccion');
+
+            // Validación de Estructura Sólida
+            if (!tituloActivo || !valorFiat || inputImagen.files.length === 0) {
+                panelEstado.innerHTML = `<div style="border-left: 4px solid #ff4444; background: #1a0505; padding: 15px; color: #ff8888; border-radius: 0 8px 8px 0; font-weight: bold;">
+                    <i class="fas fa-exclamation-triangle"></i> La estructura requiere todos los parámetros de valor.
+                </div>`;
+                return;
+            }
+
+            const archivoFoto = inputImagen.files[0];
+            
+            // FASE 1: Sintonización (Azul Facebook)
+            panelEstado.innerHTML = `<div style="border-left: 4px solid #1877F2; background: #050814; padding: 15px; color: white; border-radius: 0 8px 8px 0; box-shadow: 0 5px 15px rgba(24,119,242,0.3); font-weight: bold; letter-spacing: 1px;">
+                <i class="fas fa-satellite-dish text-[#FFD700] mr-2 animate-pulse"></i> 
+                Abriendo portal. Transmitiendo Río de Luz al CDN...
+            </div>`;
+
+            try {
+                // FASE 2: Evadiendo el sistema, inyectando al CDN
+                const formData = new FormData();
+                formData.append('image', archivoFoto);
+
+                const respuestaCDN = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const datosCDN = await respuestaCDN.json();
+                if (!datosCDN.success) throw new Error("Fricción cuántica en el CDN.");
+                
+                const urlImagenActiva = datosCDN.data.url;
+
+                // FASE 3: Grabado en Titanio (Firestore)
+                panelEstado.innerHTML = `<div style="border-left: 4px solid #FFD700; background: #050814; padding: 15px; color: white; border-radius: 0 8px 8px 0; font-weight: bold; letter-spacing: 1px;">
+                    <i class="fas fa-link text-[#1877F2] mr-2"></i> 
+                    Luz anclada. Estructurando contrato inteligente Web3...
+                </div>`;
+
+                await db.collection('activos_rwa').add({
+                    titulo: tituloActivo,
+                    valor: parseFloat(valorFiat),
+                    crecimiento_fibonacci: parseFloat(porcentajeVeraja),
+                    imagen_url: urlImagenActiva,
+                    nodo_origen: 'ACACIAS_META_COLOMBIA',
+                    estado: 'ACTIVO_GLOBAL',
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // FASE 4: Berajá Derramado (Éxito Orgánico)
+                panelEstado.innerHTML = `<div style="background: linear-gradient(145deg, #0a1128, #050814); border: 1px solid #FFD700; padding: 20px; border-radius: 21px 5px 21px 5px; text-align: center; box-shadow: 0 10px 30px rgba(255,215,0,0.4);">
+                    <h3 class="text-[#FFD700] font-black uppercase tracking-widest mb-3 text-lg">
+                        <i class="fas fa-check-double"></i> ¡Portal Cruzado!
+                    </h3>
+                    <p class="text-[0.75rem] text-gray-300 font-bold tracking-wider">La economía global acaba de recibir el activo:<br><span class="text-[#1877F2] text-sm">${tituloActivo}</span></p>
+                    <div class="mt-4 p-1 bg-gradient-to-r from-[#FFD700] via-[#1877F2] to-[#0a1128] rounded">
+                        <img src="${urlImagenActiva}" class="w-full h-32 object-cover rounded">
+                    </div>
+                </div>`;
+
+                // Restablecer el Ojo
+                document.getElementById('rwa-titulo').value = '';
+                document.getElementById('rwa-valor').value = '';
+                document.getElementById('rwa-porcentaje').value = '';
+                inputImagen.value = '';
+                document.getElementById('texto-archivo').innerHTML = 'CONECTAR CÁMARA O GALERÍA';
+
+            } catch (error) {
+                console.error("Fallo de Inyección:", error);
+                panelEstado.innerHTML = `<div style="border-left: 4px solid #ff4444; background: #1a0505; padding: 15px; color: #ff8888; font-weight: bold; letter-spacing: 1px;">
+                    <i class="fas fa-times-circle"></i> Error de conexión: ${error.message}
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>
