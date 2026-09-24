@@ -11,6 +11,7 @@
     
     <!-- Firebase SDK (Compatibilidad máxima para móviles) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     
     <script>
@@ -101,22 +102,43 @@
             box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
             animation: flotar 4s infinite ease-in-out;
             cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+        .ojo-despertar.activando {
+            border-color: #1877F2;
+            box-shadow: 0 0 40px rgba(24, 119, 242, 0.8);
         }
         @keyframes flotar {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-5px); }
         }
+
+        /* Input Blindado */
+        .input-blindado {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(24, 119, 242, 0.4);
+            color: #FFD700;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .input-blindado:focus {
+            outline: none;
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            transform: translateY(-3px);
+            background: rgba(10, 17, 40, 0.8);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-oro selection:text-black">
 
-    <!-- Encabezado y Ojo (Llave a la Bóveda Secreta) -->
+    <!-- Encabezado y Ojo (Llave a la Bóveda Secreta - 5 Toques) -->
     <header class="border-b border-oro/20 bg-titanioOscuro/95 backdrop-blur-xl sticky top-0 z-40 p-4 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <!-- Toca este ojo 3 veces rápido para abrir la Bóveda Administrativa -->
+                <!-- Toca este ojo 5 veces rápido para invocar la Bóveda Administrativa -->
                 <div id="ojo-maestro" onclick="verificarAccesoSecreto()" class="w-[55px] h-[55px] rounded-full p-[2px] bg-gradient-to-tr from-oro via-oroRadiante to-oro ojo-despertar flex-shrink-0 flex items-center justify-center overflow-hidden bg-black">
-                    <i class="fas fa-eye text-oro text-2xl"></i>
+                    <i class="fas fa-eye text-oro text-2xl" id="icono-ojo"></i>
                 </div>
                 <div>
                     <h1 class="text-2xl font-black tracking-widest text-white uppercase texto-cinzel">SHEFÁ <span class="texto-oro-puro">PLUS</span></h1>
@@ -148,7 +170,7 @@
         </div>
     </section>
 
-    <!-- Contenedor Dinámico del Catálogo (Aquí inyecta Firebase) -->
+    <!-- Contenedor Dinámico del Catálogo -->
     <section class="max-w-7xl mx-auto px-4 py-16 relative z-10">
         <div class="flex justify-between items-end mb-12 border-b border-gray-800/80 pb-6">
             <div>
@@ -156,21 +178,19 @@
                     <i class="fas fa-chart-line text-azulFacebook mr-3"></i>Activos RWA en Vivo
                 </h3>
             </div>
-            <!-- Indicador de Sincronización Cuántica -->
             <div class="flex items-center gap-2 text-[0.6rem] text-gray-400 uppercase tracking-widest font-bold">
                 <div class="w-2 h-2 rounded-full bg-green-500 animate-ping"></div>
                 Matriz Sincronizada
             </div>
         </div>
 
-        <!-- Grid de Crecimiento Orgánico -->
         <div id="matriz-rwa" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Los activos inyectados desde Firebase aparecerán aquí asimétricamente -->
+            <!-- Los activos se inyectarán aquí -->
         </div>
     </section>
 
     <!-- ========================================== -->
-    <!-- BÓVEDA ADMINISTRATIVA SECRETA (NIVEL 7)    -->
+    <!-- BÓVEDA SECRETA (NIVEL 7) CON AUTENTICACIÓN -->
     <!-- ========================================== -->
     <div id="boveda-secreta" class="fixed inset-0 z-[100] bg-titanioOscuro/95 backdrop-blur-xl hidden flex-col items-center justify-center p-4 opacity-0 transition-opacity duration-500 overflow-y-auto">
         <div class="boveda-titanio p-6 md:p-10 rounded-[2rem] w-full max-w-lg relative transform scale-95 transition-transform duration-500 my-auto" id="boveda-content">
@@ -180,72 +200,116 @@
             </button>
 
             <div class="w-16 h-16 mx-auto rounded-full border-2 border-azulFacebook flex items-center justify-center bg-titanioOscuro shadow-[0_0_30px_rgba(24,119,242,0.4)] mb-6">
-                <i class="fas fa-lock text-2xl text-azulFacebook"></i>
+                <i class="fas fa-lock text-2xl text-azulFacebook" id="icono-candado"></i>
             </div>
 
-            <h3 class="text-white text-xl font-black mb-1 uppercase tracking-widest texto-cinzel text-center">Bóveda de Inyección</h3>
-            <p class="text-oro text-[0.65rem] uppercase tracking-[0.3em] font-bold mb-8 text-center">Control de Mando Moto G04 • Nivel 7</p>
-            
-            <form id="form-inyeccion" class="space-y-4">
-                <div>
-                    <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Nombre del Activo (Ej: Complejo Nexus)</label>
-                    <input type="text" id="rwa-nombre" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors shadow-inner">
-                </div>
+            <!-- FASE 1: LOGIN DEL GOBERNADOR -->
+            <div id="panel-login" class="block">
+                <h3 class="text-white text-xl font-black mb-1 uppercase tracking-widest texto-cinzel text-center">Bóveda Sellada</h3>
+                <p class="text-azulFacebook text-[0.65rem] uppercase tracking-[0.3em] font-bold mb-8 text-center">Autenticación de Gobernador Requerida</p>
                 
-                <div class="grid grid-cols-2 gap-4">
+                <form id="form-login" class="space-y-4">
                     <div>
-                        <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Valor Total (USD)</label>
-                        <input type="number" id="rwa-valor" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors">
+                        <label class="text-[0.65rem] text-oro uppercase tracking-widest font-bold mb-1 block">Frecuencia de Identidad (Correo)</label>
+                        <input type="email" id="auth-email" required class="input-blindado w-full p-4 rounded-xl font-bold">
                     </div>
                     <div>
-                        <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Fracciones (Tokens)</label>
-                        <input type="number" id="rwa-fracciones" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors">
+                        <label class="text-[0.65rem] text-oro uppercase tracking-widest font-bold mb-1 block">Código de Titanio (Contraseña)</label>
+                        <input type="password" id="auth-password" required class="input-blindado w-full p-4 rounded-xl font-bold">
                     </div>
-                </div>
+                    <div id="login-error" class="text-red-500 text-[0.7rem] font-bold text-center hidden"></div>
+                    <button type="submit" class="btn-facebook-premium w-full mt-6 py-4 text-white rounded-xl font-black uppercase tracking-widest text-[0.75rem] flex items-center justify-center gap-3">
+                        <i class="fas fa-key text-oroRadiante"></i> Desbloquear Matriz
+                    </button>
+                </form>
+            </div>
 
-                <div>
-                    <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Río de Luz (Rendimiento % Anual)</label>
-                    <input type="number" step="0.1" id="rwa-rendimiento" required class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-green-400 font-bold focus:border-azulFacebook outline-none transition-colors">
-                </div>
+            <!-- FASE 2: PANEL DE INYECCIÓN RWA (Oculto hasta autenticar) -->
+            <div id="panel-inyeccion" class="hidden">
+                <h3 class="text-white text-xl font-black mb-1 uppercase tracking-widest texto-cinzel text-center">Inyección Global</h3>
+                <p class="text-oro text-[0.65rem] uppercase tracking-[0.3em] font-bold mb-6 text-center">Control de Mando Moto G04 • Nivel 7</p>
+                
+                <form id="form-inyeccion" class="space-y-4">
+                    <div>
+                        <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Identidad del Activo Real</label>
+                        <input type="text" id="rwa-nombre" required class="input-blindado w-full p-3 rounded-xl font-bold text-sm">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Valor Total (USD)</label>
+                            <input type="number" id="rwa-valor" required class="input-blindado w-full p-3 rounded-xl font-bold text-sm">
+                        </div>
+                        <div>
+                            <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Fracciones (Tokens)</label>
+                            <input type="number" id="rwa-fracciones" required class="input-blindado w-full p-3 rounded-xl font-bold text-sm">
+                        </div>
+                    </div>
 
-                <div>
-                    <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">URL de Imagen (Naturaleza/Arquitectura)</label>
-                    <input type="url" id="rwa-imagen" required placeholder="https://..." class="w-full bg-titanioLuz border border-gray-700 p-4 rounded-xl text-white font-bold focus:border-azulFacebook outline-none transition-colors">
-                </div>
+                    <div>
+                        <label class="text-[0.65rem] text-gray-400 uppercase tracking-widest font-bold mb-1 block">Vector de Crecimiento (Fibonacci / Rendimiento %)</label>
+                        <input type="number" step="0.001" id="rwa-rendimiento" required class="input-blindado w-full p-3 rounded-xl font-bold text-green-400 text-sm">
+                    </div>
 
-                <button type="submit" class="btn-facebook-premium w-full mt-6 py-5 text-white rounded-xl font-black uppercase tracking-widest text-[0.75rem] flex items-center justify-center gap-3">
-                    <i class="fas fa-database text-oroRadiante"></i> Materializar en la Red Global
-                </button>
-            </form>
+                    <!-- Shefá: Transmisión de Visión al CDN -->
+                    <div class="mt-2">
+                        <label class="text-[0.65rem] text-azulFacebook uppercase tracking-widest font-bold mb-1 block">
+                            <i class="fas fa-satellite"></i> Transmitir Visión (Fotografía)
+                        </label>
+                        <div class="relative bg-titanioOscuro/80 border border-dashed border-azulFacebook/60 p-4 rounded-xl text-center hover:bg-azulFacebook/10 transition-colors">
+                            <input type="file" id="rwa-imagen" accept="image/*" required class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20">
+                            <i class="fas fa-camera text-xl text-gray-500 mb-1"></i>
+                            <br>
+                            <span class="text-[0.65rem] text-gray-400 font-bold" id="texto-archivo">CONECTAR CÁMARA O GALERÍA</span>
+                        </div>
+                    </div>
+
+                    <div id="panel-estado-inyeccion" class="text-[0.7rem] empty:hidden transition-all text-center"></div>
+
+                    <button type="submit" class="btn-facebook-premium w-full mt-4 py-4 text-white rounded-xl font-black uppercase tracking-widest text-[0.75rem] flex items-center justify-center gap-3">
+                        <i class="fas fa-bolt text-oroRadiante"></i> Materializar en la Red
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- MÓDULO DE INTELIGENCIA Y CONEXIÓN FIREBASE -->
+    <!-- MÓDULO DE INTELIGENCIA, AUTH, CDN Y FIRESTORE -->
     <script>
-        // 1. CONFIGURACIÓN FIREBASE (Reemplaza con tus claves del proyecto Shefa Plus Global)
+        // 1. CONFIGURACIÓN FIRESTORE Y AUTH (Tus llaves maestras reales)
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "shefaplusglobal.firebaseapp.com",
-            projectId: "shefaplusglobal",
-            storageBucket: "shefaplusglobal.appspot.com",
-            messagingSenderId: "TU_SENDER_ID",
-            appId: "TU_APP_ID"
+            apiKey: "AIzaSyAnkRzBZS6hYnRk8V90rzZ47ujpwy8Esw4",
+            authDomain: "shefa-plus-global.firebaseapp.com",
+            databaseURL: "https://shefa-plus-global-default-rtdb.firebaseio.com",
+            projectId: "shefa-plus-global",
+            storageBucket: "shefa-plus-global.firebasestorage.app",
+            messagingSenderId: "746532074927",
+            appId: "1:746532074927:web:a06d0e7c613733ddd5eb6a",
+            measurementId: "G-M0VTTN16Y9"
         };
         
-        // Inicializar la Matriz de Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const auth = firebase.auth();
 
-        // 2. LÓGICA DE LA BÓVEDA SECRETA (Neuro-Interacción)
+        // LLAVE DEL PUENTE CUÁNTICO (CDN ImgBB)
+        const IMGBB_API_KEY = 'abe8598ad0435a92fcc3ecfb2db4fecc'; 
+
+        // 2. LÓGICA DE APERTURA SECRETA (5 Toques - Fibonacci)
         let conteoOjo = 0;
         let temporizadorOjo;
+        const ojoMaestro = document.getElementById('ojo-maestro');
+        const iconoOjo = document.getElementById('icono-ojo');
 
         function verificarAccesoSecreto() {
             conteoOjo++;
             clearTimeout(temporizadorOjo);
             
-            // Si tocas el Ojo 3 veces en menos de 2 segundos, se abre la Bóveda
-            if (conteoOjo >= 3) {
+            ojoMaestro.classList.add('activando');
+            setTimeout(() => ojoMaestro.classList.remove('activando'), 200);
+
+            // Umbral de 5 Toques (Estructura Blindada)
+            if (conteoOjo >= 5) {
                 abrirBoveda();
                 conteoOjo = 0;
             } else {
@@ -257,6 +321,21 @@
             const boveda = document.getElementById('boveda-secreta');
             const content = document.getElementById('boveda-content');
             boveda.classList.remove('hidden');
+            
+            // Restablecer vistas
+            document.getElementById('panel-login').classList.remove('hidden');
+            document.getElementById('panel-inyeccion').classList.add('hidden');
+            document.getElementById('icono-candado').className = "fas fa-lock text-2xl text-azulFacebook";
+            document.getElementById('form-login').reset();
+            document.getElementById('login-error').classList.add('hidden');
+
+            // Verificar si ya hay una sesión activa de gobernante
+            auth.onAuthStateChanged((user) => {
+                if(user) {
+                    desbloquearPanelInyeccion();
+                }
+            });
+
             setTimeout(() => {
                 boveda.classList.remove('opacity-0');
                 content.classList.remove('scale-95');
@@ -271,45 +350,96 @@
             setTimeout(() => { boveda.classList.add('hidden'); }, 500);
         }
 
-        // 3. INYECCIÓN DE DATOS (Parnasá Fluyendo hacia Firestore)
-        document.getElementById('form-inyeccion').addEventListener('submit', async (e) => {
+        function desbloquearPanelInyeccion() {
+            document.getElementById('panel-login').classList.add('hidden');
+            document.getElementById('panel-inyeccion').classList.remove('hidden');
+            document.getElementById('icono-candado').className = "fas fa-unlock text-2xl text-oro";
+        }
+
+        // 3. AUTENTICACIÓN EN TITANIO (Login)
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const errorDiv = document.getElementById('login-error');
             const btn = e.target.querySelector('button');
             const textoOriginal = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Inyectando...';
             
-            const nuevoActivo = {
-                nombre: document.getElementById('rwa-nombre').value,
-                valorTotal: parseFloat(document.getElementById('rwa-valor').value),
-                fracciones: parseInt(document.getElementById('rwa-fracciones').value),
-                rendimiento: parseFloat(document.getElementById('rwa-rendimiento').value),
-                imagen: document.getElementById('rwa-imagen').value,
-                fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
-            };
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin text-oro"></i> Verificando ADN...';
+            errorDiv.classList.add('hidden');
 
             try {
-                // Guardar en la colección 'activos_rwa'
-                await db.collection('activos_rwa').add(nuevoActivo);
-                
-                alert('👑 VISIÓN GLOBAL SHEFA:\n\nActivo materializado exitosamente en la red.');
-                e.target.reset();
-                cerrarBoveda();
+                await auth.signInWithEmailAndPassword(email, password);
+                desbloquearPanelInyeccion();
             } catch (error) {
-                console.error("Fricción en la matriz:", error);
-                alert('⚠️ Error al inyectar el activo.');
+                errorDiv.innerText = "⚠️ Fricción: Frecuencia o código incorrecto.";
+                errorDiv.classList.remove('hidden');
             } finally {
                 btn.innerHTML = textoOriginal;
             }
         });
 
-        // 4. RENDERIZADO EN TIEMPO REAL (Efecto Berajá UI y Fibonacci)
-        // Escuchamos la colección para pintar la cuadrícula automáticamente
+        // Feedback Visual de Imagen
+        document.getElementById('rwa-imagen').addEventListener('change', function(e) {
+            const nombreArchivo = e.target.files[0]?.name || "CONECTAR CÁMARA O GALERÍA";
+            document.getElementById('texto-archivo').innerHTML = `<span class="text-oro">${nombreArchivo}</span>`;
+        });
+
+        // 4. MOTOR HÍBRIDO (ImgBB + Firestore)
+        document.getElementById('form-inyeccion').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const panelEstado = document.getElementById('panel-estado-inyeccion');
+            const archivoFoto = document.getElementById('rwa-imagen').files[0];
+            
+            btn.disabled = true;
+            panelEstado.innerHTML = `<span class="text-azulFacebook font-bold"><i class="fas fa-satellite-dish animate-pulse"></i> Transmitiendo Río de Luz al CDN...</span>`;
+
+            try {
+                // FASE A: Inyectando imagen al CDN
+                const formData = new FormData();
+                formData.append('image', archivoFoto);
+                const respuestaCDN = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const datosCDN = await respuestaCDN.json();
+                if (!datosCDN.success) throw new Error("Fricción en CDN");
+                
+                const urlImagenActiva = datosCDN.data.url;
+
+                // FASE B: Inyectando a Firestore
+                panelEstado.innerHTML = `<span class="text-oro font-bold"><i class="fas fa-link"></i> Luz anclada. Grabando en Titanio...</span>`;
+                
+                const nuevoActivo = {
+                    nombre: document.getElementById('rwa-nombre').value,
+                    valorTotal: parseFloat(document.getElementById('rwa-valor').value),
+                    fracciones: parseInt(document.getElementById('rwa-fracciones').value),
+                    rendimiento: parseFloat(document.getElementById('rwa-rendimiento').value),
+                    imagen: urlImagenActiva,
+                    fechaCreacion: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection('activos_rwa').add(nuevoActivo);
+                
+                alert('👑 VISIÓN GLOBAL SHEFA:\n\nUmbral Cruzado. Activo materializado exitosamente.');
+                e.target.reset();
+                document.getElementById('texto-archivo').innerHTML = "CONECTAR CÁMARA O GALERÍA";
+                cerrarBoveda();
+            } catch (error) {
+                console.error("Fallo de inyección:", error);
+                panelEstado.innerHTML = `<span class="text-red-500 font-bold"><i class="fas fa-times"></i> Fricción cuántica: No se pudo materializar.</span>`;
+            } finally {
+                btn.disabled = false;
+                setTimeout(() => { panelEstado.innerHTML = ''; }, 3000);
+            }
+        });
+
+        // 5. RENDERIZADO EN TIEMPO REAL (El Efecto Berajá UI Materializado)
         db.collection('activos_rwa').orderBy('fechaCreacion', 'desc').onSnapshot((snapshot) => {
             const matriz = document.getElementById('matriz-rwa');
-            matriz.innerHTML = ''; // Limpiamos la matriz para repintar el flujo de luz
+            matriz.innerHTML = ''; 
 
-            // Si no hay activos, mostramos un nodo ancla
             if(snapshot.empty) {
                 matriz.innerHTML = `<div class="col-span-full text-center text-gray-500 text-sm tracking-widest uppercase py-10">La matriz espera la inyección del primer activo RWA.</div>`;
                 return;
@@ -320,7 +450,7 @@
                 const data = doc.data();
                 const tokenValue = (data.valorTotal / data.fracciones).toFixed(2);
                 
-                // Aplicamos Asimetría: El primer activo (el más reciente) ocupa más espacio (2 columnas en desktop)
+                // Asimetría Visual: El activo más reciente es el Rey de la Matriz
                 const claseAsimetrica = (contador === 0) ? 'md:col-span-2 lg:col-span-2' : 'col-span-1';
                 
                 const tarjetaHTML = `
@@ -363,7 +493,6 @@
                         </div>
                     </div>
                 `;
-                
                 matriz.innerHTML += tarjetaHTML;
                 contador++;
             });
