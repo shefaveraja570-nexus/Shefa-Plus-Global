@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shefa Plus Labs | Automatización e Inteligencia Artificial</title>
+    <title>Shefa Plus Labs | Ecosistemas Digitales Automatizados</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Fuentes de Arquitectura Sagrada -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Cinzel:wght@600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -15,276 +16,199 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
                     },
                     colors: {
                         shefa: {
-                            blue: '#1E3A8A', // Deep Trust Blue
-                            light: '#3B82F6', // Tech Blue
-                            accent: '#0F172A', // Obsidian (Autoridad)
-                            gold: '#F59E0B' // Shefá (Abundancia/Inversores)
+                            dark: '#050a14',    /* Titanio Sólido */
+                            gold: '#D4AF37',    /* Oro Premium */
+                            cyan: '#00E5FF',    /* Cyan IA */
+                            emerald: '#10B981'  /* Verde Confirmación */
                         }
-                    },
-                    // Espaciado basado en aproximaciones a Fibonacci (1, 2, 3, 5, 8, 13, 21...)
-                    spacing: {
-                        'fib-1': '0.25rem',
-                        'fib-2': '0.5rem',
-                        'fib-3': '0.75rem',
-                        'fib-5': '1.25rem',
-                        'fib-8': '2rem',
-                        'fib-13': '3.25rem',
-                        'fib-21': '5.25rem',
                     }
                 }
             }
         }
     </script>
+    
     <style>
-        /* Animaciones suaves para reducir fricción cognitiva */
-        html { scroll-behavior: smooth; }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        html { scroll-behavior: smooth; background-color: #050a14; color: white; }
+        
+        /* Efecto de Cristal Oscuro para las tarjetas */
+        .glass-card {
+            background: linear-gradient(145deg, rgba(10, 15, 30, 0.7) 0%, rgba(5, 7, 15, 0.9) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .hover-lift {
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-        }
-        .hover-lift:hover {
+        
+        .glass-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgba(30, 58, 138, 0.2), 0 10px 10px -5px rgba(30, 58, 138, 0.1);
+            border-color: rgba(0, 229, 255, 0.5);
+            box-shadow: 0 13px 34px rgba(0, 229, 255, 0.15), inset 0 0 21px rgba(212, 175, 55, 0.05);
+        }
+
+        /* Títulos Dorados Brillantes */
+        .gold-text-glow {
+            color: #D4AF37;
+            text-shadow: 0 0 21px rgba(212, 175, 55, 0.4);
+        }
+        
+        .cyan-text-glow {
+            color: #00E5FF;
+            text-shadow: 0 0 13px rgba(0, 229, 255, 0.6);
+        }
+
+        /* Botón de WhatsApp de Alta Conversión */
+        .btn-whatsapp {
+            background: linear-gradient(90deg, #10B981, #059669);
+            box-shadow: 0 8px 21px rgba(16, 185, 129, 0.3);
+            animation: pulse-green 3.4s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70% { box-shadow: 0 0 0 13px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        /* Grid Background Tecnológico */
+        .tech-grid-bg {
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+            background-size: 34px 34px; /* Proporción Fibonacci */
+            background-position: center center;
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-slate-50 text-slate-800 selection:bg-shefa-light selection:text-white">
+<body class="font-sans antialiased tech-grid-bg min-h-screen relative overflow-x-hidden selection:bg-shefa-gold selection:text-shefa-dark">
 
-    <nav class="fixed w-full z-50 glass-effect bg-shefa-accent/90 backdrop-blur-md border-b border-shefa-blue/30">
-        <div class="max-w-7xl mx-auto px-fib-5 sm:px-fib-8 lg:px-fib-13">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <!-- Icono Abstracto de Shefa Plus Labs -->
-                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-shefa-light to-shefa-blue flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                        S+
-                    </div>
-                    <span class="text-white font-bold text-xl tracking-tight">Shefa Plus Labs</span>
-                </div>
-                <div class="hidden md:flex space-x-fib-8">
-                    <a href="#servicios" class="text-slate-300 hover:text-white transition-colors text-sm font-semibold tracking-wide">Servicios</a>
-                    <a href="#tecnologia" class="text-slate-300 hover:text-white transition-colors text-sm font-semibold tracking-wide">Tecnología</a>
-                    <a href="#inversores" class="text-slate-300 hover:text-white transition-colors text-sm font-semibold tracking-wide">Inversores</a>
-                </div>
-                <div class="hidden md:flex">
-                    <a href="#contacto" class="bg-shefa-light hover:bg-blue-500 text-white px-fib-5 py-fib-2 rounded-full font-semibold transition-all shadow-lg hover:shadow-shefa-light/50">
-                        Agendar Demo
-                    </a>
-                </div>
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button class="text-white hover:text-shefa-light focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
+    <!-- Iluminación de fondo -->
+    <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-shefa-cyan/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-shefa-gold/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- NAVEGACIÓN SUPERIOR -->
+    <nav class="w-full p-6 flex justify-between items-center max-w-7xl mx-auto relative z-20">
+        <a href="index.html" class="flex items-center gap-3 group">
+            <i class="fas fa-arrow-left text-shefa-gold group-hover:-translate-x-1 transition-transform"></i>
+            <span class="font-mono text-xs uppercase tracking-widest text-gray-400 group-hover:text-white transition-colors">Volver al Umbral</span>
+        </a>
+        <div class="font-cinzel font-bold text-xl tracking-widest flex items-center gap-2">
+            <span class="text-white">SHEFA</span>
+            <span class="text-shefa-gold">LABS</span>
+            <i class="fas fa-flask text-shefa-cyan text-sm animate-pulse"></i>
         </div>
     </nav>
 
-    <!-- Hero Section (Proporción áurea visual 60/40 aproximada) -->
-    <section class="relative pt-32 pb-fib-21 lg:pt-48 lg:pb-32 overflow-hidden bg-shefa-accent">
-        <!-- Decoración de fondo -->
-        <div class="absolute top-0 left-1/2 w-full -translate-x-1/2 h-full overflow-hidden opacity-20 pointer-events-none">
-            <div class="absolute -top-[20%] -right-[10%] w-[70%] h-[70%] rounded-full bg-shefa-light blur-[120px]"></div>
-            <div class="absolute bottom-[10%] -left-[10%] w-[50%] h-[50%] rounded-full bg-shefa-blue blur-[100px]"></div>
-        </div>
+    <!-- HEADER / HERO SECTION -->
+    <header class="max-w-4xl mx-auto text-center px-4 pt-12 pb-20 relative z-10">
+        <p class="font-mono text-shefa-cyan text-xs md:text-sm tracking-[0.3em] uppercase font-bold mb-6">
+            <i class="fas fa-satellite-dish mr-2 animate-ping"></i> Centro de Arquitectura Digital
+        </p>
+        <h1 class="font-cinzel text-4xl md:text-6xl font-black text-white leading-tight mb-6">
+            AUTOMATIZAMOS TU <br/>
+            <span class="gold-text-glow">MÁQUINA DE VENTAS</span>
+        </h1>
+        <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-10">
+            Diseñamos ecosistemas de software a la medida. Conectamos Inteligencia Artificial, pasarelas de pago globales e integraciones de WhatsApp para que tu negocio facture <span class="text-white font-bold">24/7 sin que muevas un dedo.</span>
+        </p>
+    </header>
 
-        <div class="relative max-w-7xl mx-auto px-fib-5 sm:px-fib-8 lg:px-fib-13">
-            <div class="flex flex-col lg:flex-row items-center gap-fib-13">
-                <div class="w-full lg:w-3/5 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-shefa-blue/30 border border-shefa-blue/50 text-shefa-light font-semibold text-sm mb-6">
-                        <span class="w-2 h-2 rounded-full bg-shefa-light animate-pulse"></span>
-                        Soluciones B2B de Alta Avanzada
-                    </div>
-                    <!-- Tipografía escalada basada en Fibonacci -->
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-fib-5">
-                        Automatizamos tus ventas <br/>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-shefa-light to-cyan-300">
-                            mientras tú duermes.
-                        </span>
-                    </h1>
-                    <p class="text-lg text-slate-300 mb-fib-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                        Desplegamos ecosistemas digitales inteligentes que atienden, cotizan y cierran ventas 24/7. No dejes dinero sobre la mesa; convierte tu negocio en una máquina de rentabilidad.
-                    </p>
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="#contacto" class="w-full sm:w-auto px-8 py-4 bg-white text-shefa-accent rounded-full font-bold text-lg hover:bg-slate-100 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                            Inicia tu Transformación
-                        </a>
-                        <a href="#servicios" class="w-full sm:w-auto px-8 py-4 bg-transparent border border-slate-500 text-white rounded-full font-bold text-lg hover:border-shefa-light hover:text-shefa-light transition-colors">
-                            Ver Plataformas
-                        </a>
-                    </div>
+    <!-- CATÁLOGO DE ARQUITECTURAS (3 Bloques Fibonacci) -->
+    <section class="max-w-7xl mx-auto px-4 pb-32 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- ARQUITECTURA 1: E-Commerce -->
+            <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-shefa-gold/10 rounded-bl-full -z-10 group-hover:bg-shefa-gold/20 transition-colors"></div>
+                <div class="w-12 h-12 rounded-full border border-shefa-gold/30 flex items-center justify-center mb-6 text-shefa-gold text-xl shadow-[0_0_15px_rgba(212,175,55,0.2)]">
+                    <i class="fas fa-shopping-cart"></i>
                 </div>
+                <h3 class="font-cinzel text-xl font-bold text-white mb-3 tracking-wide">E-Commerce<br/><span class="text-shefa-gold">Autónomo</span></h3>
+                <p class="text-gray-400 text-sm mb-6 line-clamp-3">Tiendas online de alto rendimiento. Inventario sincronizado y carritos de compra optimizados para evitar abandonos.</p>
+                <ul class="font-mono text-[11px] text-gray-500 space-y-2 mb-8 uppercase tracking-wider">
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-emerald"></i> Pasarelas de Pago Globales</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-emerald"></i> Base de Datos en la Nube</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-emerald"></i> Facturación Automática</li>
+                </ul>
+                <div class="border-t border-white/10 pt-4 flex gap-3 text-2xl text-gray-600">
+                    <i class="fab fa-stripe hover:text-indigo-400 transition-colors"></i>
+                    <i class="fab fa-cc-visa hover:text-blue-400 transition-colors"></i>
+                    <i class="fab fa-bitcoin hover:text-yellow-400 transition-colors"></i>
+                </div>
+            </div>
+
+            <!-- ARQUITECTURA 2: WhatsApp IA (Destacada) -->
+            <div class="glass-card rounded-2xl p-8 relative overflow-hidden group border-shefa-cyan/30 transform md:-translate-y-4 shadow-[0_21px_34px_rgba(0,0,0,0.5)]">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-shefa-cyan to-blue-600"></div>
+                <div class="absolute top-4 right-4 bg-shefa-cyan/10 text-shefa-cyan font-mono text-[10px] px-2 py-1 rounded border border-shefa-cyan/30 animate-pulse">
+                    MÁS VENDIDO
+                </div>
+                <div class="w-12 h-12 rounded-full border border-shefa-cyan/40 flex items-center justify-center mb-6 text-shefa-cyan text-xl shadow-[0_0_15px_rgba(0,229,255,0.3)]">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3 class="font-cinzel text-xl font-bold text-white mb-3 tracking-wide">Agentes IA<br/><span class="cyan-text-glow">WhatsApp Flow</span></h3>
+                <p class="text-gray-400 text-sm mb-6">Convertimos tu WhatsApp en un vendedor experto. Atiende, cotiza y agenda citas con tus clientes a las 3:00 AM con inteligencia artificial.</p>
+                <ul class="font-mono text-[11px] text-gray-500 space-y-2 mb-8 uppercase tracking-wider">
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-cyan"></i> Respuestas Humanizadas</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-cyan"></i> Agendamiento Automático</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-cyan"></i> Integración con Catálogos</li>
+                </ul>
+                <div class="border-t border-white/10 pt-4 flex gap-3 text-2xl text-gray-600">
+                    <i class="fab fa-whatsapp hover:text-green-400 transition-colors"></i>
+                    <i class="fas fa-brain hover:text-purple-400 transition-colors"></i>
+                    <i class="fab fa-meta hover:text-blue-500 transition-colors"></i>
+                </div>
+            </div>
+
+            <!-- ARQUITECTURA 3: Apps a Medida -->
+            <div class="glass-card rounded-2xl p-8 relative overflow-hidden group">
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-tr-full -z-10 group-hover:bg-white/10 transition-colors"></div>
+                <div class="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center mb-6 text-gray-300 text-xl">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3 class="font-cinzel text-xl font-bold text-white mb-3 tracking-wide">Desarrollo<br/><span class="text-gray-300">Custom Web/App</span></h3>
+                <p class="text-gray-400 text-sm mb-6">Sistemas robustos para inmobiliarias, clínicas o agencias. Dashboards administrativos privados, gestión de roles y analíticas en tiempo real.</p>
+                <ul class="font-mono text-[11px] text-gray-500 space-y-2 mb-8 uppercase tracking-wider">
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-emerald"></i> Paneles de Administración (CRM)</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-emerald"></i> App Móvil (PWA)</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-shefa-emerald"></i> Seguridad Encriptada</li>
+                </ul>
+                <div class="border-t border-white/10 pt-4 flex gap-3 text-2xl text-gray-600">
+                    <i class="fab fa-apple hover:text-white transition-colors"></i>
+                    <i class="fab fa-android hover:text-green-500 transition-colors"></i>
+                    <i class="fas fa-database hover:text-blue-300 transition-colors"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ZONA DE CONVERSIÓN (CTA) -->
+    <section class="max-w-4xl mx-auto px-4 pb-32 text-center relative z-20">
+        <div class="p-[1px] bg-gradient-to-r from-shefa-gold via-shefa-cyan to-shefa-gold rounded-xl">
+            <div class="bg-[#03060c] rounded-xl p-8 md:p-12">
+                <h2 class="font-cinzel text-2xl md:text-3xl font-bold text-white mb-4">¿Listo para escalar al siguiente nivel?</h2>
+                <p class="font-mono text-sm text-gray-400 mb-8 max-w-xl mx-auto">
+                    Habla directamente con nuestro Arquitecto Principal. Evaluaremos tu flujo de ventas actual y diseñaremos el plano exacto para automatizar tus ingresos.
+                </p>
                 
-                <div class="w-full lg:w-2/5 mt-12 lg:mt-0 relative perspective-1000">
-                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-shefa-blue/30 transform lg:-rotate-y-12 lg:rotate-x-12 hover:rotate-0 transition-transform duration-700">
-                        <img src="https://placehold.co/600x800/1E3A8A/FFFFFF?text=Dashboard+Automatizacion" alt="Interfaz de Automatización" class="w-full h-auto object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500" onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop'">
-                        <div class="absolute inset-0 bg-gradient-to-t from-shefa-accent via-transparent to-transparent"></div>
-                        <div class="absolute bottom-6 left-6 right-6 p-4 glass-effect rounded-xl">
-                            <div class="flex justify-between items-center text-white">
-                                <div>
-                                    <p class="text-xs text-slate-300 uppercase tracking-wider">Ventas de Hoy</p>
-                                    <p class="text-2xl font-bold">+ 342%</p>
-                                </div>
-                                <i class="fas fa-chart-line text-shefa-light text-3xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!-- BOTÓN DIRECTO A WHATSAPP -->
+                <!-- REEMPLAZA EL NÚMERO 573000000000 POR TU NÚMERO REAL CON CÓDIGO DE PAÍS -->
+                <a href="https://wa.me/573000000000?text=Hola%20Shefa%20Plus,%20vengo%20del%20laboratorio%20digital.%20Quiero%20cotizar%20la%20automatizaci%C3%B3n%20de%20mi%20empresa." target="_blank" 
+                   class="btn-whatsapp inline-flex items-center justify-center px-8 py-4 text-white font-bold font-mono tracking-widest text-[13px] md:text-sm uppercase rounded-[5px] transition-transform hover:scale-105">
+                    <i class="fab fa-whatsapp text-xl mr-3"></i>
+                    Agendar Consultoría Gratuita
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="servicios" class="py-fib-21 bg-white">
-        <div class="max-w-7xl mx-auto px-fib-5 sm:px-fib-8 lg:px-fib-13">
-            <div class="text-center mb-fib-13">
-                <h2 class="text-shefa-light font-bold tracking-wide uppercase text-sm mb-2">Nuestras Soluciones</h2>
-                <h3 class="text-3xl md:text-4xl font-extrabold text-shefa-accent">Arquitectura Digital Rentable</h3>
-                <div class="w-24 h-1 bg-shefa-light mx-auto mt-6 rounded-full"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-fib-8">
-                <!-- Service 1 -->
-                <div class="bg-slate-50 rounded-2xl p-fib-8 hover-lift border border-slate-100">
-                    <div class="w-14 h-14 bg-shefa-blue/10 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-robot text-2xl text-shefa-blue"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-shefa-accent mb-3">Asistentes Virtuales IA</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        Bots conversacionales avanzados para WhatsApp y Meta que no solo responden, sino que perfilan y guían al cliente hasta el cierre de la venta.
-                    </p>
-                </div>
-
-                <!-- Service 2 -->
-                <div class="bg-slate-50 rounded-2xl p-fib-8 hover-lift border border-slate-100">
-                    <div class="w-14 h-14 bg-shefa-blue/10 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-layer-group text-2xl text-shefa-blue"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-shefa-accent mb-3">Plataformas Set Up</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        Desarrollo de ecosistemas web completos (llave en mano). Integramos catálogos, pasarelas de pago y CRM para control total de su inventario.
-                    </p>
-                </div>
-
-                <!-- Service 3 -->
-                <div class="bg-slate-50 rounded-2xl p-fib-8 hover-lift border border-slate-100">
-                    <div class="w-14 h-14 bg-shefa-blue/10 rounded-xl flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-pie text-2xl text-shefa-blue"></i>
-                    </div>
-                    <h4 class="text-xl font-bold text-shefa-accent mb-3">Data & Escalabilidad</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        Infraestructura en la nube y análisis de datos en tiempo real. Tome decisiones de negocio basadas en números exactos, no en intuiciones.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Investor Section (Oscuro para proyectar seriedad corporativa) -->
-    <section id="inversores" class="py-fib-21 bg-shefa-accent text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-shefa-blue/20 to-transparent pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-fib-5 sm:px-fib-8 lg:px-fib-13 relative z-10">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-fib-13">
-                <div class="md:w-1/2">
-                    <h2 class="text-shefa-gold font-bold tracking-wide uppercase text-sm mb-2">Visión Corporativa</h2>
-                    <h3 class="text-3xl md:text-4xl font-extrabold mb-6">Construyendo el futuro del comercio automatizado</h3>
-                    <p class="text-slate-300 mb-6 leading-relaxed">
-                        Shefa Plus Labs no es solo una agencia; es un núcleo tecnológico en expansión. Estamos capturando el mercado de modernización B2B en Colombia, democratizando tecnología de Silicon Valley para empresas locales.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center text-slate-200">
-                            <i class="fas fa-check-circle text-shefa-gold mr-3"></i> Alta rentabilidad y retención de clientes.
-                        </li>
-                        <li class="flex items-center text-slate-200">
-                            <i class="fas fa-check-circle text-shefa-gold mr-3"></i> Infraestructura escalable globalmente.
-                        </li>
-                        <li class="flex items-center text-slate-200">
-                            <i class="fas fa-check-circle text-shefa-gold mr-3"></i> Flujos de ingresos recurrentes (SaaS & Mantenimiento).
-                        </li>
-                    </ul>
-                    <a href="#contacto" class="inline-block px-6 py-3 border-2 border-shefa-gold text-shefa-gold rounded-full font-bold hover:bg-shefa-gold hover:text-shefa-accent transition-colors">
-                        Dossier para Inversores
-                    </a>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <!-- Representación visual de crecimiento -->
-                    <div class="relative w-72 h-72 rounded-full border-4 border-shefa-blue/30 flex items-center justify-center p-8">
-                        <div class="absolute inset-0 border-t-4 border-shefa-gold rounded-full animate-spin" style="animation-duration: 10s;"></div>
-                        <div class="text-center">
-                            <i class="fas fa-globe-americas text-6xl text-shefa-light mb-2"></i>
-                            <p class="font-bold text-xl tracking-widest">GLOBAL</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contacto" class="py-fib-21 bg-slate-100">
-        <div class="max-w-3xl mx-auto px-fib-5 sm:px-fib-8 lg:px-fib-13 text-center">
-            <h2 class="text-3xl font-extrabold text-shefa-accent mb-4">¿Listo para evolucionar su negocio?</h2>
-            <p class="text-slate-600 mb-fib-8">Agende una consulta técnica de 15 minutos con nuestro equipo de arquitectura y descubra cuánto dinero puede recuperar automatizando su proceso.</p>
-            
-            <form class="bg-white p-8 rounded-2xl shadow-xl text-left border border-slate-200">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Nombre o Empresa</label>
-                        <input type="text" class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:border-shefa-light focus:ring-2 focus:ring-shefa-light/20 transition-all outline-none" placeholder="Su nombre">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Correo Electrónico</label>
-                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:border-shefa-light focus:ring-2 focus:ring-shefa-light/20 transition-all outline-none" placeholder="correo@empresa.com">
-                    </div>
-                </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">¿En qué podemos ayudarle?</label>
-                    <textarea class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:border-shefa-light focus:ring-2 focus:ring-shefa-light/20 transition-all outline-none h-32" placeholder="Me interesa automatizar mis ventas..."></textarea>
-                </div>
-                <button type="button" onclick="showSuccessMessage()" class="w-full bg-shefa-accent hover:bg-shefa-blue text-white font-bold py-4 rounded-xl transition-colors shadow-lg flex justify-center items-center gap-2">
-                    <span>Solicitar Contacto</span>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                <div id="success-msg" class="hidden mt-4 p-4 bg-green-50 text-green-700 rounded-lg text-center font-medium border border-green-200">
-                    ¡Mensaje enviado con éxito! Nos contactaremos a la brevedad.
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-fib-5 sm:px-fib-8 lg:px-fib-13 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-2">
-                <span class="text-white font-bold text-lg tracking-tight">Shefa Plus Labs &copy; 2026</span>
-            </div>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-shefa-light transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
-                <a href="#" class="hover:text-shefa-light transition-colors"><i class="fab fa-instagram text-xl"></i></a>
-                <a href="#" class="hover:text-shefa-light transition-colors"><i class="fab fa-github text-xl"></i></a>
-            </div>
-            <div class="text-sm">
-                Desarrollado con <i class="fas fa-heart text-shefa-light"></i> en Colombia para el mundo.
-            </div>
-        </div>
+    <footer class="border-t border-white/10 py-8 text-center font-mono text-[10px] text-gray-600 uppercase tracking-widest">
+        <p>© 2026 SHEFA PLUS GLOBAL. Infraestructura de Titanio.</p>
     </footer>
 
-    <script>
-        function showSuccessMessage() {
-            // Se utiliza para mostrar mensaje sin usar alert()
-            const msg = document.getElementById('success-msg');
-            msg.classList.remove('hidden');
-            setTimeout(() => {
-                msg.classList.add('hidden');
-            }, 4000);
-        }
-    </script>
 </body>
 </html>
