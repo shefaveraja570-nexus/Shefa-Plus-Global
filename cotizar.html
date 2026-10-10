@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Cuántica | Shefa Plus Labs</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Cinzel:wght@600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        shefa: {
+                            dark: '#050a14',
+                            panel: '#0a1122',
+                            gold: '#D4AF37',
+                            cyan: '#00E5FF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html { scroll-behavior: smooth; background-color: #050a14; color: white; }
+        
+        .tech-grid-bg {
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(10, 17, 34, 0.9) 0%, rgba(4, 8, 17, 0.98) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(212, 175, 55, 0.05);
+        }
+
+        .input-shefa {
+            background: rgba(5, 10, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .input-shefa:focus {
+            border-color: #D4AF37;
+            outline: none;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            background: rgba(10, 17, 34, 1);
+        }
+        
+        .btn-quantum {
+            background: linear-gradient(90deg, #B8860B 0%, #FFDF00 50%, #B8860B 100%);
+            background-size: 200% auto;
+            color: #050a14;
+            transition: all 0.5s ease;
+        }
+        
+        .btn-quantum:hover {
+            background-position: right center;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased tech-grid-bg min-h-screen flex flex-col justify-center py-10 px-4 relative selection:bg-shefa-gold selection:text-shefa-dark">
+
+    <!-- Flecha de regreso -->
+    <a href="shefa-plus-labs.html" class="absolute top-6 left-6 text-gray-400 hover:text-shefa-gold transition-colors font-mono text-xs tracking-widest uppercase z-50">
+        <i class="fas fa-arrow-left mr-2"></i> Volver
+    </a>
+
+    <div class="max-w-2xl w-full mx-auto glass-panel rounded-2xl overflow-hidden relative z-10">
+        
+        <!-- Encabezado del Formulario -->
+        <div class="p-8 md:p-10 text-center border-b border-shefa-gold/10 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-shefa-dark via-shefa-gold to-shefa-dark"></div>
+            <h1 class="font-cinzel text-2xl md:text-3xl font-black text-white uppercase tracking-widest mb-2">
+                Consulta de <span class="text-shefa-gold">Arquitectura</span>
+            </h1>
+            <p class="text-gray-400 font-mono text-xs tracking-widest uppercase mt-3">
+                Cuestionario de perfilamiento nivel: TITANIO GLOBAL
+            </p>
+        </div>
+
+        <!-- Formulario (Filtro de Alto Valor) -->
+        <form id="cotizacionForm" class="p-8 md:p-10 space-y-6" onsubmit="enviarWhatsApp(event)">
+            
+            <!-- Nombre CEO -->
+            <div>
+                <label class="block text-xs font-mono text-shefa-gold tracking-widest uppercase mb-2">Nombre del Director / CEO</label>
+                <div class="relative">
+                    <i class="fas fa-user absolute left-4 top-3.5 text-gray-500"></i>
+                    <input type="text" id="nombre" required class="input-shefa w-full rounded-lg py-3 pl-10 pr-4 text-sm" placeholder="Ej. Carlos Mendoza">
+                </div>
+            </div>
+
+            <!-- Empresa y Actividad -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs font-mono text-shefa-gold tracking-widest uppercase mb-2">Nombre de la Empresa</label>
+                    <div class="relative">
+                        <i class="fas fa-building absolute left-4 top-3.5 text-gray-500"></i>
+                        <input type="text" id="empresa" required class="input-shefa w-full rounded-lg py-3 pl-10 pr-4 text-sm" placeholder="Ej. Inmobiliaria Nexus">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-shefa-gold tracking-widest uppercase mb-2">Sector / Nicho</label>
+                    <div class="relative">
+                        <i class="fas fa-bullseye absolute left-4 top-3.5 text-gray-500"></i>
+                        <input type="text" id="actividad" required class="input-shefa w-full rounded-lg py-3 pl-10 pr-4 text-sm" placeholder="Ej. Bienes Raíces, Restaurante...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preguntas de Escala (El Filtro) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Nivel de Ingresos -->
+                <div>
+                    <label class="block text-xs font-mono text-shefa-gold tracking-widest uppercase mb-2">Facturación Mensual (COP)</label>
+                    <div class="relative">
+                        <i class="fas fa-chart-line absolute left-4 top-3.5 text-gray-500 z-10"></i>
+                        <select id="ingresos" required class="input-shefa w-full rounded-lg py-3 pl-10 pr-4 text-sm appearance-none relative">
+                            <option value="" disabled selected>Seleccione un rango...</option>
+                            <option value="Iniciando (0 - 5 Millones)">Iniciando (0 - 5 Millones)</option>
+                            <option value="Crecimiento (5 - 20 Millones)">Crecimiento (5 - 20 Millones)</option>
+                            <option value="Escalando (20 - 50 Millones)">Escalando (20 - 50 Millones)</option>
+                            <option value="Gran Empresa (+50 Millones)">Gran Empresa (+50 Millones)</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-4 text-shefa-gold text-xs pointer-events-none"></i>
+                    </div>
+                </div>
+
+                <!-- Volumen de Productos -->
+                <div>
+                    <label class="block text-xs font-mono text-shefa-gold tracking-widest uppercase mb-2">Volumen de Inventario/Servicios</label>
+                    <div class="relative">
+                        <i class="fas fa-boxes absolute left-4 top-3.5 text-gray-500 z-10"></i>
+                        <select id="productos" required class="input-shefa w-full rounded-lg py-3 pl-10 pr-4 text-sm appearance-none relative">
+                            <option value="" disabled selected>Seleccione volumen...</option>
+                            <option value="1 a 50 ítems">1 a 50 ítems</option>
+                            <option value="50 a 100 ítems">50 a 100 ítems</option>
+                            <option value="100 a 500 ítems">100 a 500 ítems</option>
+                            <option value="Catálogo Masivo (+500)">Catálogo Masivo (+500)</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-4 text-shefa-gold text-xs pointer-events-none"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Objetivo Principal -->
+            <div>
+                <label class="block text-xs font-mono text-shefa-gold tracking-widest uppercase mb-2">¿Cuál es su objetivo principal?</label>
+                <textarea id="objetivo" required rows="3" class="input-shefa w-full rounded-lg py-3 px-4 text-sm" placeholder="Ej. Necesitamos automatizar los pedidos por WhatsApp y mostrar un catálogo premium a nuestros inversores..."></textarea>
+            </div>
+
+            <!-- Botón de Envío Cuántico -->
+            <div class="pt-4">
+                <button type="submit" class="btn-quantum w-full font-cinzel font-bold text-sm tracking-widest uppercase py-4 rounded-lg flex items-center justify-center gap-3">
+                    <span>Solicitar Auditoría Cuántica</span>
+                    <i class="fab fa-whatsapp text-lg"></i>
+                </button>
+            </div>
+            
+            <p class="text-center font-mono text-[9px] text-gray-500 uppercase mt-4">
+                <i class="fas fa-lock mr-1 text-shefa-cyan"></i> Protocolo de datos cifrados RWA.
+            </p>
+        </form>
+    </div>
+
+    <!-- Script de Integración con WhatsApp -->
+    <script>
+        function enviarWhatsApp(event) {
+            // Evita que la página se recargue
+            event.preventDefault();
+
+            // Extrae los datos del formulario
+            const nombre = document.getElementById('nombre').value;
+            const empresa = document.getElementById('empresa').value;
+            const actividad = document.getElementById('actividad').value;
+            const ingresos = document.getElementById('ingresos').value;
+            const productos = document.getElementById('productos').value;
+            const objetivo = document.getElementById('objetivo').value;
+
+            // Construye el mensaje con neuro-autoridad (Formato para WhatsApp)
+            const mensaje = `*⚡ SOLICITUD DE ARQUITECTURA DIGITAL - SHEFA LABS ⚡*%0A%0A` +
+                            `*👤 Director/CEO:* ${nombre}%0A` +
+                            `*🏢 Entidad:* ${empresa}%0A` +
+                            `*🎯 Sector:* ${actividad}%0A` +
+                            `*💰 Nivel de Facturación:* ${ingresos}%0A` +
+                            `*📦 Volumen a Digitalizar:* ${productos}%0A%0A` +
+                            `*🚀 Objetivo Principal:* ${objetivo}%0A%0A` +
+                            `_Esperando respuesta de la base de operaciones para iniciar la evaluación._`;
+
+            // Número oficial (Sin el +)
+            const numeroWhatsApp = "573046756574";
+            
+            // Crea el enlace final
+            const url = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+
+            // Abre WhatsApp en una nueva pestaña (o abre la app si está en móvil)
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+  </html>
+                  
