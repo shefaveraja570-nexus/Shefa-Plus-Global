@@ -286,7 +286,60 @@
 .btn-expansion:hover {
     background: #FFC107;
         }
-                                  
+
+        /* Animaciones Tarjeta CEO */
+        @keyframes respiracion-cuantica {
+            0% { transform: scale(1); box-shadow: 0 0 13px rgba(0, 229, 255, 0.1); border-color: rgba(212, 175, 55, 0.2); }
+            50% { transform: scale(1.021); box-shadow: 0 0 34px rgba(0, 229, 255, 0.3), inset 0 0 21px rgba(212, 175, 55, 0.15); border-color: rgba(0, 229, 255, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 13px rgba(0, 229, 255, 0.1); border-color: rgba(212, 175, 55, 0.2); }
+        }
+        @keyframes scanner {
+            0% { top: -10%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+        @keyframes latido-fibonacci {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 21px rgba(212, 175, 55, 0.5); }
+        }
+
+        .tarjeta-ceo-container {
+            animation: respiracion-cuantica 5.5s ease-in-out infinite; 
+            background: linear-gradient(145deg, rgba(5, 10, 20, 0.95) 0%, rgba(2, 4, 8, 0.98) 100%);
+            backdrop-filter: blur(21px);
+            position: relative;
+            overflow: hidden;
+            border-radius: 13px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin: 34px auto;
+            max-width: 550px;
+        }
+        .laser-scan {
+            position: absolute; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.8), transparent);
+            box-shadow: 0 0 13px rgba(0, 229, 255, 0.6);
+            animation: scanner 3.4s linear infinite; 
+            z-index: 10;
+        }
+        .ring-outer { position:absolute; inset:0; border: 1px dashed rgba(212, 175, 55, 0.5); border-radius: 50%; animation: spin-slow 21s linear infinite; }
+        .ring-inner { position:absolute; inset:8px; border: 2px solid rgba(0, 229, 255, 0.3); border-top-color: rgba(0, 229, 255, 0.9); border-radius: 50%; animation: spin-reverse 13s linear infinite; }
+        .btn-cotizar {
+            animation: latido-fibonacci 3.4s ease-in-out infinite;
+            transition: all 0.3s ease;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 13px 34px; background: linear-gradient(to right, #D4AF37, #B8860B);
+            color: #050a14; font-weight: bold; text-transform: uppercase; border-radius: 5px;
+            text-decoration: none; letter-spacing: 2px; font-size: 13px; margin-top: 21px;
+        }
+        .btn-cotizar:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 8px 34px rgba(212, 175, 55, 0.6);
+            animation: none;
+        }
+        
     </style>
 </head>
 <body>
@@ -307,6 +360,49 @@
         </p>
         <a href="umbral.html" class="btn-enter">Ingresar al Umbral ⚡</a>
     </section>
+    <!-- INICIO DE LA TARJETA NEXUS CEO -->
+<section style="padding: 0 15px;">
+    <div class="tarjeta-ceo-container shadow-[0_21px_55px_rgba(0,0,0,0.8)]">
+        <div class="laser-scan"></div>
+        
+        <div style="padding: 34px; position: relative; z-index: 20; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            
+            <h2 style="font-family: 'Cinzel', serif; font-size: 21px; font-weight: bold; color: white; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 13px; line-height: 1.4;">
+                Proyecta tu empresa en la
+                <span style="display: block; color: #00E5FF; text-shadow: 0 0 8px rgba(0, 229, 255, 0.6); margin-top: 8px; font-size: 13px; letter-spacing: 4px; font-family: monospace;">Dimensión Digital</span>
+            </h2>
+            
+            <div style="position: relative; width: 89px; height: 89px; margin: 21px 0; display: flex; align-items: center; justify-content: center;">
+                <div class="ring-outer"></div>
+                <div class="ring-inner"></div>
+                <div style="position: absolute; inset: 0; border-radius: 50%; background: rgba(0, 229, 255, 0.1); filter: blur(8px);"></div>
+                <span style="font-size: 34px; color: #00E5FF; text-shadow: 0 0 8px rgba(0,229,255,0.8); position: relative; z-index: 30;">⚙️</span>
+            </div>
+
+            <p style="font-family: monospace; font-size: 13px; color: #9CA3AF; margin-bottom: 21px; max-width: 340px; line-height: 1.6;">
+                <span style="color: #D4AF37; font-weight: bold;">Hablemos de tu empresa.</span> Integramos arquitecturas de software e I.A. que posicionan tu marca y automatizan tus ventas 24/7.
+            </p>
+
+            <a href="#contacto" class="btn-cotizar">
+                🚀 Cotiza Tu App
+            </a>
+            
+            <div style="margin-top: 34px; padding-top: 13px; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; display: flex; justify-content: space-between; font-family: monospace; font-size: 10px; color: #6B7280; text-transform: uppercase; letter-spacing: 2px;">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                    <span style="width: 6px; height: 6px; background-color: #10B981; border-radius: 50%;"></span> 
+                    Conexión Segura
+                </span>
+                <span>Acceso: <span style="color: #D4AF37; font-weight: bold;">Inversor</span></span>
+            </div>
+        </div>
+        
+        <div style="position: absolute; top: 0; left: 0; width: 13px; height: 13px; border-top: 2px solid rgba(0, 229, 255, 0.5); border-left: 2px solid rgba(0, 229, 255, 0.5); border-top-left-radius: 13px; z-index: 30;"></div>
+        <div style="position: absolute; top: 0; right: 0; width: 13px; height: 13px; border-top: 2px solid rgba(0, 229, 255, 0.5); border-right: 2px solid rgba(0, 229, 255, 0.5); border-top-right-radius: 13px; z-index: 30;"></div>
+        <div style="position: absolute; bottom: 0; left: 0; width: 13px; height: 13px; border-bottom: 2px solid rgba(0, 229, 255, 0.5); border-left: 2px solid rgba(0, 229, 255, 0.5); border-bottom-left-radius: 13px; z-index: 30;"></div>
+        <div style="position: absolute; bottom: 0; right: 0; width: 13px; height: 13px; border-bottom: 2px solid rgba(0, 229, 255, 0.5); border-right: 2px solid rgba(0, 229, 255, 0.5); border-bottom-right-radius: 13px; z-index: 30;"></div>
+    </div>
+</section>
+<!-- FIN DE LA TARJETA NEXUS CEO -->
     <section class="tarjeta-honor" style="margin: 34px auto; max-width: 400px; padding: 21px; border: 2px solid #D4AF37; border-radius: 21px; background: linear-gradient(145deg, #1a1a1a, #0a0a0a); box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3); text-align: center;">
     
     <div style="margin-bottom: 13px;">
