@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Cibernética CEO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Cinzel:wght@600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Tipografías base */
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-mono-tech { font-family: 'Space Mono', monospace; }
+
+        /* Animación Respiratoria (Latido Cuántico) */
+        @keyframes respiracion-cuantica {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.1), inset 0 0 10px rgba(0, 255, 255, 0.05);
+                border-color: rgba(212, 175, 55, 0.3);
+            }
+            50% {
+                transform: scale(1.02); /* Expansión suave */
+                box-shadow: 0 0 35px rgba(212, 175, 55, 0.3), inset 0 0 20px rgba(0, 255, 255, 0.15);
+                border-color: rgba(0, 255, 255, 0.6); /* Transición cibernética */
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.1), inset 0 0 10px rgba(0, 255, 255, 0.05);
+                border-color: rgba(212, 175, 55, 0.3);
+            }
+        }
+
+        /* Línea de escaneo láser */
+        @keyframes scanner {
+            0% { top: -10%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 110%; opacity: 0; }
+        }
+
+        /* Giro de anillos holográficos */
+        @keyframes spin-slow { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+
+        /* Estilos estructurales de la tarjeta */
+        .tarjeta-ceo-container {
+            animation: respiracion-cuantica 4s ease-in-out infinite;
+            background: linear-gradient(145deg, rgba(10, 15, 30, 0.9) 0%, rgba(5, 7, 15, 0.95) 100%);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .laser-scan {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.8), transparent);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+            animation: scanner 3s linear infinite;
+            z-index: 10;
+        }
+
+        /* Anillos Holográficos CSS */
+        .ring-outer {
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+            animation: spin-slow 15s linear infinite;
+        }
+        .ring-inner {
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            border-top-color: rgba(0, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: spin-reverse 8s linear infinite;
+        }
+        
+        /* Efecto Glitch Textual sutil */
+        .tech-glitch:hover {
+            text-shadow: 2px 0 rgba(0, 255, 255, 0.7), -2px 0 rgba(212, 175, 55, 0.7);
+            color: white;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-[#030712] min-h-screen flex items-center justify-center p-6">
+
+    <!-- ======================================================================= -->
+    <!-- INICIO DEL CÓDIGO QUE DEBES COPIAR Y PEGAR EN TU INDEX.HTML -->
+    <!-- ======================================================================= -->
+    <div class="w-full max-w-2xl mx-auto my-8">
+        
+        <div class="tarjeta-ceo-container p-1 relative shadow-2xl">
+            <!-- Efecto láser de escaneo -->
+            <div class="laser-scan"></div>
+            
+            <div class="bg-gradient-to-br from-[#0a1122] to-[#040811] p-6 rounded-xl relative z-20 flex flex-col sm:flex-row items-center gap-6">
+                
+                <!-- Lado Izquierdo: Núcleo Holográfico -->
+                <div class="relative w-24 h-24 flex-shrink-0 flex items-center justify-center">
+                    <div class="absolute inset-0 ring-outer"></div>
+                    <div class="absolute inset-2 ring-inner"></div>
+                    <div class="absolute inset-0 rounded-full bg-cyan-500/10 animate-pulse blur-md"></div>
+                    <i class="fas fa-fingerprint text-3xl text-cyan-400 tech-glitch relative z-30"></i>
+                </div>
+
+                <!-- Lado Derecho: Panel de Datos Cuánticos -->
+                <div class="flex-1 text-center sm:text-left w-full">
+                    <div class="flex items-center justify-center sm:justify-start gap-2 mb-2">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        <p class="font-mono-tech text-xs text-cyan-400 tracking-[0.2em] uppercase font-bold">Enlace Seguro Establecido</p>
+                    </div>
+                    
+                    <h3 class="font-cinzel text-2xl font-bold text-[#E5C07B] tracking-wider mb-2 tech-glitch cursor-default">
+                        NÚCLEO SHEFÁ ACTIVO
+                    </h3>
+                    
+                    <div class="bg-white/5 border border-white/10 rounded p-3 font-mono-tech text-[0.65rem] sm:text-xs text-gray-400 flex flex-col gap-1">
+                        <div class="flex justify-between items-center border-b border-white/10 pb-1">
+                            <span class="text-gray-500">ESTADO RED:</span>
+                            <span class="text-green-400 font-bold tracking-widest">ÓPTIMO (800Hz)</span>
+                        </div>
+                        <div class="flex justify-between items-center border-b border-white/10 pb-1 pt-1">
+                            <span class="text-gray-500">PROTOCOLOS RWA:</span>
+                            <span class="text-cyan-300">SINCRONIZANDO...</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="text-gray-500">NIVEL ACCESO:</span>
+                            <span class="text-[#E5C07B] font-bold">CEO / INVERSOR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detalles decorativos esquinas -->
+            <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-cyan-500/50 rounded-tl-lg z-30"></div>
+            <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-cyan-500/50 rounded-tr-lg z-30"></div>
+            <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-cyan-500/50 rounded-bl-lg z-30"></div>
+            <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyan-500/50 rounded-br-lg z-30"></div>
+        </div>
+
+    </div>
+    <!-- ======================================================================= -->
+    <!-- FIN DEL CÓDIGO A COPIAR -->
+    <!-- ======================================================================= -->
+
+</body>
+</html>
