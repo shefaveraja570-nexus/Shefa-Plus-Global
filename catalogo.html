@@ -67,12 +67,13 @@
             border-radius: 8px;
             border: 1px solid rgba(0, 229, 255, 0.1);
             position: relative;
+            background-color: #080d1a; /* Espacio en blanco oscuro para fotos no cargadas */
         }
         .foto-marco img {
             transition: transform 0.5s ease;
         }
         .foto-marco:hover img {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         .foto-marco::after {
             content: '';
@@ -113,10 +114,9 @@
 
     <!-- Grid de Tarjetas (Catálogo) -->
     <section class="max-w-7xl mx-auto px-4 pb-24">
-        <!-- Usamos 2 columnas en PC para que las 4 fotos se vean grandes -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-            <!-- TARJETA 1: Restaurantes Gourmet / Comida Rápida -->
+            <!-- TARJETA 1: Restaurantes Gourmet / Comida Rápida (3 FOTOS) -->
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 rounded-full border border-shefa-gold/30 flex items-center justify-center text-shefa-gold text-xl bg-[#0a1122]">
@@ -129,25 +129,21 @@
                 </div>
                 <p class="text-gray-400 text-sm mb-6">Aplicaciones de pedidos directos sin comisiones de terceros. Integración con cocina, carrito de compras dinámico y fidelización de clientes.</p>
                 
-                <!-- Galería de 4 Fotos -->
+                <!-- Galería de 3 Fotos -->
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <!-- CAMBIA EL SRC AQUÍ POR TU FOTO (ej: foto-hamburguesa.jpg) -->
-                        <img src="foto-app-restaurante.jpg" alt="App Restaurante 1" class="w-full h-full object-cover">
+                    <div class="foto-marco col-span-2 aspect-[21/9] bg-[#080d1a]">
+                        <img src="app-restaurante-1.jpg" alt="App Restaurante 1" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="foto-app-heladeria.jpg" alt="App Restaurante 2" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-restaurante-2.jpg" alt="App Restaurante 2" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=400&q=80" alt="App Restaurante 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="App Restaurante 4" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-restaurante-3.jpg" alt="App Restaurante 3" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
 
-            <!-- TARJETA 2: Hoteles & Hospitalidad -->
+            <!-- TARJETA 2: Hoteles & Hospitalidad (2 FOTOS) -->
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 rounded-full border border-shefa-cyan/30 flex items-center justify-center text-shefa-cyan text-xl bg-[#0a1122]">
@@ -161,22 +157,16 @@
                 <p class="text-gray-400 text-sm mb-6">Sistemas de disponibilidad en tiempo real. Pasarelas de pago internacionales, galería de habitaciones y conserjería digital 24/7 por WhatsApp.</p>
                 
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="foto-app-hotel.jpg" alt="App Hotel 1" class="w-full h-full object-cover">
-                    </div>ttt5
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=400&q=80" alt="App Hotel 2" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-hotel-1.jpg" alt="App Hotel 1" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1522798514-97ceb8c4f1c8?auto=format&fit=crop&w=400&q=80" alt="App Hotel 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=400&q=80" alt="App Hotel 4" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-hotel-2.jpg" alt="App Hotel 2" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
 
-            <!-- TARJETA 3: Inmobiliarias & Bienes Raíces -->
+            <!-- TARJETA 3: Inmobiliarias & Bienes Raíces (2 FOTOS) -->
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 rounded-full border border-shefa-emerald/30 flex items-center justify-center text-shefa-emerald text-xl bg-[#0a1122]">
@@ -190,22 +180,16 @@
                 <p class="text-gray-400 text-sm mb-6">Plataformas de exhibición de alto nivel. Recorridos virtuales, agendamiento automático de visitas y conexión directa asesor-cliente.</p>
                 
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="foto-app-inmobiliaria.jpg" alt="App Inmobiliaria 1" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-inmobiliaria-1.jpg" alt="App Inmobiliaria 1" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=400&q=80" alt="App Inmobiliaria 2" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=400&q=80" alt="App Inmobiliaria 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1600566753086-00f18efc2294?auto=format&fit=crop&w=400&q=80" alt="App Inmobiliaria 4" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-inmobiliaria-2.jpg" alt="App Inmobiliaria 2" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
 
-            <!-- TARJETA 4: Clínicas & Centros Médicos -->
+            <!-- TARJETA 4: Clínicas & Centros Médicos (2 FOTOS) -->
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 rounded-full border border-blue-400/30 flex items-center justify-center text-blue-400 text-xl bg-[#0a1122]">
@@ -219,22 +203,16 @@
                 <p class="text-gray-400 text-sm mb-6">Ecosistemas encriptados para gestión de pacientes. Calendario de doctores sincronizado y recordatorios automáticos por WhatsApp.</p>
                 
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="foto-app-clinica.jpg" alt="App Salud 1" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-clinica-1.jpg" alt="App Clinica 1" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=400&q=80" alt="App Salud 2" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=400&q=80" alt="App Salud 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1551076805-e1869043e560?auto=format&fit=crop&w=400&q=80" alt="App Salud 4" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-clinica-2.jpg" alt="App Clinica 2" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
 
-            <!-- TARJETA 5: Odontología Privada -->
+            <!-- TARJETA 5: Odontología Privada (2 FOTOS) -->
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 rounded-full border border-purple-400/30 flex items-center justify-center text-purple-400 text-xl bg-[#0a1122]">
@@ -248,22 +226,16 @@
                 <p class="text-gray-400 text-sm mb-6">Módulos especializados para cotización de tratamientos estéticos. Galería de casos de éxito antes/después y gestión financiera de pacientes.</p>
                 
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.foto-app-odontologia.html" alt="App Odontologia 1" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-odontologia-1.jpg" alt="App Odontologia 1" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1598256989800-fea5ce5146f2?auto=format&fit=crop&w=400&q=80" alt="App Odontologia 2" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=400&q=80" alt="App Odontologia 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=400&q=80" alt="App Odontologia 4" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-odontologia-2.jpg" alt="App Odontologia 2" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
 
-            <!-- TARJETA 6: Comercio Retail & E-commerce -->
+            <!-- TARJETA 6: Comercio Retail & E-commerce (2 FOTOS) -->
             <div class="glass-card rounded-2xl p-6">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 rounded-full border border-pink-400/30 flex items-center justify-center text-pink-400 text-xl bg-[#0a1122]">
@@ -277,17 +249,11 @@
                 <p class="text-gray-400 text-sm mb-6">Escaparates digitales de alta conversión. Filtros avanzados, control de tallas/colores, manejo de stock automático y notificaciones de envío.</p>
                 
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="foto-app-moda.jpg" alt="App Retail 1" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-tienda-1.jpg" alt="App Retail 1" class="w-full h-full object-cover">
                     </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=400&q=80" alt="App Retail 2" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=400&q=80" alt="App Retail 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="foto-marco aspect-square bg-gray-900">
-                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=400&q=80" alt="App Retail 4" class="w-full h-full object-cover">
+                    <div class="foto-marco aspect-[4/5] bg-[#080d1a]">
+                        <img src="app-tienda-2.jpg" alt="App Retail 2" class="w-full h-full object-cover">
                     </div>
                 </div>
             </div>
