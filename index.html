@@ -464,19 +464,18 @@
 
         </div>
     </section>
-<!-- Widget de Asistente Shefa Plus Global -->
 <div id="shefa-chat-btn" onclick="toggleShefaChat()" style="position:fixed;bottom:20px;right:20px;background:#0d6efd;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;">
   💬
 </div>
 
 <div id="shefa-chat-window" style="display:none;position:fixed;bottom:90px;right:20px;width:340px;height:450px;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);flex-direction:column;overflow:hidden;z-index:9999;font-family:sans-serif;">
   <div style="background:#0d6efd;color:#fff;padding:12px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
-    <span>Asistente Shefa Plus</span>
+    <span id="shefa-chat-title">Asistente Shefa Plus</span>
     <span onclick="toggleShefaChat()" style="cursor:pointer;font-size:18px;">✕</span>
   </div>
   <div id="shefa-messages" style="flex:1;padding:12px;overflow-y:auto;font-size:14px;display:flex;flex-direction:column;gap:8px;color:#333;">
-    <div style="background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;">
-      ¡Hola! Soy el asistente de Shefa Plus Global. ¿En qué te puedo asesorar hoy?
+    <div id="shefa-welcome-msg" style="background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;">
+      ¡Hola! ¿En qué te podemos asesorar hoy?
     </div>
   </div>
   <div style="padding:10px;border-top:1px solid #eee;display:flex;gap:6px;">
@@ -486,6 +485,15 @@
 </div>
 
 <script>
+// Personalizar mensaje de bienvenida según la sección
+const esLabs = window.location.pathname.includes('labs') || window.location.href.includes('labs');
+if (esLabs) {
+  document.getElementById('shefa-chat-title').innerText = "Asistente Shefa Plus Labs";
+  document.getElementById('shefa-welcome-msg').innerText = "¡Hola! Bienvenido a Shefa Plus Labs. Soy tu asesor tecnológico. ¿Qué aplicación o dominio web deseas cotizar o desarrollar?";
+} else {
+  document.getElementById('shefa-welcome-msg').innerText = "¡Hola! Soy el asistente de Shefa Plus Global. ¿En qué te puedo asesorar hoy?";
+}
+
 function toggleShefaChat() {
   const win = document.getElementById('shefa-chat-window');
   win.style.display = win.style.display === 'none' ? 'flex' : 'none';
@@ -497,15 +505,13 @@ async function enviarMensajeShefa() {
   const texto = input.value.trim();
   if (!texto) return;
 
-  // Mensaje del usuario
   msgs.innerHTML += `<div style="background:#0d6efd;color:#fff;padding:8px 12px;border-radius:8px;align-self:flex-end;max-width:85%;">${texto}</div>`;
   input.value = '';
   msgs.scrollTop = msgs.scrollHeight;
 
-  // Indicador de escribiendo
   const loader = document.createElement('div');
   loader.style = "background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;color:#777;";
-  loader.innerText = "Escribiendo...";
+  loader.innerText = "Pensando...";
   msgs.appendChild(loader);
   msgs.scrollTop = msgs.scrollHeight;
 
@@ -513,18 +519,22 @@ async function enviarMensajeShefa() {
     const res = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ mensaje: texto })
+      body: JSON.stringify({ 
+        mensaje: texto, 
+        pagina: window.location.pathname 
+      })
     });
     const data = await res.json();
     loader.remove();
-    msgs.innerHTML += `<div style="background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;">${data.respuesta || 'Gracias por tu mensaje.'}</div>`;
+    msgs.innerHTML += `<div style="background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;">${data.respuesta || 'Mensaje recibido.'}</div>`;
   } catch (e) {
     loader.remove();
-    msgs.innerHTML += `<div style="background:#ffebee;color:#c62828;padding:8px 12px;border-radius:8px;max-width:85%;">No pudimos conectar en este momento.</div>`;
+    msgs.innerHTML += `<div style="background:#ffebee;color:#c62828;padding:8px 12px;border-radius:8px;max-width:85%;">Error de conexión momentáneo.</div>`;
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
 </script>
-    
+
+
 </body>
     </html>
