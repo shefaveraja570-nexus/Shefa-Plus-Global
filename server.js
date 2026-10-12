@@ -5,9 +5,8 @@ const path = require('path');
 const PORT = process.env.PORT || 10000;
 
 // ====================== CONFIGURACIÓN ======================
-const MODELO_PRINCIPAL = 'gemini-3.5-flash-lite';   // ← Este es el que pediste
+const MODELO_PRINCIPAL = 'gemini-3.5-flash-lite';
 const MODELO_SECUNDARIO = 'gemini-3.8-flash';
-const MODELO_PRO = 'gemini-3.1-pro-preview';
 
 // Las dos API Keys
 const API_KEYS = [
@@ -58,18 +57,18 @@ function resolvePath(urlPath) {
     return null;
 }
 
-// Función con rotación de keys + cascada de modelos
+// Función solo con modelos Flash
 async function llamarGemini(promptCompleto, maxIntentos = 5) {
     if (API_KEYS.length === 0) {
         throw new Error('No hay ninguna GEMINI_API_KEY configurada');
     }
 
-    const modelos = [MODELO_PRINCIPAL, MODELO_SECUNDARIO, MODELO_PRO];
+    const modelos = [MODELO_PRINCIPAL, MODELO_SECUNDARIO];
     let ultimoError = null;
 
     for (let intento = 0; intento < maxIntentos; intento++) {
         const apiKey = getNextApiKey();
-        const modelo = modelos[Math.min(intento, modelos.length - 1)];
+        const modelo = modelos[intento % modelos.length]; // alterna entre los dos Flash
 
         try {
             const res = await fetch(
@@ -102,11 +101,11 @@ async function llamarGemini(promptCompleto, maxIntentos = 5) {
             ultimoError = mensaje;
 
             console.log(`[Intento ${intento + 1}] ${modelo} falló → ${mensaje}`);
-            await new Promise(r => setTimeout(r, 700 + (intento * 500)));
+            await new Promise(r => setTimeout(r, 600 + (intento * 400)));
         } catch (err) {
             ultimoError = err.message;
             console.log(`[Intento ${intento + 1}] Error de red:`, err.message);
-            await new Promise(r => setTimeout(r, 800));
+            await new Promise(r => setTimeout(r, 700));
         }
     }
 
@@ -281,6 +280,6 @@ Estructura:
 });
 
 server.listen(PORT, () => {
-    console.log(`Servidor Shefa Plus Global — Modelo principal: gemini-3.5-flash-lite`);
+    console.log(`Servidor Shefa Plus Global — Solo modelos Flash (3.5 Flash-Lite + 3.8 Flash)`);
     console.log(`Keys cargadas: ${API_KEYS.length}`);
 });
