@@ -121,12 +121,21 @@ TÉCNICA DE COMUNICACIÓN:
                     }
                 })
             });
+const data = await geminiRes.json();
 
-            const data = await geminiRes.json();
-            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Estamos listos para impulsar tu proyecto al siguiente nivel. ¿Qué metas deseas concretar hoy?';
+// Si Google rechaza la llave, la IA te avisa directamente en el chat
+if (!geminiRes.ok) {
+    console.error("Error de Google Gemini:", data);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ respuesta: `⚠️ ALERTA DE SISTEMA: La IA está desconectada. Error de Google: ${data.error?.message || 'Revisa la llave en Render'}` }));
+}
 
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ respuesta }));
+// Si responde bien, manda el texto humano
+const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude estructurar la respuesta, intenta de nuevo.';
+
+res.writeHead(200, { 'Content-Type': 'application/json' });
+return res.end(JSON.stringify({ respuesta }));
+
         } catch (err) {
             console.error('Error en /api/chat:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
