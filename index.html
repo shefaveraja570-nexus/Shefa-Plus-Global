@@ -464,39 +464,45 @@
 
         </div>
     </section>
-<div id="shefa-chat-btn" onclick="toggleShefaChat()" style="position:fixed;bottom:20px;right:20px;background:#0d6efd;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:9999;">
+<!-- Widget Comercial Autónomo Shefa Plus -->
+<div id="shefa-chat-btn" onclick="toggleShefaChat()" style="position:fixed;bottom:20px;right:20px;background:#0d6efd;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.35);z-index:99999;">
   💬
 </div>
 
-<div id="shefa-chat-window" style="display:none;position:fixed;bottom:90px;right:20px;width:340px;height:450px;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.25);flex-direction:column;overflow:hidden;z-index:9999;font-family:sans-serif;">
-  <div style="background:#0d6efd;color:#fff;padding:12px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
-    <span id="shefa-chat-title">Asistente Shefa Plus</span>
+<div id="shefa-chat-window" style="display:none;position:fixed;bottom:90px;right:20px;width:340px;height:460px;background:#ffffff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.3);flex-direction:column;overflow:hidden;z-index:99999;font-family:system-ui,-apple-system,sans-serif;">
+  <div style="background:#0d6efd;color:#ffffff;padding:12px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+    <span id="shefa-chat-title">Director Comercial Shefa</span>
     <span onclick="toggleShefaChat()" style="cursor:pointer;font-size:18px;">✕</span>
   </div>
-  <div id="shefa-messages" style="flex:1;padding:12px;overflow-y:auto;font-size:14px;display:flex;flex-direction:column;gap:8px;color:#333;">
-    <div id="shefa-welcome-msg" style="background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;">
-      ¡Hola! ¿En qué te podemos asesorar hoy?
+  <div id="shefa-messages" style="flex:1;padding:12px;overflow-y:auto;font-size:14px;display:flex;flex-direction:column;gap:8px;color:#222;">
+    <div id="shefa-welcome-msg" style="background:#f1f3f5;padding:10px 12px;border-radius:8px;max-width:88%;line-height:1.4;">
+      <!-- El mensaje se ajusta automáticamente por JavaScript -->
     </div>
   </div>
-  <div style="padding:10px;border-top:1px solid #eee;display:flex;gap:6px;">
-    <input id="shefa-input" type="text" placeholder="Escribe tu consulta..." style="flex:1;padding:8px 12px;border:1px solid #ccc;border-radius:6px;outline:none;" onkeypress="if(event.key==='Enter') enviarMensajeShefa()">
-    <button onclick="enviarMensajeShefa()" style="background:#0d6efd;color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;">Enviar</button>
+  <div style="padding:10px;border-top:1px solid #e9ecef;display:flex;gap:6px;background:#fff;">
+    <input id="shefa-input" type="text" placeholder="Escribe tu consulta..." style="flex:1;padding:9px 12px;border:1px solid #ced4da;border-radius:8px;outline:none;font-size:14px;" onkeypress="if(event.key==='Enter') enviarMensajeShefa()">
+    <button onclick="enviarMensajeShefa()" style="background:#0d6efd;color:#fff;border:none;padding:9px 15px;border-radius:8px;cursor:pointer;font-weight:600;">Enviar</button>
   </div>
 </div>
 
 <script>
-// Personalizar mensaje de bienvenida según la sección
-const esLabs = window.location.pathname.includes('labs') || window.location.href.includes('labs');
-if (esLabs) {
-  document.getElementById('shefa-chat-title').innerText = "Asistente Shefa Plus Labs";
-  document.getElementById('shefa-welcome-msg').innerText = "¡Hola! Bienvenido a Shefa Plus Labs. Soy tu asesor tecnológico. ¿Qué aplicación o dominio web deseas cotizar o desarrollar?";
+// Detección automática de sección
+const esSeccionLabs = window.location.pathname.toLowerCase().includes('labs') || window.location.href.toLowerCase().includes('labs');
+
+const titleEl = document.getElementById('shefa-chat-title');
+const welcomeEl = document.getElementById('shefa-welcome-msg');
+
+if (esSeccionLabs) {
+  titleEl.innerText = "Shefa Plus Labs | Ingeniería";
+  welcomeEl.innerText = "¡Hola! Bienvenido a Shefa Plus Labs. Soy tu asesor de desarrollo e infraestructura. ¿Qué aplicación para Google Play Store o dominio web deseas cotizar y lanzar hoy?";
 } else {
-  document.getElementById('shefa-welcome-msg').innerText = "¡Hola! Soy el asistente de Shefa Plus Global. ¿En qué te puedo asesorar hoy?";
+  titleEl.innerText = "Shefa Plus Global | Inversiones";
+  welcomeEl.innerText = "¡Hola! Bienvenido a Shefa Plus Global. Soy tu director de inversiones y activos. ¿En qué proyecto o criptofracción RWA deseas participar hoy?";
 }
 
 function toggleShefaChat() {
   const win = document.getElementById('shefa-chat-window');
-  win.style.display = win.style.display === 'none' ? 'flex' : 'none';
+  win.style.display = (win.style.display === 'none' || win.style.display === '') ? 'flex' : 'none';
 }
 
 async function enviarMensajeShefa() {
@@ -505,13 +511,15 @@ async function enviarMensajeShefa() {
   const texto = input.value.trim();
   if (!texto) return;
 
-  msgs.innerHTML += `<div style="background:#0d6efd;color:#fff;padding:8px 12px;border-radius:8px;align-self:flex-end;max-width:85%;">${texto}</div>`;
+  // Mensaje del usuario
+  msgs.innerHTML += `<div style="background:#0d6efd;color:#fff;padding:9px 12px;border-radius:8px;align-self:flex-end;max-width:85%;line-height:1.4;">${texto}</div>`;
   input.value = '';
   msgs.scrollTop = msgs.scrollHeight;
 
+  // Indicador de respuesta
   const loader = document.createElement('div');
-  loader.style = "background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;color:#777;";
-  loader.innerText = "Pensando...";
+  loader.style = "background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;color:#6c757d;font-style:italic;";
+  loader.innerText = "Analizando propuesta...";
   msgs.appendChild(loader);
   msgs.scrollTop = msgs.scrollHeight;
 
@@ -526,14 +534,15 @@ async function enviarMensajeShefa() {
     });
     const data = await res.json();
     loader.remove();
-    msgs.innerHTML += `<div style="background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;">${data.respuesta || 'Mensaje recibido.'}</div>`;
+    msgs.innerHTML += `<div style="background:#f1f3f5;padding:9px 12px;border-radius:8px;max-width:88%;line-height:1.4;">${data.respuesta || 'Estamos a tu entera disposición.'}</div>`;
   } catch (e) {
     loader.remove();
-    msgs.innerHTML += `<div style="background:#ffebee;color:#c62828;padding:8px 12px;border-radius:8px;max-width:85%;">Error de conexión momentáneo.</div>`;
+    msgs.innerHTML += `<div style="background:#fff3cd;color:#856404;padding:8px 12px;border-radius:8px;max-width:85%;">Conexión en curso, intenta de nuevo en un instante.</div>`;
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
 </script>
+
 
 
 </body>
