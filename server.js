@@ -107,7 +107,8 @@ TÉCNICA DE COMUNICACIÓN:
 - Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }
 
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {       method: 'POST',
+                        const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
@@ -120,6 +121,7 @@ TÉCNICA DE COMUNICACIÓN:
                     }
                 })
             });
+
 const data = await geminiRes.json();
 
 // Si Google rechaza la llave, la IA te avisa directamente en el chat
