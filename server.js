@@ -5,10 +5,11 @@ const path = require('path');
 const PORT = process.env.PORT || 10000;
 
 // ====================== CONFIGURACIÓN ======================
+const MODELO_PRINCIPAL = 'gemini-3.5-flash-lite';   // ← Este es el que pediste
+const MODELO_SECUNDARIO = 'gemini-3.8-flash';
 const MODELO_PRO = 'gemini-3.1-pro-preview';
-const MODELO_FALLBACK = 'gemini-3.8-flash';
 
-// Las dos API Keys (configúralas en Render)
+// Las dos API Keys
 const API_KEYS = [
     process.env.GEMINI_API_KEY,
     process.env.GEMINI_API_KEY_2
@@ -57,17 +58,18 @@ function resolvePath(urlPath) {
     return null;
 }
 
-// Función principal con rotación de keys + reintentos
-async function llamarGemini(promptCompleto, modeloPreferido = MODELO_PRO, maxIntentos = 4) {
+// Función con rotación de keys + cascada de modelos
+async function llamarGemini(promptCompleto, maxIntentos = 5) {
     if (API_KEYS.length === 0) {
         throw new Error('No hay ninguna GEMINI_API_KEY configurada');
     }
 
+    const modelos = [MODELO_PRINCIPAL, MODELO_SECUNDARIO, MODELO_PRO];
     let ultimoError = null;
 
     for (let intento = 0; intento < maxIntentos; intento++) {
         const apiKey = getNextApiKey();
-        const modelo = (intento < 2) ? modeloPreferido : MODELO_FALLBACK;
+        const modelo = modelos[Math.min(intento, modelos.length - 1)];
 
         try {
             const res = await fetch(
@@ -82,7 +84,7 @@ async function llamarGemini(promptCompleto, modeloPreferido = MODELO_PRO, maxInt
                         }],
                         generationConfig: {
                             temperature: 0.72,
-                            maxOutputTokens: 950,
+                            maxOutputTokens: 900,
                             topP: 0.95
                         }
                     })
@@ -92,31 +94,19 @@ async function llamarGemini(promptCompleto, modeloPreferido = MODELO_PRO, maxInt
             const data = await res.json();
 
             if (res.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
+                console.log(`✅ Respuesta exitosa con modelo: ${modelo}`);
                 return data.candidates[0].content.parts[0].text;
             }
 
             const mensaje = data.error?.message || `HTTP ${res.status}`;
             ultimoError = mensaje;
 
-            if (
-                mensaje.toLowerCase().includes('alta demanda') ||
-                mensaje.toLowerCase().includes('high demand') ||
-                mensaje.toLowerCase().includes('rate') ||
-                mensaje.toLowerCase().includes('quota') ||
-                res.status === 429 ||
-                res.status === 503
-            ) {
-                console.log(`[Intento ${intento + 1}] ${modelo} falló por carga. Cambiando de key...`);
-                await new Promise(r => setTimeout(r, 800 + (intento * 600)));
-                continue;
-            }
-
-            console.log(`[Intento ${intento + 1}] Error: ${mensaje}`);
-            await new Promise(r => setTimeout(r, 1000));
+            console.log(`[Intento ${intento + 1}] ${modelo} falló → ${mensaje}`);
+            await new Promise(r => setTimeout(r, 700 + (intento * 500)));
         } catch (err) {
             ultimoError = err.message;
             console.log(`[Intento ${intento + 1}] Error de red:`, err.message);
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise(r => setTimeout(r, 800));
         }
     }
 
@@ -213,7 +203,7 @@ Responde con respeto absoluto, lealtad inquebrantable y confirmación de que la 
 [Ubicación del cliente: ${pagina || 'página general'}]
 Mensaje del usuario: ${mensaje}`;
 
-            const respuesta = await llamarGemini(promptCompleto, MODELO_PRO);
+            const respuesta = await llamarGemini(promptCompleto);
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ respuesta }));
@@ -253,7 +243,7 @@ Estructura:
 - CTA claro
 - 4 hashtags potentes`;
 
-            const postTexto = await llamarGemini(promptPublicidad, MODELO_PRO);
+            const postTexto = await llamarGemini(promptPublicidad);
 
             const metaRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/feed`, {
                 method: 'POST',
@@ -291,6 +281,6 @@ Estructura:
 });
 
 server.listen(PORT, () => {
-    console.log(`Servidor Shefa Plus Global — Motor Pro + Rotación de Keys activo`);
+    console.log(`Servidor Shefa Plus Global — Modelo principal: gemini-3.5-flash-lite`);
     console.log(`Keys cargadas: ${API_KEYS.length}`);
 });
