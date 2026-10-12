@@ -19,8 +19,26 @@ const MIME_TYPES = {
     '.txt': 'text/plain'
 };
 
+// Resuelve tanto rutas directas como rutas limpias sin extensión .html
+function resolvePath(urlPath) {
+    let safePath = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
+    if (safePath === '/' || safePath === '\\') safePath = '/index.html';
+
+    let fullPath = path.join(__dirname, safePath);
+
+    if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) return fullPath;
+    if (fs.existsSync(fullPath + '.html') && fs.statSync(fullPath + '.html').isFile()) return fullPath + '.html';
+    
+    let dirIndex = path.join(fullPath, 'index.html');
+    if (fs.existsSync(dirIndex) && fs.statSync(dirIndex).isFile()) return dirIndex;
+
+    let fallback404 = path.join(__dirname, '404.html');
+    if (fs.existsSync(fallback404) && fs.statSync(fallback404).isFile()) return fallback404;
+
+    return null;
+}
+
 const server = http.createServer(async (req, res) => {
-    // Cabeceras CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -44,11 +62,11 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
 
     // ==========================================
-    // 1. ENDPOINT: ATENCIÓN AL CLIENTE CON GEMINI
+    // 1. ENDPOINT: CHAT CONTEXTUAL CON GEMINI
     // ==========================================
     if (pathname === '/api/chat' && req.method === 'POST') {
         try {
-            const { mensaje } = await readJson();
+            const { mensaje, pagina } = await readJson();
             const apiKey = process.env.GEMINI_API_KEY;
 
             if (!apiKey) {
@@ -56,33 +74,52 @@ const server = http.createServer(async (req, res) => {
                 return res.end(JSON.stringify({ error: 'Falta configurar GEMINI_API_KEY' }));
             }
 
-            const promptSistema = `Eres el asistente oficial de confianza de Shefa Plus Global (shefaplusglobal.com), una plataforma tecnológica y fintech en Colombia basada en principios de abundancia (Shefá), sustento (Parnasá) y tecnología de punta.
-Tu misión es atender con calidez, profesionalismo y visión estratégica a clientes e inversionistas. Explica los activos, proyectos y la propuesta de valor de la plataforma e invítalos cordialmente a contactarse. Respuestas concisas y profesionales.`;
+            // --- PROMPTS EDUCADOS SEGÚN LA SECCIÓN ---
+            let promptSistema = '';
+            const esLabs = pagina && (pagina.includes('labs') || pagina.includes('shefa-plus-labs'));
 
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+            if (esLabs) {
+                promptSistema = `Eres el Asistente Ejecutivo de "Shefa Plus Labs" (división de ingeniería de Shefa Plus Global - shefaplusglobal.com).
+Tu misión comercial es:
+1. Asesorar y cotizar el desarrollo de aplicaciones web y móviles a la medida (PWA, fintech, arquitecturas seguras y modo offline).
+2. Asesorar en adquisición, configuración y delegación de dominios web estratégicos para empresas.
+3. Resaltar la calidad de ingeniería, soporte y velocidad de entrega de Shefa Plus Labs.
+Enfoque de venta: Sé persuasivo, resolutivo, técnico y formal. Invita siempre al cliente a detallar su idea para armarle una cotización y conectar con el equipo directivo. Si quien te escribe es tu CEO o fundador, dale bienvenida ejecutiva con lealtad y total disposición.`;
+            } else {
+                promptSistema = `Eres el Asistente Oficial de "Shefa Plus Global" (shefaplusglobal.com), ecosistema tecnológico y fintech en Colombia guiado por principios de excelencia, abundancia (Shefá) y sustento (Parnasá).
+Tu misión es atender con visión de negocios a clientes e inversionistas interesados en tokenización RWA, soluciones tecnológicas y expansión corporativa. Si quien te escribe es tu CEO o fundador, salúdalo con respeto institucional y completa disposición operativa.`;
+            }
+
+            // Llamada oficial a Gemini 1.5 Flash
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
                         role: 'user',
-                        parts: [{ text: `${promptSistema}\n\nPregunta del usuario: ${mensaje}` }]
-                    }]
+                        parts: [{ text: `${promptSistema}\n\n[El cliente está viendo: ${pagina || 'página general'}]\nConsulta del usuario: ${mensaje}` }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 600
+                    }
                 })
             });
 
             const data = await geminiRes.json();
-            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Estamos atentos para atenderte. Por favor déjanos tu mensaje.';
+            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Estamos atentos a tu consulta. Por favor cuéntanos más detalles.';
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ respuesta }));
         } catch (err) {
+            console.error('Error en /api/chat:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Error procesando la solicitud' }));
         }
     }
 
     // ==========================================
-    // 2. ENDPOINT: PUBLICAR EN META CON GEMINI
+    // 2. ENDPOINT: PUBLICACIÓN EN META
     // ==========================================
     if (pathname === '/api/publicar-meta' && req.method === 'POST') {
         try {
@@ -95,15 +132,12 @@ Tu misión es atender con calidez, profesionalismo y visión estratégica a clie
                 return res.end(JSON.stringify({ error: 'Faltan credenciales de Meta' }));
             }
 
-            // A. Redactar el post con Gemini
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`, {
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
-                        parts: [{
-                            text: 'Redacta un post publicitario persuasivo y profesional para Facebook sobre Shefa Plus Global (shefaplusglobal.com), destacando la visión tecnológica, innovación y oportunidades de inversión. Incluye llamada a la acción y 4 hashtags.'
-                        }]
+                        parts: [{ text: 'Redacta un post publicitario persuasivo para Facebook sobre Shefa Plus Global y Shefa Plus Labs (shefaplusglobal.com), destacando el desarrollo de aplicaciones y dominios web. Incluye llamada a la acción y 4 hashtags.' }]
                     }]
                 })
             });
@@ -111,7 +145,6 @@ Tu misión es atender con calidez, profesionalismo y visión estratégica a clie
             const geminiData = await geminiRes.json();
             const postTexto = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
 
-            // B. Publicar en Facebook/Meta Graph API
             const metaRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/feed`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -131,25 +164,21 @@ Tu misión es atender con calidez, profesionalismo y visión estratégica a clie
     }
 
     // ==========================================
-    // 3. SERVIR ARCHIVOS ESTÁTICOS (HTML, CSS, JS)
+    // 3. ENRUTADOR ESTÁTICO COMPLETO
     // ==========================================
-    let safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
-    if (safePath === '/' || safePath === '\\') safePath = '/index.html';
-    const filePath = path.join(__dirname, safePath);
+    const filePath = resolvePath(pathname);
 
-    fs.stat(filePath, (err, stats) => {
-        if (err || !stats.isFile()) {
-            res.writeHead(404, { 'Content-Type': 'text/plain' });
-            return res.end('Página no encontrada');
-        }
-        const ext = path.extname(filePath).toLowerCase();
-        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-        res.writeHead(200, { 'Content-Type': contentType });
-        fs.createReadStream(filePath).pipe(res);
-    });
+    if (!filePath) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
+        return res.end('Página no encontrada');
+    }
+
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    res.writeHead(200, { 'Content-Type': contentType });
+    fs.createReadStream(filePath).pipe(res);
 });
 
 server.listen(PORT, () => {
-    console.log(`Servidor Shefa Plus Global ejecutándose en el puerto ${PORT}`);
+    console.log(`Servidor Shefa Plus Global activo en puerto ${PORT}`);
 });
-  
