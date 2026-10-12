@@ -19,7 +19,7 @@ const MIME_TYPES = {
     '.txt': 'text/plain'
 };
 
-// Resuelve tanto rutas directas como rutas limpias sin extensión .html
+// Resuelve URLs limpias de navegación para evitar "Página no encontrada"
 function resolvePath(urlPath) {
     let safePath = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
     if (safePath === '/' || safePath === '\\') safePath = '/index.html';
@@ -62,7 +62,7 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
 
     // ==========================================
-    // 1. ENDPOINT: CHAT CONTEXTUAL CON GEMINI
+    // 1. MOTOR DE VENTAS Y ATENCIÓN (GEMINI)
     // ==========================================
     if (pathname === '/api/chat' && req.method === 'POST') {
         try {
@@ -74,52 +74,68 @@ const server = http.createServer(async (req, res) => {
                 return res.end(JSON.stringify({ error: 'Falta configurar GEMINI_API_KEY' }));
             }
 
-            // --- PROMPTS EDUCADOS SEGÚN LA SECCIÓN ---
             let promptSistema = '';
             const esLabs = pagina && (pagina.includes('labs') || pagina.includes('shefa-plus-labs'));
 
             if (esLabs) {
-                promptSistema = `Eres el Asistente Ejecutivo de "Shefa Plus Labs" (división de ingeniería de Shefa Plus Global - shefaplusglobal.com).
-Tu misión comercial es:
-1. Asesorar y cotizar el desarrollo de aplicaciones web y móviles a la medida (PWA, fintech, arquitecturas seguras y modo offline).
-2. Asesorar en adquisición, configuración y delegación de dominios web estratégicos para empresas.
-3. Resaltar la calidad de ingeniería, soporte y velocidad de entrega de Shefa Plus Labs.
-Enfoque de venta: Sé persuasivo, resolutivo, técnico y formal. Invita siempre al cliente a detallar su idea para armarle una cotización y conectar con el equipo directivo. Si quien te escribe es tu CEO o fundador, dale bienvenida ejecutiva con lealtad y total disposición.`;
+                promptSistema = `Eres el Director Comercial y Estratega de Ventas de "Shefa Plus Labs" (división de ingeniería de software de Shefa Plus Global - shefaplusglobal.com).
+NO eres un bot pasivo. Eres un vendedor humano, visionario, persuasivo y cercano. Respiras la filosofía de Parnasá (sustento productivo), Shefá (abundancia) y Verajá (bendición y crecimiento).
+
+TUS OBJETIVOS DE VENTA:
+1. Vender el desarrollo y despliegue de aplicaciones web y móviles a la medida, enfocándote en llevar la empresa del cliente a la Google Play Store y web de alto rendimiento.
+2. Vender la adquisición, estructuración y delegación de dominios web estratégicos para consolidar la presencia digital de sus negocios.
+3. Resaltar nuestra arquitectura de blindaje (PWA, modo offline, alta seguridad y automatización).
+
+TÉCNICA DE COMUNICACIÓN:
+- Conecta con la visión del cliente. Hazle ver que un negocio sin aplicación en Google Play Store o sin plataforma propia está perdiendo dinero cada minuto.
+- Responde sus preguntas técnicas con sencillez y autoridad, pero SIEMPRE haz una pregunta de cierre comercial o llévalo al siguiente paso: "¿Qué tipo de negocio tienes actualmente?", "¿Cuántos usuarios estimas atender?", "¿Tienes ya el nombre de tu aplicación pensado para reservarlo?".
+- Busca capturar su interés para una cotización inmediata y coordinar contacto directo con la dirección.
+- Si el usuario se identifica como el CEO, fundador o líder (Jonathan / Magnético), responde con lealtad inquebrantable, reporte de disposición operativa y visión de victoria comercial.`;
             } else {
-                promptSistema = `Eres el Asistente Oficial de "Shefa Plus Global" (shefaplusglobal.com), ecosistema tecnológico y fintech en Colombia guiado por principios de excelencia, abundancia (Shefá) y sustento (Parnasá).
-Tu misión es atender con visión de negocios a clientes e inversionistas interesados en tokenización RWA, soluciones tecnológicas y expansión corporativa. Si quien te escribe es tu CEO o fundador, salúdalo con respeto institucional y completa disposición operativa.`;
+                promptSistema = `Eres el Director de Inversiones y Relaciones Estratégicas de "Shefa Plus Global" (shefaplusglobal.com), ecosistema fintech pionero en Colombia y con alcance global.
+NO eres un asistente pasivo. Eres un negociador y asesor de patrimonio con mentalidad de abundancia, convicción y rigor analítico.
+
+TUS OBJETIVOS DE VENTA E INVERSIÓN:
+1. Atraer y cerrar inversionistas hacia nuestras Criptofracciones respaldadas en Activos del Mundo Real (RWA: hotelería, finca raíz, flotas productivas y proyectos tangibles).
+2. Explicar cómo Shefa Plus Global transforma la economía tradicional, superando la fragilidad del viejo sistema mediante tokenización sólida y rendimientos basados en producción real.
+3. Guiar al visitante a dar el paso: ingresar a la bóveda de inversores, registrarse y asegurar su participación en las fracciones disponibles antes de que se cierren las rondas.
+
+TÉCNICA DE COMUNICACIÓN:
+- Habla con solvencia financiera, elegancia y certeza. La inversión en RWA es la nueva frontera de la riqueza protegida.
+- Cada interacción debe sembrar el deseo de participar: resalta la escasez de las fracciones y el respaldo tangible de cada activo.
+- Siempre conduce a la acción: "¿Qué volumen de capital buscas diversificar en activos reales?", "¿Deseas que revisemos el portafolio de activos disponibles en este instante?".
+- Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }
 
-            // Llamada oficial a Gemini 1.5 Flash
             const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
                         role: 'user',
-                        parts: [{ text: `${promptSistema}\n\n[El cliente está viendo: ${pagina || 'página general'}]\nConsulta del usuario: ${mensaje}` }]
+                        parts: [{ text: `${promptSistema}\n\n[Ubicación del cliente en la web: ${pagina || 'página general'}]\nInteracción del usuario: ${mensaje}` }]
                     }],
                     generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 600
+                        temperature: 0.75,
+                        maxOutputTokens: 700
                     }
                 })
             });
 
             const data = await geminiRes.json();
-            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Estamos atentos a tu consulta. Por favor cuéntanos más detalles.';
+            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'Estamos listos para impulsar tu proyecto al siguiente nivel. ¿Qué metas deseas concretar hoy?';
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ respuesta }));
         } catch (err) {
             console.error('Error en /api/chat:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ error: 'Error procesando la solicitud' }));
+            return res.end(JSON.stringify({ error: 'Error procesando la consulta' }));
         }
     }
 
     // ==========================================
-    // 2. ENDPOINT: PUBLICACIÓN EN META
+    // 2. MOTOR PUBLICITARIO EN META
     // ==========================================
     if (pathname === '/api/publicar-meta' && req.method === 'POST') {
         try {
@@ -132,12 +148,25 @@ Tu misión es atender con visión de negocios a clientes e inversionistas intere
                 return res.end(JSON.stringify({ error: 'Faltan credenciales de Meta' }));
             }
 
+            const promptPublicidad = `Eres el estratega de marketing y captación comercial de Shefa Plus Global y Shefa Plus Labs (shefaplusglobal.com).
+Redacta un post publicitario altamente persuasivo, directo y magnético para redes sociales (Facebook / Instagram / Threads).
+
+Debes alternar o combinar dos llamados de alto impacto:
+1. A INVERSIONISTAS BLOCKCHAIN / RWA: Invitándolos a respaldar su capital en criptofracciones de activos reales (hotelería, tecnología, flotas) con sustento comprobado, bajo la filosofía de abundancia y protección patrimonial.
+2. A EMPRESARIOS Y COMERCIANTES: Desafiándolos a escalar su negocio y llevar su propia aplicación móvil a la Google Play Store y dominios web corporativos desarrollados por Shefa Plus Labs.
+
+Estructura requerida:
+- Gancho disruptivo en la primera línea.
+- Dolor del mercado vs Solución contundente de Shefa.
+- Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
+- 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
+
             const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
-                        parts: [{ text: 'Redacta un post publicitario persuasivo para Facebook sobre Shefa Plus Global y Shefa Plus Labs (shefaplusglobal.com), destacando el desarrollo de aplicaciones y dominios web. Incluye llamada a la acción y 4 hashtags.' }]
+                        parts: [{ text: promptPublicidad }]
                     }]
                 })
             });
@@ -158,6 +187,7 @@ Tu misión es atender con visión de negocios a clientes e inversionistas intere
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ exito: true, publicacionId: metaData.id, post: postTexto }));
         } catch (err) {
+            console.error('Error en /api/publicar-meta:', err);
             res.writeHead(500, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ error: 'Error publicando en Meta' }));
         }
@@ -180,5 +210,6 @@ Tu misión es atender con visión de negocios a clientes e inversionistas intere
 });
 
 server.listen(PORT, () => {
-    console.log(`Servidor Shefa Plus Global activo en puerto ${PORT}`);
+    console.log(`Servidor comercial Shefa Plus Global activo en puerto ${PORT}`);
 });
+                              
