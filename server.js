@@ -106,8 +106,10 @@ TÉCNICA DE COMUNICACIÓN:
 - Siempre conduce a la acción: "¿Qué volumen de capital buscas diversificar en activos reales?", "¿Deseas que revisemos el portafolio de activos disponibles en este instante?".
 - Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }  
-const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-    method: 'POST',
+
+            // ===== CAMBIO PRINCIPAL AQUÍ =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
@@ -121,20 +123,22 @@ const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/
                 })
             });
 
-const data = await geminiRes.json();
+            const data = await geminiRes.json();
 
-// Si Google rechaza la llave, la IA te avisa directamente en el chat
-if (!geminiRes.ok) {
-    console.error("Error de Google Gemini:", data);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify({ respuesta: `⚠️ ALERTA DE SISTEMA: La IA está desconectada. Error de Google: ${data.error?.message || 'Revisa la llave en Render'}` }));
-}
+            // Si Google rechaza la llave, la IA te avisa directamente en el chat
+            if (!geminiRes.ok) {
+                console.error("Error de Google Gemini:", data);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ 
+                    respuesta: `⚠️ ALERTA DE SISTEMA: La IA está desconectada. Error de Google: ${data.error?.message || 'Revisa la llave en Render'}` 
+                }));
+            }
 
-// Si responde bien, manda el texto humano
-const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude estructurar la respuesta, intenta de nuevo.';
+            // Si responde bien, manda el texto humano
+            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude estructurar la respuesta, intenta de nuevo.';
 
-res.writeHead(200, { 'Content-Type': 'application/json' });
-return res.end(JSON.stringify({ respuesta }));
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ respuesta }));
 
         } catch (err) {
             console.error('Error en /api/chat:', err);
@@ -170,7 +174,8 @@ Estructura requerida:
 - Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
 - 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
 
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
+            // ===== TAMBIÉN ACTUALIZADO AQUÍ =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${geminiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -221,4 +226,3 @@ Estructura requerida:
 server.listen(PORT, () => {
     console.log(`Servidor comercial Shefa Plus Global activo en puerto ${PORT}`);
 });
-                              
