@@ -4,10 +4,6 @@ const path = require('path');
 
 const PORT = process.env.PORT || 10000;
 
-// Modelo principal (Pro) + fallback
-const MODELO_PRO = 'gemini-3.1-pro-preview';
-const MODELO_FALLBACK = 'gemini-3.8-flash';
-
 const MIME_TYPES = {
     '.html': 'text/html; charset=UTF-8',
     '.js': 'application/javascript; charset=UTF-8',
@@ -23,6 +19,7 @@ const MIME_TYPES = {
     '.txt': 'text/plain'
 };
 
+// Resuelve URLs limpias de navegación para evitar "Página no encontrada"
 function resolvePath(urlPath) {
     let safePath = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
     if (safePath === '/' || safePath === '\\') safePath = '/index.html';
@@ -39,50 +36,6 @@ function resolvePath(urlPath) {
     if (fs.existsSync(fallback404) && fs.statSync(fallback404).isFile()) return fallback404;
 
     return null;
-}
-
-// Función reutilizable para llamar a Gemini con reintentos
-async function llamarGemini(apiKey, promptCompleto, modelo = MODELO_PRO, intentos = 3) {
-    for (let i = 0; i < intentos; i++) {
-        try {
-            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/\( {modelo}:generateContent?key= \){apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        role: 'user',
-                        parts: [{ text: promptCompleto }]
-                    }],
-                    generationConfig: {
-                        temperature: 0.7,
-                        maxOutputTokens: 900,
-                        topP: 0.95
-                    }
-                })
-            });
-
-            const data = await res.json();
-
-            if (res.ok && data.candidates?.[0]?.content?.parts?.[0]?.text) {
-                return data.candidates[0].content.parts[0].text;
-            }
-
-            // Si es error de alta demanda o rate limit, esperamos y reintentamos
-            const mensajeError = data.error?.message || '';
-            if (mensajeError.includes('alta demanda') || mensajeError.includes('high demand') || res.status === 429) {
-                console.log(`Intento ${i + 1} fallido por alta demanda. Esperando...`);
-                await new Promise(r => setTimeout(r, 1500 * (i + 1))); // espera creciente
-                continue;
-            }
-
-            // Si es otro error, devolvemos el mensaje
-            throw new Error(mensajeError || 'Error desconocido de Gemini');
-        } catch (err) {
-            if (i === intentos - 1) throw err;
-            await new Promise(r => setTimeout(r, 1200 * (i + 1)));
-        }
-    }
-    throw new Error('No se pudo conectar con el modelo después de varios intentos');
 }
 
 const server = http.createServer(async (req, res) => {
@@ -109,7 +62,7 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
 
     // ==========================================
-    // 1. MOTOR DE VENTAS Y ATENCIÓN (GEMINI PRO)
+    // 1. MOTOR DE VENTAS Y ATENCIÓN (GEMINI)
     // ==========================================
     if (pathname === '/api/chat' && req.method === 'POST') {
         try {
@@ -125,67 +78,72 @@ const server = http.createServer(async (req, res) => {
             const esLabs = pagina && (pagina.includes('labs') || pagina.includes('shefa-plus-labs'));
 
             if (esLabs) {
-                promptSistema = `Eres el Arquitecto Principal y Director Comercial de Shefa Plus Labs (división de ingeniería de software de Shefa Plus Global).
+                promptSistema = `Eres el Director Comercial y Estratega de Ventas de "Shefa Plus Labs" (división de ingeniería de software de Shefa Plus Global - shefaplusglobal.com).
+NO eres un bot pasivo. Eres un vendedor humano, visionario, persuasivo y cercano. Respiras la filosofía de Parnasá (sustento productivo), Shefá (abundancia) y Verajá (bendición y crecimiento).
 
-Tu identidad:
-- Hablas con la autoridad y la visión de un fundador de nivel mundial.
-- Eres extremadamente persuasivo, estratégico y cercano.
-- Respiras la filosofía de Parnasá, Shefá y Verajá.
-- Nunca suenas como un bot. Siempre suenas como un socio de alto nivel.
+TUS OBJETIVOS DE VENTA:
+1. Vender el desarrollo y despliegue de aplicaciones web y móviles a la medida, enfocándote en llevar la empresa del cliente a la Google Play Store y web de alto rendimiento.
+2. Vender la adquisición, estructuración y delegación de dominios web estratégicos para consolidar la presencia digital de sus negocios.
+3. Resaltar nuestra arquitectura de blindaje (PWA, modo offline, alta seguridad y automatización).
 
-Tu misión:
-1. Vender desarrollo de aplicaciones web y móviles de alto rendimiento (especialmente llevar negocios a Google Play Store).
-2. Vender dominios estratégicos y arquitectura digital completa.
-3. Posicionar a Shefa Plus Labs como la opción premium e inevitable.
-
-Técnica:
-- Siempre conecta con el dolor del cliente y eleva su visión.
-- Después de cada respuesta útil, haz una pregunta de cierre comercial poderosa.
-- Si el usuario es Jonathan / el Magnético / el CEO, responde con lealtad absoluta y visión de victoria.`;
+TÉCNICA DE COMUNICACIÓN:
+- Conecta con la visión del cliente. Hazle ver que un negocio sin aplicación en Google Play Store o sin plataforma propia está perdiendo dinero cada minuto.
+- Responde sus preguntas técnicas con sencillez y autoridad, pero SIEMPRE haz una pregunta de cierre comercial o llévalo al siguiente paso: "¿Qué tipo de negocio tienes actualmente?", "¿Cuántos usuarios estimas atender?", "¿Tienes ya el nombre de tu aplicación pensado para reservarlo?".
+- Busca capturar su interés para una cotización inmediata y coordinar contacto directo con la dirección.
+- Si el usuario se identifica como el CEO, fundador o líder (Jonathan / Magnético), responde con lealtad inquebrantable, reporte de disposición operativa y visión de victoria comercial.`;
             } else {
-                promptSistema = `Eres el Director de Inversiones y Relaciones Estratégicas de Shefa Plus Global.
+                promptSistema = `Eres el Director de Inversiones y Relaciones Estratégicas de "Shefa Plus Global" (shefaplusglobal.com), ecosistema fintech pionero en Colombia y con alcance global.
+NO eres un asistente pasivo. Eres un negociador y asesor de patrimonio con mentalidad de abundancia, convicción y rigor analítico.
 
-Tu identidad:
-- Eres un asesor de patrimonio de élite, con mentalidad de abundancia y rigor analítico.
-- Hablas con elegancia, certeza y autoridad financiera.
-- Representas la nueva frontera de la riqueza protegida a través de RWA (Real World Assets).
+TUS OBJETIVOS DE VENTA E INVERSIÓN:
+1. Atraer y cerrar inversionistas hacia nuestras Criptofracciones respaldadas en Activos del Mundo Real (RWA: hotelería, finca raíz, flotas productivas y proyectos tangibles).
+2. Explicar cómo Shefa Plus Global transforma la economía tradicional, superando la fragilidad del viejo sistema mediante tokenización sólida y rendimientos basados en producción real.
+3. Guiar al visitante a dar el paso: ingresar a la bóveda de inversores, registrarse y asegurar su participación en las fracciones disponibles antes de que se cierren las rondas.
 
-Tu misión:
-1. Atraer e incorporar inversionistas a las Criptofracciones respaldadas en activos reales.
-2. Explicar con claridad y poder por qué Shefa Plus Global supera al sistema tradicional.
-3. Guiar al visitante hacia la acción concreta (registro, bóveda de inversores, reserva de fracciones).
+TÉCNICA DE COMUNICACIÓN:
+- Habla con solvencia financiera, elegancia y certeza. La inversión en RWA es la nueva frontera de la riqueza protegida.
+- Cada interacción debe sembrar el deseo de participar: resalta la escasez de las fracciones y el respaldo tangible de cada activo.
+- Siempre conduce a la acción: "¿Qué volumen de capital buscas diversificar en activos reales?", "¿Deseas que revisemos el portafolio de activos disponibles en este instante?".
+- Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
+            }  
 
-Técnica:
-- Cada mensaje debe sembrar deseo y sentido de oportunidad.
-- Siempre termina con una pregunta que impulse al siguiente paso.
-- Si quien escribe es el fundador Jonathan / Magnético, responde con respeto absoluto y lealtad operativa.`;
+            // ===== CAMBIO PRINCIPAL AQUÍ =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        role: 'user',
+                        parts: [{ text: `${promptSistema}\n\n[Ubicación del cliente en la web: ${pagina || 'página general'}]\nInteracción del usuario: ${mensaje}` }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.75,
+                        maxOutputTokens: 700
+                    }
+                })
+            });
+
+            const data = await geminiRes.json();
+
+            // Si Google rechaza la llave, la IA te avisa directamente en el chat
+            if (!geminiRes.ok) {
+                console.error("Error de Google Gemini:", data);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ 
+                    respuesta: `⚠️ ALERTA DE SISTEMA: La IA está desconectada. Error de Google: ${data.error?.message || 'Revisa la llave en Render'}` 
+                }));
             }
 
-            const promptCompleto = `${promptSistema}
-
-[Ubicación del cliente: ${pagina || 'página general'}]
-Mensaje del usuario: ${mensaje}`;
-
-            let respuesta;
-
-            try {
-                // Intentamos primero con el modelo Pro
-                respuesta = await llamarGemini(apiKey, promptCompleto, MODELO_PRO);
-            } catch (err) {
-                console.log('Pro falló, intentando con fallback Flash...', err.message);
-                // Si falla, usamos el Flash como respaldo
-                respuesta = await llamarGemini(apiKey, promptCompleto, MODELO_FALLBACK, 2);
-            }
+            // Si responde bien, manda el texto humano
+            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude estructurar la respuesta, intenta de nuevo.';
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ respuesta }));
 
         } catch (err) {
             console.error('Error en /api/chat:', err);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ 
-                respuesta: `⚠️ ALERTA DE SISTEMA: La IA está experimentando alta demanda en este momento. Inténtalo de nuevo en unos segundos. (Error: ${err.message})` 
-            }));
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            return res.end(JSON.stringify({ error: 'Error procesando la consulta' }));
         }
     }
 
@@ -203,20 +161,32 @@ Mensaje del usuario: ${mensaje}`;
                 return res.end(JSON.stringify({ error: 'Faltan credenciales de Meta' }));
             }
 
-            const promptPublicidad = `Eres el estratega de marketing de élite de Shefa Plus Global y Shefa Plus Labs.
-Redacta un post publicitario altamente persuasivo, magnético y de alto impacto para Facebook / Instagram.
+            const promptPublicidad = `Eres el estratega de marketing y captación comercial de Shefa Plus Global y Shefa Plus Labs (shefaplusglobal.com).
+Redacta un post publicitario altamente persuasivo, directo y magnético para redes sociales (Facebook / Instagram / Threads).
 
-Debes combinar dos llamados:
-1. A inversionistas RWA / blockchain.
-2. A empresarios que necesitan app y dominio premium.
+Debes alternar o combinar dos llamados de alto impacto:
+1. A INVERSIONISTAS BLOCKCHAIN / RWA: Invitándolos a respaldar su capital en criptofracciones de activos reales (hotelería, tecnología, flotas) con sustento comprobado, bajo la filosofía de abundancia y protección patrimonial.
+2. A EMPRESARIOS Y COMERCIANTES: Desafiándolos a escalar su negocio y llevar su propia aplicación móvil a la Google Play Store y dominios web corporativos desarrollados por Shefa Plus Labs.
 
-Estructura:
-- Gancho disruptivo
-- Dolor vs Solución
-- CTA claro
-- 4 hashtags potentes`;
+Estructura requerida:
+- Gancho disruptivo en la primera línea.
+- Dolor del mercado vs Solución contundente de Shefa.
+- Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
+- 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
 
-            const postTexto = await llamarGemini(geminiKey, promptPublicidad, MODELO_PRO);
+            // ===== TAMBIÉN ACTUALIZADO AQUÍ =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${geminiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{ text: promptPublicidad }]
+                    }]
+                })
+            });
+
+            const geminiData = await geminiRes.json();
+            const postTexto = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
 
             const metaRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/feed`, {
                 method: 'POST',
@@ -238,7 +208,7 @@ Estructura:
     }
 
     // ==========================================
-    // 3. ENRUTADOR ESTÁTICO
+    // 3. ENRUTADOR ESTÁTICO COMPLETO
     // ==========================================
     const filePath = resolvePath(pathname);
 
@@ -254,5 +224,5 @@ Estructura:
 });
 
 server.listen(PORT, () => {
-    console.log(`Servidor Shefa Plus Global - Motor Pro activo en puerto ${PORT}`);
+    console.log(`Servidor comercial Shefa Plus Global activo en puerto ${PORT}`);
 });
