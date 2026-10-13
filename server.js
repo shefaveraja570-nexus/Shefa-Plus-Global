@@ -38,6 +38,22 @@ function resolvePath(urlPath) {
     return null;
 }
 
+// ==========================================
+// FUNCIÓN MAGNÉTICA: ROTACIÓN DE LLAVES API
+// ==========================================
+function obtenerLlaveAleatoria() {
+    // Lee la variable GEMINI_API_KEYS (donde estarán todas separadas por coma)
+    // O si solo hay una en GEMINI_API_KEY, usa esa.
+    const stringLlaves = process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY || '';
+    const llaves = stringLlaves.split(',').map(k => k.trim()).filter(k => k.length > 0);
+    
+    if (llaves.length === 0) return null;
+    
+    // Escoge una llave al azar del pool
+    const llaveElegida = llaves[Math.floor(Math.random() * llaves.length)];
+    return llaveElegida;
+}
+
 const server = http.createServer(async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -67,11 +83,13 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/chat' && req.method === 'POST') {
         try {
             const { mensaje, pagina } = await readJson();
-            const apiKey = process.env.GEMINI_API_KEY;
+            
+            // Llama a la función rotadora de llaves
+            const apiKey = obtenerLlaveAleatoria();
 
             if (!apiKey) {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ error: 'Falta configurar GEMINI_API_KEY' }));
+                return res.end(JSON.stringify({ error: 'Faltan las llaves de GEMINI_API_KEYS en Render' }));
             }
 
             let promptSistema = '';
@@ -107,7 +125,7 @@ TÉCNICA DE COMUNICACIÓN:
 - Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }  
 
-            // ===== CAMBIO PRINCIPAL AQUÍ =====
+            // NOTA: Mantuve tu modelo tal cual lo dejaste
             const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -125,16 +143,14 @@ TÉCNICA DE COMUNICACIÓN:
 
             const data = await geminiRes.json();
 
-            // Si Google rechaza la llave, la IA te avisa directamente en el chat
             if (!geminiRes.ok) {
                 console.error("Error de Google Gemini:", data);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 return res.end(JSON.stringify({ 
-                    respuesta: `⚠️ ALERTA DE SISTEMA: La IA está desconectada. Error de Google: ${data.error?.message || 'Revisa la llave en Render'}` 
+                    respuesta: `⚠️ ALERTA DE SISTEMA: La IA está saturada. Error de Google: ${data.error?.message || 'Intenta de nuevo en unos segundos.'}` 
                 }));
             }
 
-            // Si responde bien, manda el texto humano
             const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude estructurar la respuesta, intenta de nuevo.';
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -152,7 +168,7 @@ TÉCNICA DE COMUNICACIÓN:
     // ==========================================
     if (pathname === '/api/publicar-meta' && req.method === 'POST') {
         try {
-            const geminiKey = process.env.GEMINI_API_KEY;
+            const geminiKey = obtenerLlaveAleatoria();
             const pageToken = process.env.META_PAGE_ACCESS_TOKEN;
             const pageId = process.env.META_PAGE_ID;
 
@@ -174,7 +190,6 @@ Estructura requerida:
 - Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
 - 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
 
-            // ===== TAMBIÉN ACTUALIZADO AQUÍ =====
             const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${geminiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -226,3 +241,4 @@ Estructura requerida:
 server.listen(PORT, () => {
     console.log(`Servidor comercial Shefa Plus Global activo en puerto ${PORT}`);
 });
+                                                                                 
