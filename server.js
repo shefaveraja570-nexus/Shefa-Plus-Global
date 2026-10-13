@@ -124,14 +124,17 @@ TÉCNICA DE COMUNICACIÓN:
 - Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }  
 
-            // ===h== LA AUTOPISTA VIP DE GOOGLE =====
-      const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
-          
-            eaders: { 'Content-Type': 'application/json' },
+                        // ===== LA AUTOPISTA VIP DE GOOGLE CON CEREBRO SEPARADO =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    system_instruction: {
+                        parts: [{ text: promptSistema }]
+                    },
                     contents: [{
                         role: 'user',
-                        parts: [{ text: `${promptSistema}\n\n[Ubicación del cliente en la web: ${pagina || 'página general'}]\nInteracción del usuario: ${mensaje}` }]
+                        parts: [{ text: `[Cliente navegando en la sección: ${pagina || 'página general'}]\nEl cliente dice: "${mensaje}"\n\n(Regla estricta: Analiza lo que pide el cliente, responde de forma persuasiva, humana y profesional. NUNCA repitas frases genéricas de cortesía. Si pregunta precios o cotizaciones, dale valor a la infraestructura y hazle una pregunta de cierre para clasificar su negocio).` }]
                     }],
                     generationConfig: {
                         temperature: 0.75,
@@ -139,6 +142,7 @@ TÉCNICA DE COMUNICACIÓN:
                     }
                 })
             });
+
 
             const data = await geminiRes.json();
 
@@ -189,16 +193,25 @@ Estructura requerida:
 - Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
 - 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
 
-            // ===== LA AUTOPISTA VIP DE GOOGLE PARA META =====
+                        // ===== LA AUTOPISTA VIP DE GOOGLE CON CEREBRO SEPARADO =====
             const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
-                
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    system_instruction: {
+                        parts: [{ text: promptSistema }]
+                    },
                     contents: [{
-                        parts: [{ text: promptPublicidad }]
-                    }]
+                        role: 'user',
+                        parts: [{ text: `[Cliente navegando en la sección: ${pagina || 'página general'}]\nEl cliente dice: "${mensaje}"\n\n(Regla estricta: Analiza lo que pide el cliente, responde de forma persuasiva, humana y profesional. NUNCA repitas frases genéricas de cortesía. Si pregunta precios o cotizaciones, dale valor a la infraestructura y hazle una pregunta de cierre para clasificar su negocio).` }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.75,
+                        maxOutputTokens: 700
+                    }
                 })
             });
+
 
             const geminiData = await geminiRes.json();
             const postTexto = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
