@@ -124,10 +124,10 @@ TÉCNICA DE COMUNICACIÓN:
 - Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }  
 
-            // ===== LA AUTOPISTA VIP DE GOOGLE =====
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+            // ===h== LA AUTOPISTA VIP DE GOOGLE =====
+      const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+          
+            eaders: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
                         role: 'user',
@@ -190,8 +190,8 @@ Estructura requerida:
 - 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
 
             // ===== LA AUTOPISTA VIP DE GOOGLE PARA META =====
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
-                method: 'POST',
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+                
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     contents: [{
