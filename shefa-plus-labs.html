@@ -342,24 +342,47 @@
             menu.classList.toggle('hidden');
         }
     </script>
-    <!-- Widget Comercial Autónomo Shefa Plus -->
-<div id="shefa-chat-btn" onclick="toggleShefaChat()" style="position:fixed;bottom:160px;right:20px;background:#0d6efd;color:#ffffff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.35);z-index:99999;">
+    <!-- ==========================================
+     WIDGET COMERCIAL SHEFA PLUS (RELOJ SUIZO)
+     ========================================== -->
+<style>
+  /* Inteligencia responsiva para celulares */
+  #shefa-chat-window, #shefa-chat-window * {
+    box-sizing: border-box;
+  }
+  @media screen and (max-width: 768px) {
+    #shefa-chat-window {
+      width: calc(100vw - 32px) !important; /* Ancho dinámico exacto */
+      right: 16px !important; 
+      left: auto !important;
+      bottom: 110px !important; /* Elevado para no chocar con "DISEÑOS" */
+      max-height: 70vh !important; /* No ocupa toda la altura de la pantalla */
+    }
+    #shefa-chat-btn {
+      bottom: 110px !important;
+      right: 16px !important;
+      transform: scale(0.9); /* Ligeramente más pequeño en celular */
+    }
+  }
+</style>
+
+<div id="shefa-chat-btn" onclick="toggleShefaChat()" style="position:fixed;bottom:160px;right:20px;background:#0d6efd;color:#ffffff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.35);z-index:99999;transition: transform 0.2s;">
   💬
 </div>
 
 <div id="shefa-chat-window" style="display:none;position:fixed;bottom:90px;right:20px;width:340px;height:460px;background:#ffffff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.3);flex-direction:column;overflow:hidden;z-index:99999;font-family:system-ui,-apple-system,sans-serif;">
   <div style="background:#0d6efd;color:#ffffff;padding:12px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
-    <span id="shefa-chat-title">Director Comercial Shefa</span>
-    <span onclick="toggleShefaChat()" style="cursor:pointer;font-size:18px;">✕</span>
+    <span id="shefa-chat-title" style="font-size:15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Director Comercial Shefa</span>
+    <span onclick="toggleShefaChat()" style="cursor:pointer;font-size:18px;line-height:1;">✕</span>
   </div>
-  <div id="shefa-messages" style="flex:1;padding:12px;overflow-y:auto;font-size:14px;display:flex;flex-direction:column;gap:8px;color:#222;">
-    <div id="shefa-welcome-msg" style="background:#f1f3f5;padding:10px 12px;border-radius:8px;max-width:88%;line-height:1.4;">
+  <div id="shefa-messages" style="flex:1;padding:12px;overflow-y:auto;overflow-x:hidden;font-size:14px;display:flex;flex-direction:column;gap:8px;color:#222;background:#fafafa;">
+    <div id="shefa-welcome-msg" style="background:#e9ecef;color:#111;padding:10px 12px;border-radius:8px;max-width:88%;line-height:1.4;word-wrap:break-word;">
       <!-- El mensaje se ajusta automáticamente por JavaScript -->
     </div>
   </div>
   <div style="padding:10px;border-top:1px solid #e9ecef;display:flex;gap:6px;background:#fff;">
     <input id="shefa-input" type="text" placeholder="Escribe tu consulta..." style="flex:1;padding:9px 12px;border:1px solid #ced4da;border-radius:8px;outline:none;font-size:14px;color:#000000;font-weight:500;" onkeypress="if(event.key==='Enter') enviarMensajeShefa()">
-<button onclick="enviarMensajeShefa()" style="background:#0d6efd;color:#fff;border:none;padding:9px 15px;border-radius:8px;cursor:pointer;font-weight:600;">Enviar</button>
+    <button onclick="enviarMensajeShefa()" style="background:#0d6efd;color:#fff;border:none;padding:9px 15px;border-radius:8px;cursor:pointer;font-weight:600;transition: background 0.2s;">Enviar</button>
   </div>
 </div>
 
@@ -389,14 +412,14 @@ async function enviarMensajeShefa() {
   const texto = input.value.trim();
   if (!texto) return;
 
-  // Mensaje del usuario
-  msgs.innerHTML += `<div style="background:#0d6efd;color:#fff;padding:9px 12px;border-radius:8px;align-self:flex-end;max-width:85%;line-height:1.4;">${texto}</div>`;
+  // Mensaje del usuario (Con break-word para que no se salga en móviles)
+  msgs.innerHTML += `<div style="background:#0d6efd;color:#fff;padding:9px 12px;border-radius:8px;align-self:flex-end;max-width:85%;line-height:1.4;word-wrap:break-word;">${texto}</div>`;
   input.value = '';
   msgs.scrollTop = msgs.scrollHeight;
 
   // Indicador de respuesta
   const loader = document.createElement('div');
-  loader.style = "background:#f1f3f5;padding:8px 12px;border-radius:8px;max-width:85%;color:#6c757d;font-style:italic;";
+  loader.style = "background:#e9ecef;padding:8px 12px;border-radius:8px;max-width:85%;color:#6c757d;font-style:italic;word-wrap:break-word;";
   loader.innerText = "Analizando propuesta...";
   msgs.appendChild(loader);
   msgs.scrollTop = msgs.scrollHeight;
@@ -412,14 +435,16 @@ async function enviarMensajeShefa() {
     });
     const data = await res.json();
     loader.remove();
-    msgs.innerHTML += `<div style="background:#f1f3f5;padding:9px 12px;border-radius:8px;max-width:88%;line-height:1.4;">${data.respuesta || 'Estamos a tu entera disposición.'}</div>`;
+    // Mensaje de la IA (Con break-word protector)
+    msgs.innerHTML += `<div style="background:#e9ecef;color:#111;padding:9px 12px;border-radius:8px;max-width:88%;line-height:1.4;word-wrap:break-word;">${data.respuesta || 'Estamos a tu entera disposición.'}</div>`;
   } catch (e) {
     loader.remove();
-    msgs.innerHTML += `<div style="background:#fff3cd;color:#856404;padding:8px 12px;border-radius:8px;max-width:85%;">Conexión en curso, intenta de nuevo en un instante.</div>`;
+    msgs.innerHTML += `<div style="background:#fff3cd;color:#856404;padding:8px 12px;border-radius:8px;max-width:85%;word-wrap:break-word;">Conexión en curso, intenta de nuevo en un instante.</div>`;
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
 </script>
+
     
 </body>
 </html>
