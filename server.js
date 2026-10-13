@@ -39,17 +39,16 @@ function resolvePath(urlPath) {
 }
 
 // ==========================================
-// FUNCIÓN MAGNÉTICA: ROTACIÓN DE LLAVES API
+// FUNCIÓN MAGNÉTICA: BALANCEADOR DE LLAVES API
 // ==========================================
 function obtenerLlaveAleatoria() {
-    // Lee la variable GEMINI_API_KEYS (donde estarán todas separadas por coma)
-    // O si solo hay una en GEMINI_API_KEY, usa esa.
+    // Lee todas las llaves separadas por coma desde Render
     const stringLlaves = process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY || '';
     const llaves = stringLlaves.split(',').map(k => k.trim()).filter(k => k.length > 0);
     
     if (llaves.length === 0) return null;
     
-    // Escoge una llave al azar del pool
+    // Escoge una llave al azar para evitar saturación de Google
     const llaveElegida = llaves[Math.floor(Math.random() * llaves.length)];
     return llaveElegida;
 }
@@ -84,7 +83,7 @@ const server = http.createServer(async (req, res) => {
         try {
             const { mensaje, pagina } = await readJson();
             
-            // Llama a la función rotadora de llaves
+            // Extrae una de las llaves de tus correos
             const apiKey = obtenerLlaveAleatoria();
 
             if (!apiKey) {
@@ -125,8 +124,8 @@ TÉCNICA DE COMUNICACIÓN:
 - Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
             }  
 
-            // NOTA: Mantuve tu modelo tal cual lo dejaste
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
+            // ===== LA AUTOPISTA VIP DE GOOGLE =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -147,7 +146,7 @@ TÉCNICA DE COMUNICACIÓN:
                 console.error("Error de Google Gemini:", data);
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 return res.end(JSON.stringify({ 
-                    respuesta: `⚠️ ALERTA DE SISTEMA: La IA está saturada. Error de Google: ${data.error?.message || 'Intenta de nuevo en unos segundos.'}` 
+                    respuesta: `⚠️ ALERTA DE SISTEMA: Conexión intermitente. Error de Google: ${data.error?.message || 'Intenta de nuevo en unos segundos.'}` 
                 }));
             }
 
@@ -190,7 +189,8 @@ Estructura requerida:
 - Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
 - 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
 
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${geminiKey}`, {
+            // ===== LA AUTOPISTA VIP DE GOOGLE PARA META =====
+            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -241,4 +241,4 @@ Estructura requerida:
 server.listen(PORT, () => {
     console.log(`Servidor comercial Shefa Plus Global activo en puerto ${PORT}`);
 });
-                                                                                 
+        
