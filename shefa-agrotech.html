@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shefa AgroTech | Demostración Comercial</title>
+    <style>
+        /* Diseño base optimizado para móviles y confianza B2B */
+        :root {
+            --agro-verde: #2E7D32; /* Verde corporativo agrícola */
+            --agro-claro: #E8F5E9;
+            --texto-oscuro: #1b1b1b;
+            --texto-gris: #555555;
+            --blanco: #ffffff;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: #f4f7f6; color: var(--texto-oscuro); line-height: 1.6; padding-bottom: 80px; }
+        
+        /* A. Portada Comercial */
+        header {
+            background: var(--agro-verde);
+            color: var(--blanco);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 28px; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
+        header p { font-size: 16px; opacity: 0.9; }
+
+        /* B. Catálogo Digital (Cuadrícula) */
+        .container { padding: 20px; max-width: 800px; margin: 0 auto; }
+        .section-title { font-size: 20px; font-weight: 700; margin: 20px 0 15px; color: var(--agro-verde); }
+        
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .producto-card {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .producto-img {
+            width: 100%;
+            height: 100px;
+            background: var(--agro-claro);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+        .producto-titulo { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+        .producto-cat { font-size: 12px; color: var(--texto-gris); margin-bottom: 10px; }
+        .btn-cotizar {
+            background: var(--agro-verde);
+            color: var(--blanco);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            width: 100%;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* C. Formulario de Cotización (Modal interactivo) */
+        #modal-cotizacion {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: flex-end;
+        }
+        .modal-content {
+            background: var(--blanco); width: 100%; max-width: 500px; border-top-left-radius: 20px;
+            border-top-right-radius: 20px; padding: 25px 20px; box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--texto-gris); }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px;
+        }
+        .btn-cerrar { float: right; background: none; border: none; font-size: 20px; cursor: pointer; color: #999; }
+
+        /* D. Contacto Comercial Flotante */
+        .btn-flotante {
+            position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white;
+            width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer; z-index: 900; text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- A. PORTADA COMERCIAL -->
+    <header>
+        <h1>Shefa AgroTech</h1>
+        <p>Infraestructura Digital para Distribuidores Agropecuarios</p>
+    </header>
+
+    <div class="container">
+        <!-- B. CATÁLOGO DIGITAL DEMOSTRATIVO -->
+        <h2 class="section-title">Catálogo de Demostración</h2>
+        <div class="grid-productos">
+            <!-- Producto 1 -->
+            <div class="producto-card">
+                <div class="producto-img">🌱</div>
+                <div class="producto-titulo">Fertilizante Orgánico Plus</div>
+                <div class="producto-cat">Nutrición Vegetal</div>
+                <button class="btn-cotizar" onclick="abrirCotizador('Fertilizante Orgánico Plus')">Solicitar Cotización</button>
+            </div>
+            <!-- Producto 2 -->
+            <div class="producto-card">
+                <div class="producto-img">🌽</div>
+                <div class="producto-titulo">Semilla Maíz Híbrido</div>
+                <div class="producto-cat">Semillas Premium</div>
+                <button class="btn-cotizar" onclick="abrirCotizador('Semilla Maíz Híbrido')">Solicitar Cotización</button>
+            </div>
+            <!-- Producto 3 -->
+            <div class="producto-card">
+                <div class="producto-img">💧</div>
+                <div class="producto-titulo">Cinta de Riego por Goteo</div>
+                <div class="producto-cat">Sistemas de Riego</div>
+                <button class="btn-cotizar" onclick="abrirCotizador('Cinta de Riego por Goteo')">Solicitar Cotización</button>
+            </div>
+        </div>
+
+        <!-- E. MENCIÓN DEL PANEL (Sin funcionalidad real aún, solo visual B2B) -->
+        <div style="margin-top: 40px; background: var(--agro-claro); padding: 20px; border-radius: 12px; text-align: center; border: 1px dashed var(--agro-verde);">
+            <h3 style="color: var(--agro-verde); font-size: 16px;">Módulo Administrativo (Próximamente)</h3>
+            <p style="font-size: 13px; margin-top: 8px; color: var(--texto-gris);">Desde su panel privado, la gerencia de AGRODAV podrá aprobar cotizaciones, gestionar inventario y visualizar estadísticas en tiempo real.</p>
+        </div>
+    </div>
+
+    <!-- C. FORMULARIO DE COTIZACIÓN (Simulado) -->
+    <div id="modal-cotizacion">
+        <div class="modal-content">
+            <button class="btn-cerrar" onclick="cerrarCotizador()">✕</button>
+            <h2 class="section-title" style="margin-top: 0;">Solicitar Cotización</h2>
+            <form id="form-cotizacion" onsubmit="enviarCotizacion(event)">
+                <div class="form-group">
+                    <label>Producto de interés</label>
+                    <input type="text" id="prod-interes" readonly style="background: #f1f1f1; font-weight: bold;">
+                </div>
+                <div class="form-group">
+                    <label>Nombre o Empresa</label>
+                    <input type="text" id="cliente-nombre" required placeholder="Ej. Distribuidora El Campo">
+                </div>
+                <div class="form-group">
+                    <label>Cantidad aproximada</label>
+                    <input type="number" id="cliente-cantidad" required placeholder="Ej. 100 bultos">
+                </div>
+                <button type="submit" class="btn-cotizar" style="padding: 12px; font-size: 15px; margin-top: 10px;">Generar Solicitud Virtual</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- D. CONTACTO COMERCIAL (Botón de WhatsApp) -->
+    <!-- Reemplaza el número con el tuyo o el de AGRODAV cuando esté aprobado -->
+    <a href="https://wa.me/573000000000?text=Hola,%20me%20interesa%20la%20infraestructura%20de%20Shefa%20AgroTech" class="btn-flotante" target="_blank">
+        💬
+    </a>
+
+    <script>
+        // Lógica de validación del formulario demostrativo
+        const modal = document.getElementById('modal-cotizacion');
+        const inputProd = document.getElementById('prod-interes');
+
+        function abrirCotizador(nombreProducto) {
+            inputProd.value = nombreProducto;
+            modal.style.display = 'flex';
+        }
+
+        function cerrarCotizador() {
+            modal.style.display = 'none';
+        }
+
+        function enviarCotizacion(e) {
+            e.preventDefault();
+            const cliente = document.getElementById('cliente-nombre').value;
+            const cantidad = document.getElementById('cliente-cantidad').value;
+            const producto = inputProd.value;
+            
+            // Simulación de éxito sin base de datos
+            alert(`¡Excelente! Hemos validado la solicitud de ${cantidad} unidades de ${producto} para ${cliente}.\n\nEsta es una demostración de la fluidez del sistema Shefa AgroTech.`);
+            cerrarCotizador();
+            document.getElementById('form-cotizacion').reset();
+        }
+
+        // Cerrar modal al tocar fondo oscuro
+        window.onclick = function(event) {
+            if (event.target == modal) cerrarCotizador();
+        }
+    </script>
+</body>
+</html>
