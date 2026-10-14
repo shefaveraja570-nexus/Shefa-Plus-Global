@@ -3,232 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGRODAV by Shefa AgroTech | Demostración Comercial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <title>Shefa AgroTech Suite | Escalabilidad B2B</title>
     <style>
-        /* Proporción Áurea Aplicada (1.618) */
+        /* Proporción Áurea (1.618) y Diseño Neuro-Visual */
         :root {
-            --verde-poder: #0f5132; /* Autoridad y confianza */
-            --oro-conversion: #d4af37; /* Neuro-ventas: Acción y premium */
-            --texto-oscuro: #1a1d20;
-            --fondo-limpio: #f8f9fa;
+            --verde-poder: #1B5E20;
+            --oro-conversion: #D4AF37;
+            --titanio-bg: #F5F7FA;
+            --texto-elite: #1A1A1A;
+            --blanco: #FFFFFF;
+            --sombra-aurea: 0 8px 15px rgba(0,0,0,0.08);
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--fondo-limpio); color: var(--texto-oscuro); line-height: 1.618; padding-bottom: 100px; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--titanio-bg); color: var(--texto-elite); line-height: 1.618; padding-bottom: 90px; overflow-x: hidden; }
+        
         /* HEADER Y MENÚ HAMBURGUESA */
         header {
-            background: #ffffff;
-            padding: 15px 24px;
+            background: var(--verde-poder);
+            color: var(--blanco);
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
+            box-shadow: var(--sombra-aurea);
         }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-placeholder {
-            width: 45px; height: 45px;
-            background: url('https://via.placeholder.com/45x45/0f5132/ffffff?text=AG') center/cover;
+        .menu-btn { font-size: 24px; background: none; border: none; color: var(--blanco); cursor: pointer; }
+        .logo-placeholder { 
+            font-weight: 800; font-size: 18px; letter-spacing: 1px; 
+            border: 1px dashed var(--oro-conversion); padding: 5px 10px; border-radius: 4px;
+        }
+        .login-icons { display: flex; gap: 10px; font-size: 12px; font-weight: 600; }
+        .login-icons span { background: rgba(255,255,255,0.1); padding: 5px 8px; border-radius: 4px; cursor: pointer; }
+
+        /* MENÚ LATERAL */
+        #menu-lateral {
+            position: fixed; top: 0; left: -100%; width: 80%; max-width: 300px; height: 100vh;
+            background: var(--blanco); box-shadow: 5px 0 15px rgba(0,0,0,0.2); z-index: 1001;
+            transition: left 0.3s ease; padding: 20px; overflow-y: auto;
+        }
+        #menu-lateral.activo { left: 0; }
+        .menu-cerrar { font-size: 24px; text-align: right; cursor: pointer; color: var(--verde-poder); font-weight: bold; }
+        .menu-item { padding: 15px 0; border-bottom: 1px solid #eee; font-weight: 600; font-size: 15px; }
+
+        /* DASHBOARD 161% NEURO-VENTAS */
+        .dashboard-impacto {
+            background: linear-gradient(135deg, var(--verde-poder), #2E7D32);
+            color: var(--blanco);
+            margin: 20px;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--sombra-aurea);
+            position: relative;
+            overflow: hidden;
+        }
+        .dashboard-impacto h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; color: var(--oro-conversion); }
+        .cifra-impacto { font-size: 42px; font-weight: 900; line-height: 1; margin-bottom: 5px; }
+        .flecha-up { color: #00E676; font-size: 28px; vertical-align: middle; }
+
+        /* CATÁLOGO PROPORCIÓN ÁUREA CON IMÁGENES REALES */
+        .container { padding: 0 20px; max-width: 1200px; margin: 0 auto; }
+        .grid-productos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .card-aurea {
+            background: var(--blanco);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--sombra-aurea);
+            border-top: 4px solid var(--verde-poder);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease;
+        }
+        .card-aurea:hover { transform: translateY(-5px); }
+        .card-img {
+            width: 100%;
+            height: 180px; /* Altura controlada para mantener armonía visual */
+            object-fit: cover; /* Ajuste perfecto sin deformar la foto */
             border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #eee;
         }
-        .brand-name { font-weight: 900; font-size: 1.2rem; color: var(--verde-poder); letter-spacing: -0.5px; line-height: 1; }
-        .brand-sub { font-size: 0.7rem; color: #6c757d; font-weight: 500; letter-spacing: 1px; }
+        .card-titulo { font-size: 18px; font-weight: 800; margin-bottom: 5px; line-height: 1.2; }
+        .card-desc { font-size: 13px; color: #666; margin-bottom: 15px; line-height: 1.4; flex-grow: 1; }
         
-        .hamburger { font-size: 28px; cursor: pointer; color: var(--verde-poder); user-select: none; }
+        .btn-grupo { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+        .btn-carrito { background: #E0E0E0; color: var(--texto-elite); border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .btn-pago { background: var(--oro-conversion); color: var(--blanco); border: none; padding: 12px; border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 14px; box-shadow: 0 4px 6px rgba(212, 175, 55, 0.3); }
 
-        /* MENÚ LATERAL (Neuro-arquitectura) */
-        #side-menu {
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh;
-            background: #ffffff; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2000;
-            display: flex; flex-direction: column; overflow-y: auto;
+        /* BOTONES FLOTANTES */
+        .flotante-ia {
+            position: fixed; bottom: 90px; right: 20px; background: #000; color: #fff;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); cursor: pointer; z-index: 900; border: 2px solid var(--oro-conversion);
         }
-        #side-menu.open { right: 0; }
-        .menu-header { padding: 20px; display: flex; justify-content: flex-end; border-bottom: 1px solid #eee; }
-        .close-menu { font-size: 24px; cursor: pointer; color: #999; }
-        .menu-section { padding: 20px; border-bottom: 1px solid #f0f0f0; }
-        .menu-title { font-size: 0.8rem; text-transform: uppercase; color: #adb5bd; font-weight: 700; margin-bottom: 12px; letter-spacing: 1px; }
-        .menu-link { display: block; padding: 10px 0; color: var(--texto-oscuro); font-weight: 600; text-decoration: none; font-size: 1.1rem; }
-        .menu-link.admin { color: var(--verde-poder); }
-
-        /* HERO & DASHBOARD (Gatillo de Prueba Social y Autoridad) */
-        .hero {
-            background: linear-gradient(145deg, var(--verde-poder), #198754);
-            color: white; padding: 50px 20px; text-align: center;
-            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px;
+        .flotante-wa {
+            position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 900; text-decoration: none;
         }
-        .hero h1 { font-size: 2.2rem; font-weight: 900; line-height: 1.2; margin-bottom: 15px; }
-        .hero p { font-size: 1rem; opacity: 0.9; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
-        
-        .dashboard-impact {
-            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px); border-radius: 16px; padding: 20px;
-            display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-        .impact-number { font-size: 3rem; font-weight: 900; color: var(--oro-conversion); line-height: 1; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .impact-text { font-size: 0.9rem; margin-top: 5px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* PRODUCTOS (Proporción Áurea en Tarjetas) */
-        .catalogo { padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        .section-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 30px; text-align: center; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card {
-            background: white; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.06); transition: transform 0.3s ease;
-            border: 1px solid #f1f3f5; display: flex; flex-direction: column;
-        }
-        .card:hover { transform: translateY(-8px); }
-        .card-img { height: 200px; background: #e9ecef; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
-        .card-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
-        .card-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; line-height: 1.3; }
-        .card-price { font-size: 1.8rem; font-weight: 900; color: var(--verde-poder); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-        .card-price span { font-size: 0.9rem; font-weight: 500; color: #6c757d; }
-        
-        .btn-group { display: flex; gap: 12px; margin-top: auto; }
-        .btn { flex: 1; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 0.9rem; cursor: pointer; border: none; text-align: center; transition: 0.2s; }
-        .btn-cart { background: #f8f9fa; color: var(--texto-oscuro); border: 2px solid #e9ecef; }
-        .btn-pay { background: var(--oro-conversion); color: #fff; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
-
-        /* CONTACTO ESTRATÉGICO */
-        .contact-bar {
-            background: white; padding: 30px 20px; margin: 40px 20px; border-radius: 20px;
-            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        .contact-number { font-size: 2rem; font-weight: 900; color: var(--verde-poder); display: block; margin: 15px 0; text-decoration: none; }
-        
-        /* ASISTENTE IA (Neuro-tecnología) */
-        .ai-btn {
-            position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px;
-            background: linear-gradient(135deg, #1a1a1a, #333333); border: 2px solid var(--oro-conversion);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); cursor: pointer; z-index: 1500;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
+        .contacto-texto { text-align: center; margin-top: 50px; font-size: 15px; color: #666; font-weight: 600; padding-bottom: 30px; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER & LOGO -->
+    <!-- HEADER Y MENÚ -->
     <header>
-        <div class="logo-area">
-            <div class="logo-placeholder"></div>
-            <div>
-                <div class="brand-name">AGRODAV</div>
-                <div class="brand-sub">POWERED BY SHEFA LABS</div>
-            </div>
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <div class="logo-placeholder">[ LOGO AGRODAV ]</div>
+        <div class="login-icons">
+            <span onclick="alert('Iniciando sesión segura para Administradores...')">Admin</span>
+            <span onclick="alert('Portal de Usuarios y Creación de Cuenta...')">Login</span>
         </div>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
     </header>
 
-    <!-- MENÚ LATERAL DE ALTA GAMA -->
-    <div id="side-menu">
-        <div class="menu-header">
-            <div class="close-menu" onclick="toggleMenu()">✕</div>
-        </div>
-        <div class="menu-section">
-            <div class="menu-title">Catálogo Completo</div>
-            <a href="#" class="menu-link" onclick="demoAlert('Categoría: Fertilizantes y Nutrición')">🌱 Fertilizantes & Nutrición</a>
-            <a href="#" class="menu-link" onclick="demoAlert('Categoría: Semillas Híbridas')">🌽 Semillas Híbridas</a>
-            <a href="#" class="menu-link" onclick="demoAlert('Categoría: Sistemas de Riego')">💧 Sistemas de Riego</a>
-            <a href="#" class="menu-link" onclick="demoAlert('Categoría: Maquinaria')">🚜 Maquinaria & Equipos</a>
-            <a href="#" class="menu-link" onclick="demoAlert('Categoría: Agroquímicos')">🛡️ Agroquímicos</a>
-        </div>
-        <div class="menu-section">
-            <div class="menu-title">Acceso Clientes</div>
-            <a href="#" class="menu-link" onclick="demoAlert('Portal de Usuarios: Sus clientes podrán ver su historial de pedidos y facturación.')">👤 Iniciar Sesión</a>
-            <a href="#" class="menu-link" onclick="demoAlert('Registro de Mayoristas: Captura de leads automatizada.')">📝 Crear Cuenta Mayorista</a>
-        </div>
-        <div class="menu-section" style="background: #f8f9fa;">
-            <div class="menu-title">Gestión Interna</div>
-            <a href="#" class="menu-link admin" onclick="demoAlert('Panel de Control Administrativo: Control total de inventario, ventas y métricas.')">⚙️ Portal Administrativo</a>
-        </div>
+    <div id="menu-lateral">
+        <div class="menu-cerrar" onclick="toggleMenu()">✕ Cerrar</div>
+        <div style="margin: 20px 0; font-size: 12px; color: #888;">VOLUMEN DE OPERACIONES</div>
+        <div class="menu-item">Fertilizantes y Nutrición ➔</div>
+        <div class="menu-item">Semillas y Genética ➔</div>
+        <div class="menu-item">Sistemas de Riego ➔</div>
+        <div class="menu-item">Fungicidas y Herbicidas ➔</div>
+        <div class="menu-item">Maquinaria Pesada ➔</div>
+        <div class="menu-item">Automatización IA ➔</div>
+        <div class="menu-item" style="color: var(--verde-poder);">+ Ver Catálogo Extenso</div>
     </div>
 
-    <!-- HERO & DASHBOARD NEURO-VENTAS -->
-    <section class="hero">
-        <h1>El Futuro de la Distribución Agrícola</h1>
-        <p>Automatice sus ventas B2B, gestione inventarios en la nube y cierre negocios 24/7 con nuestra arquitectura digital de alto rendimiento.</p>
-        
-        <div class="dashboard-impact">
-            <div class="impact-number">
-                <span style="color: #20c997; font-size: 2.5rem;">↗</span> 161%
-            </div>
-            <div class="impact-text">Aumento Demostrado en<br>Eficiencia y Cierre de Ventas Digitales</div>
-        </div>
-    </section>
+    <!-- DASHBOARD NEURO-VENTAS -->
+    <div class="dashboard-impacto">
+        <h2>Rendimiento Proyectado del Ecosistema</h2>
+        <div class="cifra-impacto"><span class="flecha-up">↑</span> 161%</div>
+        <p style="font-size: 13px; opacity: 0.9;">Aumento de ventas corporativas tras la automatización de la infraestructura digital con Shefa AgroTech.</p>
+    </div>
 
-    <!-- CATÁLOGO ÁUREO -->
-    <section class="catalogo">
-        <h2 class="section-title">Inventario en Tiempo Real</h2>
-        <div class="grid">
+    <div class="container">
+        <h3 style="font-size: 22px; color: var(--verde-poder); margin-bottom: 5px;">Inventario de Alta Rotación</h3>
+        <p style="font-size: 14px; color: #666; margin-bottom: 25px;">Selecciona los productos, automatiza tu stock y cierra el trato en segundos.</p>
+
+        <!-- CATÁLOGO EXTENDIDO CON IMÁGENES -->
+        <div class="grid-productos">
             <!-- Producto 1 -->
-            <div class="card">
-                <div class="card-img">🌱</div>
-                <div class="card-content">
-                    <div class="card-title">Urea Agrícola 46% N (Bulto 50kg)</div>
-                    <div class="card-price">$38.50 <span>USD / Unidad</span></div>
-                    <div class="btn-group">
-                        <button class="btn btn-cart" onclick="demoAlert('El producto se ha añadido al carrito virtual del cliente.')">Añadir al Carrito</button>
-                        <button class="btn btn-pay" onclick="demoAlert('Pasarela de Pagos: Aquí el cliente paga instantáneamente con Tarjeta, SPEI o Cripto.')">Pagar en Línea</button>
-                    </div>
+            <div class="card-aurea">
+                <img src="https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&w=600&q=80" alt="Fertilizante" class="card-img">
+                <div class="card-titulo">Urea Agrícola Premium (46% N)</div>
+                <div class="card-desc">Alta concentración de nitrógeno para máximo rendimiento por hectárea. Ideal para cultivos extensivos.</div>
+                <div class="btn-grupo">
+                    <button class="btn-carrito" onclick="alert('Agregado al carrito de cotización')">🛒 Agregar al Carrito</button>
+                    <button class="btn-pago" onclick="alert('Procesando pago seguro en línea...')">⚡ Pagar en Línea</button>
                 </div>
             </div>
+
             <!-- Producto 2 -->
-            <div class="card">
-                <div class="card-img">🌽</div>
-                <div class="card-content">
-                    <div class="card-title">Semilla de Maíz Híbrido Premium</div>
-                    <div class="card-price">$145.00 <span>USD / Saco 20kg</span></div>
-                    <div class="btn-group">
-                        <button class="btn btn-cart" onclick="demoAlert('El producto se ha añadido al carrito virtual del cliente.')">Añadir al Carrito</button>
-                        <button class="btn btn-pay" onclick="demoAlert('Pasarela de Pagos: Aquí el cliente paga instantáneamente con Tarjeta, SPEI o Cripto.')">Pagar en Línea</button>
-                    </div>
+            <div class="card-aurea">
+                <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=600&q=80" alt="Semillas Maíz" class="card-img">
+                <div class="card-titulo">Semilla Híbrida Maíz Blanco</div>
+                <div class="card-desc">Genética avanzada con alta resistencia a plagas y estrés hídrico. Calidad de exportación garantizada.</div>
+                <div class="btn-grupo">
+                    <button class="btn-carrito" onclick="alert('Agregado al carrito de cotización')">🛒 Agregar al Carrito</button>
+                    <button class="btn-pago" onclick="alert('Procesando pago seguro en línea...')">⚡ Pagar en Línea</button>
                 </div>
             </div>
+
             <!-- Producto 3 -->
-            <div class="card">
-                <div class="card-img">💧</div>
-                <div class="card-content">
-                    <div class="card-title">Cinta de Riego por Goteo Calibre 6000</div>
-                    <div class="card-price">$92.00 <span>USD / Rollo 1000m</span></div>
-                    <div class="btn-group">
-                        <button class="btn btn-cart" onclick="demoAlert('El producto se ha añadido al carrito virtual del cliente.')">Añadir al Carrito</button>
-                        <button class="btn btn-pay" onclick="demoAlert('Pasarela de Pagos: Aquí el cliente paga instantáneamente con Tarjeta, SPEI o Cripto.')">Pagar en Línea</button>
-                    </div>
+            <div class="card-aurea">
+                <img src="https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&w=600&q=80" alt="Riego por Goteo" class="card-img">
+                <div class="card-titulo">Rollo Cinta de Riego (1000m)</div>
+                <div class="card-desc">Cinta de goteo con emisores integrados. Optimización hídrica que reduce el consumo de agua un 40%.</div>
+                <div class="btn-grupo">
+                    <button class="btn-carrito" onclick="alert('Agregado al carrito de cotización')">🛒 Agregar al Carrito</button>
+                    <button class="btn-pago" onclick="alert('Procesando pago seguro en línea...')">⚡ Pagar en Línea</button>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="card-aurea">
+                <img src="https://images.unsplash.com/photo-1592982537447-6f23f6d71317?auto=format&fit=crop&w=600&q=80" alt="Tractor Agrícola" class="card-img">
+                <div class="card-titulo">Tractor Agrícola 4x4 (110 HP)</div>
+                <div class="card-desc">Maquinaria pesada con cabina cerrada, aire acondicionado y sistema de tracción integral para terreno difícil.</div>
+                <div class="btn-grupo">
+                    <button class="btn-carrito" onclick="alert('Agregado al carrito de cotización')">🛒 Agregar al Carrito</button>
+                    <button class="btn-pago" onclick="alert('Procesando pago seguro en línea...')">⚡ Pagar en Línea</button>
+                </div>
+            </div>
+
+            <!-- Producto 5 -->
+            <div class="card-aurea">
+                <img src="https://images.unsplash.com/photo-1598209279122-8541213a0387?auto=format&fit=crop&w=600&q=80" alt="Alimento Ganado" class="card-img">
+                <div class="card-titulo">Alimento Engorde Bovino (40kg)</div>
+                <div class="card-desc">Fórmula balanceada con alto nivel proteico para acelerar la ganancia de peso en etapas de finalización.</div>
+                <div class="btn-grupo">
+                    <button class="btn-carrito" onclick="alert('Agregado al carrito de cotización')">🛒 Agregar al Carrito</button>
+                    <button class="btn-pago" onclick="alert('Procesando pago seguro en línea...')">⚡ Pagar en Línea</button>
+                </div>
+            </div>
+
+            <!-- Producto 6 -->
+            <div class="card-aurea">
+                <img src="https://images.unsplash.com/photo-1629385697223-888e2c018ac4?auto=format&fit=crop&w=600&q=80" alt="Fumigación" class="card-img">
+                <div class="card-titulo">Fungicida Sistémico (Galón 4L)</div>
+                <div class="card-desc">Protección de amplio espectro contra enfermedades foliares. Acción preventiva y curativa inmediata.</div>
+                <div class="btn-grupo">
+                    <button class="btn-carrito" onclick="alert('Agregado al carrito de cotización')">🛒 Agregar al Carrito</button>
+                    <button class="btn-pago" onclick="alert('Procesando pago seguro en línea...')">⚡ Pagar en Línea</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- CONTACTO AUTORIDAD -->
-    <div class="contact-bar">
-        <h3 style="font-size: 1.5rem; font-weight: 800;">¿Necesita volumen mayorista o asesoría técnica?</h3>
-        <p style="color: #6c757d; margin-top: 10px;">Contacte directamente a la dirección comercial de AGRODAV</p>
-        <a href="https://wa.me/524432373301" class="contact-number">+52 443 237 3301</a>
-        <button class="btn btn-pay" style="padding: 15px 40px; font-size: 1.1rem; border-radius: 50px;" onclick="window.open('https://wa.me/524432373301', '_blank')">Contactar por WhatsApp</button>
+        <div class="contacto-texto">
+            Asesoría Comercial Directa e Inmediata: <br>
+            <a href="https://wa.me/524432373301" style="color: var(--verde-poder); font-size: 22px; text-decoration: none; display: block; margin-top: 10px;">+52 443 237 3301</a>
+        </div>
     </div>
 
-    <!-- ASISTENTE IA ESTRATÉGICO -->
-    <div class="ai-btn" onclick="demoAlert('🤖 SISTEMA AUTÓNOMO DE VENTAS IA\n\nAl hacer clic aquí, sus clientes interactúan con un agente de Inteligencia Artificial capaz de cotizar, responder dudas técnicas y cerrar ventas automáticamente las 24 horas del día, los 7 días de la semana sin intervención humana.')">
+    <!-- BOTONES FLOTANTES -->
+    <div class="flotante-ia" onclick="alert('Asistente IA Activado: ¡Hola! Te mostraré cómo esta Inteligencia Artificial puede atender a tus clientes y vender tu inventario 24/7 sin que muevas un dedo.')">
         🤖
     </div>
+    <a href="https://wa.me/524432373301" class="flotante-wa" target="_blank">
+        💬
+    </a>
 
     <script>
-        // Controlador del Menú
         function toggleMenu() {
-            const menu = document.getElementById('side-menu');
-            menu.classList.toggle('open');
-        }
-
-        // Alertas Persuasivas de Demostración
-        function demoAlert(mensaje) {
-            alert("SISTEMA SHEFA LABS INFORMA:\n\n" + mensaje);
+            const menu = document.getElementById('menu-lateral');
+            menu.classList.toggle('activo');
         }
     </script>
 </body>
