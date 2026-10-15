@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Imperio Dropshipping Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        darkbg: '#121212',
+                        panelbg: '#1E1E1E',
+                        gold: '#D4AF37',
+                        success: '#22C55E'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Ocultar barra de scroll para el carrusel de tiendas */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Animación suave para botones */
+        .btn-press:active {
+            transform: scale(0.95);
+        }
+        /* Efecto de cristal para el menú inferior */
+        .glass-nav {
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .app-container {
+            max-width: 480px; /* Tamaño ideal para simular teléfono en desktop */
+            margin: 0 auto;
+            min-height: 100vh;
+            background-color: #121212;
+            position: relative;
+            padding-bottom: 80px; /* Espacio para el nav bottom */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container shadow-2xl">
+        
+        <!-- Header / Selector de Tiendas -->
+        <header class="bg-panelbg pt-8 pb-4 sticky top-0 z-50 border-b border-gray-800">
+            <div class="px-4 mb-3 flex justify-between items-center">
+                <div>
+                    <h1 class="text-xs text-gray-400 font-bold tracking-wider uppercase">Panel de Control Global</h1>
+                    <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-network-wired text-gold mr-2"></i>Imperio Drop</h2>
+                </div>
+                <div class="bg-gray-800 text-gold px-3 py-1 rounded-full text-sm font-bold flex items-center">
+                    <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                    ON
+                </div>
+            </div>
+
+            <!-- Carrusel de 10 Tiendas -->
+            <div class="flex overflow-x-auto hide-scrollbar px-4 pb-2 space-x-3" id="storeSelector">
+                <!-- Los botones de tiendas se inyectarán con JS -->
+            </div>
+        </header>
+
+        <!-- Contenedor Principal Vistas -->
+        <main id="mainContent" class="p-4">
+            <!-- La vista de la tienda o dashboard se inyectará aquí -->
+        </main>
+
+        <!-- Navegación Inferior (Moto G04 optimizado) -->
+        <nav class="glass-nav fixed bottom-0 w-full max-w-[480px] left-1/2 -translate-x-1/2 flex justify-around items-center py-3 z-50">
+            <button onclick="switchTab('store')" class="nav-btn flex flex-col items-center text-gold transition w-1/3" id="nav-store">
+                <i class="fa-solid fa-store text-xl mb-1"></i>
+                <span class="text-[10px] font-semibold">Tienda Activa</span>
+            </button>
+            <button onclick="switchTab('finances')" class="nav-btn flex flex-col items-center text-gray-500 hover:text-white transition w-1/3" id="nav-finances">
+                <i class="fa-solid fa-chart-line text-xl mb-1"></i>
+                <span class="text-[10px] font-semibold">Conducto Financiero</span>
+            </button>
+            <button onclick="switchTab('settings')" class="nav-btn flex flex-col items-center text-gray-500 hover:text-white transition w-1/3" id="nav-settings">
+                <i class="fa-solid fa-gears text-xl mb-1"></i>
+                <span class="text-[10px] font-semibold">Logística Automatizada</span>
+            </button>
+        </nav>
+
+        <!-- Notificación Toast -->
+        <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 bg-success text-white px-4 py-2 rounded-lg shadow-lg transform -translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center w-11/12 max-w-[400px]">
+            <i class="fa-solid fa-check-circle mr-3 text-xl"></i>
+            <div>
+                <p class="font-bold text-sm">¡Venta Exitosa!</p>
+                <p class="text-xs" id="toast-msg">Orden enviada al proveedor.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ESTADO GLOBAL DE LA APLICACIÓN
+        let state = {
+            activeTab: 'store',
+            activeStoreId: 1,
+            finances: {
+                revenue: 0,   // Dinero que paga el cliente
+                cost: 0,      // Dinero que va al chino
+                profit: 0     // Tu ganancia
+            }
+        };
+
+        // BASE DE DATOS DE LAS 10 TIENDAS (Catálogos)
+        const stores = [
+            {
+                id: 1,
+                name: "Accesorios Corporativos",
+                icon: "fa-briefcase",
+                theme: "gold",
+                products: [
+                    { id: 101, name: "Bolígrafo Ejecutivo Premium", sell: 25.00, cost: 1.50, img: "fa-pen-nib" },
+                    { id: 102, name: "Maletín Cuero de Lujo", sell: 85.00, cost: 13.00, img: "fa-suitcase" },
+                    { id: 103, name: "Cuaderno Reuniones (Sello Oro)", sell: 35.00, cost: 4.00, img: "fa-book" },
+                    { id: 104, name: "Estuche Tarjetero RFID", sell: 22.00, cost: 2.00, img: "fa-address-card" }
+                ]
+            },
+            {
+                id: 2,
+                name: "TecnoExpress Gadgets",
+                icon: "fa-mobile-screen",
+                theme: "blue",
+                products: [
+                    { id: 201, name: "Auriculares Inalámbricos Pro", sell: 45.00, cost: 5.00, img: "fa-headphones" },
+                    { id: 202, name: "Smartwatch Deportivo", sell: 60.00, cost: 8.50, img: "fa-clock" }
+                ]
+            },
+            { id: 3, name: "Hogar Minimalista", icon: "fa-couch", theme: "orange", products: [ { id: 301, name: "Lámpara Led Moderna", sell: 30.00, cost: 4.00, img: "fa-lightbulb" } ] },
+            { id: 4, name: "Fitness & Salud", icon: "fa-dumbbell", theme: "green", products: [ { id: 401, name: "Bandas Resistencia Pro", sell: 18.00, cost: 2.50, img: "fa-fire" } ] },
+            { id: 5, name: "Mascotas Felices", icon: "fa-paw", theme: "purple", products: [ { id: 501, name: "Cama Ortopédica Perro", sell: 55.00, cost: 9.00, img: "fa-dog" } ] },
+            { id: 6, name: "Belleza Radiante", icon: "fa-spa", theme: "pink", products: [] },
+            { id: 7, name: "Juguetes Educativos", icon: "fa-puzzle-piece", theme: "yellow", products: [] },
+            { id: 8, name: "Herramientas Pro", icon: "fa-hammer", theme: "red", products: [] },
+            { id: 9, name: "Moda Urbana", icon: "fa-shirt", theme: "teal", products: [] },
+            { id: 10, name: "Joyería Fina", icon: "fa-gem", theme: "indigo", products: [] }
+        ];
+
+        
+        // Elementos del DOM
+        const storeSelectorEl = document.getElementById('storeSelector');
+        const mainContentEl = document.getElementById('mainContent');
+        const toastEl = document.getElementById('toast');
+        const toastMsgEl = document.getElementById('toast-msg');
+
+        // Función para renderizar los botones del carrusel de tiendas
+        function renderStoreSelector() {
+            storeSelectorEl.innerHTML = '';
+            stores.forEach(store => {
+                const isActive = store.id === state.activeStoreId;
+                const btn = document.createElement('button');
+                btn.className = `whitespace-nowrap px-4 py-2 rounded-full text-sm font-semibold transition flex items-center border ${isActive ? 'bg-gold text-black border-gold' : 'bg-transparent text-gray-400 border-gray-700 hover:border-gray-500'}`;
+                btn.innerHTML = `<i class="fa-solid ${store.icon} mr-2"></i> ${store.name}`;
+                btn.onclick = () => {
+                    state.activeStoreId = store.id;
+                    renderStoreSelector();
+                    if(state.activeTab === 'store') renderStore();
+                };
+                storeSelectorEl.appendChild(btn);
+            });
+        }
+
+        // Función principal de navegación
+        function switchTab(tabId) {
+            state.activeTab = tabId;
+            
+            // Actualizar UI del Nav
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-gold');
+                btn.classList.add('text-gray-500');
+            });
+            document.getElementById(`nav-${tabId}`).classList.remove('text-gray-500');
+            document.getElementById(`nav-${tabId}`).classList.add('text-gold');
+
+            // Renderizar contenido
+            if(tabId === 'store') renderStore();
+            if(tabId === 'finances') renderFinances();
+            if(tabId === 'settings') renderSettings();
+        }
+
+        
+        // Renderizar Catálogo de Tienda Activa
+        function renderStore() {
+            const activeStore = stores.find(s => s.id === state.activeStoreId);
+            
+            let html = `
+                <div class="bg-panelbg rounded-2xl p-4 border border-gray-800 mb-6 relative overflow-hidden">
+                    <div class="absolute -right-6 -top-6 text-gray-800 opacity-20">
+                        <i class="fa-solid ${activeStore.icon} text-9xl"></i>
+                    </div>
+                    <div class="relative z-10 flex justify-between items-start">
+                        <div>
+                            <p class="text-gold text-xs font-bold tracking-widest uppercase mb-1">Tienda Virtual ${activeStore.id}/10</p>
+                            <h2 class="text-2xl font-bold text-white mb-1">${activeStore.name}</h2>
+                            <p class="text-gray-400 text-sm">Catálogo Sincronizado con Proveedor Asiático</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+            `;
+
+            if (activeStore.products.length === 0) {
+                html += `<div class="col-span-2 text-center text-gray-500 py-10 bg-panelbg rounded-xl border border-gray-800 border-dashed">
+                            <i class="fa-solid fa-box-open text-3xl mb-2"></i>
+                            <p>Importando productos para esta tienda...</p>
+                         </div>`;
+            } else {
+                activeStore.products.forEach(p => {
+                    html += `
+                        <div class="bg-panelbg rounded-xl border border-gray-800 p-4 flex flex-col justify-between hover:border-gray-600 transition">
+                            <div class="flex justify-center items-center h-24 mb-4 bg-gray-800 rounded-lg text-gold">
+                                <i class="fa-solid ${p.img} text-4xl"></i>
+                            </div>
+                            <h3 class="text-white font-semibold text-sm mb-2 h-10 leading-tight">${p.name}</h3>
+                            <div class="mb-3">
+                                <p class="text-xs text-gray-500 line-through">$${(p.sell * 1.5).toFixed(2)}</p>
+                                <p class="text-xl font-bold text-white">$${p.sell.toFixed(2)}</p>
+                                <div class="bg-gray-800 text-gray-400 text-[10px] px-2 py-1 rounded mt-1 flex justify-between">
+                                    <span>Costo Fábrica:</span>
+                                    <span class="text-red-400 font-bold">$${p.cost.toFixed(2)}</span>
+                                </div>
+                            </div>
+                            <button onclick="simulateSale(${p.sell}, ${p.cost}, '${p.name}')" class="btn-press w-full bg-gold text-black font-bold py-2 rounded-lg text-sm hover:bg-yellow-500 transition shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                                Simular Venta <i class="fa-solid fa-cart-shopping ml-1"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+
+            html += `</div>`;
+            mainContentEl.innerHTML = html;
+        }
+
+        
+        // Simular Venta
+        function simulateSale(sellPrice, costPrice, productName) {
+            // Actualizar finanzas
+            const profit = sellPrice - costPrice;
+            state.finances.revenue += sellPrice;
+            state.finances.cost += costPrice;
+            state.finances.profit += profit;
+
+            // Mostrar Toast
+            toastMsgEl.innerHTML = `Venta de <b>${productName}</b> ($${sellPrice}).<br>Costo pagado al proveedor: $${costPrice}.<br><span class="text-gold">Ganancia neta: $${profit.toFixed(2)}</span>`;
+            toastEl.classList.remove('-translate-y-20', 'opacity-0');
+            toastEl.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toastEl.classList.remove('translate-y-0', 'opacity-100');
+                toastEl.classList.add('-translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // Renderizar Panel Financiero (El Conducto)
+        function renderFinances() {
+            const f = state.finances;
+            const margin = f.revenue > 0 ? ((f.profit / f.revenue) * 100).toFixed(1) : 0;
+
+            mainContentEl.innerHTML = `
+                <h2 class="text-2xl font-bold mb-6 text-white"><i class="fa-solid fa-chart-pie text-gold mr-2"></i>El Conducto Financiero</h2>
+                
+                <!-- Tarjeta de Ganancia Neta -->
+                <div class="bg-gradient-to-br from-gray-800 to-black border border-gold rounded-2xl p-6 mb-4 shadow-[0_0_30px_rgba(212,175,55,0.15)] relative overflow-hidden">
+                    <div class="absolute right-0 bottom-0 opacity-10 text-gold transform translate-x-4 translate-y-4">
+                        <i class="fa-solid fa-sack-dollar text-8xl"></i>
+                    </div>
+                    <p class="text-gray-400 text-sm font-semibold mb-1 uppercase tracking-wider">Tu Ganancia Neta (Bolsillo)</p>
+                    <h3 class="text-5xl font-black text-white mb-2">$${f.profit.toFixed(2)} <span class="text-lg text-gold">USD</span></h3>
+                    <div class="inline-block bg-success bg-opacity-20 text-success px-2 py-1 rounded text-xs font-bold">
+                        <i class="fa-solid fa-arrow-trend-up mr-1"></i> Margen: ${margin}%
+                    </div>
+                </div>
+
+                <!-- Desglose Logístico -->
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-panelbg border border-gray-800 rounded-xl p-4">
+                        <p class="text-gray-500 text-xs font-bold uppercase mb-1">Dinero Recibido (Ventas)</p>
+                        <p class="text-2xl font-bold text-white">$${f.revenue.toFixed(2)}</p>
+                        <p class="text-[10px] text-gray-500 mt-1">Plataformas de pago (Stripe/PayPal)</p>
+                    </div>
+                    <div class="bg-panelbg border border-gray-800 border-l-4 border-l-red-500 rounded-xl p-4">
+                        <p class="text-gray-500 text-xs font-bold uppercase mb-1">Pago Fábricas China</p>
+                        <p class="text-2xl font-bold text-red-400">-$${f.cost.toFixed(2)}</p>
+                        <p class="text-[10px] text-gray-500 mt-1">AliExpress / Temu / Alibaba</p>
+                    </div>
+                </div>
+
+                <!-- Gráfico Simulado de Flujo -->
+                <div class="bg-panelbg border border-gray-800 rounded-xl p-5 text-center">
+                    <p class="text-sm font-bold text-gray-400 mb-4">Diagrama de Flujo Automatizado</p>
+                    <div class="flex justify-between items-center text-gray-600">
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-blue-900 flex items-center justify-center text-blue-400 mb-2">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <span class="text-[10px]">Cliente Paga</span>
+                        </div>
+                        <div class="flex-1 px-2 relative">
+                            <div class="h-1 bg-gray-700 w-full"></div>
+                            <i class="fa-solid fa-chevron-right absolute right-0 top-1/2 -translate-y-1/2 text-gold"></i>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-panelbg border-2 border-gold flex items-center justify-center text-gold mb-2 shadow-[0_0_10px_rgba(212,175,55,0.5)]">
+                                <i class="fa-solid fa-laptop-code"></i>
+                            </div>
+                            <span class="text-[10px] font-bold text-gold">Tu Hub (G04)</span>
+                        </div>
+                        <div class="flex-1 px-2 relative">
+                            <div class="h-1 bg-gray-700 w-full"></div>
+                            <i class="fa-solid fa-chevron-right absolute right-0 top-1/2 -translate-y-1/2 text-red-400"></i>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-10 h-10 rounded-full bg-red-900 flex items-center justify-center text-red-400 mb-2">
+                                <i class="fa-solid fa-industry"></i>
+                            </div>
+                            <span class="text-[10px]">Fábrica Envía</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Renderizar Configuración (Logística)
+        function renderSettings() {
+            mainContentEl.innerHTML = `
+                <h2 class="text-2xl font-bold mb-6 text-white"><i class="fa-solid fa-gears text-gold mr-2"></i>Logística Automatizada</h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-panelbg border border-gray-800 rounded-xl p-4 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-brands fa-alipay text-3xl text-blue-500 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Conexión AliExpress</h4>
+                                <p class="text-xs text-green-500">API Enlazada Activa</p>
+                            </div>
+                        </div>
+                        <div class="w-12 h-6 bg-green-500 rounded-full relative">
+                            <div class="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-panelbg border border-gray-800 rounded-xl p-4 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-brands fa-stripe text-3xl text-indigo-500 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Conexión AliExpress</h4>
+                                <p class="text-xs text-green-500">API Enlazada Activa</p>
+                            </div>
+                        </div>
+                        <div class="w-12 h-6 bg-green-500 rounded-full relative">
+                            <div class="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-panelbg border border-gray-800 rounded-xl p-4 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fa-brands fa-stripe text-3xl text-indigo-500 mr-4"></i>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Pasarela Stripe</h4>
+                                <p class="text-xs text-green-500">Recibiendo Pagos</p>
+                            </div>
+                        </div>
+                        <div class="w-12 h-6 bg-green-500 rounded-full relative">
+                            <div class="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-900 rounded-xl p-4 border border-gray-800 mt-6">
+                        <h4 class="font-bold text-gold text-sm mb-2"><i class="fa-solid fa-info-circle mr-1"></i>Sobre el sistema</h4>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Este Hub controla 10 tiendas operando bajo un modelo "Multi-Tenant". Cuando un cliente compra en cualquiera de las URLs, el sistema de ruteo envía la orden vía API a DSers, el cual paga a la fábrica china descontando el dinero de tu tarjeta virtual corporativa. <b>Tú solo monitoreas las métricas desde este Moto G04.</b>
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        
+        // Inicializar App
+        renderStoreSelector();
+        renderStore();
+    </script>
+</body>
+</html>
+                                 
