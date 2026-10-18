@@ -1,2813 +1,387 @@
-<!DOCTYPE html>  <html lang="es">  
-<head>  
-  <meta charset="UTF-8">  
-  <meta name="viewport" content="width=device-width, initial-scale=1">    <title>Shefa-Shop Global | Tecnología, productos y soluciones</title>  <meta
-name="description"
-content="Descubre productos y soluciones en Shefa-Shop Global. Explora el catálogo, consulta disponibilidad y solicita información personalizada."
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shefa Shop | Catálogo Exclusivo - Shefa Plus Global</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-> 
-
-  <meta name="theme-color" content="#07111f">  
-  <meta name="color-scheme" content="dark">    <meta property="og:type" content="website">  
-  <meta property="og:title" content="Shefa-Shop Global">  
-  <meta  
-    property="og:description"  
-    content="Explora nuestro catálogo y encuentra tu próximo producto."  
-  >    <style>  
-    :root {  
-      --bg: #07111f;  
-      --bg-soft: #0b1728;  
-      --surface: #101e31;  
-      --surface-light: #16273c;  
-      --gold: #e8c779;  
-      --gold-light: #ffe5a0;  
-      --text: #f5f7fb;  
-      --muted: #a8b5c8;  
-      --border: rgba(232, 199, 121, 0.19);  
-      --success: #58d6a0;  
-      --danger: #ff8c91;  
-      --radius: 20px;  
-      --shadow: 0 18px 55px rgba(0, 0, 0, 0.24);  
-      --content: 1240px;  
-    }  
-  
-    * {  
-      box-sizing: border-box;  
-    }  
-  
-    html {  
-      scroll-behavior: smooth;  
-      scroll-padding-top: 100px;  
-    }  
-  
-    body {  
-      margin: 0;  
-      min-height: 100vh;  7
-      background:  
-        radial-gradient(  
-          circle at 80% 0%,  
-          rgba(232, 199, 121, 0.08),  
-          transparent 30rem  
-        ),  
-        var(--bg);  
-      color: var(--text);  
-      font-family:  
-        Inter,  
-        ui-sans-serif,  
-        system-ui,  
-        -apple-system,  
-        BlinkMacSystemFont,  
-        "Segoe UI",  
-        sans-serif;  
-      line-height: 1.6;  
-    }  
-  
-    body,  
-    button,  
-    input,  
-    select {  
-      font-family:  
-        Inter,  
-        ui-sans-serif,  
-        system-ui,  
-        -apple-system,  
-        BlinkMacSystemFont,  
-        "Segoe UI",  
-        sans-serif;  
-    }  
-  
-    a {  
-      color: inherit;  
-      text-decoration: none;  
-    }  
-  
-    button,  
-    input,  
-    select {  
-      font-size: inherit;  
-    }  
-  
-    button {  
-      cursor: pointer;  
-    }  
-  
-    button:focus-visible,  
-    a:focus-visible,  
-    input:focus-visible,  
-    select:focus-visible {  
-      outline: 3px solid var(--gold);  
-      outline-offset: 3px;  
-    }  
-  
-    img {  
-      display: block;  
-      max-width: 100%;  
-    }  
-  
-    .container {  
-      width: min(var(--content), calc(100% - 36px));  
-      margin-inline: auto;  
-    }  
-  
-    .announcement {  
-      padding: 9px 16px;  
-      background: linear-gradient(90deg, #b99042, #f2d999, #b99042);  
-      color: #111827;  
-      text-align: center;  
-      font-size: 0.82rem;  
-      font-weight: 800;  
-      letter-spacing: 0.035em;  
-    }  
-  
-    .header {  
-      position: sticky;  
-      top: 0;  
-      z-index: 50;  
-      background: rgba(7, 17, 31, 0.92);  
-      backdrop-filter: blur(18px);  
-      border-bottom: 1px solid var(--border);  
-    }  
-  
-    .header-inner {  
-      min-height: 78px;  
-      display: flex;  
-      align-items: center;  
-      justify-content: space-between;  
-      gap: 24px;  
-    }  
-  
-    .brand {  
-      display: inline-flex;  
-      align-items: center;  
-      gap: 12px;  
-      min-width: 0;  
-    }  
-  
-    .brand-mark {  
-      width: 43px;  
-      height: 43px;  
-      display: grid;  
-      place-items: center;  
-      flex-shrink: 0;  
-      border: 1px solid rgba(255, 229, 160, 0.55);  
-      border-radius: 14px;  
-      background: linear-gradient(145deg, #f5dfa2, #b99042);  
-      color: #101827;  
-      font-size: 1.15rem;  
-      font-weight: 950;  
-      box-shadow: 0 7px 22px rgba(232, 199, 121, 0.13);  
-    }  
-  
-    .brand-copy {  
-      min-width: 0;  
-    }  
-  
-    .brand-name {  
-      display: block;  
-      color: var(--gold-light);  
-      font-weight: 950;  
-      letter-spacing: 0.055em;  
-      line-height: 1.2;  
-      font-size: 1rem;  
-    }  
-  
-    .brand-tagline {  
-      display: block;  
-      color: var(--muted);  
-      font-size: 0.75rem;  
-      margin-top: 4px;  
-    }  
-  
-    .nav {  
-      display: flex;  
-      align-items: center;  
-      gap: 23px;  
-      color: var(--muted);  
-      font-size: 0.91rem;  
-    }  
-  
-    .nav a:hover {  
-      color: var(--gold-light);  
-    }  
-  
-    .header-actions {  
-      display: flex;  
-      align-items: center;  
-      gap: 10px;  
-    }  
-  
-    .button {  
-      display: inline-flex;  
-      align-items: center;  
-      justify-content: center;  
-      gap: 9px;  
-      min-height: 45px;  
-      padding: 11px 17px;  
-      border: 1px solid transparent;  
-      border-radius: 12px;  
-      font-weight: 800;  
-      text-align: center;  
-      transition:  
-        transform 0.2s ease,  
-        background 0.2s ease,  
-        border-color 0.2s ease;  
-    }  
-  
-    .button:hover {  
-      transform: translateY(-2px);  
-    }  
-  
-    .button-primary {  
-      background: linear-gradient(135deg, #ffe7a5, #d6ad59);  
-      color: #111827;  
-    }  
-  
-    .button-primary:hover {  
-      background: linear-gradient(135deg, #fff0c2, #e7c675);  
-    }  
-  
-    .button-secondary {  
-      color: var(--gold-light);  
-      border-color: var(--border);  
-      background: rgba(255, 255, 255, 0.025);  
-    }  
-  
-    .button-secondary:hover {  
-      background: rgba(232, 199, 121, 0.08);  
-      border-color: rgba(232, 199, 121, 0.45);  
-    }  
-  
-    .button-small {  
-      min-height: 39px;  
-      padding: 9px 12px;  
-      font-size: 0.86rem;  
-    }  
-  
-    .hero {  
-      padding: 76px 0 58px;  
-    }  
-  
-    .hero-grid {  
-      display: grid;  
-      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);  
-      gap: 45px;  
-      align-items: center;  
-    }  
-  
-    .eyebrow {  
-      display: inline-flex;  
-      align-items: center;  
-      gap: 9px;  
-      padding: 7px 12px;  
-      border: 1px solid var(--border);  
-      border-radius: 999px;  
-      background: rgba(232, 199, 121, 0.045);  
-      color: var(--gold-light);  
-      font-size: 0.79rem;  
-      font-weight: 850;  
-      letter-spacing: 0.07em;  
-      text-transform: uppercase;  
-    }  
-  
-    .eyebrow-dot {  
-      width: 8px;  
-      height: 8px;  
-      border-radius: 50%;  
-      background: var(--success);  
-      box-shadow: 0 0 13px rgba(88, 214, 160, 0.5);  
-    }  
-  
-    h1,  
-    h2,  
-    h3,  
-    p {  
-      margin-top: 0;  
-    }  
-  
-    h1 {  
-      max-width: 760px;  
-      margin: 23px 0 19px;  
-      font-size: clamp(2.5rem, 5.5vw, 5rem);  
-      line-height: 1.035;  
-      letter-spacing: -0.055em;  
-    }  
-  
-    .gradient-text {  
-      color: var(--gold-light);  
-    }  
-  
-    .hero-description {  
-      max-width: 650px;  
-      color: var(--muted);  
-      font-size: clamp(1rem, 1.5vw, 1.15rem);  
-    }  
-  
-    .hero-actions {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 12px;  
-      margin-top: 28px;  
-    }  
-  
-    .hero-points {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 14px 22px;  
-      margin-top: 26px;  
-      color: #c6d0df;  
-      font-size: 0.88rem;  
-    }  
-  
-    .hero-points span::before {  
-      content: "✓";  
-      margin-right: 8px;  
-      color: var(--success);  
-      font-weight: 950;  
-    }  
-  
-    .hero-card {  
-      position: relative;  
-      overflow: hidden;  
-      min-height: 340px;  
-      padding: 28px;  
-      display: flex;  
-      flex-direction: column;  
-      justify-content: space-between;  
-      border: 1px solid var(--border);  
-      border-radius: 28px;  
-      background:  
-        radial-gradient(  
-          circle at 80% 20%,  
-          rgba(232, 199, 121, 0.15),  
-          transparent 45%  
-        ),  
-        linear-gradient(145deg, #13233a, #0a1423);  
-      box-shadow: var(--shadow);  
-    }  
-  
-    .hero-card::before {  
-      content: "";  
-      position: absolute;  
-      width: 220px;  
-      height: 220px;  
-      right: -75px;  
-      top: -75px;  
-      border: 1px solid rgba(232, 199, 121, 0.2);  
-      border-radius: 50%;  
-      box-shadow:  
-        0 0 0 25px rgba(232, 199, 121, 0.025),  
-        0 0 0 50px rgba(232, 199, 121, 0.02);  
-      pointer-events: none;  
-    }  
-  
-    .hero-card-icon {  
-      position: relative;  
-      z-index: 1;  
-      width: 78px;  
-      height: 78px;  
-      display: grid;  
-      place-items: center;  
-      border-radius: 23px;  
-      background: linear-gradient(145deg, #f6dfa0, #b78d40);  
-      color: #0c1523;  
-      font-size: 2.4rem;  
-    }  
-  
-    .hero-card h2 {  
-      position: relative;  
-      z-index: 1;  
-      margin: 28px 0 9px;  
-      font-size: 1.8rem;  
-      line-height: 1.2;  
-    }  
-  
-    .hero-card p {  
-      position: relative;  
-      z-index: 1;  
-      margin-bottom: 0;  
-      color: var(--muted);  
-    }  
-  
-    .trust-strip {  
-      padding: 19px 0;  
-      border-top: 1px solid var(--border);  
-      border-bottom: 1px solid var(--border);  
-      background: rgba(255, 255, 255, 0.018);  
-    }  
-  
-    .trust-grid {  
-      display: grid;  
-      grid-template-columns: repeat(3, 1fr);  
-      gap: 20px;  
-    }  
-  
-    .trust-item {  
-      display: flex;  
-      justify-content: center;  
-      align-items: center;  
-      gap: 11px;  
-      color: #d4deeb;  
-      text-align: center;  
-      font-size: 0.9rem;  
-    }  
-  
-    .trust-icon {  
-      color: var(--gold-light);  
-      font-size: 1.3rem;  
-    }  
-  
-    .section {  
-      padding: 70px 0;  
-    }  
-  
-    .section-heading {  
-      display: flex;  
-      justify-content: space-between;  
-      align-items: end;  
-      gap: 24px;  
-      margin-bottom: 29px;  
-    }  
-  
-    .section-heading h2 {  
-      margin-bottom: 8px;  
-      font-size: clamp(1.9rem, 3.5vw, 3rem);  
-      line-height: 1.12;  
-      letter-spacing: -0.04em;  
-    }  
-  
-    .section-heading p {  
-      max-width: 650px;  
-      margin-bottom: 0;  
-      color: var(--muted);  
-    }  
-  
-    .catalog-tools {  
-      display: grid;  
-      grid-template-columns: minmax(200px, 1fr) minmax(150px, 230px);  
-      gap: 12px;  
-      margin-bottom: 20px;  
-    }  
-  
-    .field {  
-      width: 100%;  
-      min-height: 49px;  
-      padding: 12px 15px;  
-      color: var(--text);  
-      background: var(--surface);  
-      border: 1px solid var(--border);  
-      border-radius: 12px;  
-    }  
-  
-    .field::placeholder {  
-      color: #8d9cb0;  
-    }  
-  
-    select.field option {  
-      background: var(--surface);  
-      color: var(--text);  
-    }  
-  
-    .catalog-status {  
-      min-height: 28px;  
-      margin: 13px 0 19px;  
-      color: var(--muted);  
-      font-size: 0.9rem;  
-    }  
-  
-    .catalog-status[data-type="success"] {  
-      color: var(--success);  
-    }  
-  
-    .catalog-status[data-type="error"] {  
-      color: var(--danger);  
-    }  
-  
-    .catalog-status[data-type="warning"] {  
-      color: var(--gold-light);  
-    }  
-  
-    .products-grid {  
-      display: grid;  
-      grid-template-columns: repeat(4, minmax(0, 1fr));  
-      gap: 19px;  
-    }  
-  
-    .product-card {  
-      min-width: 0;  
-      overflow: hidden;  
-      display: flex;  
-      flex-direction: column;  
-      border: 1px solid var(--border);  
-      border-radius: 18px;  
-      background: linear-gradient(180deg, #112035, #0b1727);  
-      transition:  
-        transform 0.22s ease,  
-        border-color 0.22s ease,  
-        box-shadow 0.22s ease;  
-    }  
-  
-    .product-card:hover {  
-      transform: translateY(-5px);  
-      border-color: rgba(232, 199, 121, 0.48);  
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);  
-    }  
-  
-    .product-image-wrap {  
-      position: relative;  
-      overflow: hidden;  
-      aspect-ratio: 1 / 1;  
-      background:  
-        radial-gradient(circle at 50% 40%, #243a53, #101d30);  
-    }  
-  
-    .product-image {  
-      width: 100%;  
-      height: 100%;  
-      object-fit: contain;  
-      padding: 12px;  
-      transition: transform 0.3s ease;  
-    }  
-  
-    .product-card:hover .product-image {  
-      transform: scale(1.035);  
-    }  
-  
-    .product-image-placeholder {  
-      width: 100%;  
-      height: 100%;  
-      display: grid;  
-      place-items: center;  
-      color: var(--gold-light);  
-      font-size: 3rem;  
-    }  
-  
-    .product-badge {  
-      position: absolute;  
-      top: 12px;  
-      left: 12px;  
-      max-width: calc(100% - 24px);  
-      padding: 5px 9px;  
-      overflow: hidden;  
-      text-overflow: ellipsis;  
-      white-space: nowrap;  
-      border: 1px solid rgba(232, 199, 121, 0.2);  
-      border-radius: 999px;  
-      background: rgba(7, 17, 31, 0.88);  
-      color: var(--gold-light);  
-      font-size: 0.7rem;  
-      font-weight: 800;  
-    }  
-  
-    .product-content {  
-      flex: 1;  
-      display: flex;  
-      flex-direction: column;  
-      padding: 16px;  
-    }  
-  
-    .product-category {  
-      margin-bottom: 7px;  
-      color: var(--gold-light);  
-      font-size: 0.74rem;  
-      font-weight: 800;  
-      letter-spacing: 0.055em;  
-      text-transform: uppercase;  
-    }  
-  
-    .product-title {  
-      margin-bottom: 9px;  
-      font-size: 1rem;  
-      line-height: 1.4;  
-      overflow-wrap: anywhere;  
-    }  
-  
-    .product-description {  
-      display: -webkit-box;  
-      overflow: hidden;  
-      margin-bottom: 15px;  
-      color: var(--muted);  
-      font-size: 0.85rem;  
-      line-height: 1.55;  
-      -webkit-box-orient: vertical;  
-      -webkit-line-clamp: 3;  
-    }  
-  
-    .product-price {  
-      margin-top: auto;  
-      margin-bottom: 14px;  
-      color: var(--gold-light);  
-      font-size: 1.15rem;  
-      font-weight: 950;  
-    }  
-  
-    .product-price-note {  
-      display: block;  
-      margin-top: 2px;  
-      color: var(--muted);  
-      font-size: 0.74rem;  
-      font-weight: 500;  
-    }  
-  
-    .product-actions {  
-      display: grid;  
-      grid-template-columns: 1fr;  
-      gap: 8px;  
-    }  
-  
-    .empty-state,  
-    .loading-state {  
-      grid-column: 1 / -1;  
-      padding: 44px 20px;  
-      border: 1px dashed var(--border);  
-      border-radius: 18px;  
-      background: rgba(255, 255, 255, 0.02);  
-      text-align: center;  
-    }  
-  
-    .empty-state h3,  
-    .loading-state h3 {  
-      margin-bottom: 8px;  
-    }  
-  
-    .empty-state p,  
-    .loading-state p {  
-      color: var(--muted);  
-    }  
-  
-    .empty-icon {  
-      margin-bottom: 12px;  
-      font-size: 2.5rem;  
-    }  
-  
-    .catalog-footer {  
-      display: flex;  
-      justify-content: center;  
-      margin-top: 28px;  
-    }  
-  
-    .features {  
-      background: rgba(255, 255, 255, 0.018);  
-      border-top: 1px solid var(--border);  
-      border-bottom: 1px solid var(--border);  
-    }  
-  
-    .features-grid {  
-      display: grid;  
-      grid-template-columns: repeat(3, minmax(0, 1fr));  
-      gap: 20px;  
-    }  
-  
-    .feature-card {  
-      padding: 25px;  
-      border: 1px solid var(--border);  
-      border-radius: 18px;  
-      background: var(--surface);  
-    }  
-  
-    .feature-icon {  
-      width: 48px;  
-      height: 48px;  
-      display: grid;  
-      place-items: center;  
-      margin-bottom: 18px;  
-      border-radius: 14px;  
-      background: rgba(232, 199, 121, 0.09);  
-      color: var(--gold-light);  
-      font-size: 1.5rem;  
-    }  
-  
-    .feature-card h3 {  
-      margin-bottom: 8px;  
-      font-size: 1.1rem;  
-    }  
-  
-    .feature-card p {  
-      margin-bottom: 0;  
-      color: var(--muted);  
-      font-size: 0.92rem;  
-    }  
-  
-    .contact-panel {  
-      display: grid;  
-      grid-template-columns: minmax(0, 1fr) auto;  
-      align-items: center;  
-      gap: 30px;  
-      padding: clamp(24px, 5vw, 48px);  
-      border: 1px solid rgba(232, 199, 121, 0.3);  
-      border-radius: 24px;  
-      background:  
-        radial-gradient(  
-          circle at 90% 0,  
-          rgba(232, 199, 121, 0.12),  
-          transparent 40%  
-        ),  
-        var(--surface);  
-    }  
-  
-    .contact-panel h2 {  
-      margin-bottom: 10px;  
-      font-size: clamp(1.8rem, 3.5vw, 2.7rem);  
-      line-height: 1.15;  
-    }  
-  
-    .contact-panel p {  
-      max-width: 650px;  
-      margin-bottom: 0;  
-      color: var(--muted);  
-    }  
-  
-    .footer {  
-      padding: 35px 0;  
-      border-top: 1px solid var(--border);  
-      background: rgba(0, 0, 0, 0.12);  
-    }  
-  
-    .footer-main {  
-      display: flex;  
-      justify-content: space-between;  
-      align-items: center;  
-      gap: 25px;  
-    }  
-  
-    .footer-copy {  
-      color: var(--muted);  
-      font-size: 0.84rem;  
-    }  
-  
-    .footer-links {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 16px;  
-      color: var(--muted);  
-      font-size: 0.84rem;  
-    }  
-  
-    .footer-links a:hover {  
-      color: var(--gold-light);  
-    }  
-  
-    .cart-fab {  
-      position: fixed;  
-      right: 22px;  
-      bottom: 22px;  
-      z-index: 40;  
-      min-height: 53px;  
-      padding: 13px 17px;  
-      border: 1px solid rgba(255, 229, 160, 0.55);  
-      border-radius: 999px;  
-      background: linear-gradient(135deg, #ffe7a5, #d6ad59);  
-      color: #101827;  
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);  
-      font-weight: 950;  
-    }  
-  
-    .cart-count {  
-      display: inline-grid;  
-      place-items: center;  
-      min-width: 23px;  
-      height: 23px;  
-      margin-left: 6px;  
-      padding-inline: 5px;  
-      border-radius: 999px;  
-      background: #101827;  
-      color: var(--gold-light);  
-      font-size: 0.76rem;  
-    }  
-  
-    .toast {  
-      position: fixed;  
-      left: 50%;  
-      bottom: 90px;  
-      z-index: 100;  
-      width: min(420px, calc(100% - 32px));  
-      padding: 14px 18px;  
-      transform: translate(-50%, 15px);  
-      opacity: 0;  
-      pointer-events: none;  
-      border: 1px solid var(--border);  
-      border-radius: 13px;  
-      background: #15253a;  
-      color: var(--text);  
-      box-shadow: var(--shadow);  
-      transition:  
-        opacity 0.2s ease,  
-        transform 0.2s ease;  
-    }  
-  
-    .toast.show {  
-      transform: translate(-50%, 0);  
-      opacity: 1;  
-    }  
-  
-    .toast[data-type="error"] {  
-      border-color: rgba(255, 140, 145, 0.5);  
-    }  
-  
-    .modal-backdrop {  
-      position: fixed;  
-      inset: 0;  
-      z-index: 90;  
-      display: none;  
-      align-items: center;  
-      justify-content: center;  
-      padding: 18px;  
-      background: rgba(0, 0, 0, 0.72);  
-      backdrop-filter: blur(7px);  
-    }  
-  
-    .modal-backdrop.open {  
-      display: flex;  
-    }  
-  
-    .modal {  
-      width: min(620px, 100%);  
-      max-height: min(85vh, 850px);  
-      overflow: auto;  
-      padding: 25px;  
-      border: 1px solid var(--border);  
-      border-radius: 22px;  
-      background: #0d192a;  
-      box-shadow: var(--shadow);  
-    }  
-  
-    .modal-header {  
-      display: flex;  
-      justify-content: space-between;  
-      align-items: start;  
-      gap: 16px;  
-      margin-bottom: 18px;  
-    }  
-  
-    .modal-header h2 {  
-      margin-bottom: 0;  
-    }  
-  
-    .modal-close {  
-      width: 39px;  
-      height: 39px;  
-      flex-shrink: 0;  
-      border: 1px solid var(--border);  
-      border-radius: 11px;  
-      background: var(--surface);  
-      color: var(--text);  
-      font-size: 1.25rem;  
-    }  
-  
-    .cart-list {  
-      display: grid;  
-      gap: 12px;  
-      margin-bottom: 20px;  
-    }  
-  
-    .cart-item {  
-      display: grid;  
-      grid-template-columns: minmax(0, 1fr) auto;  
-      gap: 12px;  
-      padding: 14px;  
-    }
-
-          .brand-tagline {
-        font-size: 0.69rem;
-      }
-
-      .header-actions .button-secondary {
-        display: none;
-      }
-
-      .brand-mark {
-        width: 39px;
-        height: 39px;
-      }
-
-      .brand-name {
-        font-size: 0.88rem;
-      }
-
-      .hero {
-        padding: 48px 0 38px;
-      }
-
-      .hero-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-card {
-        min-height: 270px;
-      }
-
-      .trust-grid {
-        grid-template-columns: 1fr;
-        gap: 13px;
-      }
-
-      .trust-item {
-        justify-content: flex-start;
-        text-align: left;
-      }
-
-      .section {
-        padding: 49px 0;
-      }
-
-      .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .products-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      .product-content {
-        padding: 12px;
-      }
-
-      .product-title {
-        font-size: 0.91rem;
-      }
-
-      .product-description {
-        font-size: 0.8rem;
-      }
-
-      .product-actions .button {
-        padding: 9px 8px;
-        font-size: 0.8rem;
-      }
-
-      .features-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-panel {
-        grid-template-columns: 1fr;
-        gap: 22px;
-      }
-
-      .footer-main {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .catalog-tools {
-        grid-template-columns: 1fr;
-      }
-
-      .cart-fab {
-        right: 13px;
-        bottom: 13px;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            shefa: {
+              dark: '#070B14',
+              card: '#0F1626',
+              border: '#1E293B',
+              gold: '#D4AF37',
+              goldLight: '#F3E5AB',
+              accent: '#10B981',
+            }
+          }
+        }
       }
     }
+  </script>
 
-    @media (max-width: 380px) {
-      .container {
-        width: calc(100% - 20px);
-      }
-
-      .brand {
-        gap: 8px;
-      }
-
-      .brand-name {
-        font-size: 0.78rem;
-      }
-
-      .brand-tagline {
-        font-size: 0.63rem;
-      }
-
-      .products-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .product-image-wrap {
-        aspect-ratio: 1.15 / 1;
-      }
-
-      h1 {
-        font-size: 2.35rem;
-      }
-
-      .hero-actions .button {
-        width: 100%;
-      }
+  <style>
+    body {
+      background-color: #070B14;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
+    /* Proporciones Armónicas y Estética Premium */
+    .product-card {
+      background: linear-gradient(180deg, rgba(15, 22, 38, 0.9) 0%, rgba(10, 15, 28, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.45);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(212, 175, 55, 0.15);
+    }
+
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF3B0 0%, #D4AF37 50%, #AA7C11 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gold-btn {
+      background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B38728 100%);
+      color: #070B14;
+      transition: all 0.25s ease;
+    }
+
+    .gold-btn:hover {
+      filter: brightness(1.1);
+      box-shadow: 0 8px 20px -4px rgba(212, 175, 55, 0.45);
+    }
+
+    /* Clamping para simetría exacta en tarjetas */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Scrollbar elegante */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #070B14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D4AF37;
     }
   </style>
 </head>
+<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
 
-<body>
-  <div class="announcement">
-    SHEFA-SHOP GLOBAL · DESCUBRE, CONSULTA Y ELIGE CON CONFIANZA
+  <!-- BARRA SUPERIOR DE ANUNCIO -->
+  <div class="bg-gradient-to-r from-amber-900/30 via-amber-500/20 to-amber-900/30 border-b border-amber-500/20 text-xs sm:text-sm py-2 px-4 text-center text-amber-200 font-medium">
+    <span class="inline-flex items-center gap-1.5">
+      <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i>
+      <strong>SHEFA PLUS GLOBAL:</strong> Garantía de Calidad Internacional • Compra 100% Segura y Directa
+    </span>
   </div>
 
-  <header class="header">
-    <div class="container header-inner">
-      <a class="brand" href="#inicio" aria-label="Shefa-Shop Global, inicio">
-        <span class="brand-mark" aria-hidden="true">S+</span>
-
-        <span class="brand-copy">
-          <span class="brand-name">SHEFA-SHOP GLOBAL</span>
-          <span class="brand-tagline">Tecnología, productos y soluciones</span>
-        </span>
+  <!-- HEADER PRINCIPAL -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#070B14]/85 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <!-- Marca -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-700 p-[1px] shadow-lg shadow-amber-500/10">
+          <div class="w-full h-full bg-[#070B14] rounded-[11px] flex items-center justify-center">
+            <span class="font-display font-extrabold text-xl gold-gradient-text">S+</span>
+          </div>
+        </div>
+        <div>
+          <span class="font-display font-bold text-lg sm:text-xl tracking-wide text-white block leading-none">
+            SHEFA <span class="gold-gradient-text">SHOP</span>
+          </span>
+          <span class="text-[11px] uppercase tracking-[0.2em] text-slate-400 block mt-1">
+            Shefa Plus Global
+          </span>
+        </div>
       </a>
 
-      <nav class="nav" aria-label="Navegación principal">
-        <a href="#inicio">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+      <!-- Buscador Central -->
+      <div class="hidden md:flex flex-1 max-w-md mx-6">
+        <div class="relative w-full">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input 
+            id="searchInput"
+            type="text" 
+            placeholder="Buscar drones, proyectores, audio, VR..." 
+            class="w-full bg-slate-900/90 border border-slate-800 focus:border-amber-500/60 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none transition"
+          />
+        </div>
+      </div>
 
-      <div class="header-actions">
-        <a
-          class="button button-secondary button-small"
-          href="#catalogo"
-        >
-          Explorar catálogo
-        </a>
+      <!-- Controles Derecha: Moneda, Editor y Carrito -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <!-- Selector de Moneda -->
+        <div class="bg-slate-900 border border-slate-800 rounded-full p-1 flex items-center text-xs font-semibold">
+          <button id="btnUSD" onclick="setCurrency('USD')" class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 transition">USD $</button>
+          <button id="btnCOP" onclick="setCurrency('COP')" class="px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition">COP $</button>
+        </div>
 
-        <button
-          class="button button-primary button-small"
-          id="headerCartButton"
-          type="button"
+        <!-- Botón Personalizar Fotos/Videos (Para el dueño) -->
+        <button 
+          onclick="openAdminModal()"
+          title="Configurar Fotos, Videos y WhatsApp de tu tienda"
+          class="p-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 transition"
         >
-          Mi selección
-          <span id="headerCartCount">0</span>
+          <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
         </button>
+
+        <!-- Botón Carrito -->
+        <button 
+          onclick="toggleCart(true)" 
+          class="relative flex items-center gap-2 gold-btn font-semibold px-4 py-2.5 rounded-full text-sm shadow-lg"
+        >
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Mi Pedido</span>
+          <span id="cartCount" class="w-5 h-5 rounded-full bg-slate-950 text-amber-400 text-xs flex items-center justify-center font-bold">0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Buscador Móvil -->
+    <div class="md:hidden px-4 pb-3">
+      <div class="relative w-full">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input 
+          id="searchInputMobile"
+          type="text" 
+          placeholder="Buscar en el catálogo Shefa..." 
+          class="w-full bg-slate-900/90 border border-slate-800 focus:border-amber-500/60 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none"
+        />
       </div>
     </div>
   </header>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">
-            <span class="eyebrow-dot" aria-hidden="true"></span>
-            Tu próxima compra comienza aquí
-          </span>
+  <!-- HERO BANNER -->
+  <section class="relative overflow-hidden py-10 sm:py-14 border-b border-slate-800/70">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-slate-950 to-slate-950 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-4">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Colección Tecnológica & Innovación
+      </span>
+      <h1 class="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
+        Tecnología de Vanguardia con el Respaldo de <span class="gold-gradient-text">Shefa Plus Global</span>
+      </h1>
+      <p class="mt-4 text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Explora nuestro catálogo oficial. Haz clic en cualquier producto para ver su <strong>galería de fotos en alta definición, video demostrativo y ficha técnica completa</strong>.
+      </p>
 
-          <h1>
-            Descubre nuevas posibilidades con
-            <span class="gradient-text">Shefa-Shop.</span>
-          </h1>
-
-          <p class="hero-description">
-            Explora nuestro catálogo de productos, encuentra opciones
-            para tus necesidades y solicita información personalizada
-            antes de tomar tu decisión de compra.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="#catalogo">
-              Explorar productos <span aria-hidden="true">→</span>
-            </a>
-
-            <a class="button button-secondary" href="#contacto">
-              Hablar con nosotros
-            </a>
-          </div>
-
-          <div class="hero-points">
-            <span>Atención personalizada</span>
-            <span>Consulta de productos</span>
-            <span>Asesoría comercial</span>
-          </div>
-        </div>
-
-        <aside class="hero-card">
-          <div class="hero-card-icon" aria-hidden="true">✦</div>
-
-          <div>
-            <h2>Una experiencia de compra más sencilla.</h2>
-
-            <p>
-              Explora, compara y reúne los productos que te interesan
-              para solicitar una cotización personalizada.
-            </p>
-          </div>
-
-          <a class="button button-primary" href="#catalogo">
-            Ver catálogo
-          </a>
-        </aside>
+      <!-- Filtros de Categoría -->
+      <div id="categoryFilters" class="mt-8 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+        <button onclick="filterCategory('Todos')" data-cat="Todos" class="cat-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-amber-500 text-slate-950 transition">
+          Todos (10)
+        </button>
+        <button onclick="filterCategory('Drones y Aviación')" data-cat="Drones y Aviación" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
+          Drones y Aviación (3)
+        </button>
+        <button onclick="filterCategory('Iluminación & Deco Smart')" data-cat="Iluminación & Deco Smart" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
+          Iluminación & Deco Smart (4)
+        </button>
+        <button onclick="filterCategory('Cine, Audio & VR')" data-cat="Cine, Audio & VR" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
+          Cine, Audio & VR (3)
+        </button>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="trust-strip" aria-label="Nuestro servicio">
-      <div class="container trust-grid">
-        <div class="trust-item">
-          <span class="trust-icon" aria-hidden="true">◇</span>
-          <span>Catálogo de productos</span>
-        </div>
+  <!-- CATÁLOGO DE PRODUCTOS (PROPORCIONES ARMÓNICAS) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+      <!-- Renderizado dinámicamente por JS -->
+    </div>
 
-        <div class="trust-item">
-          <span class="trust-icon" aria-hidden="true">◎</span>
-          <span>Consultas personalizadas</span>
-        </div>
-
-        <div class="trust-item">
-          <span class="trust-icon" aria-hidden="true">↗</span>
-          <span>Atención por WhatsApp</span>
-        </div>
+    <!-- Estado vacío si no hay resultados de búsqueda -->
+    <div id="emptyState" class="hidden text-center py-16">
+      <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto mb-4 text-amber-400">
+        <i data-lucide="package-search" class="w-8 h-8"></i>
       </div>
-    </section>
-
-    <section class="section" id="catalogo">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">Nuestra selección</span>
-
-            <h2 style="margin-top: 16px;">
-              Encuentra lo que necesitas
-            </h2>
-
-            <p>
-              Explora los productos disponibles y agrega a tu selección
-              aquellos sobre los que quieras recibir información.
-            </p>
-          </div>
-
-          <button
-            class="button button-secondary"
-            id="refreshButton"
-            type="button"
-          >
-            ↻ Actualizar catálogo
-          </button>
-        </div>
-
-        <div class="catalog-tools">
-          <label>
-            <span class="sr-only">Buscar productos</span>
-
-            <input
-              class="field"
-              id="searchInput"
-              type="search"
-              maxlength="120"
-              placeholder="Buscar por nombre, categoría o descripción..."
-              autocomplete="off"
-            >
-          </label>
-
-          <label>
-            <span class="sr-only">Ordenar productos</span>
-
-            <select class="field" id="sortSelect">
-              <option value="featured">Orden recomendado</option>
-              <option value="name-asc">Nombre: A–Z</option>
-              <option value="name-desc">Nombre: Z–A</option>
-              <option value="price-asc">Precio: menor a mayor</option>
-              <option value="price-desc">Precio: mayor a menor</option>
-            </select>
-          </label>
-        </div>
-
-        <p
-          class="catalog-status"
-          id="catalogStatus"
-          role="status"
-          aria-live="polite"
-        >
-          Preparando catálogo...
-        </p>
-
-        <div class="products-grid" id="productsGrid">
-          <div class="loading-state">
-            <div class="empty-icon" aria-hidden="true">◌</div>
-            <h3>Cargando productos</h3>
-            <p>Estamos consultando el catálogo. Un momento, por favor.</p>
-          </div>
-        </div>
-
-        <div class="catalog-footer">
-          <button
-            class="button button-secondary"
-            id="loadMoreButton"
-            type="button"
-            hidden
-          >
-            Cargar más productos
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section features" id="beneficios">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">Nuestra propuesta</span>
-
-            <h2 style="margin-top: 16px;">
-              Compra con información clara
-            </h2>
-
-            <p>
-              Queremos que conozcas tus opciones antes de solicitar
-              una cotización o confirmar una compra.
-            </p>
-          </div>
-        </div>
-
-        <div class="features-grid">
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">⌕</div>
-
-            <h3>Exploración sencilla</h3>
-
-            <p>
-              Busca productos, revisa sus imágenes y organiza
-              los resultados según tus preferencias.
-            </p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">◇</div>
-
-            <h3>Selección personalizada</h3>
-
-            <p>
-              Guarda temporalmente los productos que te interesan
-              y prepara una consulta comercial.
-            </p>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon" aria-hidden="true">☏</div>
-
-            <h3>Contacto directo</h3>
-
-            <p>
-              Envía tu solicitud por WhatsApp para consultar precios,
-              disponibilidad y condiciones de entrega.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contacto">
-      <div class="container">
-        <div class="contact-panel">
-          <div>
-            <span class="eyebrow">Estamos para ayudarte</span>
-
-            <h2 style="margin-top: 16px;">
-              ¿Tienes un producto en mente?
-            </h2>
-
-            <p>
-              Cuéntanos qué necesitas. Nuestro canal comercial puede
-              ayudarte a consultar la información del producto y
-              orientarte sobre los siguientes pasos.
-            </p>
-          </div>
-
-          <a
-            class="button button-primary"
-            id="contactWhatsApp"
-            href="https://wa.me/573204774096"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Consultar por WhatsApp
-          </a>
-        </div>
-      </div>
-    </section>
+      <h3 class="text-lg font-bold text-white">No encontramos productos con ese criterio</h3>
+      <p class="text-slate-400 text-sm mt-1">Intenta con otra palabra clave o selecciona "Todos" en las categorías.</p>
+    </div>
   </main>
 
-  <footer class="footer">
-    <div class="container footer-main">
-      <div>
-        <a class="brand" href="#inicio">
-          <span class="brand-mark" aria-hidden="true">S+</span>
-
-          <span class="brand-copy">
-            <span class="brand-name">SHEFA-SHOP GLOBAL</span>
-            <span class="brand-tagline">
-              Una iniciativa de Shefa Plus Global
-            </span>
-          </span>
-        </a>
-
-        <p class="footer-copy" style="margin: 14px 0 0;">
-          © <span id="currentYear"></span> Shefa Plus Global.
-          Todos los derechos reservados.
-        </p>
+  <!-- SECCIÓN DE CONFIANZA SHEFA PLUS GLOBAL -->
+  <section class="border-t border-slate-800/80 bg-[#0A0F1D] py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+        <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <i data-lucide="truck" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="font-display font-bold text-white text-base">Despacho Directo y Seguro</h4>
+          <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Procesamos y monitoreamos cada orden directamente desde nuestra central Shefa Plus Global hasta la puerta de tu casa.</p>
+        </div>
       </div>
+      <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+        <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <i data-lucide="award" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="font-display font-bold text-white text-base">Calidad Verificada</h4>
+          <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Cada dispositivo pasa por control de calidad estricto y cuenta con garantía directa con nuestra tienda.</p>
+        </div>
+      </div>
+      <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+        <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <i data-lucide="headset" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h4 class="font-display font-bold text-white text-base">Atención Personalizada VIP</h4>
+          <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Asesoría directa en español antes, durante y después de tu compra para que elijas el producto ideal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <nav class="footer-links" aria-label="Enlaces del pie de página">
-        <a href="#inicio">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#beneficios">Beneficios</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800/80 bg-[#050811] py-8 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-display font-bold text-slate-300">SHEFA PLUS GLOBAL</span>
+        <span>•</span>
+        <span>Catálogo Oficial Exclusivo</span>
+      </div>
+      <div>
+        © <span id="currentYear"></span> Shefa Plus Global. Todos los derechos reservados.
+      </div>
     </div>
   </footer>
 
-  <button
-    class="cart-fab"
-    id="cartFab"
-    type="button"
-    aria-label="Abrir mi selección de productos"
-  >
-    Mi selección
-    <span class="cart-count" id="cartCount">0</span>
-  </button>
-
-  <div
-    class="modal-backdrop"
-    id="cartModal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="cartTitle"
-    aria-hidden="true"
-  >
-    <div class="modal">
-      <div class="modal-header">
-        <div>
-          <h2 id="cartTitle">Mi selección</h2>
-          <p style="margin: 7px 0 0; color: var(--muted);">
-            Revisa los productos que deseas consultar.
-          </p>
+  <!-- ========================================================================= -->
+  <!-- MODAL DE DETALLE COMPLETO DEL PRODUCTO (GALERÍA + VIDEO + DESCRIPCIÓN)     -->
+  <!-- ========================================================================= -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+    <div class="relative w-full max-w-5xl rounded-3xl bg-[#0C1322] border border-slate-700/80 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      
+      <!-- Barra Superior del Modal -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-[#090E1A]">
+        <div class="flex items-center gap-2">
+          <span id="modalSku" class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-slate-800 text-amber-400 border border-slate-700">SHF-001</span>
+          <span id="modalCategory" class="text-xs text-slate-400 font-medium">Categoría</span>
         </div>
-
-        <button
-          class="modal-close"
-          id="closeCartButton"
-          type="button"
-          aria-label="Cerrar selección"
-        >
-          ×
+        <button onclick="closeProductModal()" class="p-2 rounded-full bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <div class="cart-list" id="cartList"></div>
-
-      <p class="form-note" id="cartSummary">
-        Tu selección está vacía.
-      </p>
-
-      <form class="form-grid" id="inquiryForm">
-        <label>
-          Nombre
-          <input
-            class="field"
-            id="customerName"
-            name="name"
-            type="text"
-            maxlength="100"
-            autocomplete="name"
-            placeholder="¿Cómo te llamas?"
-            required
-          >
-        </label>
-
-        <label>
-          Ciudad o municipio
-          <input
-            class="field"
-            id="customerCity"
-            name="city"
-            type="text"
-            maxlength="100"
-            autocomplete="address-level2"
-            placeholder="Ej. Villavicencio"
-          >
-        </label>
-
-        <label>
-          ¿Qué necesitas saber?
-          <select class="field" id="inquiryType" name="inquiryType">
-            <option value="precio">Consultar precio</option>
-            <option value="disponibilidad">Consultar disponibilidad</option>
-            <option value="envio">Consultar envío y entrega</option>
-            <option value="general">Información general</option>
-          </select>
-        </label>
-
-        <label>
-          Mensaje adicional (opcional)
-          <textarea
-            class="field"
-            id="customerMessage"
-            name="message"
-            maxlength="1000"
-            rows="3"
-            placeholder="Cuéntanos un poco más..."
-          ></textarea>
-        </label>
-
-        <label class="checkbox-row">
-          <input
-            id="privacyConsent"
-            type="checkbox"
-            required
-          >
-
-          <span>
-            Acepto enviar voluntariamente los datos que he escrito
-            por WhatsApp para gestionar esta consulta comercial.
-          </span>
-        </label>
-
-        <p class="form-note">
-          Esta función prepara un mensaje para WhatsApp. No realiza
-          pagos ni confirma pedidos automáticamente.
-        </p>
-
-        <button
-          class="button button-primary"
-          id="sendInquiryButton"
-          type="submit"
-        >
-          Enviar consulta por WhatsApp
-        </button>
-
-        <button
-          class="button button-secondary"
-          id="clearCartButton"
-          type="button"
-        >
-          Vaciar selección
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <div
-    class="toast"
-    id="toast"
-    role="status"
-    aria-live="polite"
-  ></div>
-
-  <script>
-    "use strict";
-
-    /*
-     * SHEFA-SHOP GLOBAL
-     * Catálogo público y solicitudes comerciales.
-     *
-     * El servidor debe exponer GET /api/cj/products.
-     * Esta interfaz no implementa pagos ni confirma inventario.
-     */
-
-    const STORE_CONFIG = Object.freeze({
-      API_PRODUCTS: "/api/cj/products?limit=12&page=1",
-      WHATSAPP_NUMBER: "573204774096",
-      PAGE_SIZE: 12,
-      REQUEST_TIMEOUT_MS: 15000,
-      MAX_SEARCH_LENGTH: 120,
-      CART_STORAGE_KEY: "shefashop_selection_v1",
-      DEFAULT_CURRENCY: "COP"
-    });
-
-    const state = {
-      products: [],
-      filteredProducts: [],
-      cart: [],
-      page: 1,
-      hasMore: false,
-      loading: false,
-      requestController: null,
-      toastTimer: null,
-      lastFocusedElement: null
-    };
-
-    const elements = {
-      productsGrid: document.getElementById("productsGrid"),
-      catalogStatus: document.getElementById("catalogStatus"),
-      searchInput: document.getElementById("searchInput"),
-      sortSelect: document.getElementById("sortSelect"),
-      refreshButton: document.getElementById("refreshButton"),
-      loadMoreButton: document.getElementById("loadMoreButton"),
-      cartFab: document.getElementById("cartFab"),
-      cartModal: document.getElementById("cartModal"),
-      cartList: document.getElementById("cartList"),
-      cartCount: document.getElementById("cartCount"),
-      headerCartCount: document.getElementById("headerCartCount"),
-      headerCartButton: document.getElementById("headerCartButton"),
-      closeCartButton: document.getElementById("closeCartButton"),
-      clearCartButton: document.getElementById("clearCartButton"),
-      cartSummary: document.getElementById("cartSummary"),
-      inquiryForm: document.getElementById("inquiryForm"),
-      customerName: document.getElementById("customerName"),
-      customerCity: document.getElementById("customerCity"),
-      inquiryType: document.getElementById("inquiryType"),
-      customerMessage: document.getElementById("customerMessage"),
-      privacyConsent: document.getElementById("privacyConsent"),
-      sendInquiryButton: document.getElementById("sendInquiryButton"),
-      contactWhatsApp: document.getElementById("contactWhatsApp"),
-      toast: document.getElementById("toast"),
-      currentYear: document.getElementById("currentYear")
-    };
-
-    function setStatus(message, type = "normal") {
-      elements.catalogStatus.textContent = message;
-      elements.catalogStatus.dataset.type = type;
-    }
-
-    function showToast(message, type = "success") {
-      window.clearTimeout(state.toastTimer);
-
-      elements.toast.textContent = message;
-      elements.toast.dataset.type = type;
-      elements.toast.classList.add("show");
-
-      state.toastTimer = window.setTimeout(() => {
-        elements.toast.classList.remove("show");
-      }, 3400);
-    }
-
-    function normalizeText(value) {
-      return String(value ?? "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .trim();
-    }
-
-    function cleanText(value, maxLength = 500) {
-      if (value === null || value === undefined) {
-        return "";
-      }
-
-      if (
-        typeof value !== "string" &&
-        typeof value !== "number"
-      ) {
-        return "";
-      }
-
-      return String(value)
-        .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "")
-        .trim()
-        .slice(0, maxLength);
-    }
-
-    function firstValue(object, keys) {
-      for (const key of keys) {
-        const value = object?.[key];
-
-        if (
-          value !== null &&
-          value !== undefined &&
-          value !== ""
-        ) {
-          return value;
-        }
-      }
-
-      return null;
-    }
-
-    function parsePrice(value) {
-      if (typeof value === "number") {
-        return Number.isFinite(value) && value >= 0
-          ? value
-          : null;
-      }
-
-      if (typeof value !== "string" || !value.trim()) {
-        return null;
-      }
-
-      const normalized = value.trim().replace(/\s/g, "");
-
-      /*
-       * No interpretamos formatos ambiguos como precios confirmados.
-       * La normalización de precios reales debe corresponder al formato
-       * documentado que entregue el servidor.
-       */
-      if (/^-?\d+(\.\d+)?$/.test(normalized)) {
-        const number = Number(normalized);
-
-        return Number.isFinite(number) && number >= 0
-          ? number
-          : null;
-      }
-
-      return null;
-    }
-
-    function safeImageUrl(value) {
-      const urlText = cleanText(value, 2000);
-
-      if (!urlText) {
-        return "";
-      }
-
-      try {
-        const parsed = new URL(urlText, window.location.origin);
-
-        if (
-          parsed.protocol !== "https:" &&
-          parsed.protocol !== "http:"
-        ) {
-          return "";
-        }
-
-        return parsed.href;
-      } catch {
-        return "";
-      }
-    }
-
-    function normalizeProduct(raw, index) {
-      if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
-        return null;
-      }
-
-      const rawId = firstValue(raw, [
-        "pid",
-        "productId",
-        "product_id",
-        "id",
-        "vid",
-        "sku",
-        "productSku"
-      ]);
-
-      const name = cleanText(
-        firstValue(raw, [
-          "productName",
-          "name",
-          "title",
-          "productTitle",
-          "goodsName"
-        ]),
-        250
-      );
-
-      if (!name) {
-        return null;
-      }
-
-      const rawImage = firstValue(raw, [
-        "productImage",
-        "productImageUrl",
-        "image",
-        "imageUrl",
-        "img",
-        "thumbnail",
-        "mainImage",
-        "cover",
-        "productImageSet"
-      ]);
-
-      let imageCandidate = rawImage;
-
-      if (Array.isArray(rawImage)) {
-        imageCandidate = rawImage[0];
-      }
-
-      if (
-        imageCandidate &&
-        typeof imageCandidate === "object"
-      ) {
-        imageCandidate = firstValue(imageCandidate, [
-          "url",
-          "imageUrl",
-          "src"
-        ]);
-      }
-
-      const rawCategory = firstValue(raw, [
-        "categoryName",
-        "category",
-        "productType",
-        "type",
-        "classification"
-      ]);
-
-      const rawDescription = firstValue(raw, [
-        "description",
-        "productDescription",
-        "briefDescription",
-        "intro",
-        "remark"
-      ]);
-
-      const rawPrice = firstValue(raw, [
-        "sellPrice",
-        "salePrice",
-        "productPrice",
-        "price",
-        "sellingPrice",
-        "minPrice"
-      ]);
-
-      const rawCurrency = firstValue(raw, [
-        "currency",
-        "currencyCode"
-      ]);
-
-      const stockValue = firstValue(raw, [
-        "stock",
-        "inventory",
-        "quantity",
-        "availableStock"
-      ]);
-
-      const id = cleanText(
-        rawId ?? `product-${index + 1}`,
-        150
-      );
-
-      return {
-        id,
-        name,
-        image: safeImageUrl(imageCandidate),
-        category: cleanText(rawCategory, 120) || "Producto",
-        description:
-          cleanText(rawDescription, 1000) ||
-          "Solicita información para conocer los detalles de este producto.",
-        price: parsePrice(rawPrice),
-        currency: cleanText(rawCurrency, 8) || STORE_CONFIG.DEFAULT_CURRENCY,
-        sku: cleanText(
-          firstValue(raw, ["productSku", "sku", "productCode"]),
-          100
-        ),
-        stock: stockValue,
-        stockKnown:
-          stockValue !== null &&
-          stockValue !== undefined &&
-          stockValue !== "",
-        source: "catalog"
-      };
-    }
-
-    function extractProductArray(payload) {
-      const candidates = [
-        payload?.data?.products,
-        payload?.data?.list,
-        payload?.data?.content,
-        payload?.data?.records,
-        payload?.data?.items,
-        payload?.products,
-        payload?.list,
-        payload?.content,
-        payload?.records,
-        payload?.items,
-        payload?.data
-      ];
-
-      for (const candidate of candidates) {
-        if (Array.isArray(candidate)) {
-          return candidate;
-        }
-      }
-
-      return [];
-    }
-
-    function extractHasMore(payload, currentPage, receivedCount) {
-      const data = payload?.data ?? payload;
-
-      const explicit = firstValue(data, [
-        "hasMore",
-        "hasNext",
-        "hasNextPage"
-      ]);
-
-      if (typeof explicit === "boolean") {
-        return explicit;
-      }
-
-      const totalPages = Number(
-        firstValue(data, ["totalPages", "pages", "pageCount"])
-      );
-
-      if (
-        Number.isFinite(totalPages) &&
-        totalPages > 0
-      ) {
-        return currentPage < totalPages;
-      }
-
-      const total = Number(
-        firstValue(data, ["total", "totalCount", "totalElements"])
-      );
-
-      if (
-        Number.isFinite(total) &&
-        total >= 0
-      ) {
-        return currentPage * STORE_CONFIG.PAGE_SIZE < total;
-      }
-
-      /*
-       * Si el servidor no informa paginación, no suponemos que
-       * existan más páginas.
-       */
-      return false;
-    }
-
-    async function fetchWithTimeout(url, options = {}) {
-      const controller = new AbortController();
-
-      const timer = window.setTimeout(
-        () => controller.abort(),
-        STORE_CONFIG.REQUEST_TIMEOUT_MS
-      );
-
-      try {
-        const response = await fetch(url, {
-          ...options,
-          signal: controller.signal,
-          headers: {
-            Accept: "application/json",
-            ...(options.headers || {})
-          },
-          credentials: "same-origin",
-          cache: "no-store"
-        });
-
-        if (!response.ok) {
-          throw new Error(
-            `El servidor respondió con el código ${response.status}.`
-          );
-        }
-
-        const contentType =
-          response.headers.get("content-type") || "";
-
-        if (!contentType.toLowerCase().includes("application/json")) {
-          throw new Error(
-            "La respuesta del catálogo no es JSON válido."
-          );
-        }
-
-        return await response.json();
-      } catch (error) {
-        if (error.name === "AbortError") {
-          throw new Error(
-            "La solicitud tardó demasiado. Intenta nuevamente."
-          );
-        }
-
-        throw error;
-      } finally {
-        window.clearTimeout(timer);
-      }
-    }
-
-    function createElement(tag, className, text) {
-      const node = document.createElement(tag);
-
-      if (className) {
-        node.className = className;
-      }
-
-      if (text !== undefined && text !== null) {
-        node.textContent = String(text);
-      }
-
-      return node;
-    }
-
-    function formatPrice(price, currency) {
-      if (price === null || !Number.isFinite(price)) {
-        return null;
-      }
-
-      try {
-        return new Intl.NumberFormat("es-CO", {
-          style: "currency",
-          currency: /^[A-Z]{3}$/.test(currency)
-            ? currency
-            : "COP",
-          maximumFractionDigits: 2
-        }).format(price);
-      } catch {
-        return new Intl.NumberFormat("es-CO", {
-          maximumFractionDigits: 2
-        }).format(price);
-      }
-    }
-
-    function makeImagePlaceholder() {
-      const placeholder = createElement(
-        "div",
-        "product-image-placeholder",
-        "◇"
-      );
-
-      placeholder.setAttribute("aria-hidden", "true");
-
-      return placeholder;
-    }
-
-    function createProductCard(product) {
-      const article = createElement("article", "product-card");
-
-      const imageWrap = createElement(
-        "div",
-        "product-image-wrap"
-      );
-
-      const badge = createElement(
-        "span",
-        "product-badge",
-        "Consultar detalles"
-      );
-
-      if (product.image) {
-        const image = document.createElement("img");
-
-        image.className = "product-image";
-        image.src = product.image;
-        image.alt = product.name;
-        image.loading = "lazy";
-        image.decoding = "async";
-        image.referrerPolicy = "no-referrer";
-
-        image.addEventListener("error", () => {
-          image.replaceWith(makeImagePlaceholder());
-        }, { once: true });
-
-        imageWrap.append(image);
-      } else {
-        imageWrap.append(makeImagePlaceholder());
-      }
-
-      imageWrap.append(badge);
-
-      const content = createElement(
-        "div",
-        "product-content"
-      );
-
-      const category = createElement(
-        "div",
-        "product-category",
-        product.category
-      );
-
-      const title = createElement(
-        "h3",
-        "product-title",
-        product.name
-      );
-
-      const description = createElement(
-        "p",
-        "product-description",
-        product.description
-      );
-
-      const price = createElement("div", "product-price");
-
-      const formattedPrice = formatPrice(
-        product.price,
-        product.currency
-      );
-
-      if (formattedPrice) {
-        price.append(
-          document.createTextNode(formattedPrice)
-        );
-
-        const note = createElement(
-          "span",
-          "product-price-note",
-          "Precio informativo; confirma la cotización."
-        );
-
-        price.append(note);
-      } else {
-        price.append(
-          document.createTextNode("Precio por consultar")
-        );
-
-        const note = createElement(
-          "span",
-          "product-price-note",
-          "Solicita una cotización actualizada."
-        );
-
-        price.append(note);
-      }
-
-      const actions = createElement(
-        "div",
-        "product-actions"
-      );
-
-      const addButton = createElement(
-        "button",
-        "button button-primary",
-        "Agregar a mi selección"
-      );
-
-      addButton.type = "button";
-
-      addButton.addEventListener("click", () => {
-        addToCart(product.id);
-      });
-
-      const askButton = createElement(
-        "button",
-        "button button-secondary",
-        "Consultar producto"
-      );
-
-      askButton.type = "button";
-
-      askButton.addEventListener("click", () => {
-        openWhatsAppForProduct(product);
-      });
-
-      actions.append(addButton, askButton);
-
-      content.append(
-        category,
-        title,
-        description,
-        price,
-        actions
-      );
-
-      article.append(imageWrap, content);
-
-      return article;
-    }
-
-    function renderLoading() {
-      elements.productsGrid.replaceChildren();
-
-      const box = createElement("div", "loading-state");
-
-      box.append(
-        createElement("div", "empty-icon", "◌"),
-        createElement("h3", "", "Cargando productos"),
-        createElement(
-          "p",
-          "",
-          "Estamos consultando el catálogo. Un momento, por favor."
-        )
-      );
-
-      elements.productsGrid.append(box);
-    }
-
-    function renderEmpty(title, description) {
-      elements.productsGrid.replaceChildren();
-
-      const box = createElement("div", "empty-state");
-
-      box.append(
-        createElement("div", "empty-icon", "⌕"),
-        createElement("h3", "", title),
-        createElement("p", "", description)
-      );
-
-      elements.productsGrid.append(box);
-    }
-
-    function applyFilters() {
-      const query = normalizeText(
-        elements.searchInput.value.slice(
-          0,
-          STORE_CONFIG.MAX_SEARCH_LENGTH
-        )
-      );
-
-      const sortMode = elements.sortSelect.value;
-
-      let result = state.products.filter(product => {
-        const searchable = normalizeText([
-          product.name,
-          product.category,
-          product.description,
-          product.sku
-        ].join(" "));
-
-        return searchable.includes(query);
-      });
-
-      if (sortMode === "name-asc") {
-        result.sort((a, b) =>
-          a.name.localeCompare(b.name, "es")
-        );
-      } else if (sortMode === "name-desc") {
-        result.sort((a, b) =>
-          b.name.localeCompare(a.name, "es")
-        );
-      } else if (sortMode === "price-asc") {
-        result.sort((a, b) => {
-          if (a.price === null) return 1;
-          if (b.price === null) return -1;
-          return a.price - b.price;
-        });
-      } else if (sortMode === "price-desc") {
-        result.sort((a, b) => {
-          if (a.price === null) return 1;
-          if (b.price === null) return -1;
-          return b.price - a.price;
-        });
-      }
-
-      state.filteredProducts = result;
-      renderProducts();
-    }
-
-    function renderProducts() {
-      elements.productsGrid.replaceChildren();
-
-      if (state.filteredProducts.length === 0) {
-        renderEmpty(
-          state.products.length === 0
-            ? "Todavía no hay productos para mostrar"
-            : "No encontramos coincidencias",
-          state.products.length === 0
-            ? "Actualiza el catálogo o vuelve a intentarlo más tarde."
-            : "Prueba con otra palabra o cambia el criterio de búsqueda."
-        );
-
-        return;
-      }
-
-      const fragment = document.createDocumentFragment();
-
-      state.filteredProducts.forEach(product => {
-        fragment.append(createProductCard(product));
-      });
-
-      elements.productsGrid.append(fragment);
-    }
-
-    async function loadProducts({ append = false } = {}) {
-      if (state.loading) {
-        return;
-      }
-
-      state.loading = true;
-      elements.refreshButton.disabled = true;
-      elements.loadMoreButton.disabled = true;
-
-      if (!append) {
-        state.page = 1;
-        renderLoading();
-        setStatus("Consultando el catálogo...");
-      }
-
-      try {
-        const requestedPage = append
-          ? state.page + 1
-          : 1;
-
-        const endpoint = new URL(
-          STORE_CONFIG.API_PRODUCTS,
-          window.location.origin
-        );
-
-        endpoint.searchParams.set(
-          "limit",
-          String(STORE_CONFIG.PAGE_SIZE)
-        );
-
-        endpoint.searchParams.set(
-          "page",
-          String(requestedPage)
-        );
-
-        const payload = await fetchWithTimeout(
-          endpoint.pathname + endpoint.search,
-          { method: "GET" }
-        );
-
-        if (
-          payload &&
-          payload.success === false
-        ) {
-          throw new Error(
-            cleanText(
-              payload.message || payload.error,
-              300
-            ) || "El servidor no pudo entregar el catálogo."
-          );
-        }
-
-        const rawProducts = extractProductArray(payload);
-
-        const normalizedProducts = rawProducts
-          .map((item, index) =>
-            normalizeProduct(item, index)
-          )
-          .filter(Boolean);
-
-        if (append) {
-          const existingIds = new Set(
-            state.products.map(product => product.id)
-          );
-
-          for (const product of normalizedProducts) {
-            if (!existingIds.has(product.id)) {
-              state.products.push(product);
-              existingIds.add(product.id);
-            }
-          }
-        } else {
-          state.products = normalizedProducts;
-        }
-
-        state.page = requestedPage;
-
-        state.hasMore = extractHasMore(
-          payload,
-          requestedPage,
-          rawProducts.length
-        );
-
-        elements.loadMoreButton.hidden = !state.hasMore;
-
-        applyFilters();
-
-        if (state.products.length > 0) {
-          setStatus(
-            `Se encontraron ${state.products.length} productos en el catálogo.`,
-            "success"
-          );
-        } else {
-          setStatus(
-            "El servidor respondió, pero no encontramos productos con el formato esperado.",
-            "warning"
-          );
-        }
-      } catch (error) {
-        console.error("Error al cargar el catálogo:", error);
-
-        if (append && state.products.length > 0) {
-          showToast(
-            "No fue posible cargar más productos. Intenta nuevamente.",
-            "error"
-          );
-        } else {
-          state.products = [];
-          state.filteredProducts = [];
-
-          renderEmpty(
-            "No pudimos cargar el catálogo",
-            "Comprueba tu conexión y que el servidor esté activo. Después, pulsa «Actualizar catálogo»."
-          );
-
-          setStatus(
-            error.message || "Error al consultar el catálogo.",
-            "error"
-          );
-        }
-      } finally {
-        state.loading = false;
-        elements.refreshButton.disabled = false;
-        elements.loadMoreButton.disabled = false;
-      }
-    }
-
-    function saveCart() {
-      try {
-        localStorage.setItem(
-          STORE_CONFIG.CART_STORAGE_KEY,
-          JSON.stringify(state.cart)
-        );
-      } catch (error) {
-        console.warn(
-          "No fue posible guardar la selección localmente:",
-          error
-        );
-      }
-    }
-
-    function loadCart() {
-      try {
-        const saved = localStorage.getItem(
-          STORE_CONFIG.CART_STORAGE_KEY
-        );
-
-        if (!saved) {
-          state.cart = [];
-          return;
-        }
-
-        const parsed = JSON.parse(saved);
-
-        if (!Array.isArray(parsed)) {
-          state.cart = [];
-          return;
-        }
-
-        state.cart = parsed
-          .filter(item =>
-            item &&
-            typeof item.id === "string" &&
-            typeof item.name === "string"
-          )
-          .slice(0, 100)
-          .map(item => ({
-            id: cleanText(item.id, 150),
-            name: cleanText(item.name, 250),
-            sku: cleanText(item.sku, 100),
-            price: parsePrice(item.price),
-            currency: cleanText(item.currency, 8) || "COP"
-          }));
-      } catch {
-        state.cart = [];
-      }
-    }
-
-    function addToCart(productId) {
-      const product = state.products.find(
-        item => item.id === productId
-      );
-
-      if (!product) {
-        showToast(
-          "No encontramos ese producto en el catálogo actual.",
-          "error"
-        );
-
-        return;
-      }
-
-      const alreadyAdded = state.cart.some(
-        item => item.id === product.id
-      );
-
-      if (alreadyAdded) {
-        showToast(
-          "Ese producto ya está en tu selección."
-        );
-
-        return;
-      }
-
-      if (state.cart.length >= 100) {
-        showToast(
-          "Has alcanzado el límite de productos por selección.",
-          "error"
-        );
-
-        return;
-      }
-
-      state.cart.push({
-        id: product.id,
-        name: product.name,
-        sku: product.sku,
-        price: product.price,
-        currency: product.currency
-      });
-
-      saveCart();
-      renderCart();
-
-      showToast("Producto agregado a tu selección.");
-    }
-
-    function removeFromCart(productId) {
-      state.cart = state.cart.filter(
-        item => item.id !== productId
-      );
-
-      saveCart();
-      renderCart();
-
-      showToast("Producto retirado de tu selección.");
-    }
-
-    function renderCart() {
-      const count = state.cart.length;
-
-      elements.cartCount.textContent = String(count);
-      elements.headerCartCount.textContent = String(count);
-
-      elements.cartFab.setAttribute(
-        "aria-label",
-        `Abrir selección. ${count} productos`
-      );
-
-      elements.cartList.replaceChildren();
-
-      if (count === 0) {
-        elements.cartList.append(
-          createElement(
-            "p",
-            "form-note",
-            "Todavía no has agregado productos. Explora el catálogo y selecciona los que te interesen."
-          )
-        );
-
-        elements.cartSummary.textContent =
-          "Tu selección está vacía.";
-
-        elements.sendInquiryButton.disabled = true;
-        elements.clearCartButton.disabled = true;
-
-        return;
-      }
-
-      elements.sendInquiryButton.disabled = false;
-      elements.clearCartButton.disabled = false;
-
-      const fragment = document.createDocumentFragment();
-
-      for (const item of state.cart) {
-        const row = createElement("div", "cart-item");
-        const details = createElement("div");
-
-        details.append(
-          createElement("h3", "", item.name)
-        );
-
-        if (item.sku) {
-          details.append(
-            createElement(
-              "p",
-              "",
-              `Referencia: ${item.sku}`
-            )
-          );
-        }
-
-        const formattedPrice = formatPrice(
-          item.price,
-          item.currency
-        );
-
-        details.append(
-          createElement(
-            "p",
-            "",
-            formattedPrice
-              ? `Precio informativo: ${formattedPrice}`
-              : "Precio pendiente de cotización"
-          )
-        );
-
-        const removeButton = createElement(
-          "button",
-          "cart-remove",
-          "Eliminar"
-        );
-
-        removeButton.type = "button";
-
-        removeButton.addEventListener("click", () => {
-          removeFromCart(item.id);
-        });
-
-        row.append(details, removeButton);
-        fragment.append(row);
-      }
-
-      elements.cartList.append(fragment);
-
-      elements.cartSummary.textContent =
-        `${count} producto${count === 1 ? "" : "s"} seleccionado${count === 1 ? "" : "s"}. Los precios y la disponibilidad deben confirmarse.`;
-    }
-
-    function openCart() {
-      state.lastFocusedElement = document.activeElement;
-
-      renderCart();
-
-      elements.cartModal.classList.add("open");
-      elements.cartModal.setAttribute("aria-hidden", "false");
-
-      document.body.style.overflow = "hidden";
-
-      elements.closeCartButton.focus();
-    }
-
-    function closeCart() {
-      elements.cartModal.classList.remove("open");
-      elements.cartModal.setAttribute("aria-hidden", "true");
-
-      document.body.style.overflow = "";
-
-      if (
-        state.lastFocusedElement &&
-        typeof state.lastFocusedElement.focus === "function"
-      ) {
-        state.lastFocusedElement.focus();
-      }
-    }
-
-    function buildWhatsAppUrl(message) {
-      const number = STORE_CONFIG.WHATSAPP_NUMBER.replace(
-        /\D/g,
-        ""
-      );
-
-      if (!/^\d{10,15}$/.test(number)) {
-        throw new Error(
-          "El número de WhatsApp configurado no es válido."
-        );
-      }
-
-      return (
-        `https://wa.me/${number}?text=` +
-        encodeURIComponent(message)
-      );
-    }
-
-    function openWhatsAppForProduct(product) {
-      const price = formatPrice(
-        product.price,
-        product.currency
-      );
-
-      const message = [
-        "Hola, equipo de Shefa-Shop Global.",
-        "",
-        "Quiero consultar información sobre este producto:",
-        `Producto: ${product.name}`,
-        product.sku ? `Referencia: ${product.sku}` : "",
-        price
-          ? `Precio mostrado como referencia: ${price}`
-          : "Precio: solicito cotización actualizada.",
-        "",
-        "Por favor, confirmen el precio vigente, la disponibilidad y las condiciones de envío."
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      try {
-        window.open(
-          buildWhatsAppUrl(message),
-          "_blank",
-          "noopener,noreferrer"
-        );
-      } catch (error) {
-        showToast(error.message, "error");
-      }
-    }
-
-    function submitInquiry(event) {
-      event.preventDefault();
-
-      if (state.cart.length === 0) {
-        showToast(
-          "Agrega al menos un producto antes de enviar la consulta.",
-          "error"
-        );
-
-        return;
-      }
-
-      if (!elements.inquiryForm.reportValidity()) {
-        return;
-      }
-
-      if (!elements.privacyConsent.checked) {
-        showToast(
-          "Debes aceptar el envío de la información para continuar.",
-          "error"
-        );
-
-        return;
-      }
-
-      const customerName = cleanText(
-        elements.customerName.value,
-        100
-      );
-
-      const customerCity = cleanText(
-        elements.customerCity.value,
-        100
-      );
-
-      const customerMessage = cleanText(
-        elements.customerMessage.value,
-        1000
-      );
-
-      const inquiryLabels = {
-        precio: "Consultar precio",
-        disponibilidad: "Consultar disponibilidad",
-        envio: "Consultar envío y entrega",
-        general: "Información general"
-      };
-
-      const inquiryType =
-        inquiryLabels[elements.inquiryType.value] ||
-        "Información general";
-
-      const productLines = state.cart.map((item, index) => {
-        const price = formatPrice(
-          item.price,
-          item.currency
-        );
-
-        return [
-          `${index + 1}. ${item.name}`,
-          item.sku ? `   Referencia: ${item.sku}` : "",
-          price
-            ? `   Precio mostrado: ${price} (por confirmar)`
-            : "   Precio: por cotizar"
-        ]
-          .filter(Boolean)
-          .join("\n");
-      });
-
-      const message = [
-        "Hola, Shefa-Shop Global. Quiero realizar una consulta comercial.",
-        "",
-        `Nombre: ${customerName}`,
-        customerCity ? `Ciudad: ${customerCity}` : "",
-        `Tipo de consulta: ${inquiryType}`,
-        "",
-        "PRODUCTOS DE INTERÉS:",
-        ...productLines,
-        "",
-        customerMessage
-          ? `Mensaje adicional: ${customerMessage}`
-          : "",
-        "",
-        "Solicito confirmar precio vigente, disponibilidad, condiciones de envío y demás condiciones aplicables.",
-        "",
-        "Esta es una solicitud de información, no una confirmación de compra."
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      try {
-        const whatsappUrl = buildWhatsAppUrl(message);
-
-        window.open(
-          whatsappUrl,
-          "_blank",
-          "noopener,noreferrer"
-        );
-
-        showToast(
-          "Se preparó tu consulta. Revisa WhatsApp para enviarla."
-        );
-      } catch (error) {
-        showToast(error.message, "error");
-      }
-    }
-
-    function clearCart() {
-      if (state.cart.length === 0) {
-        return;
-      }
-
-      state.cart = [];
-
-      saveCart();
-      renderCart();
-
-      showToast("Tu selección quedó vacía.");
-    }
-
-    function initializeEvents() {
-      elements.searchInput.addEventListener(
-        "input",
-        applyFilters
-      );
-
-      elements.sortSelect.addEventListener(
-        "change",
-        applyFilters
-      );
-
-      elements.refreshButton.addEventListener(
-        "click",
-        () => loadProducts()
-      );
-
-      elements.loadMoreButton.addEventListener(
-        "click",
-        () => loadProducts({ append: true })
-      );
-
-      elements.cartFab.addEventListener(
-        "click",
-        openCart
-      );
-
-      elements.headerCartButton.addEventListener(
-        "click",
-        openCart
-      );
-
-      elements.closeCartButton.addEventListener(
-        "click",
-        closeCart
-      );
-
-      elements.clearCartButton.addEventListener(
-        "click",
-        clearCart
-      );
-
-      elements.inquiryForm.addEventListener(
-        "submit",
-        submitInquiry
-      );
-
-      elements.cartModal.addEventListener(
-        "click",
-        event => {
-          if (event.target === elements.cartModal) {
-            closeCart();
-          }
-        }
-      );
-
-      document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-          if (elements.cartModal.classList.contains("open")) {
-            closeCart();
-          }
-        }
-
-        if (
-          event.key === "Tab" &&
-          elements.cartModal.classList.contains("open")
-        ) {
-          const focusable = elements.cartModal.querySelectorAll(
-            'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]'
-          );
-
-          if (focusable.length === 0) {
-            return;
-          }
-
-          const first = focusable[0];
-          const last = focusable[focusable.length - 1];
-
-          if (
-            event.shiftKey &&
-            document.activeElement === first
-          ) {
-            event.preventDefault();
-            last.focus();
-          } else if (
-            !event.shiftKey &&
-            document.activeElement === last
-          ) {
-            event.preventDefault();
-            first.focus();
-          }
-        }
-      });
-
-      window.addEventListener("online", () => {
-        showToast(
-          "Conexión restablecida. Puedes actualizar el catálogo."
-        );
-      });
-
-      window.addEventListener("offline", () => {
-        showToast(
-          "No hay conexión a internet. Algunas funciones pueden fallar.",
-          "error"
-        );
-      });
-    }
-
-    function initializeStore() {
-      elements.currentYear.textContent =
-        String(new Date().getFullYear());
-
-      loadCart();
-      renderCart();
-      initializeEvents();
-
-      loadProducts();
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener(
-        "DOMContentLoaded",
-        initializeStore,
-        { once: true }
-      );
-    } else {
-      initializeStore();
-    }
-  </script>
-</body>
-</html
-  
+      <!-- Cuerpo del Modal -->
+      <div class="overflow-y-auto p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Columna Izquierda: Galería de Fotos HD y Reproductor de Video (7 cols) -->
+        <div class="lg:col-span-7 flex flex-col">
+          <!-- Switch Foto / Video -->
+          <div class="flex items-center gap-2 mb-3">
+            <button id="tabMediaPhoto" onclick="switchMediaTab('photo')" class="flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition">
+              <i data-lucide="images" class="w-4 h-4"></i> Galería de Fotos HD
+            </button>
+            <button id="tabMediaVideo" onclick="switchMediaTab('video')" class="flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
+              <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i> Ver Video en Acción
+            </button>
+          </div>
+
+          <!-- Contenedor Principal de Imagen (Proporción 4:3 Armónica) -->
+          <div id="photoViewerContainer" class="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 group">
+            <img id="modalMainImage" src="" alt="Producto Shefa" class="w-full h-full object-cover transition duration-500" />
+            <div class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-slate-200 border border-white/10">
+              Calidad Verificada Shefa Plus Global
+            </div>
+          </div>
+
+          <!-- Contenedor de Video (Oculto por defecto hasta hacer clic en "Ver Video") -->
+          <div id="videoViewerContainer" class="hidden relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-black border border-slate-800">
+            <video id="modalVideoPlayer" controls playsinline class="w-full h-full object-cover">
+              <source id="modalVideoSource" src="" type="video/mp4" />
+              Tu navegador no soporta reproducción de video.
+            </video>
+          </div>
+
+          <!-- Miniaturas de la Galería -->
+          <div id="modalThumbnails" class="grid grid-cols-4 gap-3 mt-3">
+            <!-- Miniaturas generadas dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Información Comercial, Especificaciones y Compra (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-1.5 text-amber-400 text-xs font-semibold mb-2">
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+              <span class="text-slate-300 ml-1">(Calificación 4.9/5 • Exclusivo Shefa)</span>
+            </div>
+
+            <h2 id="modalTitle" class="font-display text-2xl sm:text-3xl font-bold text-white leading-snug">
+              Nombre del Producto
+            </h2>
+
+            <!-- Precio y Estado de Stock -->
+            <div class="mt-4 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-slate-400 block">Precio Especial Directo:</span>
+                <div class="flex items-baseline gap-2 mt-0.5">
+                  <span id="modalPrice" class="font-display text-2xl sm:text-3xl font-extrabold gold-gradient-text">$0.00</span>
+                  <span id="modalOldPrice" class="text-sm text-slate-500 line-through">$0.00</span>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Disponible
+              </span>
+            </div>
+
+            <!-- Pestañas Internas: Descripción / Especificaciones / Incluye -->
+            <div class="mt-5 border-b border-slate-800 flex gap-4 text-xs sm:text-sm font-semibold">
+              <button onclick="switchInfoTab('desc')" id="infoTabDesc" class="pb-2.5 border-b-2 border-amber-400 text-amber-400 transition">
+                Descripción
+              </button>
+              <button onclick="switchInfoTab('specs')" id="infoTabSpecs" class="pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition">
+                Ficha Técnica
+              </button>
+              <button onclick="switchInfoTab('box')" id="infoTabBox" class="pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition">
+                ¿Qué Incluye?
+              </button>
+            </div>
+
+            <!-- Contenido Pestaña: Descripción -->
+            <div id="infoContentDesc" class="mt-4 text-slate-300 text-sm leading-relaxed space-y-3">
+              <p id="modalDescription"></p>
+              <ul id="modalHighlights" class="space-y-1.5 pt-2"></ul>
+            </div>
+
+            <!-- Contenido Pestaña: Ficha Técnica -->
+            <div id="infoContentSpecs" class="hidden mt-4">
+              <div id="modalSpecsTable" class="divide-y 
