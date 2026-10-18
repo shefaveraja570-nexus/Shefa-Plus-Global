@@ -1643,4 +1643,590 @@ content="Descubre productos y soluciones en Shefa-Shop Global. Explora el catál
         "id",
         "vid",
         "sku",
-        "product
+        "productSku"
+      ]);
+
+      const name = cleanText(
+        firstValue(raw, [
+          "productName",
+          "name",
+          "title",
+          "productTitle",
+          "goodsName"
+        ]),
+        250
+      );
+
+      if (!name) {
+        return null;
+      }
+
+      const rawImage = firstValue(raw, [
+        "productImage",
+        "productImageUrl",
+        "image",
+        "imageUrl",
+        "img",
+        "thumbnail",
+        "mainImage",
+        "cover",
+        "productImageSet"
+      ]);
+
+      let imageCandidate = rawImage;
+
+      if (Array.isArray(rawImage)) {
+        imageCandidate = rawImage[0];
+      }
+
+      if (
+        imageCandidate &&
+        typeof imageCandidate === "object"
+      ) {
+        imageCandidate = firstValue(imageCandidate, [
+          "url",
+          "imageUrl",
+          "src"
+        ]);
+      }
+
+      const rawCategory = firstValue(raw, [
+        "categoryName",
+        "category",
+        "productType",
+        "type",
+        "classification"
+      ]);
+
+      const rawDescription = firstValue(raw, [
+        "description",
+        "productDescription",
+        "briefDescription",
+        "intro",
+        "remark"
+      ]);
+
+      const rawPrice = firstValue(raw, [
+        "sellPrice",
+        "salePrice",
+        "productPrice",
+        "price",
+        "sellingPrice",
+        "minPrice"
+      ]);
+
+      const rawCurrency = firstValue(raw, [
+        "currency",
+        "currencyCode"
+      ]);
+
+      const stockValue = firstValue(raw, [
+        "stock",
+        "inventory",
+        "quantity",
+        "availableStock"
+      ]);
+
+      const id = cleanText(
+        rawId ?? `product-${index + 1}`,
+        150
+      );
+
+      return {
+        id,
+        name,
+        image: safeImageUrl(imageCandidate),
+        category: cleanText(rawCategory, 120) || "Producto",
+        description:
+          cleanText(rawDescription, 1000) ||
+          "Solicita información para conocer los detalles de este producto.",
+        price: parsePrice(rawPrice),
+        currency: cleanText(rawCurrency, 8) || STORE_CONFIG.DEFAULT_CURRENCY,
+        sku: cleanText(
+          firstValue(raw, ["productSku", "sku", "productCode"]),
+          100
+        ),
+        stock: stockValue,
+        stockKnown:
+          stockValue !== null &&
+          stockValue !== undefined &&
+          stockValue !== "",
+        source: "catalog"
+      };
+    }
+
+    function extractProductArray(payload) {
+      const candidates = [
+        payload?.data?.products,
+        payload?.data?.list,
+        payload?.data?.content,
+        payload?.data?.records,
+        payload?.data?.items,
+        payload?.products,
+        payload?.list,
+        payload?.content,
+        payload?.records,
+        payload?.items,
+        payload?.data
+      ];
+
+      for (const candidate of candidates) {
+        if (Array.isArray(candidate)) {
+          return candidate;
+        }
+      }
+
+      return [];
+    }
+
+    function extractHasMore(payload, currentPage, receivedCount) {
+      const data = payload?.data ?? payload;
+
+      const explicit = firstValue(data, [
+        "hasMore",
+        "hasNext",
+        "hasNextPage"
+      ]);
+
+      if (typeof explicit === "boolean") {
+        return explicit;
+      }
+
+      const totalPages = Number(
+        firstValue(data, ["totalPages", "pages", "pageCount"])
+      );
+
+      if (
+        Number.isFinite(totalPages) &&
+        totalPages > 0
+      ) {
+        return currentPage < totalPages;
+      }
+
+      const total = Number(
+        firstValue(data, ["total", "totalCount", "totalElements"])
+      );
+
+      if (
+        Number.isFinite(total) &&
+        total >= 0
+      ) {
+        return currentPage * STORE_CONFIG.PAGE_SIZE < total;
+      }
+
+      /*
+       * Si el servidor no informa paginación, no suponemos que
+       * existan más páginas.
+       */
+      return false;
+    }
+
+    async function fetchWithTimeout(url, options = {}) {
+      const controller = new AbortController();
+
+      const timer = window.setTimeout(
+        () => controller.abort(),
+        STORE_CONFIG.REQUEST_TIMEOUT_MS
+      );
+
+      try {
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal,
+          headers: {
+            Accept: "application/json",
+            ...(options.headers || {})
+          },
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error(
+            `El servidor respondió con el código ${response.status}.`
+          );
+        }
+
+        const contentType =
+          response.headers.get("content-type") || "";
+
+        if (!contentType.toLowerCase().includes("application/json")) {
+          throw new Error(
+            "La respuesta del catálogo no es JSON válido."
+          );
+        }
+
+        return await response.json();
+      } catch (error) {
+        if (error.name === "AbortError") {
+          throw new Error(
+            "La solicitud tardó demasiado. Intenta nuevamente."
+          );
+        }
+
+        throw error;
+      } finally {
+        window.clearTimeout(timer);
+      }
+    }
+
+    function createElement(tag, className, text) {
+      const node = document.createElement(tag);
+
+      if (className) {
+        node.className = className;
+      }
+
+      if (text !== undefined && text !== null) {
+        node.textContent = String(text);
+      }
+
+      return node;
+    }
+
+    function formatPrice(price, currency) {
+      if (price === null || !Number.isFinite(price)) {
+        return null;
+      }
+
+      try {
+        return new Intl.NumberFormat("es-CO", {
+          style: "currency",
+          currency: /^[A-Z]{3}$/.test(currency)
+            ? currency
+            : "COP",
+          maximumFractionDigits: 2
+        }).format(price);
+      } catch {
+        return new Intl.NumberFormat("es-CO", {
+          maximumFractionDigits: 2
+        }).format(price);
+      }
+    }
+
+    function makeImagePlaceholder() {
+      const placeholder = createElement(
+        "div",
+        "product-image-placeholder",
+        "◇"
+      );
+
+      placeholder.setAttribute("aria-hidden", "true");
+
+      return placeholder;
+    }
+
+    function createProductCard(product) {
+      const article = createElement("article", "product-card");
+
+      const imageWrap = createElement(
+        "div",
+        "product-image-wrap"
+      );
+
+      const badge = createElement(
+        "span",
+        "product-badge",
+        "Consultar detalles"
+      );
+
+      if (product.image) {
+        const image = document.createElement("img");
+
+        image.className = "product-image";
+        image.src = product.image;
+        image.alt = product.name;
+        image.loading = "lazy";
+        image.decoding = "async";
+        image.referrerPolicy = "no-referrer";
+
+        image.addEventListener("error", () => {
+          image.replaceWith(makeImagePlaceholder());
+        }, { once: true });
+
+        imageWrap.append(image);
+      } else {
+        imageWrap.append(makeImagePlaceholder());
+      }
+
+      imageWrap.append(badge);
+
+      const content = createElement(
+        "div",
+        "product-content"
+      );
+
+      const category = createElement(
+        "div",
+        "product-category",
+        product.category
+      );
+
+      const title = createElement(
+        "h3",
+        "product-title",
+        product.name
+      );
+
+      const description = createElement(
+        "p",
+        "product-description",
+        product.description
+      );
+
+      const price = createElement("div", "product-price");
+
+      const formattedPrice = formatPrice(
+        product.price,
+        product.currency
+      );
+
+      if (formattedPrice) {
+        price.append(
+          document.createTextNode(formattedPrice)
+        );
+
+        const note = createElement(
+          "span",
+          "product-price-note",
+          "Precio informativo; confirma la cotización."
+        );
+
+        price.append(note);
+      } else {
+        price.append(
+          document.createTextNode("Precio por consultar")
+        );
+
+        const note = createElement(
+          "span",
+          "product-price-note",
+          "Solicita una cotización actualizada."
+        );
+
+        price.append(note);
+      }
+
+      const actions = createElement(
+        "div",
+        "product-actions"
+      );
+
+      const addButton = createElement(
+        "button",
+        "button button-primary",
+        "Agregar a mi selección"
+      );
+
+      addButton.type = "button";
+
+      addButton.addEventListener("click", () => {
+        addToCart(product.id);
+      });
+
+      const askButton = createElement(
+        "button",
+        "button button-secondary",
+        "Consultar producto"
+      );
+
+      askButton.type = "button";
+
+      askButton.addEventListener("click", () => {
+        openWhatsAppForProduct(product);
+      });
+
+      actions.append(addButton, askButton);
+
+      content.append(
+        category,
+        title,
+        description,
+        price,
+        actions
+      );
+
+      article.append(imageWrap, content);
+
+      return article;
+    }
+
+    function renderLoading() {
+      elements.productsGrid.replaceChildren();
+
+      const box = createElement("div", "loading-state");
+
+      box.append(
+        createElement("div", "empty-icon", "◌"),
+        createElement("h3", "", "Cargando productos"),
+        createElement(
+          "p",
+          "",
+          "Estamos consultando el catálogo. Un momento, por favor."
+        )
+      );
+
+      elements.productsGrid.append(box);
+    }
+
+    function renderEmpty(title, description) {
+      elements.productsGrid.replaceChildren();
+
+      const box = createElement("div", "empty-state");
+
+      box.append(
+        createElement("div", "empty-icon", "⌕"),
+        createElement("h3", "", title),
+        createElement("p", "", description)
+      );
+
+      elements.productsGrid.append(box);
+    }
+
+    function applyFilters() {
+      const query = normalizeText(
+        elements.searchInput.value.slice(
+          0,
+          STORE_CONFIG.MAX_SEARCH_LENGTH
+        )
+      );
+
+      const sortMode = elements.sortSelect.value;
+
+      let result = state.products.filter(product => {
+        const searchable = normalizeText([
+          product.name,
+          product.category,
+          product.description,
+          product.sku
+        ].join(" "));
+
+        return searchable.includes(query);
+      });
+
+      if (sortMode === "name-asc") {
+        result.sort((a, b) =>
+          a.name.localeCompare(b.name, "es")
+        );
+      } else if (sortMode === "name-desc") {
+        result.sort((a, b) =>
+          b.name.localeCompare(a.name, "es")
+        );
+      } else if (sortMode === "price-asc") {
+        result.sort((a, b) => {
+          if (a.price === null) return 1;
+          if (b.price === null) return -1;
+          return a.price - b.price;
+        });
+      } else if (sortMode === "price-desc") {
+        result.sort((a, b) => {
+          if (a.price === null) return 1;
+          if (b.price === null) return -1;
+          return b.price - a.price;
+        });
+      }
+
+      state.filteredProducts = result;
+      renderProducts();
+    }
+
+    function renderProducts() {
+      elements.productsGrid.replaceChildren();
+
+      if (state.filteredProducts.length === 0) {
+        renderEmpty(
+          state.products.length === 0
+            ? "Todavía no hay productos para mostrar"
+            : "No encontramos coincidencias",
+          state.products.length === 0
+            ? "Actualiza el catálogo o vuelve a intentarlo más tarde."
+            : "Prueba con otra palabra o cambia el criterio de búsqueda."
+        );
+
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      state.filteredProducts.forEach(product => {
+        fragment.append(createProductCard(product));
+      });
+
+      elements.productsGrid.append(fragment);
+    }
+
+    async function loadProducts({ append = false } = {}) {
+      if (state.loading) {
+        return;
+      }
+
+      state.loading = true;
+      elements.refreshButton.disabled = true;
+      elements.loadMoreButton.disabled = true;
+
+      if (!append) {
+        state.page = 1;
+        renderLoading();
+        setStatus("Consultando el catálogo...");
+      }
+
+      try {
+        const requestedPage = append
+          ? state.page + 1
+          : 1;
+
+        const endpoint = new URL(
+          STORE_CONFIG.API_PRODUCTS,
+          window.location.origin
+        );
+
+        endpoint.searchParams.set(
+          "limit",
+          String(STORE_CONFIG.PAGE_SIZE)
+        );
+
+        endpoint.searchParams.set(
+          "page",
+          String(requestedPage)
+        );
+
+        const payload = await fetchWithTimeout(
+          endpoint.pathname + endpoint.search,
+          { method: "GET" }
+        );
+
+        if (
+          payload &&
+          payload.success === false
+        ) {
+          throw new Error(
+            cleanText(
+              payload.message || payload.error,
+              300
+            ) || "El servidor no pudo entregar el catálogo."
+          );
+        }
+
+        const rawProducts = extractProductArray(payload);
+
+        const normalizedProducts = rawProducts
+          .map((item, index) =>
+            normalizeProduct(item, index)
+          )
+          .filter(Boolean);
+
+        if (append) {
+          const existingIds = new Set(
+            state.products.map(product => product.id)
+          );
+
+          for (const product of normalizedProducts) {
+            if (!existingIds.has(product.id)) {
+              state.products.push(product);
+              existingIds.add(product.id);
+            }
+          }
+        } else {
+          state.products = normalizedProducts;
+        }
+
