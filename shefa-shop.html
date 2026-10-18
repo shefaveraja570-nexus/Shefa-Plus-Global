@@ -864,4 +864,783 @@ content="Descubre productos y soluciones en Shefa-Shop Global. Explora el catál
       grid-template-columns: minmax(0, 1fr) auto;  
       gap: 12px;  
       padding: 14px;  
-      
+    }
+
+          .brand-tagline {
+        font-size: 0.69rem;
+      }
+
+      .header-actions .button-secondary {
+        display: none;
+      }
+
+      .brand-mark {
+        width: 39px;
+        height: 39px;
+      }
+
+      .brand-name {
+        font-size: 0.88rem;
+      }
+
+      .hero {
+        padding: 48px 0 38px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 270px;
+      }
+
+      .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+      }
+
+      .trust-item {
+        justify-content: flex-start;
+        text-align: left;
+      }
+
+      .section {
+        padding: 49px 0;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .product-content {
+        padding: 12px;
+      }
+
+      .product-title {
+        font-size: 0.91rem;
+      }
+
+      .product-description {
+        font-size: 0.8rem;
+      }
+
+      .product-actions .button {
+        padding: 9px 8px;
+        font-size: 0.8rem;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-panel {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .footer-main {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .catalog-tools {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-fab {
+        right: 13px;
+        bottom: 13px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .container {
+        width: calc(100% - 20px);
+      }
+
+      .brand {
+        gap: 8px;
+      }
+
+      .brand-name {
+        font-size: 0.78rem;
+      }
+
+      .brand-tagline {
+        font-size: 0.63rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image-wrap {
+        aspect-ratio: 1.15 / 1;
+      }
+
+      h1 {
+        font-size: 2.35rem;
+      }
+
+      .hero-actions .button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="announcement">
+    SHEFA-SHOP GLOBAL · DESCUBRE, CONSULTA Y ELIGE CON CONFIANZA
+  </div>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="#inicio" aria-label="Shefa-Shop Global, inicio">
+        <span class="brand-mark" aria-hidden="true">S+</span>
+
+        <span class="brand-copy">
+          <span class="brand-name">SHEFA-SHOP GLOBAL</span>
+          <span class="brand-tagline">Tecnología, productos y soluciones</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="header-actions">
+        <a
+          class="button button-secondary button-small"
+          href="#catalogo"
+        >
+          Explorar catálogo
+        </a>
+
+        <button
+          class="button button-primary button-small"
+          id="headerCartButton"
+          type="button"
+        >
+          Mi selección
+          <span id="headerCartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Tu próxima compra comienza aquí
+          </span>
+
+          <h1>
+            Descubre nuevas posibilidades con
+            <span class="gradient-text">Shefa-Shop.</span>
+          </h1>
+
+          <p class="hero-description">
+            Explora nuestro catálogo de productos, encuentra opciones
+            para tus necesidades y solicita información personalizada
+            antes de tomar tu decisión de compra.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#catalogo">
+              Explorar productos <span aria-hidden="true">→</span>
+            </a>
+
+            <a class="button button-secondary" href="#contacto">
+              Hablar con nosotros
+            </a>
+          </div>
+
+          <div class="hero-points">
+            <span>Atención personalizada</span>
+            <span>Consulta de productos</span>
+            <span>Asesoría comercial</span>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <div class="hero-card-icon" aria-hidden="true">✦</div>
+
+          <div>
+            <h2>Una experiencia de compra más sencilla.</h2>
+
+            <p>
+              Explora, compara y reúne los productos que te interesan
+              para solicitar una cotización personalizada.
+            </p>
+          </div>
+
+          <a class="button button-primary" href="#catalogo">
+            Ver catálogo
+          </a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Nuestro servicio">
+      <div class="container trust-grid">
+        <div class="trust-item">
+          <span class="trust-icon" aria-hidden="true">◇</span>
+          <span>Catálogo de productos</span>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon" aria-hidden="true">◎</span>
+          <span>Consultas personalizadas</span>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon" aria-hidden="true">↗</span>
+          <span>Atención por WhatsApp</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="catalogo">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Nuestra selección</span>
+
+            <h2 style="margin-top: 16px;">
+              Encuentra lo que necesitas
+            </h2>
+
+            <p>
+              Explora los productos disponibles y agrega a tu selección
+              aquellos sobre los que quieras recibir información.
+            </p>
+          </div>
+
+          <button
+            class="button button-secondary"
+            id="refreshButton"
+            type="button"
+          >
+            ↻ Actualizar catálogo
+          </button>
+        </div>
+
+        <div class="catalog-tools">
+          <label>
+            <span class="sr-only">Buscar productos</span>
+
+            <input
+              class="field"
+              id="searchInput"
+              type="search"
+              maxlength="120"
+              placeholder="Buscar por nombre, categoría o descripción..."
+              autocomplete="off"
+            >
+          </label>
+
+          <label>
+            <span class="sr-only">Ordenar productos</span>
+
+            <select class="field" id="sortSelect">
+              <option value="featured">Orden recomendado</option>
+              <option value="name-asc">Nombre: A–Z</option>
+              <option value="name-desc">Nombre: Z–A</option>
+              <option value="price-asc">Precio: menor a mayor</option>
+              <option value="price-desc">Precio: mayor a menor</option>
+            </select>
+          </label>
+        </div>
+
+        <p
+          class="catalog-status"
+          id="catalogStatus"
+          role="status"
+          aria-live="polite"
+        >
+          Preparando catálogo...
+        </p>
+
+        <div class="products-grid" id="productsGrid">
+          <div class="loading-state">
+            <div class="empty-icon" aria-hidden="true">◌</div>
+            <h3>Cargando productos</h3>
+            <p>Estamos consultando el catálogo. Un momento, por favor.</p>
+          </div>
+        </div>
+
+        <div class="catalog-footer">
+          <button
+            class="button button-secondary"
+            id="loadMoreButton"
+            type="button"
+            hidden
+          >
+            Cargar más productos
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features" id="beneficios">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">Nuestra propuesta</span>
+
+            <h2 style="margin-top: 16px;">
+              Compra con información clara
+            </h2>
+
+            <p>
+              Queremos que conozcas tus opciones antes de solicitar
+              una cotización o confirmar una compra.
+            </p>
+          </div>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⌕</div>
+
+            <h3>Exploración sencilla</h3>
+
+            <p>
+              Busca productos, revisa sus imágenes y organiza
+              los resultados según tus preferencias.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">◇</div>
+
+            <h3>Selección personalizada</h3>
+
+            <p>
+              Guarda temporalmente los productos que te interesan
+              y prepara una consulta comercial.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon" aria-hidden="true">☏</div>
+
+            <h3>Contacto directo</h3>
+
+            <p>
+              Envía tu solicitud por WhatsApp para consultar precios,
+              disponibilidad y condiciones de entrega.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <div class="container">
+        <div class="contact-panel">
+          <div>
+            <span class="eyebrow">Estamos para ayudarte</span>
+
+            <h2 style="margin-top: 16px;">
+              ¿Tienes un producto en mente?
+            </h2>
+
+            <p>
+              Cuéntanos qué necesitas. Nuestro canal comercial puede
+              ayudarte a consultar la información del producto y
+              orientarte sobre los siguientes pasos.
+            </p>
+          </div>
+
+          <a
+            class="button button-primary"
+            id="contactWhatsApp"
+            href="https://wa.me/573204774096"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Consultar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-main">
+      <div>
+        <a class="brand" href="#inicio">
+          <span class="brand-mark" aria-hidden="true">S+</span>
+
+          <span class="brand-copy">
+            <span class="brand-name">SHEFA-SHOP GLOBAL</span>
+            <span class="brand-tagline">
+              Una iniciativa de Shefa Plus Global
+            </span>
+          </span>
+        </a>
+
+        <p class="footer-copy" style="margin: 14px 0 0;">
+          © <span id="currentYear"></span> Shefa Plus Global.
+          Todos los derechos reservados.
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Enlaces del pie de página">
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#beneficios">Beneficios</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </footer>
+
+  <button
+    class="cart-fab"
+    id="cartFab"
+    type="button"
+    aria-label="Abrir mi selección de productos"
+  >
+    Mi selección
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+
+  <div
+    class="modal-backdrop"
+    id="cartModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cartTitle"
+    aria-hidden="true"
+  >
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h2 id="cartTitle">Mi selección</h2>
+          <p style="margin: 7px 0 0; color: var(--muted);">
+            Revisa los productos que deseas consultar.
+          </p>
+        </div>
+
+        <button
+          class="modal-close"
+          id="closeCartButton"
+          type="button"
+          aria-label="Cerrar selección"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="cart-list" id="cartList"></div>
+
+      <p class="form-note" id="cartSummary">
+        Tu selección está vacía.
+      </p>
+
+      <form class="form-grid" id="inquiryForm">
+        <label>
+          Nombre
+          <input
+            class="field"
+            id="customerName"
+            name="name"
+            type="text"
+            maxlength="100"
+            autocomplete="name"
+            placeholder="¿Cómo te llamas?"
+            required
+          >
+        </label>
+
+        <label>
+          Ciudad o municipio
+          <input
+            class="field"
+            id="customerCity"
+            name="city"
+            type="text"
+            maxlength="100"
+            autocomplete="address-level2"
+            placeholder="Ej. Villavicencio"
+          >
+        </label>
+
+        <label>
+          ¿Qué necesitas saber?
+          <select class="field" id="inquiryType" name="inquiryType">
+            <option value="precio">Consultar precio</option>
+            <option value="disponibilidad">Consultar disponibilidad</option>
+            <option value="envio">Consultar envío y entrega</option>
+            <option value="general">Información general</option>
+          </select>
+        </label>
+
+        <label>
+          Mensaje adicional (opcional)
+          <textarea
+            class="field"
+            id="customerMessage"
+            name="message"
+            maxlength="1000"
+            rows="3"
+            placeholder="Cuéntanos un poco más..."
+          ></textarea>
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            id="privacyConsent"
+            type="checkbox"
+            required
+          >
+
+          <span>
+            Acepto enviar voluntariamente los datos que he escrito
+            por WhatsApp para gestionar esta consulta comercial.
+          </span>
+        </label>
+
+        <p class="form-note">
+          Esta función prepara un mensaje para WhatsApp. No realiza
+          pagos ni confirma pedidos automáticamente.
+        </p>
+
+        <button
+          class="button button-primary"
+          id="sendInquiryButton"
+          type="submit"
+        >
+          Enviar consulta por WhatsApp
+        </button>
+
+        <button
+          class="button button-secondary"
+          id="clearCartButton"
+          type="button"
+        >
+          Vaciar selección
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <script>
+    "use strict";
+
+    /*
+     * SHEFA-SHOP GLOBAL
+     * Catálogo público y solicitudes comerciales.
+     *
+     * El servidor debe exponer GET /api/cj/products.
+     * Esta interfaz no implementa pagos ni confirma inventario.
+     */
+
+    const STORE_CONFIG = Object.freeze({
+      API_PRODUCTS: "/api/cj/products?limit=12&page=1",
+      WHATSAPP_NUMBER: "573204774096",
+      PAGE_SIZE: 12,
+      REQUEST_TIMEOUT_MS: 15000,
+      MAX_SEARCH_LENGTH: 120,
+      CART_STORAGE_KEY: "shefashop_selection_v1",
+      DEFAULT_CURRENCY: "COP"
+    });
+
+    const state = {
+      products: [],
+      filteredProducts: [],
+      cart: [],
+      page: 1,
+      hasMore: false,
+      loading: false,
+      requestController: null,
+      toastTimer: null,
+      lastFocusedElement: null
+    };
+
+    const elements = {
+      productsGrid: document.getElementById("productsGrid"),
+      catalogStatus: document.getElementById("catalogStatus"),
+      searchInput: document.getElementById("searchInput"),
+      sortSelect: document.getElementById("sortSelect"),
+      refreshButton: document.getElementById("refreshButton"),
+      loadMoreButton: document.getElementById("loadMoreButton"),
+      cartFab: document.getElementById("cartFab"),
+      cartModal: document.getElementById("cartModal"),
+      cartList: document.getElementById("cartList"),
+      cartCount: document.getElementById("cartCount"),
+      headerCartCount: document.getElementById("headerCartCount"),
+      headerCartButton: document.getElementById("headerCartButton"),
+      closeCartButton: document.getElementById("closeCartButton"),
+      clearCartButton: document.getElementById("clearCartButton"),
+      cartSummary: document.getElementById("cartSummary"),
+      inquiryForm: document.getElementById("inquiryForm"),
+      customerName: document.getElementById("customerName"),
+      customerCity: document.getElementById("customerCity"),
+      inquiryType: document.getElementById("inquiryType"),
+      customerMessage: document.getElementById("customerMessage"),
+      privacyConsent: document.getElementById("privacyConsent"),
+      sendInquiryButton: document.getElementById("sendInquiryButton"),
+      contactWhatsApp: document.getElementById("contactWhatsApp"),
+      toast: document.getElementById("toast"),
+      currentYear: document.getElementById("currentYear")
+    };
+
+    function setStatus(message, type = "normal") {
+      elements.catalogStatus.textContent = message;
+      elements.catalogStatus.dataset.type = type;
+    }
+
+    function showToast(message, type = "success") {
+      window.clearTimeout(state.toastTimer);
+
+      elements.toast.textContent = message;
+      elements.toast.dataset.type = type;
+      elements.toast.classList.add("show");
+
+      state.toastTimer = window.setTimeout(() => {
+        elements.toast.classList.remove("show");
+      }, 3400);
+    }
+
+    function normalizeText(value) {
+      return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+    }
+
+    function cleanText(value, maxLength = 500) {
+      if (value === null || value === undefined) {
+        return "";
+      }
+
+      if (
+        typeof value !== "string" &&
+        typeof value !== "number"
+      ) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "")
+        .trim()
+        .slice(0, maxLength);
+    }
+
+    function firstValue(object, keys) {
+      for (const key of keys) {
+        const value = object?.[key];
+
+        if (
+          value !== null &&
+          value !== undefined &&
+          value !== ""
+        ) {
+          return value;
+        }
+      }
+
+      return null;
+    }
+
+    function parsePrice(value) {
+      if (typeof value === "number") {
+        return Number.isFinite(value) && value >= 0
+          ? value
+          : null;
+      }
+
+      if (typeof value !== "string" || !value.trim()) {
+        return null;
+      }
+
+      const normalized = value.trim().replace(/\s/g, "");
+
+      /*
+       * No interpretamos formatos ambiguos como precios confirmados.
+       * La normalización de precios reales debe corresponder al formato
+       * documentado que entregue el servidor.
+       */
+      if (/^-?\d+(\.\d+)?$/.test(normalized)) {
+        const number = Number(normalized);
+
+        return Number.isFinite(number) && number >= 0
+          ? number
+          : null;
+      }
+
+      return null;
+    }
+
+    function safeImageUrl(value) {
+      const urlText = cleanText(value, 2000);
+
+      if (!urlText) {
+        return "";
+      }
+
+      try {
+        const parsed = new URL(urlText, window.location.origin);
+
+        if (
+          parsed.protocol !== "https:" &&
+          parsed.protocol !== "http:"
+        ) {
+          return "";
+        }
+
+        return parsed.href;
+      } catch {
+        return "";
+      }
+    }
+
+    function normalizeProduct(raw, index) {
+      if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+        return null;
+      }
+
+      const rawId = firstValue(raw, [
+        "pid",
+        "productId",
+        "product_id",
+        "id",
+        "vid",
+        "sku",
+        "product
