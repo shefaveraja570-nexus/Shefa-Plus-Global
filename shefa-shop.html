@@ -1,1708 +1,1288 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shefa Shop | Catálogo Exclusivo - Shefa Plus Global</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            display: ['Outfit', 'sans-serif'],
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-          },
-          colors: {
-            shefa: {
-              dark: '#070B14',
-              card: '#0F1626',
-              border: '#1E293B',
-              gold: '#D4AF37',
-              goldLight: '#F3E5AB',
-              accent: '#10B981',
-            }
-          }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shefa Shop | Catálogo Exclusivo - Shefa Plus Global</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        display: ['Outfit', 'sans-serif'],
+        sans: ['Plus Jakarta Sans', 'sans-serif'],
+      },
+      colors: {
+        shefa: {
+          dark: '#070B14',
+          card: '#0F1626',
+          border: '#1E293B',
+          gold: '#D4AF37',
+          goldLight: '#F3E5AB',
+          accent: '#10B981',
         }
       }
     }
-  </script>
-
-  <style>
-    body {
-      background-color: #070B14;
-      color: #F8FAFC;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    /* Proporciones Armónicas y Estética Premium */
-    .product-card {
-      background: linear-gradient(180deg, rgba(15, 22, 38, 0.9) 0%, rgba(10, 15, 28, 0.98) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .product-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(212, 175, 55, 0.45);
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(212, 175, 55, 0.15);
-    }
-
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #FFF3B0 0%, #D4AF37 50%, #AA7C11 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .gold-btn {
-      background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B38728 100%);
-      color: #070B14;
-      transition: all 0.25s ease;
-    }
-
-    .gold-btn:hover {
-      filter: brightness(1.1);
-      box-shadow: 0 8px 20px -4px rgba(212, 175, 55, 0.45);
-    }
-
-    /* Clamping para simetría exacta en tarjetas */
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    /* Scrollbar elegante */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #070B14;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1E293B;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #D4AF37;
-    }
-  </style>
+  }
+}
+</script>
+<style>
+body {
+  background-color: #070B14;
+  color: #F8FAFC;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.product-card {
+  background: linear-gradient(180deg, rgba(15, 22, 38, 0.94) 0%, rgba(10, 15, 28, 0.99) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(212, 175, 55, 0.15);
+}
+.gold-gradient-text {
+  background: linear-gradient(135deg, #FFF3B0 0%, #D4AF37 50%, #AA7C11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.gold-btn {
+  background: linear-gradient(135deg, #E5C158 0%, #D4AF37 50%, #B38728 100%);
+  color: #070B14;
+  transition: all 0.25s ease;
+}
+.gold-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 8px 20px -4px rgba(212, 175, 55, 0.45);
+}
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+</style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
 
-  <!-- BARRA SUPERIOR DE ANUNCIO -->
-  <div class="bg-gradient-to-r from-amber-900/30 via-amber-500/20 to-amber-900/30 border-b border-amber-500/20 text-xs sm:text-sm py-2 px-4 text-center text-amber-200 font-medium">
-    <span class="inline-flex items-center gap-1.5">
-      <i data-lucide="shield-check" class="w-4 h-4 text-amber-400"></i>
-      <strong>SHEFA PLUS GLOBAL:</strong> Garantía de Calidad Internacional • Compra 100% Segura y Directa
-    </span>
-  </div>
+<!-- BARRA SUPERIOR DE ANUNCIO -->
+<div class="bg-gradient-to-r from-amber-900/30 via-amber-500/20 to-amber-900/30 border-b border-amber-500/20 text-xs sm:text-sm py-2.5 px-4 text-center text-amber-200 font-medium">
+  <span class="inline-flex items-center justify-center gap-1.5 flex-wrap">
+    <i data-lucide="shield-check" class="w-4 h-4 text-amber-400 shrink-0"></i>
+    <span><strong>SHEFA PLUS GLOBAL:</strong> Envíos Seguros a Todo el País • Precios Oficiales en Pesos Colombianos (COP)</span>
+  </span>
+</div>
 
-  <!-- HEADER PRINCIPAL -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#070B14]/85 border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-      <!-- Marca -->
-      <a href="#" class="flex items-center gap-3 group">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-700 p-[1px] shadow-lg shadow-amber-500/10">
-          <div class="w-full h-full bg-[#070B14] rounded-[11px] flex items-center justify-center">
-            <span class="font-display font-extrabold text-xl gold-gradient-text">S+</span>
-          </div>
+<!-- HEADER PRINCIPAL -->
+<header class="sticky top-0 z-40 backdrop-blur-xl bg-[#070B14]/90 border-b border-slate-800/80">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+    <a href="#" class="flex items-center gap-3 group shrink-0">
+      <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-700 p-[1px] shadow-lg shadow-amber-500/10">
+        <div class="w-full h-full bg-[#070B14] rounded-[11px] flex items-center justify-center">
+          <span class="font-display font-extrabold text-xl gold-gradient-text">S+</span>
         </div>
-        <div>
-          <span class="font-display font-bold text-lg sm:text-xl tracking-wide text-white block leading-none">
-            SHEFA <span class="gold-gradient-text">SHOP</span>
-          </span>
-          <span class="text-[11px] uppercase tracking-[0.2em] text-slate-400 block mt-1">
-            Shefa Plus Global
-          </span>
-        </div>
-      </a>
-
-      <!-- Buscador Central -->
-      <div class="hidden md:flex flex-1 max-w-md mx-6">
-        <div class="relative w-full">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-          <input 
-            id="searchInput"
-            type="text" 
-            placeholder="Buscar drones, proyectores, audio, VR..." 
-            class="w-full bg-slate-900/90 border border-slate-800 focus:border-amber-500/60 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none transition"
-          />
-        </div>
-      </div>
-
-      <!-- Controles Derecha: Moneda, Editor y Carrito -->
-      <div class="flex items-center gap-2.5 sm:gap-3">
-        <!-- Selector de Moneda -->
-        <div class="bg-slate-900 border border-slate-800 rounded-full p-1 flex items-center text-xs font-semibold">
-          <button id="btnUSD" onclick="setCurrency('USD')" class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 transition">USD $</button>
-          <button id="btnCOP" onclick="setCurrency('COP')" class="px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition">COP $</button>
-        </div>
-
-        <!-- Botón Personalizar Fotos/Videos (Para el dueño) -->
-        <button 
-          onclick="openAdminModal()"
-          title="Configurar Fotos, Videos y WhatsApp de tu tienda"
-          class="p-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 transition"
-        >
-          <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
-        </button>
-
-        <!-- Botón Carrito -->
-        <button 
-          onclick="toggleCart(true)" 
-          class="relative flex items-center gap-2 gold-btn font-semibold px-4 py-2.5 rounded-full text-sm shadow-lg"
-        >
-          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Mi Pedido</span>
-          <span id="cartCount" class="w-5 h-5 rounded-full bg-slate-950 text-amber-400 text-xs flex items-center justify-center font-bold">0</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Buscador Móvil -->
-    <div class="md:hidden px-4 pb-3">
-      <div class="relative w-full">
-        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-        <input 
-          id="searchInputMobile"
-          type="text" 
-          placeholder="Buscar en el catálogo Shefa..." 
-          class="w-full bg-slate-900/90 border border-slate-800 focus:border-amber-500/60 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none"
-        />
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO BANNER -->
-  <section class="relative overflow-hidden py-10 sm:py-14 border-b border-slate-800/70">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-slate-950 to-slate-950 pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-      <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-4">
-        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Colección Tecnológica & Innovación
-      </span>
-      <h1 class="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
-        Tecnología de Vanguardia con el Respaldo de <span class="gold-gradient-text">Shefa Plus Global</span>
-      </h1>
-      <p class="mt-4 text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-        Explora nuestro catálogo oficial. Haz clic en cualquier producto para ver su <strong>galería de fotos en alta definición, video demostrativo y ficha técnica completa</strong>.
-      </p>
-
-      <!-- Filtros de Categoría -->
-      <div id="categoryFilters" class="mt-8 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 no-scrollbar">
-        <button onclick="filterCategory('Todos')" data-cat="Todos" class="cat-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-amber-500 text-slate-950 transition">
-          Todos (10)
-        </button>
-        <button onclick="filterCategory('Drones y Aviación')" data-cat="Drones y Aviación" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
-          Drones y Aviación (3)
-        </button>
-        <button onclick="filterCategory('Iluminación & Deco Smart')" data-cat="Iluminación & Deco Smart" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
-          Iluminación & Deco Smart (4)
-        </button>
-        <button onclick="filterCategory('Cine, Audio & VR')" data-cat="Cine, Audio & VR" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
-          Cine, Audio & VR (3)
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CATÁLOGO DE PRODUCTOS (PROPORCIONES ARMÓNICAS) -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
-      <!-- Renderizado dinámicamente por JS -->
-    </div>
-
-    <!-- Estado vacío si no hay resultados de búsqueda -->
-    <div id="emptyState" class="hidden text-center py-16">
-      <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto mb-4 text-amber-400">
-        <i data-lucide="package-search" class="w-8 h-8"></i>
-      </div>
-      <h3 class="text-lg font-bold text-white">No encontramos productos con ese criterio</h3>
-      <p class="text-slate-400 text-sm mt-1">Intenta con otra palabra clave o selecciona "Todos" en las categorías.</p>
-    </div>
-  </main>
-
-  <!-- SECCIÓN DE CONFIANZA SHEFA PLUS GLOBAL -->
-  <section class="border-t border-slate-800/80 bg-[#0A0F1D] py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
-        <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-          <i data-lucide="truck" class="w-6 h-6"></i>
-        </div>
-        <div>
-          <h4 class="font-display font-bold text-white text-base">Despacho Directo y Seguro</h4>
-          <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Procesamos y monitoreamos cada orden directamente desde nuestra central Shefa Plus Global hasta la puerta de tu casa.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
-        <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-          <i data-lucide="award" class="w-6 h-6"></i>
-        </div>
-        <div>
-          <h4 class="font-display font-bold text-white text-base">Calidad Verificada</h4>
-          <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Cada dispositivo pasa por control de calidad estricto y cuenta con garantía directa con nuestra tienda.</p>
-        </div>
-      </div>
-      <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
-        <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
-          <i data-lucide="headset" class="w-6 h-6"></i>
-        </div>
-        <div>
-          <h4 class="font-display font-bold text-white text-base">Atención Personalizada VIP</h4>
-          <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Asesoría directa en español antes, durante y después de tu compra para que elijas el producto ideal.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="border-t border-slate-800/80 bg-[#050811] py-8 text-center text-xs text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="font-display font-bold text-slate-300">SHEFA PLUS GLOBAL</span>
-        <span>•</span>
-        <span>Catálogo Oficial Exclusivo</span>
       </div>
       <div>
-        © <span id="currentYear"></span> Shefa Plus Global. Todos los derechos reservados.
+        <span class="font-display font-bold text-lg sm:text-xl tracking-wide text-white block leading-none">SHEFA <span class="gold-gradient-text">SHOP</span></span>
+        <span class="text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-slate-400 block mt-1">Shefa Plus Global</span>
+      </div>
+    </a>
+
+    <div class="hidden md:flex flex-1 max-w-md mx-6">
+      <div class="relative w-full">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input id="searchInput" type="text" placeholder="Buscar drones, proyectores, audio, VR..." class="w-full bg-slate-900/90 border border-slate-800 focus:border-amber-500/60 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none transition" />
       </div>
     </div>
-  </footer>
 
-  <!-- ========================================================================= -->
-  <!-- MODAL DE DETALLE COMPLETO DEL PRODUCTO (GALERÍA + VIDEO + DESCRIPCIÓN)     -->
-  <!-- ========================================================================= -->
-  <div id="productModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
-    <div class="relative w-full max-w-5xl rounded-3xl bg-[#0C1322] border border-slate-700/80 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
-      
-      <!-- Barra Superior del Modal -->
-      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-[#090E1A]">
-        <div class="flex items-center gap-2">
-          <span id="modalSku" class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-slate-800 text-amber-400 border border-slate-700">SHF-001</span>
-          <span id="modalCategory" class="text-xs text-slate-400 font-medium">Categoría</span>
-        </div>
-        <button onclick="closeProductModal()" class="p-2 rounded-full bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <div class="bg-slate-900 border border-slate-800 rounded-full p-1 flex items-center text-xs font-semibold">
+        <button id="btnCOP" onclick="setCurrency('COP')" class="px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 font-bold transition">COP $</button>
+        <button id="btnUSD" onclick="setCurrency('USD')" class="px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition">USD $</button>
       </div>
 
-      <!-- Cuerpo del Modal -->
-      <div class="overflow-y-auto p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- Columna Izquierda: Galería de Fotos HD y Reproductor de Video (7 cols) -->
-        <div class="lg:col-span-7 flex flex-col">
-          <!-- Switch Foto / Video -->
-          <div class="flex items-center gap-2 mb-3">
-            <button id="tabMediaPhoto" onclick="switchMediaTab('photo')" class="flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition">
-              <i data-lucide="images" class="w-4 h-4"></i> Galería de Fotos HD
-            </button>
-            <button id="tabMediaVideo" onclick="switchMediaTab('video')" class="flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
-              <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i> Ver Video en Acción
-            </button>
-          </div>
+      <button onclick="openAdminModal()" title="Configurar Precios, Fotos, Videos y WhatsApp" class="p-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-amber-400 border border-slate-800 transition">
+        <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+      </button>
 
-          <!-- Contenedor Principal de Imagen (Proporción 4:3 Armónica) -->
-          <div id="photoViewerContainer" class="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 group">
-            <img id="modalMainImage" src="" alt="Producto Shefa" class="w-full h-full object-cover transition duration-500" />
-            <div class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-slate-200 border border-white/10">
-              Calidad Verificada Shefa Plus Global
-            </div>
-          </div>
-
-          <!-- Contenedor de Video (Oculto por defecto hasta hacer clic en "Ver Video") -->
-          <div id="videoViewerContainer" class="hidden relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-black border border-slate-800">
-            <video id="modalVideoPlayer" controls playsinline class="w-full h-full object-cover">
-              <source id="modalVideoSource" src="" type="video/mp4" />
-              Tu navegador no soporta reproducción de video.
-            </video>
-          </div>
-
-          <!-- Miniaturas de la Galería -->
-          <div id="modalThumbnails" class="grid grid-cols-4 gap-3 mt-3">
-            <!-- Miniaturas generadas dinámicamente -->
-          </div>
-        </div>
-
-        <!-- Columna Derecha: Información Comercial, Especificaciones y Compra (5 cols) -->
-        <div class="lg:col-span-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center gap-1.5 text-amber-400 text-xs font-semibold mb-2">
-              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
-              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
-              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
-              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
-              <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
-              <span class="text-slate-300 ml-1">(Calificación 4.9/5 • Exclusivo Shefa)</span>
-            </div>
-
-            <h2 id="modalTitle" class="font-display text-2xl sm:text-3xl font-bold text-white leading-snug">
-              Nombre del Producto
-            </h2>
-
-            <!-- Precio y Estado de Stock -->
-            <div class="mt-4 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
-              <div>
-                <span class="text-xs text-slate-400 block">Precio Especial Directo:</span>
-                <div class="flex items-baseline gap-2 mt-0.5">
-                  <span id="modalPrice" class="font-display text-2xl sm:text-3xl font-extrabold gold-gradient-text">$0.00</span>
-                  <span id="modalOldPrice" class="text-sm text-slate-500 line-through">$0.00</span>
-                </div>
-              </div>
-              <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Disponible
-              </span>
-            </div>
-
-            <!-- Pestañas Internas: Descripción / Especificaciones / Incluye -->
-            <div class="mt-5 border-b border-slate-800 flex gap-4 text-xs sm:text-sm font-semibold">
-              <button onclick="switchInfoTab('desc')" id="infoTabDesc" class="pb-2.5 border-b-2 border-amber-400 text-amber-400 transition">
-                Descripción
-              </button>
-              <button onclick="switchInfoTab('specs')" id="infoTabSpecs" class="pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition">
-                Ficha Técnica
-              </button>
-              <button onclick="switchInfoTab('box')" id="infoTabBox" class="pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition">
-                ¿Qué Incluye?
-              </button>
-            </div>
-
-            <!-- Contenido Pestaña: Descripción -->
-            <div id="infoContentDesc" class="mt-4 text-slate-300 text-sm leading-relaxed space-y-3">
-              <p id="modalDescription"></p>
-              <ul id="modalHighlights" class="space-y-1.5 pt-2"></ul>
-            </div>
-
-            <!-- Contenido Pestaña: Ficha Técnica -->
-            <div id="infoContentSpecs" class="hidden mt-4">
-              <div id="modalSpecsTable" class="divide-y divide-slate-800/80 border border-slate-800 rounded-xl overflow-hidden text-xs sm:text-sm">
-                <!-- Filas dinámicas -->
-              </div>
-            </div>
-
-            <!-- Contenido Pestaña: ¿Qué Incluye la Caja? -->
-            <div id="infoContentBox" class="hidden mt-4">
-              <ul id="modalPackageList" class="space-y-2 text-sm text-slate-300 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                <!-- Items dinámicos -->
-              </ul>
-            </div>
-          </div>
-
-          <!-- Acciones de Compra Directa -->
-          <div class="mt-6 pt-5 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
-            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 sm:w-32">
-              <button onclick="changeModalQty(-1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold">-</button>
-              <span id="modalQty" class="font-bold text-white text-base">1</span>
-              <button onclick="changeModalQty(1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold">+</button>
-            </div>
-
-            <button id="modalAddToCartBtn" class="flex-1 gold-btn font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base shadow-xl">
-              <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-              Agregar a Mi Pedido
-            </button>
-          </div>
-        </div>
-
-      </div>
+      <button onclick="toggleCart(true)" class="relative flex items-center gap-2 gold-btn font-bold px-3.5 sm:px-4 py-2.5 rounded-full text-xs sm:text-sm shadow-lg">
+        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Mi Pedido</span>
+        <span id="cartCount" class="w-5 h-5 rounded-full bg-slate-950 text-amber-400 text-xs flex items-center justify-center font-bold">0</span>
+      </button>
     </div>
   </div>
 
-  <!-- ========================================================================= -->
-  <!-- DRAWER DEL CARRITO Y PAGO DIRECTO CON SHEFA PLUS GLOBAL                   -->
-  <!-- ========================================================================= -->
-  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
-    <div onclick="toggleCart(false)" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
-    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#0B1120] border-l border-slate-800 shadow-2xl flex flex-col justify-between">
-      
-      <!-- Cabecera del Carrito -->
-      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-[#070B14]">
-        <div class="flex items-center gap-2.5">
-          <i data-lucide="shopping-bag" class="w-5 h-5 text-amber-400"></i>
-          <h3 class="font-display font-bold text-lg text-white">Tu Pedido en Shefa Shop</h3>
-        </div>
-        <button onclick="toggleCart(false)" class="p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Lista de Productos y Formulario del Cliente -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-6">
-        <div id="cartItemsContainer" class="space-y-3">
-          <!-- Productos agregados -->
-        </div>
-
-        <!-- Datos de Envío para procesar el pedido directamente -->
-        <div id="checkoutFormSection" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
-          <h4 class="font-display font-semibold text-sm text-amber-400 flex items-center gap-1.5">
-            <i data-lucide="map-pin" class="w-4 h-4"></i> Datos de Entrega del Cliente
-          </h4>
-          <div>
-            <label class="text-xs text-slate-400 block mb-1">Nombre Completo *</label>
-            <input id="clientName" type="text" placeholder="Ej: Carlos Andrés Gómez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
-          </div>
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label class="text-xs text-slate-400 block mb-1">Ciudad / País *</label>
-              <input id="clientCity" type="text" placeholder="Ej: Bogotá, Colombia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
-  </div>
-  
-<div>
-              <label class="text-xs text-slate-400 block mb-1">WhatsApp / Teléfono *</label>
-              <input id="clientPhone" type="tel" placeholder="+57 300 000 0000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
-            </div>
-          </div>
-          <div>
-            <label class="text-xs text-slate-400 block mb-1">Dirección Exacta de Envío *</label>
-            <input id="clientAddress" type="text" placeholder="Calle / Carrera, Número, Barrio, Apto" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Pie del Carrito: Total y Botón de Compra Directa -->
-      <div class="p-5 border-t border-slate-800 bg-[#070B14] space-y-3">
-        <div class="flex items-center justify-between text-sm">
-          <span class="text-slate-400">Envío Asegurado Shefa:</span>
-          <span class="text-emerald-400 font-semibold">Coordinado al confirmar</span>
-        </div>
-        <div class="flex items-center justify-between text-lg font-bold">
-          <span class="text-white">Total a Pagar:</span>
-          <span id="cartTotalValue" class="font-display text-2xl gold-gradient-text">$0.00</span>
-        </div>
-
-        <button onclick="processDirectOrder()" class="w-full gold-btn font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg">
-          <i data-lucide="check-circle-2" class="w-5 h-5"></i>
-          Confirmar y Pagar Directo a Shefa
-        </button>
-        <p class="text-[11px] text-center text-slate-500">
-          Tu compra es procesada 100% en privado por <strong>Shefa Plus Global</strong>.
-        </p>
-      </div>
-
+  <div class="md:hidden px-4 pb-3">
+    <div class="relative w-full">
+      <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+      <input id="searchInputMobile" type="text" placeholder="Buscar en el catálogo Shefa..." class="w-full bg-slate-900/90 border border-slate-800 focus:border-amber-500/60 rounded-full pl-10 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none" />
     </div>
   </div>
+</header>
 
-  <!-- ========================================================================= -->
-  <!-- PANEL DE GESTIÓN RÁPIDA PARA EL DUEÑO (CAMBIAR WHATSAPP, FOTOS O VIDEOS)  -->
-  <!-- ========================================================================= -->
-  <div id="adminModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="w-full max-w-2xl rounded-3xl bg-[#0C1322] border border-slate-700 p-6 sm:p-8 shadow-2xl my-auto max-h-[90vh] flex flex-col">
-      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+<!-- HERO BANNER -->
+<section class="relative overflow-hidden py-8 sm:py-12 border-b border-slate-800/70">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-slate-950 to-slate-950 pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-wider uppercase mb-4">
+      <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Colección Tecnológica & Innovación
+    </span>
+    <h1 class="font-display text-2xl sm:text-5xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
+      Tecnología de Vanguardia con el Respaldo de <span class="gold-gradient-text">Shefa Plus Global</span>
+    </h1>
+    <p class="mt-3 sm:mt-4 text-slate-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+      Explora nuestro catálogo oficial en <strong>Pesos Colombianos (COP)</strong>. Toca cualquier producto para ver su <strong>galería de fotos HD, video demostrativo y ficha técnica completa</strong>.
+    </p>
+
+    <div id="categoryFilters" class="mt-6 sm:mt-8 flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 no-scrollbar">
+      <button onclick="filterCategory('Todos')" data-cat="Todos" class="cat-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-amber-500 text-slate-950 transition">Todos (10)</button>
+      <button onclick="filterCategory('Drones y Aviación')" data-cat="Drones y Aviación" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">Drones y Aviación (3)</button>
+      <button onclick="filterCategory('Iluminación & Deco Smart')" data-cat="Iluminación & Deco Smart" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">Iluminación & Deco Smart (4)</button>
+      <button onclick="filterCategory('Cine, Audio & VR')" data-cat="Cine, Audio & VR" class="cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">Cine, Audio & VR (3)</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO DE PRODUCTOS -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+  <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7"></div>
+
+  <div id="emptyState" class="hidden text-center py-16">
+    <div class="w-16 h-16 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto mb-4 text-amber-400">
+      <i data-lucide="package-search" class="w-8 h-8"></i>
+    </div>
+    <h3 class="text-lg font-bold text-white">No encontramos productos con ese criterio</h3>
+    <p class="text-slate-400 text-sm mt-1">Intenta con otra palabra clave o selecciona "Todos" en las categorías.</p>
+  </div>
+</main>
+
+<!-- SECCIÓN DE CONFIANZA SHEFA PLUS GLOBAL -->
+<section class="border-t border-slate-800/80 bg-[#0A0F1D] py-10 sm:py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+      <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+        <i data-lucide="truck" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-white text-base">Despacho Directo y Seguro</h4>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Procesamos y monitoreamos cada orden directamente desde nuestra central Shefa Plus Global hasta la puerta de tu casa.</p>
+      </div>
+    </div>
+    <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+      <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+        <i data-lucide="award" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-white text-base">Calidad Verificada</h4>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Cada dispositivo pasa por control de calidad estricto y cuenta con garantía directa con nuestra tienda.</p>
+      </div>
+    </div>
+    <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800/80">
+      <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 shrink-0">
+        <i data-lucide="headset" class="w-6 h-6"></i>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-white text-base">Atención Personalizada VIP</h4>
+        <p class="text-slate-400 text-xs sm:text-sm mt-1 leading-relaxed">Asesoría directa en español antes, durante y después de tu compra para que elijas el producto ideal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-800/80 bg-[#050811] py-8 text-center text-xs text-slate-500">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="font-display font-bold text-slate-300">SHEFA PLUS GLOBAL</span>
+      <span>•</span>
+      <span>Catálogo Oficial Exclusivo</span>
+    </div>
+    <div>© <span id="currentYear"></span> Shefa Plus Global. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<!-- MODAL DE DETALLE COMPLETO DEL PRODUCTO -->
+<div id="productModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+  <div class="relative w-full max-w-5xl rounded-3xl bg-[#0C1322] border border-slate-700/80 shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+    <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-slate-800 bg-[#090E1A]">
+      <div class="flex items-center gap-2">
+        <span id="modalSku" class="text-xs font-mono uppercase px-2.5 py-1 rounded bg-slate-800 text-amber-400 border border-slate-700">SHF-001</span>
+        <span id="modalCategory" class="text-xs text-slate-400 font-medium">Categoría</span>
+      </div>
+      <button onclick="closeProductModal()" class="p-2 rounded-full bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div class="overflow-y-auto p-5 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+      <div class="lg:col-span-7 flex flex-col">
+        <div class="flex items-center gap-2 mb-3">
+          <button id="tabMediaPhoto" onclick="switchMediaTab('photo')" class="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition">
+            <i data-lucide="images" class="w-4 h-4"></i> Galería de Fotos HD
+          </button>
+          <button id="tabMediaVideo" onclick="switchMediaTab('video')" class="flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition">
+            <i data-lucide="play-circle" class="w-4 h-4 text-amber-400"></i> Ver Video en Acción
+          </button>
+        </div>
+
+        <div id="photoViewerContainer" class="relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-800">
+          <img id="modalMainImage" src="" alt="Producto Shefa" class="w-full h-full object-cover transition duration-500" />
+          <div class="absolute bottom-3 right-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-full text-[11px] text-slate-200 border border-white/10">
+            Calidad Verificada Shefa Plus Global
+          </div>
+        </div>
+
+        <div id="videoViewerContainer" class="hidden relative aspect-[4/3] w-full rounded-2xl overflow-hidden bg-black border border-slate-800">
+          <video id="modalVideoPlayer" controls playsinline class="w-full h-full object-cover">
+            <source id="modalVideoSource" src="" type="video/mp4" />
+            Tu navegador no soporta reproducción de video.
+          </video>
+        </div>
+
+        <div id="modalThumbnails" class="grid grid-cols-4 gap-2.5 sm:gap-3 mt-3"></div>
+      </div>
+
+      <div class="lg:col-span-5 flex flex-col justify-between">
         <div>
-          <h3 class="font-display font-bold text-xl text-white flex items-center gap-2">
-            <i data-lucide="settings" class="w-5 h-5 text-amber-400"></i>
-            Panel Privado de Personalización Shefa
-          </h3>
-          <p class="text-xs text-slate-400 mt-0.5">Personaliza tu número de recepción de pedidos o pega links de fotos/videos adicionales.</p>
-        </div>
-        <button onclick="closeAdminModal()" class="p-2 rounded-full bg-slate-800 text-slate-300 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <div class="overflow-y-auto py-5 space-y-5 text-sm">
-        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
-          <label class="font-semibold text-amber-400 block">1. Tu Número de WhatsApp para Recibir Pedidos (con código de país, sin el +):</label>
-          <input id="adminWhatsappInput" type="text" placeholder="Ej: 573001234567" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none" />
-          <p class="text-xs text-slate-400">Cuando el cliente le dé a "Confirmar y Pagar Directo a Shefa", te llegará el pedido listo a este WhatsApp con todos sus datos de envío.</p>
-        </div>
-
-        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
-          <label class="font-semibold text-amber-400 block">2. Editar Producto (Precio, Fotos o Video):</label>
-          <select id="adminProductSelect" onchange="loadProductIntoAdmin()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none"></select>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            <div>
-              <label class="text-xs text-slate-400 block mb-1">Precio en USD ($)</label>
-              <input id="adminPriceInput" type="number" step="0.01" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white" />
-            </div>
-            <div>
-              <label class="text-xs text-slate-400 block mb-1">URL de Video (.mp4)</label>
-              <input id="adminVideoInput" type="text" placeholder="https://.../video.mp4" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white" />
-            </div>
+          <div class="flex items-center gap-1 text-amber-400 text-xs font-semibold mb-2">
+            <span>★★★★★</span>
+            <span class="text-slate-300 ml-1">(Calificación 4.9/5 • Exclusivo Shefa)</span>
           </div>
 
-          <div>
-            <label class="text-xs text-slate-400 block mb-1">URLs de Fotos (separadas por coma)</label>
-            <textarea id="adminImagesInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white font-mono"></textarea>
-            <p class="text-[11px] text-slate-400 mt-1">Tip: Puedes hacer clic derecho "Copiar dirección de imagen" en las fotos de tu proveedor y pegarlas aquí separadas por coma.</p>
+          <h2 id="modalTitle" class="font-display text-xl sm:text-2xl font-bold text-white leading-snug">Nombre del Producto</h2>
+
+          <div class="mt-4 p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
+            <div>
+              <span class="text-xs text-slate-400 block">Precio Especial Directo:</span>
+              <div class="flex items-baseline gap-2 mt-0.5 flex-wrap">
+                <span id="modalPrice" class="font-display text-2xl sm:text-3xl font-extrabold gold-gradient-text">$0 COP</span>
+                <span id="modalOldPrice" class="text-xs sm:text-sm text-slate-500 line-through">$0 COP</span>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-1.5 shrink-0">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Disponible
+            </span>
+          </div>
+
+          <div class="mt-5 border-b border-slate-800 flex gap-4 text-xs sm:text-sm font-semibold">
+            <button onclick="switchInfoTab('desc')" id="infoTabDesc" class="pb-2.5 border-b-2 border-amber-400 text-amber-400 transition">Descripción</button>
+            <button onclick="switchInfoTab('specs')" id="infoTabSpecs" class="pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition">Ficha Técnica</button>
+            <button onclick="switchInfoTab('box')" id="infoTabBox" class="pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition">¿Qué Incluye?</button>
+          </div>
+
+          <div id="infoContentDesc" class="mt-4 text-slate-300 text-sm leading-relaxed space-y-3">
+            <p id="modalDescription"></p>
+            <ul id="modalHighlights" class="space-y-1.5 pt-2"></ul>
+          </div>
+
+          <div id="infoContentSpecs" class="hidden mt-4">
+            <div id="modalSpecsTable" class="divide-y divide-slate-800/80 border border-slate-800 rounded-xl overflow-hidden text-xs sm:text-sm"></div>
+          </div>
+
+          <div id="infoContentBox" class="hidden mt-4">
+            <ul id="modalPackageList" class="space-y-2 text-sm text-slate-300 bg-slate-900/60 p-4 rounded-xl border border-slate-800"></ul>
           </div>
         </div>
-      </div>
 
-      <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
-        <button onclick="resetCatalogDefaults()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold">
-          Restaurar Originales
-        </button>
-        <button onclick="saveAdminChanges()" class="gold-btn px-6 py-2.5 rounded-xl font-bold text-sm">
-          Guardar Cambios
-        </button>
+        <div class="mt-6 pt-5 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
+          <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 sm:w-32">
+            <button onclick="changeModalQty(-1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold">-</button>
+            <span id="modalQty" class="font-bold text-white text-base">1</span>
+            <button onclick="changeModalQty(1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold">+</button>
+          </div>
+
+          <button id="modalAddToCartBtn" class="flex-1 gold-btn font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base shadow-xl">
+            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+            <span>Agregar a Mi Pedido</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- NOTIFICACIÓN TOAST -->
-  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 border border-amber-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm">
-    <i data-lucide="check-circle" class="w-5 h-5 text-amber-400"></i>
-    <span id="toastMsg">Producto agregado al pedido</span>
+<!-- DRAWER DEL CARRITO Y PAGO DIRECTO -->
+<div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+  <div onclick="toggleCart(false)" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#0B1120] border-l border-slate-800 shadow-2xl flex flex-col justify-between">
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-[#070B14]">
+      <div class="flex items-center gap-2.5">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-amber-400"></i>
+        <h3 class="font-display font-bold text-lg text-white">Tu Pedido en Shefa Shop</h3>
+      </div>
+      <button onclick="toggleCart(false)" class="p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-5 space-y-6">
+      <div id="cartItemsContainer" class="space-y-3"></div>
+
+      <div id="checkoutFormSection" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
+        <h4 class="font-display font-semibold text-sm text-amber-400 flex items-center gap-1.5">
+          <i data-lucide="map-pin" class="w-4 h-4"></i> Datos de Entrega en Colombia
+        </h4>
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">Nombre Completo *</label>
+          <input id="clientName" type="text" placeholder="Ej: Carlos Andrés Gómez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Ciudad / Municipio *</label>
+            <input id="clientCity" type="text" placeholder="Ej: Bogotá / Medellín" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">WhatsApp / Celular *</label>
+            <input id="clientPhone" type="tel" placeholder="300 000 0000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+          </div>
+        </div>
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">Dirección Exacta de Envío *</label>
+          <input id="clientAddress" type="text" placeholder="Calle / Carrera, Número, Barrio, Apto" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+        </div>
+      </div>
+    </div>
+
+    <div class="p-5 border-t border-slate-800 bg-[#070B14] space-y-3">
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-slate-400">Envío Asegurado Shefa:</span>
+        <span class="text-emerald-400 font-semibold">Coordinado al confirmar</span>
+      </div>
+      <div class="flex items-center justify-between text-lg font-bold">
+        <span class="text-white">Total a Pagar:</span>
+        <span id="cartTotalValue" class="font-display text-2xl gold-gradient-text">$0 COP</span>
+      </div>
+
+      <button onclick="processDirectOrder()" class="w-full gold-btn font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg">
+        <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+        <span>Confirmar y Pagar Directo a Shefa</span>
+      </button>
+      <p class="text-[11px] text-center text-slate-500">Tu compra es procesada 100% en privado por <strong>Shefa Plus Global</strong>.</p>
+    </div>
   </div>
+</div>
 
-  <!-- ========================================================================= -->
-  <!-- LÓGICA Y BASE DE DATOS DE LOS 10 PRODUCTOS EXCLUSIVOS SHEFA PLUS GLOBAL   -->
-  <!-- ========================================================================= -->
-  <script>
-    // Tasa referencial para conversión instantánea USD <-> COP
-    const EXCHANGE_RATE_COP = 4150;
-    let currentCurrency = 'USD';
-    let currentCategory = 'Todos';
-    let activeProductId = null;
-    let modalQuantity = 1;
-    let cart = [];
+<!-- PANEL DE GESTIÓN RÁPIDA PARA EL DUEÑO -->
+<div id="adminModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+  <div class="w-full max-w-2xl rounded-3xl bg-[#0C1322] border border-slate-700 p-6 sm:p-8 shadow-2xl my-auto max-h-[90vh] flex flex-col">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div>
+        <h3 class="font-display font-bold text-xl text-white flex items-center gap-2">
+          <i data-lucide="settings" class="w-5 h-5 text-amber-400"></i>
+          <span>Panel Privado de Personalización Shefa</span>
+        </h3>
+        <p class="text-xs text-slate-400 mt-0.5">Ajusta tu WhatsApp, precios en Pesos Colombianos (COP), fotos o videos.</p>
+      </div>
+      <button onclick="closeAdminModal()" class="p-2 rounded-full bg-slate-800 text-slate-300 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
 
-    // Número de WhatsApp del propietario de Shefa Plus Global (configurable en el panel o aquí)
-    let ownerWhatsapp = localStorage.getItem('shefa_whatsapp') || '';
+    <div class="overflow-y-auto py-5 space-y-5 text-sm">
+      <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+        <label class="font-semibold text-amber-400 block">1. Tu Número de WhatsApp para Recibir Pedidos (Ej: 573001234567):</label>
+        <input id="adminWhatsappInput" type="text" placeholder="Ej: 573001234567" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none" />
+      </div>
 
-    // Base de datos privada de los 10 productos (100% Marca Blanca Shefa Plus Global)
-    const defaultProducts = [
-      {
-        id: 'SHF-DRN-002',
-        sku: 'SHF-DRN-002',
-        title: 'Dron Pro 002 Dual-Camera HD con Estabilización Inteligente',
-        subtitle: 'Doble lente gran angular, vuelo asistido y batería modular de larga duración.',
-        category: 'Drones y Aviación',
-        priceUSD: 64.90,
-        oldPriceUSD: 89.90,
-        badge: 'Más Vendido',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-drone-flying-over-a-green-forest-42523-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Captura tomas aéreas cinematográficas con el Dron Pro 002 de Shefa Plus Global. Equipado con sistema de doble cámara (frontal HD + inferior de flujo óptico), permite alternar el ángulo de visión en tiempo real desde tu smartphone y mantener un vuelo estable tanto en interiores como en exteriores.',
-        highlights: [
-          'Doble cámara con transmisión FPV en tiempo real vía Wi-Fi.',
-          'Diseño plegable de bolsillo con brazos aerodinámicos de alta resistencia.',
-          'Retorno asistido con un solo botón y despegue/aterrizaje automático.',
-          'Modo sin cabeza (Headless Mode) y giros acrobáticos en 360°.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-DRN-002 Dual Edition',
-          'Sistema de Cámara': 'Doble Cámara HD (Frontal + Inferior)',
-          'Batería': 'Modular de Litio Recargable (1 Unidad Incluida)',
-          'Tiempo de Vuelo': '15 - 18 minutos aprox. por carga',
-          'Alcance de Control': 'Hasta 100 metros libres de interferencia',
-          'Conectividad': 'Control Remoto 2.4GHz + App Móvil (iOS / Android)'
-        },
-        packageIncludes: [
-          '1x Dron Plegable Pro 002 Dual-Camera',
-          '1x Control Remoto de Precisión',
-          '1x Batería Modular Recargable',
-          '4x Hélices de Repuesto + Protectores de Vuelo',
-          '1x Cable de Carga USB + Estuche de Transporte'
-        ]
-      },
-      {
-        id: 'SHF-UAV-RED',
-        sku: 'SHF-UAV-009',
-        title: 'Aeroplano RC Acrobático Dual-Motor Edición Roja',
-        subtitle: 'Fuselaje de espuma EPP ultrarresistente con propulsión eléctrica dual.',
-        category: 'Drones y Aviación',
-        priceUSD: 44.50,
-        oldPriceUSD: 62.00,
-        badge: 'Alta Resistencia',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1559067515-bf7d799b6d42?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1517976487468-f20514c4b75c?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1508614999368-9260051292e5?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Diseñado para ofrecer adrenalina y facilidad de pilotaje desde el primer vuelo. Su estructura de espuma tecnológica EPP absorbe impactos y su sistema eléctrico de doble motor diferencial con giroscopio inteligente estabiliza automáticamente la aeronave frente al viento.',
-        highlights: [
-          'Material EPP flexible, impermeable y altamente resistente a caídas.',
-          'Doble motor eléctrico de alta eficiencia para despegue desde mano o suelo.',
-          'Giroscopio de autoestabilización integrado (ideal para principiantes y expertos).',
-          'Aerodinámica de planeo optimizada con acabado deportivo en color rojo.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-UAV-009 Red Edition',
-          'Material del Fuselaje': 'Espuma de Ingeniería EPP Ultraligera',
-          'Propulsión': 'Doble Motor Eléctrico de Alta Velocidad',
-          'Frecuencia de Control': '2.4GHz Anti-interferencia (multijugador)',
-          'Distancia de Control': 'Hasta 120 metros',
-          'Color': 'Rojo Deportivo de Alta Visibilidad'
-        },
-        packageIncludes: [
-          '1x Aeroplano RC Dual-Motor (Edición Roja)',
-          '1x Control Remoto Inalámbrico 2.4GHz',
-          '1x Batería Recargable de Polímero de Litio',
-          '1x Tren de Aterrizaje Desmontable + Hélices Extra',
-          '1x Cargador USB y Manual en Español'
-        ]
-      },
-            
-{
-        id: 'SHF-DRN-K500',
-        sku: 'SHF-DRN-K500',
-        title: 'Dron K500 Tactical Green con Doble Motor Eléctrico',
-        subtitle: 'Ingeniería aerodinámica en verde táctico con motores duales de alto torque.',
-        category: 'Drones y Aviación',
-        priceUSD: 72.00,
-        oldPriceUSD: 98.00,
-        badge: 'Edición Especial',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-drone-flying-over-a-green-forest-42523-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1521405924368-64c5b84bec60?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'El Dron K500 en acabado Verde Táctico combina potencia dual eléctrica con un chasis plegable de última generación. Su respuesta ágil al mando y su mantenimiento de altitud barométrica garantizan vuelos suaves y capturas aéreas nítidas en cualquier entorno.',
-        highlights: [
-          'Potencia eléctrica dual con 3 niveles de velocidad ajustables.',
-          'Sensor barométrico de retención de altitud (Hover estable).',
-          'Iluminación LED frontal y perimetral para vuelos nocturnos.',
-          'Acabado exclusivo Tactical Green resistente a rasguños.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-DRN-K500 Green',
-          'Motorización': 'Sistema Eléctrico Dual de Alto Rendimiento',
-          'Estabilización': 'Giroscopio de 6 Ejes + Barómetro de Altitud',
-          'Modos de Velocidad': 'Baja / Media / Alta (Deportiva)',
-          'Transmisión': 'Wi-Fi FPV en Tiempo Real',
-          'Color': 'Verde Táctico (Green Edition)'
-        },
-        packageIncludes: [
-          '1x Dron K500 Tactical Green',
-          '1x Control Remoto con Soporte para Smartphone',
-          '1x Batería de Alta Capacidad',
-          '4x Aspas de Repuesto y Herramienta de Montaje',
-          '1x Maletín Protector de Transporte'
-        ]
-      },
-      {
-        id: 'SHF-GLB-LEV',
-        sku: 'SHF-GLB-360',
-        title: 'Globo Terráqueo Flotante LED con Levitación Magnética',
-        subtitle: 'Esfera antigravedad con rotación continua y arco de iluminación LED.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 54.90,
-        oldPriceUSD: 79.00,
-        badge: 'Lujo & Oficina',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-rotating-earth-globe-in-the-dark-41766-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Transforma tu escritorio, estudio o sala ejecutiva con una pieza de ingeniería hipnótica. Gracias a su sistema electromagnético controlado por microprocesador, el globo terráqueo flota en el aire sin ningún soporte físico y gira suavemente rodeado por un halo de luz LED multicolor.',
-        highlights: [
-          'Tecnología de levitación magnética real sin fricción.',
-          'Iluminación LED perimetral que resalta los continentes en la oscuridad.',
-          'Sistema de seguridad magnético: si se corta la energía, la esfera se adhiere a la base sin caer.',
-          'Regalo ejecutivo y decorativo de alto impacto visual.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-GLB-360 Anti-Gravity',
-          'Tecnología': 'Levitación Electromagnética Controlada por Sensor',
-          'Iluminación': 'Anillo LED Multicolor de Bajo Consumo',
-          'Material': 'ABS de Alta Densidad con Acabado Metálico Mate',
-          'Alimentación': 'Adaptador de Corriente 12V (Incluido)',
-          'Rotación': '360° Continua en Suspensión'
-        },
-        packageIncludes: [
-          '1x Base Circular / Arco con Iluminación LED',
-          '1x Globo Terráqueo Magnético de Alta Precisión',
-          '1x Herramienta Asistente de Levitación',
-          '1x Adaptador de Corriente',
-          '1x Manual de Instalación Rápida'
-        ]
-      },
-      {
-        id: 'SHF-PRJ-GLX',
-        sku: 'SHF-PRJ-360',
-        title: 'Proyector Planetario Galaxia 360° y Cielo Estrellado',
-        subtitle: 'Transforma cualquier habitación en un planetario inmersivo con rotación 360°.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 36.90,
-        oldPriceUSD: 52.00,
-        badge: 'Ambiente Único',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Crea una atmósfera mágica e inolvidable en dormitorios, salas de cine en casa o eventos especiales. Este proyector planetario proyecta nebulosas estelares de alta nitidez con movimiento rotatorio de 360 grados sobre techos y paredes.',
-        highlights: [
-          'Rotación silenciosa de 360° que simula el movimiento real del cosmos.',
-          'Múltiples combinaciones de colores e intensidad luminosa regulable.',
-          'Ideal para relajación nocturna, habitaciones infantiles, citas románticas y decoración.',
-          'Diseño compacto con proyección de gran cobertura angular.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-PRJ-360 Starry Planetarium',
-          'Ángulo de Proyección': 'Rotación Dinámica 360° Completa',
-          'Fuente de Luz': 'LED de Alta Luminosidad y Larga Vida Útil',
-          'Modos de Luz': 'Multicolor, Nebulosa, Estrellas Fijas y Dinámicas',
-          'Alimentación': 'Conexión USB Universal',
-          'Nivel de Ruido': 'Motor Ultra Silencioso (< 25dB)'
-        },
-        packageIncludes: [
-          '1x Proyector Planetario Galaxia 360°',
-          '1x Domo Difusor Desmontable',
-          '1x Cable de Alimentación USB',
-          '1x Guía de Uso y Efectos Visuales'
-        ]
-      },
-      {
-        id: 'SHF-AUD-BNY',
-        sku: 'SHF-AUD-RGB',
-        title: 'Audífonos Inalámbricos Luminosos RGB Bunny Edition',
-        subtitle: 'Sonido Hi-Fi envolvente, iluminación LED vibrante y micrófono retráctil HD.',
-        category: 'Cine, Audio & VR',
-        priceUSD: 32.50,
-        oldPriceUSD: 48.00,
-        badge: 'Tendencia',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-headphones-42514-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1618366712010-f4ae9c647dc8?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Estilo, comodidad y potencia acústica en un solo diseño. Los Audífonos Inalámbricos Luminosos de Shefa Plus Global cuentan con iluminación LED en las orejas y laterales, diadema extensible ergonómica, almohadillas ultra suaves y micrófono integrado para gaming, streaming, clases online o música.',
-        highlights: [
-          'Conexión Bluetooth 5.0 de baja latencia y largo alcance.',
-          'Iluminación LED RGB con opción de encendido/apagado para ahorrar batería.',
-          'Almohadillas con aislamiento pasivo de ruido y diadema plegable extensible.',
-          'Micrófono de alta sensibilidad para llamadas claras y sesiones de juego.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-AUD-RGB Luminous Wireless',
-          'Conectividad': 'Bluetooth 5.0 + Entrada Auxiliar 3.5mm + Ranura MicroSD',
-          'Drivers de Audio': '40mm Dinámicos con Bajos Reforzados',
-          'Autonomía': 'Hasta 10 horas de reproducción continua',
-          'Micrófono': 'Integrado con Reducción de Ruido Ambiental',
-          'Diseño': 'Plegable, Extensible y Ergonómico'
-        },
-        packageIncludes: [
-          '1x Audífonos Inalámbricos Luminosos Bunny Edition',
-          '1x Cable de Carga USB',
-          '1x Manual de Usuario'
-        ]
-      },
-      {
-        id: 'SHF-LED-RNG',
-        sku: 'SHF-LED-260',
-        title: 'Aro de Luz LED Profesional Studio Ring Multinivel',
-        subtitle: 'Iluminación uniforme sin sombras con temperatura de color y brillo regulables.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 29.90,
-        oldPriceUSD: 45.00,
-        badge: 'Creadores',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-girl-recording-herself-with-a-ring-light-41878-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Eleva la calidad visual de tus videos, transmisiones en vivo, sesiones de maquillaje y fotografía de producto. El Aro de Luz LED Studio Ring de Shefa ofrece luz suave y continua que elimina sombras duras en el rostro y resalta cada detalle con acabado profesional.',
-        highlights: [
-          '3 tonos de iluminación (Luz Cálida, Luz Neutra Natural y Luz Fría Blanca).',
-          '10 niveles de intensidad de brillo ajustables desde su mando integrado.',
-          'Soporte central flexible de 360° compatible con todo tipo de smartphones.',
-          'Cabezal esférico orientable en cualquier ángulo.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-LED-260 Studio Ring',
-          'Temperaturas de Color': '3200K (Cálida) a 5600K (Fría)',
-          'Regulación de Brillo': '10 Niveles Progresivos (10% - 100%)',
-          'Rotación': 'Cabezal Giratorio 360° e Inclinación 180°',
-          'Alimentación': 'USB 5V (Compatible con adaptador, PC o PowerBank)',
-          'Compatibilidad': 'Teléfonos de 6 a 9 cm de ancho'
-        },
-        packageIncludes: [
-          '1x Aro de Luz LED Profesional con Control Integrado',
-          '1x Soporte Flexible Universal para Smartphone',
-          '1x Rótula Giratoria 360°',
-          '1x Base Trípode de Estabilidad'
-        ]
-      },
-      {
-        id: 'SHF-PRJ-1080',
-        sku: 'SHF-PRJ-1080P',
-        title: 'Mini Proyector Portátil LED de Alta Definición 1080p',
-        subtitle: 'Cine en casa de hasta 100 pulgadas con entradas HDMI, USB y altavoz integrado.',
-        category: 'Cine, Audio & VR',
-        priceUSD: 78.90,
-        oldPriceUSD: 115.00,
-        badge: 'Cine en Casa',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-couple-watching-a-movie-on-a-projector-at-home-42466-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Disfruta de películas, partidos de fútbol, series y videojuegos en pantalla gigante desde la comodidad de tu hogar. Este Mini Proyector LED soporta decodificación Full HD 1080p con colores vivos, lente de enfoque manual preciso y amplia conectividad para consolas, laptops, TV Box y memorias USB.',
-        highlights: [
-          'Soporte de alta definición 1080p con proyección desde 24" hasta 100" pulgadas.',
-          'Tecnología de reflexión difusa LED que cuida la vista de toda la familia.',
-          'Múltiples puertos: HDMI, USB, MicroSD, AV y salida de audio 3.5mm.',
-          'Tamaño ultracompacto con altavoz Hi-Fi integrado y control remoto.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-PRJ-1080P Cinema Mini',
-          'Resolución Soportada': 'Full HD 1920 x 1080p',
-          'Tamaño de Proyección': '24 a 100 pulgadas (Distancia 0.8m a 3.2m)',
-          'Vida Útil de Lámpara LED': '30,000 Horas de Reproducción',
-          'Interfaces': 'HDMI / USB / AV / MicroSD / Audio Out 3.5mm',
-          'Audio': 'Altavoz Estéreo Integrado + Salida para Barra de Sonido'
-        },
-        packageIncludes: [
-          '1x Mini Proyector LED HD 1080p',
-          '1x Control Remoto Infrarrojo',
-          '1x Adaptador de Corriente',
-          '1x Cable AV Tres en Uno',
-          '1x Manual de Usuario'
-        ]
-      },
-      {
-        id: 'SHF-VR-3D',
-        sku: 'SHF-VR-PRO',
-        title: 'Gafas de Realidad Virtual 3D VR Pro Helmet Inmersivo',
-        subtitle: 'Lentes asféricos de alta precisión con ajuste interpupilar y confort ergonómico.',
-        category: 'Cine, Audio & VR',
-        priceUSD: 38.50,
-        oldPriceUSD: 55.00,
-        badge: 'Inmersión 3D',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-wearing-virtual-reality-headset-42516-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Sumérgete en mundos virtuales en 360°, películas IMAX 3D y juegos interactivos directamente con tu smartphone. Las gafas VR Pro Helmet de Shefa cuentan con lentes ópticos de resina HD con filtro de luz azul y doble ajuste independiente de distancia focal y pupilar.',
-        highlights: [
-          'Lentes asféricos HD con campo de visión panorámico inmersivo.',
-          'Doble ajuste independiente (distancia focal y distancia interpupilar).',
-          'Acolchado facial transpirable en cuero PU suave y correa elástica en T.',
-          'Compatible con smartphones iOS y Android de 4.7 a 6.7 pulgadas.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-VR-PRO 3D Helmet',
-          'Lentes Ópticos': 'Resina Asférica HD con Protección Anti-Luz Azul',
-          'Ángulo de Visión (FOV)': '100° - 110° Panorámico',
-          'Ajuste Visual': 'Apto para usuarios con miopía de hasta 600° sin gafas',
-          'Compatibilidad': 'Smartphones de 4.7" a 6.7" pulgadas',
-          'Material': 'ABS de Ingeniería + Almohadilla Respirable'
-        },
-        packageIncludes: [
-          '1x Casco de Realidad Virtual 3D VR Pro',
-          '1x Paño de Microfibra para Lentes Ópticos',
-          '1x Guía de Aplicaciones y Juegos VR'
-        ]
-      },
-        {
-        id: 'SHF-DRN-K500',
-        sku: 'SHF-DRN-K500',
-        title: 'Dron K500 Tactical Green con Doble Motor Eléctrico',
-        subtitle: 'Ingeniería aerodinámica en verde táctico con motores duales de alto torque.',
-        category: 'Drones y Aviación',
-        priceUSD: 72.00,
-        oldPriceUSD: 98.00,
-        badge: 'Edición Especial',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-drone-flying-over-a-green-forest-42523-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1521405924368-64c5b84bec60?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'El Dron K500 en acabado Verde Táctico combina potencia dual eléctrica con un chasis plegable de última generación. Su respuesta ágil al mando y su mantenimiento de altitud barométrica garantizan vuelos suaves y capturas aéreas nítidas en cualquier entorno.',
-        highlights: [
-          'Potencia eléctrica dual con 3 niveles de velocidad ajustables.',
-          'Sensor barométrico de retención de altitud (Hover estable).',
-          'Iluminación LED frontal y perimetral para vuelos nocturnos.',
-          'Acabado exclusivo Tactical Green resistente a rasguños.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-DRN-K500 Green',
-          'Motorización': 'Sistema Eléctrico Dual de Alto Rendimiento',
-          'Estabilización': 'Giroscopio de 6 Ejes + Barómetro de Altitud',
-          'Modos de Velocidad': 'Baja / Media / Alta (Deportiva)',
-          'Transmisión': 'Wi-Fi FPV en Tiempo Real',
-          'Color': 'Verde Táctico (Green Edition)'
-        },
-        packageIncludes: [
-          '1x Dron K500 Tactical Green',
-          '1x Control Remoto con Soporte para Smartphone',
-          '1x Batería de Alta Capacidad',
-          '4x Aspas de Repuesto y Herramienta de Montaje',
-          '1x Maletín Protector de Transporte'
-        ]
-      },
-      {
-        id: 'SHF-GLB-LEV',
-        sku: 'SHF-GLB-360',
-        title: 'Globo Terráqueo Flotante LED con Levitación Magnética',
-        subtitle: 'Esfera antigravedad con rotación continua y arco de iluminación LED.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 54.90,
-        oldPriceUSD: 79.00,
-        badge: 'Lujo & Oficina',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-rotating-earth-globe-in-the-dark-41766-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Transforma tu escritorio, estudio o sala ejecutiva con una pieza de ingeniería hipnótica. Gracias a su sistema electromagnético controlado por microprocesador, el globo terráqueo flota en el aire sin ningún soporte físico y gira suavemente rodeado por un halo de luz LED multicolor.',
-        highlights: [
-          'Tecnología de levitación magnética real sin fricción.',
-          'Iluminación LED perimetral que resalta los continentes en la oscuridad.',
-          'Sistema de seguridad magnético: si se corta la energía, la esfera se adhiere a la base sin caer.',
-          'Regalo ejecutivo y decorativo de alto impacto visual.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-GLB-360 Anti-Gravity',
-          'Tecnología': 'Levitación Electromagnética Controlada por Sensor',
-          'Iluminación': 'Anillo LED Multicolor de Bajo Consumo',
-          'Material': 'ABS de Alta Densidad con Acabado Metálico Mate',
-          'Alimentación': 'Adaptador de Corriente 12V (Incluido)',
-          'Rotación': '360° Continua en Suspensión'
-        },
-        packageIncludes: [
-          '1x Base Circular / Arco con Iluminación LED',
-          '1x Globo Terráqueo Magnético de Alta Precisión',
-          '1x Herramienta Asistente de Levitación',
-          '1x Adaptador de Corriente',
-          '1x Manual de Instalación Rápida'
-        ]
-      },
-      {
-        id: 'SHF-PRJ-GLX',
-        sku: 'SHF-PRJ-360',
-        title: 'Proyector Planetario Galaxia 360° y Cielo Estrellado',
-        subtitle: 'Transforma cualquier habitación en un planetario inmersivo con rotación 360°.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 36.90,
-        oldPriceUSD: 52.00,
-        badge: 'Ambiente Único',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Crea una atmósfera mágica e inolvidable en dormitorios, salas de cine en casa o eventos especiales. Este proyector planetario proyecta nebulosas estelares de alta nitidez con movimiento rotatorio de 360 grados sobre techos y paredes.',
-        highlights: [
-          'Rotación silenciosa de 360° que simula el movimiento real del cosmos.',
-          'Múltiples combinaciones de colores e intensidad luminosa regulable.',
-          'Ideal para relajación nocturna, habitaciones infantiles, citas románticas y decoración.',
-          'Diseño compacto con proyección de gran cobertura angular.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-PRJ-360 Starry Planetarium',
-          'Ángulo de Proyección': 'Rotación Dinámica 360° Completa',
-          'Fuente de Luz': 'LED de Alta Luminosidad y Larga Vida Útil',
-          'Modos de Luz': 'Multicolor, Nebulosa, Estrellas Fijas y Dinámicas',
-          'Alimentación': 'Conexión USB Universal',
-          'Nivel de Ruido': 'Motor Ultra Silencioso (< 25dB)'
-        },
-        packageIncludes: [
-          '1x Proyector Planetario Galaxia 360°',
-          '1x Domo Difusor Desmontable',
-          '1x Cable de Alimentación USB',
-          '1x Guía de Uso y Efectos Visuales'
-        ]
-      },
-      {
-        id: 'SHF-AUD-BNY',
-        sku: 'SHF-AUD-RGB',
-        title: 'Audífonos Inalámbricos Luminosos RGB Bunny Edition',
-        subtitle: 'Sonido Hi-Fi envolvente, iluminación LED vibrante y micrófono retráctil HD.',
-        category: 'Cine, Audio & VR',
-        priceUSD: 32.50,
-        oldPriceUSD: 48.00,
-        badge: 'Tendencia',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-headphones-42514-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1618366712010-f4ae9c647dc8?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Estilo, comodidad y potencia acústica en un solo diseño. Los Audífonos Inalámbricos Luminosos de Shefa Plus Global cuentan con iluminación LED en las orejas y laterales, diadema extensible ergonómica, almohadillas ultra suaves y micrófono integrado para gaming, streaming, clases online o música.',
-        highlights: [
-          'Conexión Bluetooth 5.0 de baja latencia y largo alcance.',
-          'Iluminación LED RGB con opción de encendido/apagado para ahorrar batería.',
-          'Almohadillas con aislamiento pasivo de ruido y diadema plegable extensible.',
-          'Micrófono de alta sensibilidad para llamadas claras y sesiones de juego.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-AUD-RGB Luminous Wireless',
-          'Conectividad': 'Bluetooth 5.0 + Entrada Auxiliar 3.5mm + Ranura MicroSD',
-          'Drivers de Audio': '40mm Dinámicos con Bajos Reforzados',
-          'Autonomía': 'Hasta 10 horas de reproducción continua',
-          'Micrófono': 'Integrado con Reducción de Ruido Ambiental',
-          'Diseño': 'Plegable, Extensible y Ergonómico'
-        },
-        packageIncludes: [
-          '1x Audífonos Inalámbricos Luminosos Bunny Edition',
-          '1x Cable de Carga USB',
-          '1x Manual de Usuario'
-        ]
-      },
-      {
-        id: 'SHF-LED-RNG',
-        sku: 'SHF-LED-260',
-        title: 'Aro de Luz LED Profesional Studio Ring Multinivel',
-        subtitle: 'Iluminación uniforme sin sombras con temperatura de color y brillo regulables.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 29.90,
-        oldPriceUSD: 45.00,
-        badge: 'Creadores',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-girl-recording-herself-with-a-ring-light-41878-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Eleva la calidad visual de tus videos, transmisiones en vivo, sesiones de maquillaje y fotografía de producto. El Aro de Luz LED Studio Ring de Shefa ofrece luz suave y continua que elimina sombras duras en el rostro y resalta cada detalle con acabado profesional.',
-        highlights: [
-          '3 tonos de iluminación (Luz Cálida, Luz Neutra Natural y Luz Fría Blanca).',
-          '10 niveles de intensidad de brillo ajustables desde su mando integrado.',
-          'Soporte central flexible de 360° compatible con todo tipo de smartphones.',
-          'Cabezal esférico orientable en cualquier ángulo.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-LED-260 Studio Ring',
-          'Temperaturas de Color': '3200K (Cálida) a 5600K (Fría)',
-          'Regulación de Brillo': '10 Niveles Progresivos (10% - 100%)',
-          'Rotación': 'Cabezal Giratorio 360° e Inclinación 180°',
-          'Alimentación': 'USB 5V (Compatible con adaptador, PC o PowerBank)',
-          'Compatibilidad': 'Teléfonos de 6 a 9 cm de ancho'
-        },
-        packageIncludes: [
-          '1x Aro de Luz LED Profesional con Control Integrado',
-          '1x Soporte Flexible Universal para Smartphone',
-          '1x Rótula Giratoria 360°',
-          '1x Base Trípode de Estabilidad'
-        ]
-      },
-      {
-        id: 'SHF-PRJ-1080',
-        sku: 'SHF-PRJ-1080P',
-        title: 'Mini Proyector Portátil LED de Alta Definición 1080p',
-        subtitle: 'Cine en casa de hasta 100 pulgadas con entradas HDMI, USB y altavoz integrado.',
-        category: 'Cine, Audio & VR',
-        priceUSD: 78.90,
-        oldPriceUSD: 115.00,
-        badge: 'Cine en Casa',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-couple-watching-a-movie-on-a-projector-at-home-42466-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Disfruta de películas, partidos de fútbol, series y videojuegos en pantalla gigante desde la comodidad de tu hogar. Este Mini Proyector LED soporta decodificación Full HD 1080p con colores vivos, lente de enfoque manual preciso y amplia conectividad para consolas, laptops, TV Box y memorias USB.',
-        highlights: [
-          'Soporte de alta definición 1080p con proyección desde 24" hasta 100" pulgadas.',
-          'Tecnología de reflexión difusa LED que cuida la vista de toda la familia.',
-          'Múltiples puertos: HDMI, USB, MicroSD, AV y salida de audio 3.5mm.',
-          'Tamaño ultracompacto con altavoz Hi-Fi integrado y control remoto.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-PRJ-1080P Cinema Mini',
-          'Resolución Soportada': 'Full HD 1920 x 1080p',
-          'Tamaño de Proyección': '24 a 100 pulgadas (Distancia 0.8m a 3.2m)',
-          'Vida Útil de Lámpara LED': '30,000 Horas de Reproducción',
-          'Interfaces': 'HDMI / USB / AV / MicroSD / Audio Out 3.5mm',
-          'Audio': 'Altavoz Estéreo Integrado + Salida para Barra de Sonido'
-        },
-        packageIncludes: [
-          '1x Mini Proyector LED HD 1080p',
-          '1x Control Remoto Infrarrojo',
-          '1x Adaptador de Corriente',
-          '1x Cable AV Tres en Uno',
-          '1x Manual de Usuario'
-        ]
-      },
-      {
-        id: 'SHF-VR-3D',
-        sku: 'SHF-VR-PRO',
-        title: 'Gafas de Realidad Virtual 3D VR Pro Helmet Inmersivo',
-        subtitle: 'Lentes asféricos de alta precisión con ajuste interpupilar y confort ergonómico.',
-        category: 'Cine, Audio & VR',
-        priceUSD: 38.50,
-        oldPriceUSD: 55.00,
-        badge: 'Inmersión 3D',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-wearing-virtual-reality-headset-42516-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Sumérgete en mundos virtuales en 360°, películas IMAX 3D y juegos interactivos directamente con tu smartphone. Las gafas VR Pro Helmet de Shefa cuentan con lentes ópticos de resina HD con filtro de luz azul y doble ajuste independiente de distancia focal y pupilar.',
-        highlights: [
-          'Lentes asféricos HD con campo de visión panorámico inmersivo.',
-          'Doble ajuste independiente (distancia focal y distancia interpupilar).',
-          'Acolchado facial transpirable en cuero PU suave y correa elástica en T.',
-          'Compatible con smartphones iOS y Android de 4.7 a 6.7 pulgadas.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-VR-PRO 3D Helmet',
-          'Lentes Ópticos': 'Resina Asférica HD con Protección Anti-Luz Azul',
-          'Ángulo de Visión (FOV)': '100° - 110° Panorámico',
-          'Ajuste Visual': 'Apto para usuarios con miopía de hasta 600° sin gafas',
-          'Compatibilidad': 'Smartphones de 4.7" a 6.7" pulgadas',
-          'Material': 'ABS de Ingeniería + Almohadilla Respirable'
-        },
-        packageIncludes: [
-          '1x Casco de Realidad Virtual 3D VR Pro',
-          '1x Paño de Microfibra para Lentes Ópticos',
-          '1x Guía de Aplicaciones y Juegos VR'
-        ]
-      },
-{
-        id: 'SHF-BLB-SPK',
-        sku: 'SHF-BLB-E27',
-        title: 'Bombillo Inteligente LED RGB con Altavoz Bluetooth E27',
-        subtitle: 'Iluminación multicolor con música inalámbrica integrada y control remoto.',
-        category: 'Iluminación & Deco Smart',
-        priceUSD: 24.90,
-        oldPriceUSD: 36.00,
-        badge: 'Smart Home',
-        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-colorful-neon-lights-in-a-dark-room-41655-large.mp4',
-        images: [
-          'https://images.unsplash.com/photo-1550985616-10810253b84d?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1000&q=85',
-          'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1000&q=85'
-        ],
-        description: 'Convierte cualquier roseta estándar E27 de tu casa o negocio en un centro de iluminación inteligente y sonido ambiental. Reproduce tu música favorita por Bluetooth desde el techo mientras personalizas el color de la habitación con su control remoto de 24 teclas.',
-        highlights: [
-          '2 en 1: Lámpara LED de uso diario (Luz Blanca) + Iluminación RGB y Altavoz Bluetooth.',
-          'Rosca estándar universal E27: se instala en segundos como cualquier bombillo.',
-          'Control remoto incluido para cambiar colores, brillo, volumen y modos rítmicos.',
-          'Bajo consumo energético LED con hasta 85% de ahorro eléctrico.'
-        ],
-        specs: {
-          'Referencia Oficial': 'SHF-BLB-E27 Smart Music Bulb',
-          'Base de Instalación': 'Rosca Estándar E27 (100V - 240V)',
-          'Conectividad de Audio': 'Bluetooth 5.0 (Alcance 10 metros)',
-          'Colores de Iluminación': 'Blanco Frío + 12 Colores RGB + 4 Modos Dinámicos',
-          'Potencia Total': '12W LED + Altavoz Acústico Integrado',
-          'Control': 'Control Remoto Infrarrojo de 24 Botones + Smartphone'
-        },
-        packageIncludes: [
-          '1x Bombillo Inteligente LED RGB con Altavoz Bluetooth E27',
-          '1x Control Remoto de 24 Funciones',
-          '1x Manual de Instrucciones'
-        ]
-      }
-    ];
+      <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+        <label class="font-semibold text-amber-400 block">2. Editar Producto (Precio en COP, Fotos o Video):</label>
+        <select id="adminProductSelect" onchange="loadProductIntoAdmin()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none"></select>
 
-    // Cargar catálogo desde LocalStorage si el propietario hizo ajustes o usar el predeterminado
-    let catalog = JSON.parse(localStorage.getItem('shefa_catalog_v1')) || defaultProducts;
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Precio en Pesos Colombianos (COP)</label>
+            <input id="adminPriceInput" type="number" step="100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white" />
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">URL de Video (.mp4)</label>
+            <input id="adminVideoInput" type="text" placeholder="https://.../video.mp4" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white" />
+          </div>
+        </div>
 
-    // Formatear precios según moneda activa
-    function formatPrice(usdAmount) {
-      if (currentCurrency === 'USD') {
-        return `$${usdAmount.toFixed(2)} USD`;
-      } else {
-        const cop = Math.round((usdAmount * EXCHANGE_RATE_COP) / 100) * 100;
-        return `$${cop.toLocaleString('es-CO')} COP`;
-      }
+        <div>
+          <label class="text-xs text-slate-400 block mb-1">URLs de Fotos (separadas por coma)</label>
+          <textarea id="adminImagesInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white font-mono"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+      <button onclick="resetCatalogDefaults()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold">Restaurar Originales</button>
+      <button onclick="saveAdminChanges()" class="gold-btn px-6 py-2.5 rounded-xl font-bold text-sm">Guardar Cambios</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFICACIÓN TOAST -->
+<div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 border border-amber-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm">
+  <i data-lucide="check-circle" class="w-5 h-5 text-amber-400"></i>
+  <span id="toastMsg">Producto agregado al pedido</span>
+</div>
+
+<script>
+// Limpiador automático contra espacios invisibles (\u00A0) al pegar desde celular en GitHub
+function sanitizeDOMForMobilePaste() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n => {
+    if (n.nodeValue && n.nodeValue.indexOf('\u00A0') !== -1) {
+      const cleaned = n.nodeValue.replace(/\u00A0+/g, ' ');
+      n.nodeValue = cleaned.trim() === '' ? '' : cleaned.replace(/^\s+/, '');
     }
-
-    function setCurrency(curr) {
-      currentCurrency = curr;
-      const btnUSD = document.getElementById('btnUSD');
-      const btnCOP = document.getElementById('btnCOP');
-      if (curr === 'USD') {
-        btnUSD.className = 'px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 transition';
-        btnCOP.className = 'px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition';
-      } else {
-        btnCOP.className = 'px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 transition';
-        btnUSD.className = 'px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition';
+  });
+  document.querySelectorAll('*').forEach(el => {
+    Array.from(el.attributes).forEach(attr => {
+      if (attr.name.indexOf('\u00A0') !== -1) {
+        const cleanName = attr.name.replace(/\u00A0+/g, '').trim();
+        if (cleanName) el.setAttribute(cleanName, attr.value);
+        el.removeAttribute(attr.name);
       }
-      renderCatalog();
-      renderCart();
-      if (activeProductId) {
-        const p = catalog.find(item => item.id === activeProductId);
-        if (p) {
-          document.getElementById('modalPrice').textContent = formatPrice(p.priceUSD);
-          document.getElementById('modalOldPrice').textContent = formatPrice(p.oldPriceUSD);
-        }
-      }
+    });
+  });
+}
+
+// Moneda predeterminada: PESOS COLOMBIANOS (COP)
+const EXCHANGE_RATE_COP = 4150;
+let currentCurrency = 'COP';
+let currentCategory = 'Todos';
+let activeProductId = null;
+let modalQuantity = 1;
+let cart = [];
+let ownerWhatsapp = localStorage.getItem('shefa_whatsapp') || '';
+
+const defaultProducts = [
+  {
+    id: 'SHF-DRN-002',
+    sku: 'SHF-DRN-002',
+    title: 'Dron Pro 002 Dual-Camera HD con Estabilización Inteligente',
+    subtitle: 'Doble lente gran angular, vuelo asistido y batería modular de larga duración.',
+    category: 'Drones y Aviación',
+    priceCOP: 249900,
+    oldPriceCOP: 349900,
+    badge: 'Más Vendido',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-drone-flying-over-a-green-forest-42523-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Captura tomas aéreas cinematográficas con el Dron Pro 002 de Shefa Plus Global. Equipado con sistema de doble cámara (frontal HD + inferior de flujo óptico), permite alternar el ángulo de visión en tiempo real desde tu smartphone y mantener un vuelo estable tanto en interiores como en exteriores.',
+    highlights: [
+      'Doble cámara con transmisión FPV en tiempo real vía Wi-Fi.',
+      'Diseño plegable de bolsillo con brazos aerodinámicos de alta resistencia.',
+      'Retorno asistido con un solo botón y despegue/aterrizaje automático.',
+      'Modo sin cabeza (Headless Mode) y giros acrobáticos en 360°.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-DRN-002 Dual Edition',
+      'Sistema de Cámara': 'Doble Cámara HD (Frontal + Inferior)',
+      'Batería': 'Modular de Litio Recargable (Incluida)',
+      'Tiempo de Vuelo': '15 - 18 minutos aprox. por carga',
+      'Alcance de Control': 'Hasta 100 metros libres de interferencia',
+      'Conectividad': 'Control Remoto 2.4GHz + App Móvil (iOS / Android)'
+    },
+    packageIncludes: [
+      '1x Dron Plegable Pro 002 Dual-Camera',
+      '1x Control Remoto de Precisión',
+      '1x Batería Modular Recargable',
+      '4x Hélices de Repuesto + Protectores de Vuelo',
+      '1x Cable de Carga USB + Estuche de Transporte'
+    ]
+  },
+  {
+    id: 'SHF-UAV-RED',
+    sku: 'SHF-UAV-009',
+    title: 'Aeroplano RC Acrobático Dual-Motor Edición Roja',
+    subtitle: 'Fuselaje de espuma EPP ultrarresistente con propulsión eléctrica dual.',
+    category: 'Drones y Aviación',
+    priceCOP: 179900,
+    oldPriceCOP: 249900,
+    badge: 'Alta Resistencia',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1559067515-bf7d799b6d42?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1517976487468-f20514c4b75c?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1508614999368-9260051292e5?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Diseñado para ofrecer adrenalina y facilidad de pilotaje desde el primer vuelo. Su estructura de espuma tecnológica EPP absorbe impactos y su sistema eléctrico de doble motor diferencial con giroscopio inteligente estabiliza automáticamente la aeronave frente al viento.',
+    highlights: [
+      'Material EPP flexible, impermeable y altamente resistente a caídas.',
+      'Doble motor eléctrico de alta eficiencia para despegue desde mano o suelo.',
+      'Giroscopio de autoestabilización integrado (ideal para principiantes y expertos).',
+      'Aerodinámica de planeo optimizada con acabado deportivo en color rojo.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-UAV-009 Red Edition',
+      'Material del Fuselaje': 'Espuma de Ingeniería EPP Ultraligera',
+      'Propulsión': 'Doble Motor Eléctrico de Alta Velocidad',
+      'Frecuencia de Control': '2.4GHz Anti-interferencia',
+      'Distancia de Control': 'Hasta 120 metros',
+      'Color': 'Rojo Deportivo de Alta Visibilidad'
+    },
+    packageIncludes: [
+      '1x Aeroplano RC Dual-Motor (Edición Roja)',
+      '1x Control Remoto Inalámbrico 2.4GHz',
+      '1x Batería Recargable de Polímero de Litio',
+      '1x Tren de Aterrizaje Desmontable + Hélices Extra',
+      '1x Cargador USB y Manual en Español'
+    ]
+  },
+  {
+    id: 'SHF-DRN-K500',
+    sku: 'SHF-DRN-K500',
+    title: 'Dron K500 Tactical Green con Doble Motor Eléctrico',
+    subtitle: 'Ingeniería aerodinámica en verde táctico con motores duales de alto torque.',
+    category: 'Drones y Aviación',
+    priceCOP: 279900,
+    oldPriceCOP: 389900,
+    badge: 'Edición Especial',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-drone-flying-over-a-green-forest-42523-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1579829366248-204fe8413f31?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1521405924368-64c5b84bec60?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'El Dron K500 en acabado Verde Táctico combina potencia dual eléctrica con un chasis plegable de última generación. Su respuesta ágil al mando y su mantenimiento de altitud barométrica garantizan vuelos suaves y capturas aéreas nítidas en cualquier entorno.',
+    highlights: [
+      'Potencia eléctrica dual con 3 niveles de velocidad ajustables.',
+      'Sensor barométrico de retención de altitud (Hover estable).',
+      'Iluminación LED frontal y perimetral para vuelos nocturnos.',
+      'Acabado exclusivo Tactical Green resistente a rasguños.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-DRN-K500 Green',
+      'Motorización': 'Sistema Eléctrico Dual de Alto Rendimiento',
+      'Estabilización': 'Giroscopio de 6 Ejes + Barómetro de Altitud',
+      'Modos de Velocidad': 'Baja / Media / Alta (Deportiva)',
+      'Transmisión': 'Wi-Fi FPV en Tiempo Real',
+      'Color': 'Verde Táctico (Green Edition)'
+    },
+    packageIncludes: [
+      '1x Dron K500 Tactical Green',
+      '1x Control Remoto con Soporte para Smartphone',
+      '1x Batería de Alta Capacidad',
+      '4x Aspas de Repuesto y Herramienta de Montaje',
+      '1x Maletín Protector de Transporte'
+    ]
+  },
+  {
+    id: 'SHF-GLB-LEV',
+    sku: 'SHF-GLB-360',
+    title: 'Globo Terráqueo Flotante LED con Levitación Magnética',
+    subtitle: 'Esfera antigravedad con rotación continua y arco de iluminación LED.',
+    category: 'Iluminación & Deco Smart',
+    priceCOP: 219900,
+    oldPriceCOP: 310000,
+    badge: 'Lujo & Oficina',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-rotating-earth-globe-in-the-dark-41766-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Transforma tu escritorio, estudio o sala ejecutiva con una pieza de ingeniería hipnótica. Gracias a su sistema electromagnético controlado por microprocesador, el globo terráqueo flota en el aire sin ningún soporte físico y gira suavemente rodeado por un halo de luz LED multicolor.',
+    highlights: [
+      'Tecnología de levitación magnética real sin fricción.',
+      'Iluminación LED perimetral que resalta los continentes en la oscuridad.',
+      'Sistema de seguridad magnético ante cortes de energía.',
+      'Regalo ejecutivo y decorativo de alto impacto visual.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-GLB-360 Anti-Gravity',
+      'Tecnología': 'Levitación Electromagnética Controlada por Sensor',
+      'Iluminación': 'Anillo LED Multicolor de Bajo Consumo',
+      'Material': 'ABS de Alta Densidad con Acabado Metálico Mate',
+      'Alimentación': 'Adaptador de Corriente 12V (Incluido)',
+      'Rotación': '360° Continua en Suspensión'
+    },
+    packageIncludes: [
+      '1x Base Circular / Arco con Iluminación LED',
+      '1x Globo Terráqueo Magnético de Alta Precisión',
+      '1x Herramienta Asistente de Levitación',
+      '1x Adaptador de Corriente',
+      '1x Manual de Instalación Rápida'
+    ]
+  },
+  {
+    id: 'SHF-PRJ-GLX',
+    sku: 'SHF-PRJ-360',
+    title: 'Proyector Planetario Galaxia 360° y Cielo Estrellado',
+    subtitle: 'Transforma cualquier habitación en un planetario inmersivo con rotación 360°.',
+    category: 'Iluminación & Deco Smart',
+    priceCOP: 149900,
+    oldPriceCOP: 210000,
+    badge: 'Ambiente Único',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-stars-in-space-1610-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Crea una atmósfera mágica e inolvidable en dormitorios, salas de cine en casa o eventos especiales. Este proyector planetario proyecta nebulosas estelares de alta nitidez con movimiento rotatorio de 360 grados sobre techos y paredes.',
+    highlights: [
+      'Rotación silenciosa de 360° que simula el movimiento real del cosmos.',
+      'Múltiples combinaciones de colores e intensidad luminosa regulable.',
+      'Ideal para relajación nocturna, habitaciones infantiles y decoración.',
+      'Diseño compacto con proyección de gran cobertura angular.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-PRJ-360 Starry Planetarium',
+      'Ángulo de Proyección': 'Rotación Dinámica 360° Completa',
+      'Fuente de Luz': 'LED de Alta Luminosidad y Larga Vida Útil',
+      'Modos de Luz': 'Multicolor, Nebulosa, Estrellas Fijas y Dinámicas',
+      'Alimentación': 'Conexión USB Universal',
+      'Nivel de Ruido': 'Motor Ultra Silencioso (< 25dB)'
+    },
+    packageIncludes: [
+      '1x Proyector Planetario Galaxia 360°',
+      '1x Domo Difusor Desmontable',
+      '1x Cable de Alimentación USB',
+      '1x Guía de Uso y Efectos Visuales'
+    ]
+  },
+  {
+    id: 'SHF-AUD-BNY',
+    sku: 'SHF-AUD-RGB',
+    title: 'Audífonos Inalámbricos Luminosos RGB Bunny Edition',
+    subtitle: 'Sonido Hi-Fi envolvente, iluminación LED vibrante y micrófono retráctil HD.',
+    category: 'Cine, Audio & VR',
+    priceCOP: 129900,
+    oldPriceCOP: 185000,
+    badge: 'Tendencia',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-woman-putting-on-headphones-42514-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1618366712010-f4ae9c647dc8?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Estilo, comodidad y potencia acústica en un solo diseño. Los Audífonos Inalámbricos Luminosos de Shefa Plus Global cuentan con iluminación LED en las orejas y laterales, diadema extensible ergonómica, almohadillas ultra suaves y micrófono integrado para gaming, streaming, clases online o música.',
+    highlights: [
+      'Conexión Bluetooth 5.0 de baja latencia y largo alcance.',
+      'Iluminación LED RGB con opción de encendido/apagado.',
+      'Almohadillas con aislamiento pasivo de ruido y diadema plegable extensible.',
+      'Micrófono de alta sensibilidad para llamadas claras y sesiones de juego.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-AUD-RGB Luminous Wireless',
+      'Conectividad': 'Bluetooth 5.0 + Auxiliar 3.5mm + Ranura MicroSD',
+      'Drivers de Audio': '40mm Dinámicos con Bajos Reforzados',
+      'Autonomía': 'Hasta 10 horas de reproducción continua',
+      'Micrófono': 'Integrado con Reducción de Ruido Ambiental',
+      'Diseño': 'Plegable, Extensible y Ergonómico'
+    },
+    packageIncludes: [
+      '1x Audífonos Inalámbricos Luminosos Bunny Edition',
+      '1x Cable de Carga USB',
+      '1x Manual de Usuario'
+    ]
+  },
+  {
+    id: 'SHF-LED-RNG',
+    sku: 'SHF-LED-260',
+    title: 'Aro de Luz LED Profesional Studio Ring Multinivel',
+    subtitle: 'Iluminación uniforme sin sombras con temperatura de color y brillo regulables.',
+    category: 'Iluminación & Deco Smart',
+    priceCOP: 119900,
+    oldPriceCOP: 169900,
+    badge: 'Creadores',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-girl-recording-herself-with-a-ring-light-41878-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Eleva la calidad visual de tus videos, transmisiones en vivo, sesiones de maquillaje y fotografía de producto. El Aro de Luz LED Studio Ring de Shefa ofrece luz suave y continua que elimina sombras duras en el rostro y resalta cada detalle con acabado profesional.',
+    highlights: [
+      '3 tonos de iluminación (Luz Cálida, Luz Neutra Natural y Luz Fría Blanca).',
+      '10 niveles de intensidad de brillo ajustables desde su mando integrado.',
+      'Soporte central flexible de 360° compatible con todo tipo de smartphones.',
+      'Cabezal esférico orientable en cualquier ángulo.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-LED-260 Studio Ring',
+      'Temperaturas de Color': '3200K (Cálida) a 5600K (Fría)',
+      'Regulación de Brillo': '10 Niveles Progresivos (10% - 100%)',
+      'Rotación': 'Cabezal Giratorio 360° e Inclinación 180°',
+      'Alimentación': 'USB 5V Universal',
+      'Compatibilidad': 'Teléfonos de 6 a 9 cm de ancho'
+    },
+    packageIncludes: [
+      '1x Aro de Luz LED Profesional con Control Integrado',
+      '1x Soporte Flexible Universal para Smartphone',
+      '1x Rótula Giratoria 360°',
+      '1x Base Trípode de Estabilidad'
+    ]
+  },
+  {
+    id: 'SHF-PRJ-1080',
+    sku: 'SHF-PRJ-1080P',
+    title: 'Mini Proyector Portátil LED de Alta Definición 1080p',
+    subtitle: 'Cine en casa de hasta 100 pulgadas con entradas HDMI, USB y altavoz integrado.',
+    category: 'Cine, Audio & VR',
+    priceCOP: 319900,
+    oldPriceCOP: 449900,
+    badge: 'Cine en Casa',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-couple-watching-a-movie-on-a-projector-at-home-42466-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Disfruta de películas, partidos de fútbol, series y videojuegos en pantalla gigante desde la comodidad de tu hogar. Este Mini Proyector LED soporta decodificación Full HD 1080p con colores vivos, lente de enfoque manual preciso y amplia conectividad para consolas, laptops, TV Box y memorias USB.',
+    highlights: [
+      'Soporte de alta definición 1080p con proyección desde 24" hasta 100" pulgadas.',
+      'Tecnología de reflexión difusa LED que cuida la vista de toda la familia.',
+      'Múltiples puertos: HDMI, USB, MicroSD, AV y salida de audio 3.5mm.',
+      'Tamaño ultracompacto con altavoz Hi-Fi integrado y control remoto.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-PRJ-1080P Cinema Mini',
+      'Resolución Soportada': 'Full HD 1920 x 1080p',
+      'Tamaño de Proyección': '24 a 100 pulgadas (Distancia 0.8m a 3.2m)',
+      'Vida Útil de Lámpara LED': '30,000 Horas de Reproducción',
+      'Interfaces': 'HDMI / USB / AV / MicroSD / Audio Out 3.5mm',
+      'Audio': 'Altavoz Estéreo Integrado + Salida para Barra de Sonido'
+    },
+    packageIncludes: [
+      '1x Mini Proyector LED HD 1080p',
+      '1x Control Remoto Infrarrojo',
+      '1x Adaptador de Corriente',
+      '1x Cable AV Tres en Uno',
+      '1x Manual de Usuario'
+    ]
+  },
+  {
+    id: 'SHF-VR-3D',
+    sku: 'SHF-VR-PRO',
+    title: 'Gafas de Realidad Virtual 3D VR Pro Helmet Inmersivo',
+    subtitle: 'Lentes asféricos de alta precisión con ajuste interpupilar y confort ergonómico.',
+    category: 'Cine, Audio & VR',
+    priceCOP: 154900,
+    oldPriceCOP: 219900,
+    badge: 'Inmersión 3D',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-wearing-virtual-reality-headset-42516-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Sumérgete en mundos virtuales en 360°, películas IMAX 3D y juegos interactivos directamente con tu smartphone. Las gafas VR Pro Helmet de Shefa cuentan con lentes ópticos de resina HD con filtro de luz azul y doble ajuste independiente de distancia focal y pupilar.',
+    highlights: [
+      'Lentes asféricos HD con campo de visión panorámico inmersivo.',
+      'Doble ajuste independiente (distancia focal y distancia interpupilar).',
+      'Acolchado facial transpirable en cuero PU suave y correa elástica en T.',
+      'Compatible con smartphones iOS y Android de 4.7 a 6.7 pulgadas.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-VR-PRO 3D Helmet',
+      'Lentes Ópticos': 'Resina Asférica HD con Protección Anti-Luz Azul',
+      'Ángulo de Visión (FOV)': '100° - 110° Panorámico',
+      'Ajuste Visual': 'Apto para usuarios con miopía de hasta 600° sin gafas',
+      'Compatibilidad': 'Smartphones de 4.7" a 6.7" pulgadas',
+      'Material': 'ABS de Ingeniería + Almohadilla Respirable'
+    },
+    packageIncludes: [
+      '1x Casco de Realidad Virtual 3D VR Pro',
+      '1x Paño de Microfibra para Lentes Ópticos',
+      '1x Guía de Aplicaciones y Juegos VR'
+    ]
+  },
+  {
+    id: 'SHF-BLB-SPK',
+    sku: 'SHF-BLB-E27',
+    title: 'Bombillo Inteligente LED RGB con Altavoz Bluetooth E27',
+    subtitle: 'Iluminación multicolor con música inalámbrica integrada y control remoto.',
+    category: 'Iluminación & Deco Smart',
+    priceCOP: 99900,
+    oldPriceCOP: 145000,
+    badge: 'Smart Home',
+    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-colorful-neon-lights-in-a-dark-room-41655-large.mp4',
+    images: [
+      'https://images.unsplash.com/photo-1550985616-10810253b84d?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1000&q=85',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=1000&q=85'
+    ],
+    description: 'Convierte cualquier roseta estándar E27 de tu casa o negocio en un centro de iluminación inteligente y sonido ambiental. Reproduce tu música favorita por Bluetooth desde el techo mientras personalizas el color de la habitación con su control remoto de 24 teclas.',
+    highlights: [
+      '2 en 1: Lámpara LED de uso diario (Luz Blanca) + Iluminación RGB y Altavoz Bluetooth.',
+      'Rosca estándar universal E27: se instala en segundos como cualquier bombillo.',
+      'Control remoto incluido para cambiar colores, brillo, volumen y modos rítmicos.',
+      'Bajo consumo energético LED con hasta 85% de ahorro eléctrico.'
+    ],
+    specs: {
+      'Referencia Oficial': 'SHF-BLB-E27 Smart Music Bulb',
+      'Base de Instalación': 'Rosca Estándar E27 (100V - 240V)',
+      'Conectividad de Audio': 'Bluetooth 5.0 (Alcance 10 metros)',
+      'Colores de Iluminación': 'Blanco Frío + 12 Colores RGB + 4 Modos Dinámicos',
+      'Potencia Total': '12W LED + Altavoz Acústico Integrado',
+      'Control': 'Control Remoto Infrarrojo de 24 Botones + Smartphone'
+    },
+    packageIncludes: [
+      '1x Bombillo Inteligente LED RGB con Altavoz Bluetooth E27',
+      '1x Control Remoto de 24 Funciones',
+      '1x Manual de Instrucciones'
+    ]
+  }
+];
+
+let catalog = JSON.parse(localStorage.getItem('shefa_catalog_cop_v2')) || defaultProducts;
+
+function formatPrice(copAmount) {
+  const numericCOP = Number(copAmount) || 0;
+  if (currentCurrency === 'COP') {
+    return '$' + Math.round(numericCOP).toLocaleString('es-CO') + ' COP';
+  } else {
+    const usd = numericCOP / EXCHANGE_RATE_COP;
+    return '$' + usd.toFixed(2) + ' USD';
+  }
+}
+
+function setCurrency(curr) {
+  currentCurrency = curr;
+  const btnCOP = document.getElementById('btnCOP');
+  const btnUSD = document.getElementById('btnUSD');
+  if (curr === 'COP') {
+    btnCOP.className = 'px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 font-bold transition';
+    btnUSD.className = 'px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition';
+  } else {
+    btnUSD.className = 'px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 font-bold transition';
+    btnCOP.className = 'px-2.5 py-1 rounded-full text-slate-400 hover:text-white transition';
+  }
+  renderCatalog();
+  renderCart();
+  if (activeProductId) {
+    const p = catalog.find(item => item.id === activeProductId);
+    if (p) {
+      document.getElementById('modalPrice').textContent = formatPrice(p.priceCOP);
+      document.getElementById('modalOldPrice').textContent = formatPrice(p.oldPriceCOP);
     }
+  }
+}
 
-    // Filtrar por categoría
-    function filterCategory(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        if (btn.dataset.cat === cat) {
-          btn.className = 'cat-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-amber-500 text-slate-950 transition';
-        } else {
-          btn.className = 'cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
-        }
-      });
-      renderCatalog();
+function filterCategory(cat) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    if (btn.dataset.cat === cat) {
+      btn.className = 'cat-btn active px-4 py-2 rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap bg-amber-500 text-slate-950 transition';
+    } else {
+      btn.className = 'cat-btn px-4 py-2 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
     }
+  });
+  renderCatalog();
+}
 
-    // Renderizar las tarjetas con proporciones armónicas impecables
-    function renderCatalog(searchQuery = '') {
-      const grid = document.getElementById('productsGrid');
-      const emptyState = document.getElementById('emptyState');
-      const q = searchQuery.trim().toLowerCase();
+function cleanHTML(htmlStr) {
+  return htmlStr.replace(/\u00A0/g, ' ').replace(/>\s+</g, '><').trim();
+}
 
-      const filtered = catalog.filter(p => {
-        const matchesCat = currentCategory === 'Todos' || p.category === currentCategory;
-        const matchesSearch = !q || p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
-        return matchesCat && matchesSearch;
-      });
+function renderCatalog(searchQuery = '') {
+  const grid = document.getElementById('productsGrid');
+  const emptyState = document.getElementById('emptyState');
+  const q = searchQuery.trim().toLowerCase();
 
-            if (filtered.length === 0) {
-        grid.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        return;
-      }
+  const filtered = catalog.filter(p => {
+    const matchesCat = currentCategory === 'Todos' || p.category === currentCategory;
+    const matchesSearch = !q || p.title.toLowerCase().includes(q) || p.subtitle.toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
+    return matchesCat && matchesSearch;
+  });
 
-      emptyState.classList.add('hidden');
-      grid.innerHTML = filtered.map(product => {
-        const discount = Math.round(((product.oldPriceUSD - product.priceUSD) / product.oldPriceUSD) * 100);
-        return `
-          <article class="product-card rounded-2xl overflow-hidden flex flex-col justify-between group">
-            <div>
-              <!-- Imagen en proporción armónica 4:3 -->
-              <div onclick="openProductModal('${product.id}')" class="relative aspect-[4/3] w-full overflow-hidden bg-slate-950 cursor-pointer">
-                <img 
-                  src="${product.images[0]}" 
-                  alt="${product.title}" 
-                  loading="lazy"
-                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                />
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0A0F1D] via-transparent to-transparent opacity-65"></div>
-                
-                <!-- Etiquetas Superiores -->
-                <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
-                  <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shadow">
-                    ${product.badge}
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/90 text-slate-950">
-                    -${discount}%
-                  </span>
-                </div>
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    emptyState.classList.remove('hidden');
+    return;
+  }
 
-                <!-- Indicador de Galería y Video -->
-                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-slate-200">
-                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10">
-                    <i data-lucide="play-circle" class="w-3.5 h-3.5 text-amber-400"></i> Video + ${product.images.length} Fotos
-                  </span>
-                  <span class="text-[11px] font-mono text-amber-300/90 bg-black/60 px-2 py-0.5 rounded">
-                    ${product.sku}
-                  </span>
-                </div>
-              </div>
+  emptyState.classList.add('hidden');
+  const cardsHTML = filtered.map(product => {
+    const discount = Math.round(((product.oldPriceCOP - product.priceCOP) / product.oldPriceCOP) * 100);
+    return `<article class="product-card rounded-2xl overflow-hidden flex flex-col justify-between group">` +
+      `<div>` +
+        `<div onclick="openProductModal('${product.id}')" class="relative aspect-[4/3] w-full overflow-hidden bg-slate-950 cursor-pointer">` +
+          `<img src="${product.images[0]}" alt="${product.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />` +
+          `<div class="absolute inset-0 bg-gradient-to-t from-[#0A0F1D] via-transparent to-transparent opacity-65"></div>` +
+          `<div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">` +
+            `<span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shadow">${product.badge}</span>` +
+            `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500 text-slate-950">-${discount}%</span>` +
+          `</div>` +
+          `<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-slate-200">` +
+            `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-md border border-white/10">` +
+              `<i data-lucide="play-circle" class="w-3.5 h-3.5 text-amber-400"></i>` +
+              `<span>Video + ${product.images.length} Fotos</span>` +
+            `</span>` +
+            `<span class="text-[11px] font-mono text-amber-300 bg-black/70 px-2 py-0.5 rounded">${product.sku}</span>` +
+          `</div>` +
+        `</div>` +
+        `<div class="p-5">` +
+          `<div class="text-[11px] font-semibold uppercase tracking-wider text-amber-400 mb-1">${product.category}</div>` +
+          `<h3 onclick="openProductModal('${product.id}')" class="font-display font-bold text-base sm:text-lg text-white group-hover:text-amber-300 transition cursor-pointer line-clamp-2 min-h-[3.25rem]">${product.title}</h3>` +
+          `<p class="text-xs text-slate-400 mt-1.5 line-clamp-2 min-h-[2.25rem]">${product.subtitle}</p>` +
+        `</div>` +
+      `</div>` +
+      `<div class="px-5 pb-5 pt-3 border-t border-slate-800/60 flex flex-col gap-3">` +
+        `<div class="flex items-baseline justify-between gap-2">` +
+          `<div>` +
+            `<span class="text-[11px] text-slate-400 block">Precio Oficial Shefa:</span>` +
+            `<span class="font-display font-extrabold text-xl gold-gradient-text">${formatPrice(product.priceCOP)}</span>` +
+          `</div>` +
+          `<span class="text-xs text-slate-500 line-through">${formatPrice(product.oldPriceCOP)}</span>` +
+        `</div>` +
+        `<div class="grid grid-cols-2 gap-2.5">` +
+          `<button onclick="openProductModal('${product.id}')" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition">` +
+            `<i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i>` +
+            `<span>Ver Detalles</span>` +
+          `</button>` +
+          `<button onclick="addToCart('${product.id}', 1)" class="py-2.5 px-3 rounded-xl gold-btn text-xs font-bold flex items-center justify-center gap-1.5">` +
+            `<i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i>` +
+            `<span>Comprar</span>` +
+          `</button>` +
+        `</div>` +
+      `</div>` +
+    `</article>`;
+  }).join('');
 
-              <!-- Cuerpo de la Tarjeta -->
-              <div class="p-5">
-                <div class="text-[11px] font-semibold uppercase tracking-wider text-amber-400/90 mb-1">
-                  ${product.category}
-                </div>
-                <h3 onclick="openProductModal('${product.id}')" class="font-display font-bold text-base sm:text-lg text-white group-hover:text-amber-300 transition cursor-pointer line-clamp-2 min-h-[3.25rem]">
-                  ${product.title}
-                </h3>
-                <p class="text-xs text-slate-400 mt-1.5 line-clamp-2 min-h-[2.25rem]">
-                  ${product.subtitle}
-                </p>
-              </div>
-            </div>
+  grid.innerHTML = cleanHTML(cardsHTML);
+  lucide.createIcons();
+}
 
-            <!-- Pie de Tarjeta: Precio y Acciones -->
-            <div class="px-5 pb-5 pt-2 border-t border-slate-800/60 flex flex-col gap-3">
-              <div class="flex items-baseline justify-between">
-                <div>
-                  <span class="text-[11px] text-slate-400 block">Precio Shefa:</span>
-                  <span class="font-display font-extrabold text-xl gold-gradient-text">${formatPrice(product.priceUSD)}</span>
-                </div>
-                <span class="text-xs text-slate-500 line-through">${formatPrice(product.oldPriceUSD)}</span>
-              </div>
+function openProductModal(productId) {
+  const product = catalog.find(p => p.id === productId);
+  if (!product) return;
 
-              <div class="grid grid-cols-2 gap-2">
-                <button 
-                  onclick="openProductModal('${product.id}')"
-                  class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition"
-                >
-                  <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i> Ver Detalles
-                </button>
-                <button 
-                  onclick="addToCart('${product.id}', 1)"
-                  class="py-2.5 px-3 rounded-xl gold-btn text-xs font-bold flex items-center justify-center gap-1.5"
-                >
-                  <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Comprar
-                </button>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join('');
+  activeProductId = productId;
+  modalQuantity = 1;
+  document.getElementById('modalQty').textContent = '1';
 
-      lucide.createIcons();
-    }
+  document.getElementById('modalSku').textContent = product.sku;
+  document.getElementById('modalCategory').textContent = product.category;
+  document.getElementById('modalTitle').textContent = product.title;
+  document.getElementById('modalPrice').textContent = formatPrice(product.priceCOP);
+  document.getElementById('modalOldPrice').textContent = formatPrice(product.oldPriceCOP);
+  document.getElementById('modalDescription').textContent = product.description;
 
-    // Abrir Modal Completo de Producto
-    function openProductModal(productId) {
-      const product = catalog.find(p => p.id === productId);
-      if (!product) return;
+  document.getElementById('modalMainImage').src = product.images[0];
+  const thumbsContainer = document.getElementById('modalThumbnails');
+  thumbsContainer.innerHTML = cleanHTML(product.images.map((imgUrl, idx) =>
+    `<button onclick="selectModalImage('${imgUrl}', this)" class="thumb-btn aspect-[4/3] rounded-xl overflow-hidden border-2 ${idx === 0 ? 'border-amber-400' : 'border-slate-800 opacity-70 hover:opacity-100'} transition">` +
+      `<img src="${imgUrl}" alt="Vista ${idx + 1}" class="w-full h-full object-cover" />` +
+    `</button>`
+  ).join(''));
 
-      activeProductId = productId;
-      modalQuantity = 1;
-      document.getElementById('modalQty').textContent = '1';
+  const videoPlayer = document.getElementById('modalVideoPlayer');
+  const videoSource = document.getElementById('modalVideoSource');
+  videoSource.src = product.videoUrl;
+  videoPlayer.load();
 
-      document.getElementById('modalSku').textContent = product.sku;
-      document.getElementById('modalCategory').textContent = product.category;
-      document.getElementById('modalTitle').textContent = product.title;
-      document.getElementById('modalPrice').textContent = formatPrice(product.priceUSD);
-      document.getElementById('modalOldPrice').textContent = formatPrice(product.oldPriceUSD);
-      document.getElementById('modalDescription').textContent = product.description;
+  switchMediaTab('photo');
+  switchInfoTab('desc');
 
-      // Imagen Principal y Miniaturas
-      document.getElementById('modalMainImage').src = product.images[0];
-      const thumbsContainer = document.getElementById('modalThumbnails');
-      thumbsContainer.innerHTML = product.images.map((imgUrl, idx) => `
-        <button onclick="selectModalImage('${imgUrl}', this)" class="thumb-btn aspect-[4/3] rounded-xl overflow-hidden border-2 ${idx === 0 ? 'border-amber-400' : 'border-slate-800 opacity-70 hover:opacity-100'} transition">
-          <img src="${imgUrl}" alt="Vista ${idx + 1}" class="w-full h-full object-cover" />
-        </button>
-      `).join('');
+  const highlightsList = document.getElementById('modalHighlights');
+  highlightsList.innerHTML = cleanHTML(product.highlights.map(item =>
+    `<li class="flex items-start gap-2 text-xs sm:text-sm text-slate-300">` +
+      `<i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>` +
+      `<span>${item}</span>` +
+    `</li>`
+  ).join(''));
 
-      // Configurar Video
-      const videoPlayer = document.getElementById('modalVideoPlayer');
-      const videoSource = document.getElementById('modalVideoSource');
-      videoSource.src = product.videoUrl;
-      videoPlayer.load();
+  const specsTable = document.getElementById('modalSpecsTable');
+  specsTable.innerHTML = cleanHTML(Object.entries(product.specs).map(([key, val]) =>
+    `<div class="grid grid-cols-5 p-3 bg-slate-900/50">` +
+      `<span class="col-span-2 font-semibold text-slate-400">${key}</span>` +
+      `<span class="col-span-3 text-white font-medium">${val}</span>` +
+    `</div>`
+  ).join(''));
 
-      // Mostrar pestaña de fotos por defecto
-      switchMediaTab('photo');
-      switchInfoTab('desc');
+  const packageList = document.getElementById('modalPackageList');
+  packageList.innerHTML = cleanHTML(product.packageIncludes.map(item =>
+    `<li class="flex items-center gap-2">` +
+      `<i data-lucide="package-check" class="w-4 h-4 text-amber-400 shrink-0"></i>` +
+      `<span>${item}</span>` +
+    `</li>`
+  ).join(''));
 
-      // Puntos destacados
-      const highlightsList = document.getElementById('modalHighlights');
-      highlightsList.innerHTML = product.highlights.map(item => `
-        <li class="flex items-start gap-2 text-xs sm:text-sm text-slate-300">
-          <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
-          <span>${item}</span>
-        </li>
-      `).join('');
+  const addBtn = document.getElementById('modalAddToCartBtn');
+  addBtn.onclick = () => {
+    addToCart(product.id, modalQuantity);
+    closeProductModal();
+    toggleCart(true);
+  };
 
-      // Tabla de especificaciones
-      const specsTable = document.getElementById('modalSpecsTable');
-      specsTable.innerHTML = Object.entries(product.specs).map(([key, val]) => `
-        <div class="grid grid-cols-5 p-3 bg-slate-900/50">
-          <span class="col-span-2 font-semibold text-slate-400">${key}</span>
-          <span class="col-span-3 text-white font-medium">${val}</span>
-        </div>
-      `).join('');
+  document.getElementById('productModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  lucide.createIcons();
+}
 
-      // Contenido del paquete
-      const packageList = document.getElementById('modalPackageList');
-      packageList.innerHTML = product.packageIncludes.map(item => `
-        <li class="flex items-center gap-2">
-          <i data-lucide="package-check" class="w-4 h-4 text-amber-400 shrink-0"></i>
-          <span>${item}</span>
-        </li>
-      `).join('');
+function closeProductModal() {
+  const videoPlayer = document.getElementById('modalVideoPlayer');
+  if (videoPlayer) videoPlayer.pause();
+  document.getElementById('productModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
 
-      // Botón Agregar al Carrito desde el Modal
-      const addBtn = document.getElementById('modalAddToCartBtn');
-      addBtn.onclick = () => {
-        addToCart(product.id, modalQuantity);
-        closeProductModal();
-        toggleCart(true);
-      };
+function selectModalImage(imgUrl, btnEl) {
+  switchMediaTab('photo');
+  document.getElementById('modalMainImage').src = imgUrl;
+  document.querySelectorAll('.thumb-btn').forEach(b => {
+    b.classList.remove('border-amber-400');
+    b.classList.add('border-slate-800', 'opacity-70');
+  });
+  btnEl.classList.remove('border-slate-800', 'opacity-70');
+  btnEl.classList.add('border-amber-400');
+}
 
-      document.getElementById('productModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      lucide.createIcons();
-    }
+function switchMediaTab(mode) {
+  const photoContainer = document.getElementById('photoViewerContainer');
+  const videoContainer = document.getElementById('videoViewerContainer');
+  const tabPhoto = document.getElementById('tabMediaPhoto');
+  const tabVideo = document.getElementById('tabMediaVideo');
+  const videoPlayer = document.getElementById('modalVideoPlayer');
 
-    function closeProductModal() {
-      const videoPlayer = document.getElementById('modalVideoPlayer');
-      if (videoPlayer) videoPlayer.pause();
-      document.getElementById('productModal').classList.add('hidden');
-      document.body.style.overflow = '';
-    }
+  if (mode === 'photo') {
+    videoPlayer.pause();
+    photoContainer.classList.remove('hidden');
+    videoContainer.classList.add('hidden');
+    tabPhoto.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition';
+    tabVideo.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
+  } else {
+    photoContainer.classList.add('hidden');
+    videoContainer.classList.remove('hidden');
+    tabVideo.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition';
+    tabPhoto.className = 'flex-1 py-2.5 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
+    videoPlayer.play().catch(() => {});
+  }
+  lucide.createIcons();
+}
 
-    function selectModalImage(imgUrl, btnEl) {
-      switchMediaTab('photo');
-      document.getElementById('modalMainImage').src = imgUrl;
-      document.querySelectorAll('.thumb-btn').forEach(b => {
-        b.classList.remove('border-amber-400');
-        b.classList.add('border-slate-800', 'opacity-70');
-      });
-      btnEl.classList.remove('border-slate-800', 'opacity-70');
-      btnEl.classList.add('border-amber-400');
-    }
+function switchInfoTab(tab) {
+  const tabs = ['desc', 'specs', 'box'];
+  const mapBtn = { desc: 'infoTabDesc', specs: 'infoTabSpecs', box: 'infoTabBox' };
+  const mapContent = { desc: 'infoContentDesc', specs: 'infoContentSpecs', box: 'infoContentBox' };
 
-    function switchMediaTab(mode) {
-      const photoContainer = document.getElementById('photoViewerContainer');
-      const videoContainer = document.getElementById('videoViewerContainer');
-      const tabPhoto = document.getElementById('tabMediaPhoto');
-      const tabVideo = document.getElementById('tabMediaVideo');
-      const videoPlayer = document.getElementById('modalVideoPlayer');
+  tabs.forEach(t => {
+    const btn = document.getElementById(mapBtn[t]);
+    const content = document.getElementById(mapContent[t]);
+    if (t === tab) {
+      btn.className = 'pb-2.5 border-b-2 border-amber-400 text-amber-400 transition';
+      content.classList.remove('hidden');
+    } else {
+      btn.className = 'pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition';
+      content.classList.add('hidden');
+    }
+  });
+}
 
-      if (mode === 'photo') {
-        videoPlayer.pause();
-        photoContainer.classList.remove('hidden');
-        videoContainer.classList.add('hidden');
-        tabPhoto.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition';
-        tabVideo.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
-      } else {
-        photoContainer.classList.add('hidden');
-        videoContainer.classList.remove('hidden');
-        tabVideo.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition';
-        tabPhoto.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
-        videoPlayer.play().catch(() => {});
-      }
-      lucide.createIcons();
-    }
+function changeModalQty(delta) {
+  modalQuantity = Math.max(1, modalQuantity + delta);
+  document.getElementById('modalQty').textContent = modalQuantity;
+}
 
-    function switchInfoTab(tab) {
-      const tabs = ['desc', 'specs', 'box'];
-      const mapBtn = { desc: 'infoTabDesc', specs: 'infoTabSpecs', box: 'infoTabBox' };
-      const mapContent = { desc: 'infoContentDesc', specs: 'infoContentSpecs', box: 'infoContentBox' };
+function addToCart(productId, qty = 1) {
+  const product = catalog.find(p => p.id === productId);
+  if (!product) return;
 
-      tabs.forEach(t => {
-        const btn = document.getElementById(mapBtn[t]);
-        const content = document.getElementById(mapContent[t]);
-        if (t === tab) {
-          btn.className = 'pb-2.5 border-b-2 border-amber-400 text-amber-400 transition';
-          content.classList.remove('hidden');
-        } else {
-          btn.className = 'pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition';
-          content.classList.add('hidden');
-        }
-      });
-    }
+  const existing = cart.find(item => item.id === productId);
+  if (existing) {
+    existing.qty += qty;
+  } else {
+    cart.push({ id: productId, qty });
+  }
+  renderCart();
+  showToast(`"${product.title.substring(0, 26)}..." agregado al pedido`);
+}
 
-    function changeModalQty(delta) {
-      modalQuantity = Math.max(1, modalQuantity + delta);
-      document.getElementById('modalQty').textContent = modalQuantity;
-    }
+function updateCartQty(productId, delta) {
+  const idx = cart.findIndex(item => item.id === productId);
+  if (idx === -1) return;
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  renderCart();
+}
 
-    // =========================================================================
-    // CARRITO DE COMPRAS Y PEDIDO DIRECTO A SHEFA PLUS GLOBAL
-    // =========================================================================
-    function addToCart(productId, qty = 1) {
-      const product = catalog.find(p => p.id === productId);
-      if (!product) return;
+function toggleCart(open) {
+  const drawer = document.getElementById('cartDrawer');
+  if (open) {
+    renderCart();
+    drawer.classList.remove('hidden');
+  } else {
+    drawer.classList.add('hidden');
+  }
+}
 
-      const existing = cart.find(item => item.id === productId);
-      if (existing) {
-        existing.qty += qty;
-      } else {
-        cart.push({ id: productId, qty });
-      }
-      renderCart();
-      showToast(`"${product.title.substring(0, 28)}..." agregado a tu pedido`);
-    }
+function renderCart() {
+  const countEl = document.getElementById('cartCount');
+  const container = document.getElementById('cartItemsContainer');
+  const totalEl = document.getElementById('cartTotalValue');
 
-    function updateCartQty(productId, delta) {
-      const idx = cart.findIndex(item => item.id === productId);
-      if (idx === -1) return;
-      cart[idx].qty += delta;
-      if (cart[idx].qty <= 0) {
-        cart.splice(idx, 1);
-      }
-      renderCart();
-    }
+  const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+  countEl.textContent = totalItems;
 
-    function toggleCart(open) {
-      const drawer = document.getElementById('cartDrawer');
-      if (open) {
-        renderCart();
-        drawer.classList.remove('hidden');
-      } else {
-        drawer.classList.add('hidden');
-      }
-    }
+  if (cart.length === 0) {
+    container.innerHTML = `<div class="text-center py-10 bg-slate-900/40 rounded-2xl border border-slate-800/80"><p class="text-slate-400 text-sm">Tu carrito está vacío.</p><p class="text-xs text-slate-500 mt-1">Selecciona cualquier producto del catálogo para comenzar.</p></div>`;
+    totalEl.textContent = formatPrice(0);
+    return;
+  }
 
-    function renderCart() {
-      const countEl = document.getElementById('cartCount');
-      const container = document.getElementById('cartItemsContainer');
-      const totalEl = document.getElementById('cartTotalValue');
+  let totalCOP = 0;
+  container.innerHTML = cleanHTML(cart.map(item => {
+    const p = catalog.find(prod => prod.id === item.id);
+    if (!p) return '';
+    const itemSubtotal = p.priceCOP * item.qty;
+    totalCOP += itemSubtotal;
 
-      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
-      countEl.textContent = totalItems;
+    return `<div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800">` +
+      `<img src="${p.images[0]}" alt="${p.title}" class="w-16 h-16 rounded-xl object-cover shrink-0" />` +
+      `<div class="flex-1 min-w-0">` +
+        `<span class="text-[10px] font-mono text-amber-400 block">${p.sku}</span>` +
+        `<h5 class="text-xs font-bold text-white truncate">${p.title}</h5>` +
+        `<span class="text-xs font-semibold text-amber-300 mt-0.5 block">${formatPrice(itemSubtotal)}</span>` +
+      `</div>` +
+      `<div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1">` +
+        `<button onclick="updateCartQty('${p.id}', -1)" class="text-slate-400 hover:text-white font-bold px-1">-</button>` +
+        `<span class="text-xs font-bold text-white">${item.qty}</span>` +
+        `<button onclick="updateCartQty('${p.id}', 1)" class="text-slate-400 hover:text-white font-bold px-1">+</button>` +
+      `</div>` +
+    `</div>`;
+  }).join(''));
 
-      if (cart.length === 0) {
-        container.innerHTML = `
-          <div class="text-center py-10 bg-slate-900/40 rounded-2xl border border-slate-800/80">
-            <p class="text-slate-400 text-sm">Tu carrito está vacío.</p>
-            <p class="text-xs text-slate-500 mt-1">Selecciona cualquier producto del catálogo para comenzar.</p>
-          </div>
-        `;
-        totalEl.textContent = formatPrice(0);
-        return;
-      }
+  totalEl.textContent = formatPrice(totalCOP);
+}
 
-      let totalUSD = 0;
-      container.innerHTML = cart.map(item => {
-        const p = catalog.find(prod => prod.id === item.id);
-        if (!p) return '';
-        const itemSubtotal = p.priceUSD * item.qty;
-        totalUSD += itemSubtotal;
+function processDirectOrder() {
+  if (cart.length === 0) {
+    showToast('Agrega al menos un producto a tu pedido');
+    return;
+  }
 
-        return `
-          <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800">
-            <img src="${p.images[0]}" alt="${p.title}" class="w-16 h-16 rounded-xl object-cover shrink-0" />
-            <div class="flex-1 min-w-0">
-              <span class="text-[10px] font-mono text-amber-400 block">${p.sku}</span>
-              <h5 class="text-xs font-bold text-white truncate">${p.title}</h5>
-              <span class="text-xs font-semibold text-amber-300 mt-0.5 block">${formatPrice(itemSubtotal)}</span>
-            </div>
-            <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1">
-              <button onclick="updateCartQty('${p.id}', -1)" class="text-slate-400 hover:text-white font-bold px-1">-</button>
-              <span class="text-xs font-bold text-white">${item.qty}</span>
-              <button onclick="updateCartQty('${p.id}', 1)" class="text-slate-400 hover:text-white font-bold px-1">+</button>
-            </div>
-          </div>
-        `;
-      }).join('');
+  const name = document.getElementById('clientName').value.trim();
+  const city = document.getElementById('clientCity').value.trim();
+  const phone = document.getElementById('clientPhone').value.trim();
+  const address = document.getElementById('clientAddress').value.trim();
 
-      totalEl.textContent = formatPrice(totalUSD);
-    }
+  if (!name || !city || !phone || !address) {
+    showToast('Por favor completa tus datos de entrega para procesar el pedido');
+    return;
+  }
 
-    function processDirectOrder() {
-      if (cart.length === 0) {
-        showToast('Agrega al menos un producto a tu pedido');
-        return;
-      }
+  let totalCOP = 0;
+  const lines = cart.map(item => {
+    const p = catalog.find(prod => prod.id === item.id);
+    const sub = p.priceCOP * item.qty;
+    totalCOP += sub;
+    return `• ${item.qty}x ${p.title} [${p.sku}] - ${formatPrice(sub)}`;
+  });
 
-      const name = document.getElementById('clientName').value.trim();
-      const city = document.getElementById('clientCity').value.trim();
-      const phone = document.getElementById('clientPhone').value.trim();
-      const address = document.getElementById('clientAddress').value.trim();
-
-      if (!name || !city || !phone || !address) {
-        showToast('Por favor completa tus datos de entrega para procesar el pedido');
-        return;
-      }
-
-      let totalUSD = 0;
-      const lines = cart.map(item => {
-        const p = catalog.find(prod => prod.id === item.id);
-        const sub = p.priceUSD * item.qty;
-        totalUSD += sub;
-        return `• ${item.qty}x ${p.title} [${p.sku}] - ${formatPrice(sub)}`;
-      });
-
-      const orderMessage = 
+  const orderMessage =
 `🌟 *NUEVO PEDIDO DIRECTO - SHEFA PLUS GLOBAL* 🌟
 
 *Productos Solicitados:*
 ${lines.join('\n')}
 
-*Total a Pagar:* ${formatPrice(totalUSD)}
+*Total a Pagar:* ${formatPrice(totalCOP)}
 
 📦 *Datos de Envío del Cliente:*
 • *Nombre:* ${name}
-• *Ciudad/País:* ${city}
+• *Ciudad:* ${city}
 • *Teléfono:* ${phone}
 • *Dirección:* ${address}
 
 Hola equipo de Shefa Plus Global, deseo confirmar el pago de mi pedido.`;
 
-      const cleanPhone = ownerWhatsapp.replace(/\D/g, '');
-      const waUrl = cleanPhone 
-        ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(orderMessage)}`
-        : `https://wa.me/?text=${encodeURIComponent(orderMessage)}`;
+  const cleanPhone = ownerWhatsapp.replace(/\D/g, '');
+  const waUrl = cleanPhone
+    ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(orderMessage)}`
+    : `https://wa.me/?text=${encodeURIComponent(orderMessage)}`;
 
-      window.open(waUrl, '_blank');
+  window.open(waUrl, '_blank');
+}
+
+function openAdminModal() {
+  document.getElementById('adminWhatsappInput').value = ownerWhatsapp;
+  const select = document.getElementById('adminProductSelect');
+  select.innerHTML = cleanHTML(catalog.map(p => `<option value="${p.id}">${p.sku} - ${p.title}</option>`).join(''));
+  loadProductIntoAdmin();
+  document.getElementById('adminModal').classList.remove('hidden');
+}
+
+function closeAdminModal() {
+  document.getElementById('adminModal').classList.add('hidden');
+}
+
+function loadProductIntoAdmin() {
+  const selectedId = document.getElementById('adminProductSelect').value;
+  const product = catalog.find(p => p.id === selectedId);
+  if (!product) return;
+
+  document.getElementById('adminPriceInput').value = product.priceCOP;
+  document.getElementById('adminVideoInput').value = product.videoUrl;
+  document.getElementById('adminImagesInput').value = product.images.join(', ');
+}
+
+function saveAdminChanges() {
+  ownerWhatsapp = document.getElementById('adminWhatsappInput').value.trim();
+  localStorage.setItem('shefa_whatsapp', ownerWhatsapp);
+
+  const selectedId = document.getElementById('adminProductSelect').value;
+  const product = catalog.find(p => p.id === selectedId);
+  if (product) {
+    const newPrice = parseFloat(document.getElementById('adminPriceInput').value);
+    if (!isNaN(newPrice) && newPrice > 0) {
+      product.priceCOP = Math.round(newPrice);
+      product.oldPriceCOP = Math.round(newPrice * 1.38);
     }
+    const newVideo = document.getElementById('adminVideoInput').value.trim();
+    if (newVideo) product.videoUrl = newVideo;
 
-    // =========================================================================
-    // PANEL DE PERSONALIZACIÓN RÁPIDA (PARA EL PROPIETARIO)
-    // =========================================================================
-    function openAdminModal() {
-      document.getElementById('adminWhatsappInput').value = ownerWhatsapp;
-      const select = document.getElementById('adminProductSelect');
-      select.innerHTML = catalog.map(p => `<option value="${p.id}">${p.sku} - ${p.title}</option>`).join('');
-      loadProductIntoAdmin();
-      document.getElementById('adminModal').classList.remove('hidden');
-    }
+    const newImgs = document.getElementById('adminImagesInput').value
+      .split(',')
+      .map(s => s.trim())
+      .filter(Boolean);
+    if (newImgs.length > 0) product.images = newImgs;
+  }
 
-    function closeAdminModal() {
-      document.getElementById('adminModal').classList.add('hidden');
-    }
+  localStorage.setItem('shefa_catalog_cop_v2', JSON.stringify(catalog));
+  renderCatalog();
+  closeAdminModal();
+  showToast('Precios y configuración guardados en Pesos Colombianos');
+}
 
-    function loadProductIntoAdmin() {
-      const selectedId = document.getElementById('adminProductSelect').value;
-      const product = catalog.find(p => p.id === selectedId);
-      if (!product) return;
+function resetCatalogDefaults() {
+  localStorage.removeItem('shefa_catalog_cop_v2');
+  catalog = JSON.parse(JSON.stringify(defaultProducts));
+  renderCatalog();
+  closeAdminModal();
+  showToast('Catálogo restaurado a los valores originales en COP');
+}
 
-      document.getElementById('adminPriceInput').value = product.priceUSD;
-      document.getElementById('adminVideoInput').value = product.videoUrl;
-      document.getElementById('adminImagesInput').value = product.images.join(', ');
-    }
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.remove('hidden');
+  setTimeout(() => toast.classList.add('hidden'), 3500);
+}
 
-    function saveAdminChanges() {
-      ownerWhatsapp = document.getElementById('adminWhatsappInput').value.trim();
-      localStorage.setItem('shefa_whatsapp', ownerWhatsapp);
+document.addEventListener('DOMContentLoaded', () => {
+  sanitizeDOMForMobilePaste();
+  document.getElementById('currentYear').textContent = new Date().getFullYear();
+  renderCatalog();
 
-      const selectedId = document.getElementById('adminProductSelect').value;
-      const product = catalog.find(p => p.id === selectedId);
-      if (product) {
-        const newPrice = parseFloat(document.getElementById('adminPriceInput').value);
-        if (!isNaN(newPrice) && newPrice > 0) {
-          product.priceUSD = newPrice;
-          product.oldPriceUSD = +(newPrice * 1.35).toFixed(2);
-        }
-        const newVideo = document.getElementById('adminVideoInput').value.trim();
-        if (newVideo) product.videoUrl = newVideo;
-
-        const newImgs = document.getElementById('adminImagesInput').value
-          .split(',')
-          .map(s => s.trim())
-          .filter(Boolean);
-        if (newImgs.length > 0) product.images = newImgs;
-      }
-
-      localStorage.setItem('shefa_catalog_v1', JSON.stringify(catalog));
-      renderCatalog();
-      closeAdminModal();
-      showToast('Configuración de tu tienda Shefa guardada con éxito');
-    }
-
-    function resetCatalogDefaults() {
-      localStorage.removeItem('shefa_catalog_v1');
-      catalog = JSON.parse(JSON.stringify(defaultProducts));
-      renderCatalog();
-      closeAdminModal();
-      showToast('Catálogo restaurado a los valores originales');
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = msg;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 3500);
-    }
-
-    // Inicialización al cargar la página
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('currentYear').textContent = new Date().getFullYear();
-      renderCatalog();
-
-      document.getElementById('searchInput').addEventListener('input', e => renderCatalog(e.target.value));
-      document.getElementById('searchInputMobile').addEventListener('input', e => renderCatalog(e.target.value));
-    });
-  </script>
+  document.getElementById('searchInput').addEventListener('input', e => renderCatalog(e.target.value));
+  document.getElementById('searchInputMobile').addEventListener('input', e => renderCatalog(e.target.value));
+});
+</script>
 </body>
 </html>
