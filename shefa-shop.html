@@ -1268,6 +1268,341 @@
         return matchesCat && matchesSearch;
       });
 
-      if (filtered.length === 0) {
-        grid.innerHTML = '';
-        emptyStat
+            if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      grid.innerHTML = filtered.map(product => {
+        const discount = Math.round(((product.oldPriceUSD - product.priceUSD) / product.oldPriceUSD) * 100);
+        return `
+          <article class="product-card rounded-2xl overflow-hidden flex flex-col justify-between group">
+            <div>
+              <!-- Imagen en proporción armónica 4:3 -->
+              <div onclick="openProductModal('${product.id}')" class="relative aspect-[4/3] w-full overflow-hidden bg-slate-950 cursor-pointer">
+                <img 
+                  src="${product.images[0]}" 
+                  alt="${product.title}" 
+                  loading="lazy"
+                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0A0F1D] via-transparent to-transparent opacity-65"></div>
+                
+                <!-- Etiquetas Superiores -->
+                <div class="absolute top-3 left-3 right-3 flex items-center justify-between gap-2">
+                  <span class="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500 text-slate-950 shadow">
+                    ${product.badge}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/90 text-slate-950">
+                    -${discount}%
+                  </span>
+                </div>
+
+                <!-- Indicador de Galería y Video -->
+                <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-slate-200">
+                  <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10">
+                    <i data-lucide="play-circle" class="w-3.5 h-3.5 text-amber-400"></i> Video + ${product.images.length} Fotos
+                  </span>
+                  <span class="text-[11px] font-mono text-amber-300/90 bg-black/60 px-2 py-0.5 rounded">
+                    ${product.sku}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Cuerpo de la Tarjeta -->
+              <div class="p-5">
+                <div class="text-[11px] font-semibold uppercase tracking-wider text-amber-400/90 mb-1">
+                  ${product.category}
+                </div>
+                <h3 onclick="openProductModal('${product.id}')" class="font-display font-bold text-base sm:text-lg text-white group-hover:text-amber-300 transition cursor-pointer line-clamp-2 min-h-[3.25rem]">
+                  ${product.title}
+                </h3>
+                <p class="text-xs text-slate-400 mt-1.5 line-clamp-2 min-h-[2.25rem]">
+                  ${product.subtitle}
+                </p>
+              </div>
+            </div>
+
+            <!-- Pie de Tarjeta: Precio y Acciones -->
+            <div class="px-5 pb-5 pt-2 border-t border-slate-800/60 flex flex-col gap-3">
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 block">Precio Shefa:</span>
+                  <span class="font-display font-extrabold text-xl gold-gradient-text">${formatPrice(product.priceUSD)}</span>
+                </div>
+                <span class="text-xs text-slate-500 line-through">${formatPrice(product.oldPriceUSD)}</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <button 
+                  onclick="openProductModal('${product.id}')"
+                  class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+                >
+                  <i data-lucide="eye" class="w-3.5 h-3.5 text-amber-400"></i> Ver Detalles
+                </button>
+                <button 
+                  onclick="addToCart('${product.id}', 1)"
+                  class="py-2.5 px-3 rounded-xl gold-btn text-xs font-bold flex items-center justify-center gap-1.5"
+                >
+                  <i data-lucide="shopping-cart" class="w-3.5 h-3.5"></i> Comprar
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    // Abrir Modal Completo de Producto
+    function openProductModal(productId) {
+      const product = catalog.find(p => p.id === productId);
+      if (!product) return;
+
+      activeProductId = productId;
+      modalQuantity = 1;
+      document.getElementById('modalQty').textContent = '1';
+
+      document.getElementById('modalSku').textContent = product.sku;
+      document.getElementById('modalCategory').textContent = product.category;
+      document.getElementById('modalTitle').textContent = product.title;
+      document.getElementById('modalPrice').textContent = formatPrice(product.priceUSD);
+      document.getElementById('modalOldPrice').textContent = formatPrice(product.oldPriceUSD);
+      document.getElementById('modalDescription').textContent = product.description;
+
+      // Imagen Principal y Miniaturas
+      document.getElementById('modalMainImage').src = product.images[0];
+      const thumbsContainer = document.getElementById('modalThumbnails');
+      thumbsContainer.innerHTML = product.images.map((imgUrl, idx) => `
+        <button onclick="selectModalImage('${imgUrl}', this)" class="thumb-btn aspect-[4/3] rounded-xl overflow-hidden border-2 ${idx === 0 ? 'border-amber-400' : 'border-slate-800 opacity-70 hover:opacity-100'} transition">
+          <img src="${imgUrl}" alt="Vista ${idx + 1}" class="w-full h-full object-cover" />
+        </button>
+      `).join('');
+
+      // Configurar Video
+      const videoPlayer = document.getElementById('modalVideoPlayer');
+      const videoSource = document.getElementById('modalVideoSource');
+      videoSource.src = product.videoUrl;
+      videoPlayer.load();
+
+      // Mostrar pestaña de fotos por defecto
+      switchMediaTab('photo');
+      switchInfoTab('desc');
+
+      // Puntos destacados
+      const highlightsList = document.getElementById('modalHighlights');
+      highlightsList.innerHTML = product.highlights.map(item => `
+        <li class="flex items-start gap-2 text-xs sm:text-sm text-slate-300">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+          <span>${item}</span>
+        </li>
+      `).join('');
+
+      // Tabla de especificaciones
+      const specsTable = document.getElementById('modalSpecsTable');
+      specsTable.innerHTML = Object.entries(product.specs).map(([key, val]) => `
+        <div class="grid grid-cols-5 p-3 bg-slate-900/50">
+          <span class="col-span-2 font-semibold text-slate-400">${key}</span>
+          <span class="col-span-3 text-white font-medium">${val}</span>
+        </div>
+      `).join('');
+
+      // Contenido del paquete
+      const packageList = document.getElementById('modalPackageList');
+      packageList.innerHTML = product.packageIncludes.map(item => `
+        <li class="flex items-center gap-2">
+          <i data-lucide="package-check" class="w-4 h-4 text-amber-400 shrink-0"></i>
+          <span>${item}</span>
+        </li>
+      `).join('');
+
+      // Botón Agregar al Carrito desde el Modal
+      const addBtn = document.getElementById('modalAddToCartBtn');
+      addBtn.onclick = () => {
+        addToCart(product.id, modalQuantity);
+        closeProductModal();
+        toggleCart(true);
+      };
+
+      document.getElementById('productModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      lucide.createIcons();
+    }
+
+    function closeProductModal() {
+      const videoPlayer = document.getElementById('modalVideoPlayer');
+      if (videoPlayer) videoPlayer.pause();
+      document.getElementById('productModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function selectModalImage(imgUrl, btnEl) {
+      switchMediaTab('photo');
+      document.getElementById('modalMainImage').src = imgUrl;
+      document.querySelectorAll('.thumb-btn').forEach(b => {
+        b.classList.remove('border-amber-400');
+        b.classList.add('border-slate-800', 'opacity-70');
+      });
+      btnEl.classList.remove('border-slate-800', 'opacity-70');
+      btnEl.classList.add('border-amber-400');
+    }
+
+    function switchMediaTab(mode) {
+      const photoContainer = document.getElementById('photoViewerContainer');
+      const videoContainer = document.getElementById('videoViewerContainer');
+      const tabPhoto = document.getElementById('tabMediaPhoto');
+      const tabVideo = document.getElementById('tabMediaVideo');
+      const videoPlayer = document.getElementById('modalVideoPlayer');
+
+      if (mode === 'photo') {
+        videoPlayer.pause();
+        photoContainer.classList.remove('hidden');
+        videoContainer.classList.add('hidden');
+        tabPhoto.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition';
+        tabVideo.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
+      } else {
+        photoContainer.classList.add('hidden');
+        videoContainer.classList.remove('hidden');
+        tabVideo.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-amber-500 text-slate-950 transition';
+        tabPhoto.className = 'flex-1 py-2 px-4 rounded-xl text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 bg-slate-900 text-slate-300 hover:text-white border border-slate-800 transition';
+        videoPlayer.play().catch(() => {});
+      }
+      lucide.createIcons();
+    }
+
+    function switchInfoTab(tab) {
+      const tabs = ['desc', 'specs', 'box'];
+      const mapBtn = { desc: 'infoTabDesc', specs: 'infoTabSpecs', box: 'infoTabBox' };
+      const mapContent = { desc: 'infoContentDesc', specs: 'infoContentSpecs', box: 'infoContentBox' };
+
+      tabs.forEach(t => {
+        const btn = document.getElementById(mapBtn[t]);
+        const content = document.getElementById(mapContent[t]);
+        if (t === tab) {
+          btn.className = 'pb-2.5 border-b-2 border-amber-400 text-amber-400 transition';
+          content.classList.remove('hidden');
+        } else {
+          btn.className = 'pb-2.5 border-b-2 border-transparent text-slate-400 hover:text-white transition';
+          content.classList.add('hidden');
+        }
+      });
+    }
+
+    function changeModalQty(delta) {
+      modalQuantity = Math.max(1, modalQuantity + delta);
+      document.getElementById('modalQty').textContent = modalQuantity;
+    }
+
+    // =========================================================================
+    // CARRITO DE COMPRAS Y PEDIDO DIRECTO A SHEFA PLUS GLOBAL
+    // =========================================================================
+    function addToCart(productId, qty = 1) {
+      const product = catalog.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ id: productId, qty });
+      }
+      renderCart();
+      showToast(`"${product.title.substring(0, 28)}..." agregado a tu pedido`);
+    }
+
+    function updateCartQty(productId, delta) {
+      const idx = cart.findIndex(item => item.id === productId);
+      if (idx === -1) return;
+      cart[idx].qty += delta;
+      if (cart[idx].qty <= 0) {
+        cart.splice(idx, 1);
+      }
+      renderCart();
+    }
+
+    function toggleCart(open) {
+      const drawer = document.getElementById('cartDrawer');
+      if (open) {
+        renderCart();
+        drawer.classList.remove('hidden');
+      } else {
+        drawer.classList.add('hidden');
+      }
+    }
+
+    function renderCart() {
+      const countEl = document.getElementById('cartCount');
+      const container = document.getElementById('cartItemsContainer');
+      const totalEl = document.getElementById('cartTotalValue');
+
+      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+      countEl.textContent = totalItems;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 bg-slate-900/40 rounded-2xl border border-slate-800/80">
+            <p class="text-slate-400 text-sm">Tu carrito está vacío.</p>
+            <p class="text-xs text-slate-500 mt-1">Selecciona cualquier producto del catálogo para comenzar.</p>
+          </div>
+        `;
+        totalEl.textContent = formatPrice(0);
+        return;
+      }
+
+      let totalUSD = 0;
+      container.innerHTML = cart.map(item => {
+        const p = catalog.find(prod => prod.id === item.id);
+        if (!p) return '';
+        const itemSubtotal = p.priceUSD * item.qty;
+        totalUSD += itemSubtotal;
+
+        return `
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-900/90 border border-slate-800">
+            <img src="${p.images[0]}" alt="${p.title}" class="w-16 h-16 rounded-xl object-cover shrink-0" />
+            <div class="flex-1 min-w-0">
+              <span class="text-[10px] font-mono text-amber-400 block">${p.sku}</span>
+              <h5 class="text-xs font-bold text-white truncate">${p.title}</h5>
+              <span class="text-xs font-semibold text-amber-300 mt-0.5 block">${formatPrice(itemSubtotal)}</span>
+            </div>
+            <div class="flex items-center gap-1.5 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1">
+              <button onclick="updateCartQty('${p.id}', -1)" class="text-slate-400 hover:text-white font-bold px-1">-</button>
+              <span class="text-xs font-bold text-white">${item.qty}</span>
+              <button onclick="updateCartQty('${p.id}', 1)" class="text-slate-400 hover:text-white font-bold px-1">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      totalEl.textContent = formatPrice(totalUSD);
+    }
+
+    function processDirectOrder() {
+      if (cart.length === 0) {
+        showToast('Agrega al menos un producto a tu pedido');
+        return;
+      }
+
+      const name = document.getElementById('clientName').value.trim();
+      const city = document.getElementById('clientCity').value.trim();
+      const phone = document.getElementById('clientPhone').value.trim();
+      const address = document.getElementById('clientAddress').value.trim();
+
+      if (!name || !city || !phone || !address) {
+        showToast('Por favor completa tus datos de entrega para procesar el pedido');
+        return;
+      }
+
+      let totalUSD = 0;
+      const lines = cart.map(item => {
+        const p = catalog.find(prod => prod.id === item.id);
+        const sub = p.priceUSD * item.qty;
+        totalUSD += sub;
+        return `• ${item.qty}x ${p.title} [${p.sku}] - ${formatPrice(sub)}`;
+      });
+
+      const orderMessage = 
+`🌟 *NUEVO PEDIDO DIRECTO - SHEFA PLUS GLOBAL* 🌟
+
