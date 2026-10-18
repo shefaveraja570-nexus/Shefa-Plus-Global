@@ -1,257 +1,786 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+'use strict';
 
-const PORT = process.env.PORT || 10000;
+/**
+ * SHEFA-SHOP GLOBAL — SALES ENGINE
+ * Node.js 18+
+ *
+ * Start: node server.js
+ *
+ * Environment variables:
+ * PORT=3000
+ * CJ_API_KEY=your_cjdropshipping_api_key
+ * GEMINI_API_KEY=your_gemini_api_key
+ * GEMINI_MODEL=gemini-2.5-flash
+ * META_PAGE_ID=your_meta_page_id
+ * META_PAGE_ACCESS_TOKEN=your_meta_page_access_token
+ * META_GRAPH_VERSION=v23.0
+ * SHEFA_ALLOWED_ORIGIN=https://www.shefaplusglobal.com
+ *
+ * Security:
+ * - Never expose API keys in frontend code.
+ * - Configure credentials in the hosting platform's environment variables.
+ * - Shipping estimates are not fabricated.
+ */
 
-const MIME_TYPES = {
-    '.html': 'text/html; charset=UTF-8',
-    '.js': 'application/javascript; charset=UTF-8',
-    '.css': 'text/css; charset=UTF-8',
-    '.json': 'application/json',
+const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
+const crypto = require('node:crypto');
+
+const APP_NAME = 'Shefa-Shop Global';
+const APP_VERSION = '2.0.0';
+const PORT = Number.parseInt(process.env.PORT || '3000', 10);
+const HOST = process.env.HOST || '0.0.0.0';
+
+const ROOT_DIR = path.resolve(__dirname);
+const MAX_BODY_SIZE = 1024 * 1024;
+const REQUEST_TIMEOUT_MS = 15000;
+const EXTERNAL_TIMEOUT_MS = 20000;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX_REQUESTS = 100;
+
+const CJ_API_BASE = 'https://developers.cjdropshipping.com/api2.0/v1';
+const CJ_AUTH_URL = `${CJ_API_BASE}/authentication/getAccessToken`;
+
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+
+const META_PAGE_ID = process.env.META_PAGE_ID || '';
+const META_PAGE_ACCESS_TOKEN = process.env.META_PAGE_ACCESS_TOKEN || '';
+const META_GRAPH_VERSION = process.env.META_GRAPH_VERSION || 'v23.0';
+
+const ALLOWED_ORIGIN = process.env.SHEFA_ALLOWED_ORIGIN || '';
+
+const MIME_TYPES = Object.freeze({
+    '.html': 'text/html; charset=utf-8',
+    '.htm': 'text/html; charset=utf-8',
+    '.css': 'text/css; charset=utf-8',
+    '.js': 'text/javascript; charset=utf-8',
+    '.mjs': 'text/javascript; charset=utf-8',
+    '.json': 'application/json; charset=utf-8',
+    '.xml': 'application/xml; charset=utf-8',
+    '.txt': 'text/plain; charset=utf-8',
+    '.csv': 'text/csv; charset=utf-8',
+    '.svg': 'image/svg+xml',
     '.png': 'image/png',
     '.jpg': 'image/jpeg',
     '.jpeg': 'image/jpeg',
+    '.webp': 'image/webp',
     '.gif': 'image/gif',
-    '.svg': 'image/svg+xml',
     '.ico': 'image/x-icon',
-    '.xml': 'application/xml',
-    '.txt': 'text/plain'
+    '.avif': 'image/avif',
+    '.pdf': 'application/pdf',
+    '.woff': 'font/woff',
+    '.woff2': 'font/woff2',
+    '.ttf': 'font/ttf',
+    '.otf': 'font/otf',
+    '.mp4': 'video/mp4',
+    '.webm': 'video/webm',
+    '.mp3': 'audio/mpeg',
+    '.webmanifest': 'application/manifest+json'
+});
+
+const SECURITY_HEADERS = Object.freeze({
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'SAMEORIGIN',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+    'Cross-Origin-Resource-Policy': 'same-site'
+});
+
+const rateLimitStore = new Map();
+
+let cjTokenCache = {
+    accessToken: '',
+    refreshToken: '',
+    expiresAt: 0
 };
 
-// Resuelve URLs limpias de navegación para evitar "Página no encontrada"
-function resolvePath(urlPath) {
-    let safePath = path.normalize(urlPath).replace(/^(\.\.[\/\\])+/, '');
-    if (safePath === '/' || safePath === '\\') safePath = '/index.html';
+let cjAuthPromise = null;
 
-    let fullPath = path.join(__dirname, safePath);
+/* -------------------------------------------------------
+   GENERAL UTILITIES
+------------------------------------------------------- */
 
-    if (fs.existsSync(fullPath) && fs.statSync(fullPath).isFile()) return fullPath;
-    if (fs.existsSync(fullPath + '.html') && fs.statSync(fullPath + '.html').isFile()) return fullPath + '.html';
-    
-    let dirIndex = path.join(fullPath, 'index.html');
-    if (fs.existsSync(dirIndex) && fs.statSync(dirIndex).isFile()) return dirIndex;
+function log(level, message, details = {}) {
+    const safeDetails = { ...details };
 
-    let fallback404 = path.join(__dirname, '404.html');
-    if (fs.existsSync(fallback404) && fs.statSync(fallback404).isFile()) return fallback404;
+    delete safeDetails.apiKey;
+    delete safeDetails.accessToken;
+    delete safeDetails.refreshToken;
+    delete safeDetails.token;
+    delete safeDetails.password;
 
-    return null;
+    console[level](
+        JSON.stringify({
+            timestamp: new Date().toISOString(),
+            application: APP_NAME,
+            level,
+            message,
+            details: safeDetails
+        })
+    );
 }
 
-// ==========================================
-// FUNCIÓN MAGNÉTICA: BALANCEADOR DE LLAVES API
-// ==========================================
-function obtenerLlaveAleatoria() {
-    // Lee todas las llaves separadas por coma desde Render
-    const stringLlaves = process.env.GEMINI_API_KEYS || process.env.GEMINI_API_KEY || '';
-    const llaves = stringLlaves.split(',').map(k => k.trim()).filter(k => k.length > 0);
-    
-    if (llaves.length === 0) return null;
-    
-    // Escoge una llave al azar para evitar saturación de Google
-    const llaveElegida = llaves[Math.floor(Math.random() * llaves.length)];
-    return llaveElegida;
-}
+function jsonResponse(res, statusCode, payload, extraHeaders = {}) {
+    const body = JSON.stringify(payload);
 
-const server = http.createServer(async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
-    if (req.method === 'OPTIONS') {
-        res.writeHead(204);
-        return res.end();
-    }
-
-    const readJson = () => new Promise((resolve, reject) => {
-        let body = '';
-        req.on('data', chunk => body += chunk);
-        req.on('end', () => {
-            try { resolve(body ? JSON.parse(body) : {}); }
-            catch (e) { reject(e); }
-        });
-        req.on('error', reject);
+    res.writeHead(statusCode, {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'no-store',
+        ...SECURITY_HEADERS,
+        ...extraHeaders
     });
 
-    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-    const pathname = parsedUrl.pathname;
+    res.end(body);
+}
 
-    // ==========================================
-    // 1. MOTOR DE VENTAS Y ATENCIÓN (GEMINI)
-    // ==========================================
-    if (pathname === '/api/chat' && req.method === 'POST') {
-        try {
-            const { mensaje, pagina } = await readJson();
-            
-            // Extrae una de las llaves de tus correos
-            const apiKey = obtenerLlaveAleatoria();
+function successResponse(res, data, statusCode = 200) {
+    return jsonResponse(res, statusCode, {
+        success: true,
+        data
+    });
+}
 
-            if (!apiKey) {
-                res.writeHead(500, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ error: 'Faltan las llaves de GEMINI_API_KEYS en Render' }));
-            }
+function errorResponse(res, statusCode, code, message) {
+    return jsonResponse(res, statusCode, {
+        success: false,
+        error: {
+            code,
+            message
+        }
+    });
+}
 
-            let promptSistema = '';
-            const esLabs = pagina && (pagina.includes('labs') || pagina.includes('shefa-plus-labs'));
+function safeEqualString(a, b) {
+    if (typeof a !== 'string' || typeof b !== 'string') {
+        return false;
+    }
 
-            if (esLabs) {
-                promptSistema = `Eres el Director Comercial y Estratega de Ventas de "Shefa Plus Labs" (división de ingeniería de software de Shefa Plus Global - shefaplusglobal.com).
-NO eres un bot pasivo. Eres un vendedor humano, visionario, persuasivo y cercano. Respiras la filosofía de Parnasá (sustento productivo), Shefá (abundancia) y Verajá (bendición y crecimiento).
+    const bufferA = Buffer.from(a);
+    const bufferB = Buffer.from(b);
 
-TUS OBJETIVOS DE VENTA:
-1. Vender el desarrollo y despliegue de aplicaciones web y móviles a la medida, enfocándote en llevar la empresa del cliente a la Google Play Store y web de alto rendimiento.
-2. Vender la adquisición, estructuración y delegación de dominios web estratégicos para consolidar la presencia digital de sus negocios.
-3. Resaltar nuestra arquitectura de blindaje (PWA, modo offline, alta seguridad y automatización).
+    if (bufferA.length !== bufferB.length) {
+        return false;
+    }
 
-TÉCNICA DE COMUNICACIÓN:
-- Conecta con la visión del cliente. Hazle ver que un negocio sin aplicación en Google Play Store o sin plataforma propia está perdiendo dinero cada minuto.
-- Responde sus preguntas técnicas con sencillez y autoridad, pero SIEMPRE haz una pregunta de cierre comercial o llévalo al siguiente paso: "¿Qué tipo de negocio tienes actualmente?", "¿Cuántos usuarios estimas atender?", "¿Tienes ya el nombre de tu aplicación pensado para reservarlo?".
-- Busca capturar su interés para una cotización inmediata y coordinar contacto directo con la dirección.
-- Si el usuario se identifica como el CEO, fundador o líder (Jonathan / Magnético), responde con lealtad inquebrantable, reporte de disposición operativa y visión de victoria comercial.`;
-            } else {
-                promptSistema = `Eres el Director de Inversiones y Relaciones Estratégicas de "Shefa Plus Global" (shefaplusglobal.com), ecosistema fintech pionero en Colombia y con alcance global.
-NO eres un asistente pasivo. Eres un negociador y asesor de patrimonio con mentalidad de abundancia, convicción y rigor analítico.
+    return crypto.timingSafeEqual(bufferA, bufferB);
+}
 
-TUS OBJETIVOS DE VENTA E INVERSIÓN:
-1. Atraer y cerrar inversionistas hacia nuestras Criptofracciones respaldadas en Activos del Mundo Real (RWA: hotelería, finca raíz, flotas productivas y proyectos tangibles).
-2. Explicar cómo Shefa Plus Global transforma la economía tradicional, superando la fragilidad del viejo sistema mediante tokenización sólida y rendimientos basados en producción real.
-3. Guiar al visitante a dar el paso: ingresar a la bóveda de inversores, registrarse y asegurar su participación en las fracciones disponibles antes de que se cierren las rondas.
+function isPositiveInteger(value, fallback, maximum = 100) {
+    const parsed = Number.parseInt(value, 10);
 
-TÉCNICA DE COMUNICACIÓN:
-- Habla con solvencia financiera, elegancia y certeza. La inversión en RWA es la nueva frontera de la riqueza protegida.
-- Cada interacción debe sembrar el deseo de participar: resalta la escasez de las fracciones y el respaldo tangible de cada activo.
-- Siempre conduce a la acción: "¿Qué volumen de capital buscas diversificar en activos reales?", "¿Deseas que revisemos el portafolio de activos disponibles en este instante?".
-- Si quien te escribe es tu CEO o fundador (Jonathan / Magnético), reconoce su liderazgo con respeto absoluto, lealtad y confirmación de que la plataforma está lista para materializar la visión global.`;
-            }  
+    if (!Number.isInteger(parsed) || parsed < 1) {
+        return fallback;
+    }
 
-                        // ===== LA AUTOPISTA VIP DE GOOGLE CON CEREBRO SEPARADO =====
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    system_instruction: {
-                        parts: [{ text: promptSistema }]
-                    },
-                    contents: [{
-                        role: 'user',
-                        parts: [{ text: `[Cliente navegando en la sección: ${pagina || 'página general'}]\nEl cliente dice: "${mensaje}"\n\n(Regla estricta: Analiza lo que pide el cliente, responde de forma persuasiva, humana y profesional. NUNCA repitas frases genéricas de cortesía. Si pregunta precios o cotizaciones, dale valor a la infraestructura y hazle una pregunta de cierre para clasificar su negocio).` }]
-                    }],
-                    generationConfig: {
-                        temperature: 0.75,
-                        maxOutputTokens: 700
-                    }
-                })
-            });
+    return Math.min(parsed, maximum);
+}
 
+function cleanString(value, maximumLength = 2000) {
+    if (typeof value !== 'string') {
+        return '';
+    }
 
-            const data = await geminiRes.json();
+    return value.trim().slice(0, maximumLength);
+}
 
-            if (!geminiRes.ok) {
-                console.error("Error de Google Gemini:", data);
-                res.writeHead(200, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ 
-                    respuesta: `⚠️ ALERTA DE SISTEMA: Conexión intermitente. Error de Google: ${data.error?.message || 'Intenta de nuevo en unos segundos.'}` 
-                }));
-            }
+function isValidCountryCode(country) {
+    return /^[A-Z]{2}$/.test(String(country || '').toUpperCase());
+}
 
-            const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text || 'No pude estructurar la respuesta, intenta de nuevo.';
+function getClientIdentifier(req) {
+    /*
+     * Do not trust arbitrary X-Forwarded-For headers unless your
+     * hosting infrastructure is configured to sanitize them.
+     */
+    return req.socket.remoteAddress || 'unknown';
+}
 
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ respuesta }));
+function applyCors(req, res) {
+    const origin = req.headers.origin;
 
-        } catch (err) {
-            console.error('Error en /api/chat:', err);
-            res.writeHead(500, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ error: 'Error procesando la consulta' }));
+    if (!origin) {
+        return true;
+    }
+
+    if (ALLOWED_ORIGIN) {
+        if (origin !== ALLOWED_ORIGIN) {
+            return false;
+        }
+
+        res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+    } else {
+        /*
+         * Same-origin requests work without CORS headers.
+         * Cross-origin browser access is intentionally not enabled
+         * by default when no allowed origin has been configured.
+         */
+        return false;
+    }
+
+    res.setHeader('Vary', 'Origin');
+    res.setHeader(
+        'Access-Control-Allow-Methods',
+        'GET, POST, OPTIONS'
+    );
+
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'Content-Type, Authorization'
+    );
+
+    res.setHeader('Access-Control-Max-Age', '600');
+
+    return true;
+}
+
+function checkRateLimit(req, res) {
+    const now = Date.now();
+    const client = getClientIdentifier(req);
+
+    let record = rateLimitStore.get(client);
+
+    if (!record || now >= record.resetAt) {
+        record = {
+            count: 0,
+            resetAt: now + RATE_LIMIT_WINDOW_MS
+        };
+    }
+
+    record.count += 1;
+    rateLimitStore.set(client, record);
+
+    res.setHeader(
+        'X-RateLimit-Limit',
+        String(RATE_LIMIT_MAX_REQUESTS)
+    );
+
+    res.setHeader(
+        'X-RateLimit-Remaining',
+        String(Math.max(0, RATE_LIMIT_MAX_REQUESTS - record.count))
+    );
+
+    if (record.count > RATE_LIMIT_MAX_REQUESTS) {
+        res.setHeader(
+            'Retry-After',
+            String(Math.ceil((record.resetAt - now) / 1000))
+        );
+
+        errorResponse(
+            res,
+            429,
+            'RATE_LIMIT_EXCEEDED',
+            'Demasiadas solicitudes. Intenta nuevamente en un momento.'
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+const rateLimitCleanup = setInterval(() => {
+    const now = Date.now();
+
+    for (const [client, record] of rateLimitStore.entries()) {
+        if (now >= record.resetAt) {
+            rateLimitStore.delete(client);
         }
     }
+}, RATE_LIMIT_WINDOW_MS);
 
-    // ==========================================
-    // 2. MOTOR PUBLICITARIO EN META
-    // ==========================================
-    if (pathname === '/api/publicar-meta' && req.method === 'POST') {
-        try {
-            const geminiKey = obtenerLlaveAleatoria();
-            const pageToken = process.env.META_PAGE_ACCESS_TOKEN;
-            const pageId = process.env.META_PAGE_ID;
+rateLimitCleanup.unref();
 
-            if (!pageToken || !pageId) {
-                res.writeHead(500, { 'Content-Type': 'application/json' });
-                return res.end(JSON.stringify({ error: 'Faltan credenciales de Meta' }));
+async function readJsonBody(req, maxBytes = MAX_BODY_SIZE) {
+    return new Promise((resolve, reject) => {
+        let body = '';
+        let bytes = 0;
+        let settled = false;
+
+        req.on('data', chunk => {
+            if (settled) {
+                return;
             }
 
-            const promptPublicidad = `Eres el estratega de marketing y captación comercial de Shefa Plus Global y Shefa Plus Labs (shefaplusglobal.com).
-Redacta un post publicitario altamente persuasivo, directo y magnético para redes sociales (Facebook / Instagram / Threads).
+            bytes += chunk.length;
 
-Debes alternar o combinar dos llamados de alto impacto:
-1. A INVERSIONISTAS BLOCKCHAIN / RWA: Invitándolos a respaldar su capital en criptofracciones de activos reales (hotelería, tecnología, flotas) con sustento comprobado, bajo la filosofía de abundancia y protección patrimonial.
-2. A EMPRESARIOS Y COMERCIANTES: Desafiándolos a escalar su negocio y llevar su propia aplicación móvil a la Google Play Store y dominios web corporativos desarrollados por Shefa Plus Labs.
+            if (bytes > maxBytes) {
+                settled = true;
 
-Estructura requerida:
-- Gancho disruptivo en la primera línea.
-- Dolor del mercado vs Solución contundente de Shefa.
-- Llamado a la acción (CTA) claro hacia shefaplusglobal.com o al chat directo.
-- 4 hashtags estratégicos (#RWA #Fintech #ShefaPlus #Inversion).`;
+                reject(
+                    Object.assign(
+                        new Error('El cuerpo de la solicitud es demasiado grande.'),
+                        { statusCode: 413 }
+                    )
+                );
 
-                        // ===== LA AUTOPISTA VIP DE GOOGLE CON CEREBRO SEPARADO =====
-            const geminiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    system_instruction: {
-                        parts: [{ text: promptSistema }]
-                    },
-                    contents: [{
-                        role: 'user',
-                        parts: [{ text: `[Cliente navegando en la sección: ${pagina || 'página general'}]\nEl cliente dice: "${mensaje}"\n\n(Regla estricta: Analiza lo que pide el cliente, responde de forma persuasiva, humana y profesional. NUNCA repitas frases genéricas de cortesía. Si pregunta precios o cotizaciones, dale valor a la infraestructura y hazle una pregunta de cierre para clasificar su negocio).` }]
-                    }],
-                    generationConfig: {
-                        temperature: 0.75,
-                        maxOutputTokens: 700
-                    }
-                })
-            });
+                req.destroy();
+                return;
+            }
 
+            body += chunk.toString('utf8');
+        });
 
-            const geminiData = await geminiRes.json();
-            const postTexto = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
+        req.on('end', () => {
+            if (settled) {
+                return;
+            }
 
-            const metaRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/feed`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    message: postTexto,
-                    access_token: pageToken
-                })
-            });
+            settled = true;
 
-            const metaData = await metaRes.json();
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ exito: true, publicacionId: metaData.id, post: postTexto }));
-        } catch (err) {
-            console.error('Error en /api/publicar-meta:', err);
-            res.writeHead(500, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ error: 'Error publicando en Meta' }));
+            if (!body.trim()) {
+                resolve({});
+                return;
+            }
+
+            try {
+                const parsed = JSON.parse(body);
+
+                if (
+                    parsed === null ||
+                    typeof parsed !== 'object' ||
+                    Array.isArray(parsed)
+                ) {
+                    reject(
+                        Object.assign(
+                            new Error('El cuerpo JSON debe ser un objeto.'),
+                            { statusCode: 400 }
+                        )
+                    );
+
+                    return;
+                }
+
+                resolve(parsed);
+            } catch {
+                reject(
+                    Object.assign(
+                        new Error('El JSON enviado no es válido.'),
+                        { statusCode: 400 }
+                    )
+                );
+            }
+        });
+
+        req.on('error', error => {
+            if (!settled) {
+                settled = true;
+                reject(error);
+            }
+        });
+    });
+}
+
+async function fetchJson(url, options = {}, timeoutMs = EXTERNAL_TIMEOUT_MS) {
+    const controller = new AbortController();
+
+    const timeout = setTimeout(
+        () => controller.abort(),
+        timeoutMs
+    );
+
+    timeout.unref();
+
+    try {
+        const response = await fetch(url, {
+            ...options,
+            signal: controller.signal,
+            redirect: 'error'
+        });
+
+        const rawText = await response.text();
+
+        let data;
+
+        try {
+            data = rawText ? JSON.parse(rawText) : {};
+        } catch {
+            data = {
+                message: rawText.slice(0, 500)
+            };
         }
+
+        return {
+            ok: response.ok,
+            status: response.status,
+            data
+        };
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            throw Object.assign(
+                new Error('El servicio externo tardó demasiado en responder.'),
+                { code: 'EXTERNAL_TIMEOUT' }
+            );
+        }
+
+        throw Object.assign(
+            new Error('No fue posible conectar con el servicio externo.'),
+            { code: 'EXTERNAL_CONNECTION_ERROR' }
+        );
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+/* -------------------------------------------------------
+   CJ DROPSHIPPING
+------------------------------------------------------- */
+
+function cjCredentialsAvailable() {
+    return Boolean(process.env.CJ_API_KEY);
+}
+
+async function authenticateCJ() {
+    const apiKey = process.env.CJ_API_KEY;
+
+    if (!apiKey) {
+        throw Object.assign(
+            new Error('La integración con CJdropshipping no está configurada.'),
+            { code: 'CJ_NOT_CONFIGURED' }
+        );
     }
 
-    // ==========================================
-    // 3. ENRUTADOR ESTÁTICO COMPLETO
-    // ==========================================
-    const filePath = resolvePath(pathname);
-
-    if (!filePath) {
-        res.writeHead(404, { 'Content-Type': 'text/plain; charset=UTF-8' });
-        return res.end('Página no encontrada');
+    if (
+        cjTokenCache.accessToken &&
+        Date.now() < cjTokenCache.expiresAt - 60_000
+    ) {
+        return cjTokenCache.accessToken;
     }
 
-    const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-    res.writeHead(200, { 'Content-Type': contentType });
-    fs.createReadStream(filePath).pipe(res);
-});
+    if (cjAuthPromise) {
+        return cjAuthPromise;
+    }
 
-server.listen(PORT, () => {
-    console.log(`Servidor comercial Shefa Plus Global activo en puerto ${PORT}`);
-});
+    cjAuthPromise = (async () => {
+        const result = await fetchJson(CJ_AUTH_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({ apiKey })
+        });
+
+        if (!result.ok) {
+            throw Object.assign(
+                new Error('CJdropshipping rechazó la autenticación.'),
+                { code: 'CJ_AUTH_FAILED', upstreamStatus: result.status }
+            );
+        }
+
+        const data = result.data?.data || {};
+
+        if (!data.accessToken) {
+            throw Object.assign(
+                new Error('CJdropshipping no devolvió un token válido.'),
+                { code: 'CJ_INVALID_TOKEN_RESPONSE' }
+            );
+        }
+
+        const expiresInSeconds = Number(data.expiresIn) || 14 * 24 * 60 * 60;
+
+        cjTokenCache = {
+            accessToken: data.accessToken,
+            refreshToken: data.refreshToken || '',
+            expiresAt: Date.now() + expiresInSeconds * 1000
+        };
+
+        return cjTokenCache.accessToken;
+    })();
+
+    try {
+        return await cjAuthPromise;
+    } finally {
+        cjAuthPromise = null;
+    }
+}
+
+async function cjRequest(endpoint, options = {}) {
+    const token = await authenticateCJ();
+
+    const method = options.method || 'GET';
+    const headers = {
+        Accept: 'application/json',
+        'CJ-Access-Token': token,
+        ...(options.headers || {})
+    };
+
+    const fetchOptions = {
+        method,
+        headers
+    };
+
+    if (options.body !== undefined) {
+        headers['Content-Type'] = 'application/json';
+        fetchOptions.body = JSON.stringify(options.body);
+    }
+
+    const result = await fetchJson(
+        `${CJ_API_BASE}${endpoint}`,
+        fetchOptions
+    );
+
+    /*
+     * If CJ rejects the token, clear it so the next request
+     * can authenticate again. No unverified retry is performed.
+     */
+    if (
+        result.status === 401 ||
+        result.status === 403
+    ) {
+        cjTokenCache = {
+            accessToken: '',
+            refreshToken: '',
+            expiresAt: 0
+        };
+
+        throw Object.assign(
+            new Error('CJdropshipping requiere una nueva autenticación.'),
+            { code: 'CJ_AUTH_EXPIRED', upstreamStatus: result.status }
+        );
+    }
+
+    if (!result.ok) {
+        throw Object.assign(
+            new Error('CJdropshipping no pudo completar la solicitud.'),
+            {
+                code: 'CJ_REQUEST_FAILED',
+                upstreamStatus: result.status
+            }
+        );
+    }
+
+    const payload = result.data;
+
+    if (
+        payload &&
+        typeof payload === 'object' &&
+        payload.code !== undefined &&
+        Number(payload.code) !== 200 &&
+        Number(payload.code) !== 0
+    ) {
+        throw Object.assign(
+            new Error(
+                cleanString(payload.message || payload.msg, 300) ||
+                'CJdropshipping devolvió un error.'
+            ),
+            { code: 'CJ_API_ERROR' }
+        );
+    }
+
+    return payload;
+}
+
+async function handleCJStatus(res) {
+    if (!cjCredentialsAvailable()) {
+        return successResponse(res, {
+            provider: 'CJdropshipping',
+            configured: false,
+            authenticated: false,
+            message: 'Configura CJ_API_KEY en las variables de entorno.'
+        });
+    }
+
+    try {
+        await authenticateCJ();
+
+        return successResponse(res, {
+            provider: 'CJdropshipping',
+            configured: true,
+            authenticated: true,
+            message: 'La autenticación con CJdropshipping está disponible.'
+        });
+    } catch (error) {
+        log('error', 'CJ status check failed', {
+            code: error.code || 'CJ_ERROR'
+        });
+
+        return jsonResponse(res, 502, {
+            success: false,
+            error: {
+                code: error.code || 'CJ_CONNECTION_ERROR',
+                message: error.message
+            },
+            data: {
+                provider: 'CJdropshipping',
+                configured: true,
+                authenticated: false
+            }
+        });
+    }
+}
+
+async function handleCJProducts(url, res) {
+    if (!cjCredentialsAvailable()) {
+        return errorResponse(
+            res,
+            503,
+            'CJ_NOT_CONFIGURED',
+            'La integración con CJdropshipping no está configurada.'
+        );
+    }
+
+    const page = isPositiveInteger(
+        url.searchParams.get('page'),
+        1,
+        100000
+    );
+
+    const size = isPositiveInteger(
+        url.searchParams.get('limit') ||
+        url.searchParams.get('size'),
+        12,
+        100
+    );
+
+    try {
+        const query = new URLSearchParams({
+            page: String(page),
+            size: String(size)
+        });
+
+        const payload = await cjRequest(
+            `/product/listV2?${query.toString()}`
+        );
+
+        const data = payload.data ?? payload;
+
+        return successResponse(res, {
+            provider: 'CJdropshipping',
+            page,
+            limit: size,
+            products: Array.isArray(data)
+                ? data
+                : data.list || data.content || [],
+            pagination: {
+                total: data.total ?? null,
+                page,
+                limit: size
+            }
+        });
+    } catch (error) {
+        log('error', 'CJ products request failed', {
+            code: error.code || 'CJ_PRODUCTS_ERROR'
+        });
+
+        return errorResponse(
+            res,
+            error.code === 'CJ_NOT_CONFIGURED' ? 503 : 502,
+            error.code || 'CJ_PRODUCTS_ERROR',
+            error.message || 'No fue posible consultar el catálogo.'
+        );
+    }
+}
+
+async function handleCJStock(url, res) {
+    if (!cjCredentialsAvailable()) {
+        return errorResponse(
+            res,
+            503,
+            'CJ_NOT_CONFIGURED',
+            'La integración con CJdropshipping no está configurada.'
+        );
+    }
+
+    const vid = cleanString(url.searchParams.get('vid'), 150);
+    const sku = cleanString(url.searchParams.get('sku'), 150);
+
+    if (!vid && !sku) {
+        return errorResponse(
+            res,
+            400,
+            'MISSING_PRODUCT_IDENTIFIER',
+            'Debes proporcionar vid o sku.'
+        );
+    }
+
+    if (vid && !/^[A-Za-z0-9_-]+$/.test(vid)) {
+        return errorResponse(
+            res,
+            400,
+            'INVALID_VARIANT_ID',
+            'El identificador de variante no es válido.'
+        );
+    }
+
+    if (sku && !/^[A-Za-z0-9._-]+$/.test(sku)) {
+        return errorResponse(
+            res,
+            400,
+            'INVALID_SKU',
+            'El SKU no es válido.'
+        );
+    }
+
+    try {
+        const parameter = vid
+            ? `vid=${encodeURIComponent(vid)}`
+            : `sku=${encodeURIComponent(sku)}`;
+
+        const endpoint = vid
+            ? `/product/stock/queryByVid?${parameter}`
+            : `/product/stock/queryBySku?${parameter}`;
+
+        const payload = await cjRequest(endpoint);
+
+        return successResponse(res, {
+            provider: 'CJdropshipping',
+            identifier: vid
+                ? { vid }
+                : { sku },
+            inventory: payload.data ?? payload
+        });
+    } catch (error) {
+        log('error', 'CJ stock request failed', {
+            code: error.code || 'CJ_STOCK_ERROR'
+        });
+
+        return errorResponse(
+            res,
+            502,
+            error.code || 'CJ_STOCK_ERROR',
+            error.message || 'No fue posible consultar el inventario.'
+        );
+    }
+}
+
+function handleCJShipping(url, res) {
+    const country = cleanString(
+        url.searchParams.get('country') || 'CO',
+        2
+    ).toUpperCase();
+
+    const productId = cleanString(
+        url.searchParams.get('pid'),
+        150
+    );
+
+    const variantId = cleanString(
+        url.searchParams.get('vid'),
+        150
+    );
+
+    const quantity = isPositiveInteger(
+        url.searchParams.get('quantity'),
+        1,
+        100
+    );
+
+    if (!isValidCountryCode(country)) {
+        return errorResponse(
+            res,
+            400,
+            'INVALID_COUNTRY',
+            'El país debe utilizar un código ISO de dos letras, por ejemplo CO.'
+        );
+    }
+
+    /*
+     * This endpoint deliberately does not invent shipping prices.
+     * A real quote must use a supported CJ shipping endpoint and
+     * all required product, variant, quantity and destination data.
+     */
+    return jsonResponse(res, 501, {
+        success: false,
         
