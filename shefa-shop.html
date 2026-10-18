@@ -1606,3 +1606,103 @@
       const orderMessage = 
 `🌟 *NUEVO PEDIDO DIRECTO - SHEFA PLUS GLOBAL* 🌟
 
+*Productos Solicitados:*
+${lines.join('\n')}
+
+*Total a Pagar:* ${formatPrice(totalUSD)}
+
+📦 *Datos de Envío del Cliente:*
+• *Nombre:* ${name}
+• *Ciudad/País:* ${city}
+• *Teléfono:* ${phone}
+• *Dirección:* ${address}
+
+Hola equipo de Shefa Plus Global, deseo confirmar el pago de mi pedido.`;
+
+      const cleanPhone = ownerWhatsapp.replace(/\D/g, '');
+      const waUrl = cleanPhone 
+        ? `https://wa.me/${cleanPhone}?text=${encodeURIComponent(orderMessage)}`
+        : `https://wa.me/?text=${encodeURIComponent(orderMessage)}`;
+
+      window.open(waUrl, '_blank');
+    }
+
+    // =========================================================================
+    // PANEL DE PERSONALIZACIÓN RÁPIDA (PARA EL PROPIETARIO)
+    // =========================================================================
+    function openAdminModal() {
+      document.getElementById('adminWhatsappInput').value = ownerWhatsapp;
+      const select = document.getElementById('adminProductSelect');
+      select.innerHTML = catalog.map(p => `<option value="${p.id}">${p.sku} - ${p.title}</option>`).join('');
+      loadProductIntoAdmin();
+      document.getElementById('adminModal').classList.remove('hidden');
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.add('hidden');
+    }
+
+    function loadProductIntoAdmin() {
+      const selectedId = document.getElementById('adminProductSelect').value;
+      const product = catalog.find(p => p.id === selectedId);
+      if (!product) return;
+
+      document.getElementById('adminPriceInput').value = product.priceUSD;
+      document.getElementById('adminVideoInput').value = product.videoUrl;
+      document.getElementById('adminImagesInput').value = product.images.join(', ');
+    }
+
+    function saveAdminChanges() {
+      ownerWhatsapp = document.getElementById('adminWhatsappInput').value.trim();
+      localStorage.setItem('shefa_whatsapp', ownerWhatsapp);
+
+      const selectedId = document.getElementById('adminProductSelect').value;
+      const product = catalog.find(p => p.id === selectedId);
+      if (product) {
+        const newPrice = parseFloat(document.getElementById('adminPriceInput').value);
+        if (!isNaN(newPrice) && newPrice > 0) {
+          product.priceUSD = newPrice;
+          product.oldPriceUSD = +(newPrice * 1.35).toFixed(2);
+        }
+        const newVideo = document.getElementById('adminVideoInput').value.trim();
+        if (newVideo) product.videoUrl = newVideo;
+
+        const newImgs = document.getElementById('adminImagesInput').value
+          .split(',')
+          .map(s => s.trim())
+          .filter(Boolean);
+        if (newImgs.length > 0) product.images = newImgs;
+      }
+
+      localStorage.setItem('shefa_catalog_v1', JSON.stringify(catalog));
+      renderCatalog();
+      closeAdminModal();
+      showToast('Configuración de tu tienda Shefa guardada con éxito');
+    }
+
+    function resetCatalogDefaults() {
+      localStorage.removeItem('shefa_catalog_v1');
+      catalog = JSON.parse(JSON.stringify(defaultProducts));
+      renderCatalog();
+      closeAdminModal();
+      showToast('Catálogo restaurado a los valores originales');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3500);
+    }
+
+    // Inicialización al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+      renderCatalog();
+
+      document.getElementById('searchInput').addEventListener('input', e => renderCatalog(e.target.value));
+      document.getElementById('searchInputMobile').addEventListener('input', e => renderCatalog(e.target.value));
+    });
+  </script>
+</body>
+</html>
