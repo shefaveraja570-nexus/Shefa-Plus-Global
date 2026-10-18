@@ -455,3 +455,198 @@
               <input id="clientCity" type="text" placeholder="Ej: Bogotá, Colombia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
   </div>
   
+<div>
+              <label class="text-xs text-slate-400 block mb-1">WhatsApp / Teléfono *</label>
+              <input id="clientPhone" type="tel" placeholder="+57 300 000 0000" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+            </div>
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Dirección Exacta de Envío *</label>
+            <input id="clientAddress" type="text" placeholder="Calle / Carrera, Número, Barrio, Apto" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Pie del Carrito: Total y Botón de Compra Directa -->
+      <div class="p-5 border-t border-slate-800 bg-[#070B14] space-y-3">
+        <div class="flex items-center justify-between text-sm">
+          <span class="text-slate-400">Envío Asegurado Shefa:</span>
+          <span class="text-emerald-400 font-semibold">Coordinado al confirmar</span>
+        </div>
+        <div class="flex items-center justify-between text-lg font-bold">
+          <span class="text-white">Total a Pagar:</span>
+          <span id="cartTotalValue" class="font-display text-2xl gold-gradient-text">$0.00</span>
+        </div>
+
+        <button onclick="processDirectOrder()" class="w-full gold-btn font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base shadow-lg">
+          <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+          Confirmar y Pagar Directo a Shefa
+        </button>
+        <p class="text-[11px] text-center text-slate-500">
+          Tu compra es procesada 100% en privado por <strong>Shefa Plus Global</strong>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- PANEL DE GESTIÓN RÁPIDA PARA EL DUEÑO (CAMBIAR WHATSAPP, FOTOS O VIDEOS)  -->
+  <!-- ========================================================================= -->
+  <div id="adminModal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl rounded-3xl bg-[#0C1322] border border-slate-700 p-6 sm:p-8 shadow-2xl my-auto max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+        <div>
+          <h3 class="font-display font-bold text-xl text-white flex items-center gap-2">
+            <i data-lucide="settings" class="w-5 h-5 text-amber-400"></i>
+            Panel Privado de Personalización Shefa
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">Personaliza tu número de recepción de pedidos o pega links de fotos/videos adicionales.</p>
+        </div>
+        <button onclick="closeAdminModal()" class="p-2 rounded-full bg-slate-800 text-slate-300 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="overflow-y-auto py-5 space-y-5 text-sm">
+        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+          <label class="font-semibold text-amber-400 block">1. Tu Número de WhatsApp para Recibir Pedidos (con código de país, sin el +):</label>
+          <input id="adminWhatsappInput" type="text" placeholder="Ej: 573001234567" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none" />
+          <p class="text-xs text-slate-400">Cuando el cliente le dé a "Confirmar y Pagar Directo a Shefa", te llegará el pedido listo a este WhatsApp con todos sus datos de envío.</p>
+        </div>
+
+        <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 space-y-3">
+          <label class="font-semibold text-amber-400 block">2. Editar Producto (Precio, Fotos o Video):</label>
+          <select id="adminProductSelect" onchange="loadProductIntoAdmin()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-white focus:border-amber-500 focus:outline-none"></select>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Precio en USD ($)</label>
+              <input id="adminPriceInput" type="number" step="0.01" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white" />
+            </div>
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">URL de Video (.mp4)</label>
+              <input id="adminVideoInput" type="text" placeholder="https://.../video.mp4" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white" />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">URLs de Fotos (separadas por coma)</label>
+            <textarea id="adminImagesInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white font-mono"></textarea>
+            <p class="text-[11px] text-slate-400 mt-1">Tip: Puedes hacer clic derecho "Copiar dirección de imagen" en las fotos de tu proveedor y pegarlas aquí separadas por coma.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
+        <button onclick="resetCatalogDefaults()" class="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold">
+          Restaurar Originales
+        </button>
+        <button onclick="saveAdminChanges()" class="gold-btn px-6 py-2.5 rounded-xl font-bold text-sm">
+          Guardar Cambios
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN TOAST -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden bg-slate-900 border border-amber-500/50 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm">
+    <i data-lucide="check-circle" class="w-5 h-5 text-amber-400"></i>
+    <span id="toastMsg">Producto agregado al pedido</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- LÓGICA Y BASE DE DATOS DE LOS 10 PRODUCTOS EXCLUSIVOS SHEFA PLUS GLOBAL   -->
+  <!-- ========================================================================= -->
+  <script>
+    // Tasa referencial para conversión instantánea USD <-> COP
+    const EXCHANGE_RATE_COP = 4150;
+    let currentCurrency = 'USD';
+    let currentCategory = 'Todos';
+    let activeProductId = null;
+    let modalQuantity = 1;
+    let cart = [];
+
+    // Número de WhatsApp del propietario de Shefa Plus Global (configurable en el panel o aquí)
+    let ownerWhatsapp = localStorage.getItem('shefa_whatsapp') || '';
+
+    // Base de datos privada de los 10 productos (100% Marca Blanca Shefa Plus Global)
+    const defaultProducts = [
+      {
+        id: 'SHF-DRN-002',
+        sku: 'SHF-DRN-002',
+        title: 'Dron Pro 002 Dual-Camera HD con Estabilización Inteligente',
+        subtitle: 'Doble lente gran angular, vuelo asistido y batería modular de larga duración.',
+        category: 'Drones y Aviación',
+        priceUSD: 64.90,
+        oldPriceUSD: 89.90,
+        badge: 'Más Vendido',
+        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-drone-flying-over-a-green-forest-42523-large.mp4',
+        images: [
+          'https://images.unsplash.com/photo-1507582020474-9a35b7d455d9?auto=format&fit=crop&w=1000&q=85',
+          'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=1000&q=85',
+          'https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=1000&q=85',
+          'https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1000&q=85'
+        ],
+        description: 'Captura tomas aéreas cinematográficas con el Dron Pro 002 de Shefa Plus Global. Equipado con sistema de doble cámara (frontal HD + inferior de flujo óptico), permite alternar el ángulo de visión en tiempo real desde tu smartphone y mantener un vuelo estable tanto en interiores como en exteriores.',
+        highlights: [
+          'Doble cámara con transmisión FPV en tiempo real vía Wi-Fi.',
+          'Diseño plegable de bolsillo con brazos aerodinámicos de alta resistencia.',
+          'Retorno asistido con un solo botón y despegue/aterrizaje automático.',
+          'Modo sin cabeza (Headless Mode) y giros acrobáticos en 360°.'
+        ],
+        specs: {
+          'Referencia Oficial': 'SHF-DRN-002 Dual Edition',
+          'Sistema de Cámara': 'Doble Cámara HD (Frontal + Inferior)',
+          'Batería': 'Modular de Litio Recargable (1 Unidad Incluida)',
+          'Tiempo de Vuelo': '15 - 18 minutos aprox. por carga',
+          'Alcance de Control': 'Hasta 100 metros libres de interferencia',
+          'Conectividad': 'Control Remoto 2.4GHz + App Móvil (iOS / Android)'
+        },
+        packageIncludes: [
+          '1x Dron Plegable Pro 002 Dual-Camera',
+          '1x Control Remoto de Precisión',
+          '1x Batería Modular Recargable',
+          '4x Hélices de Repuesto + Protectores de Vuelo',
+          '1x Cable de Carga USB + Estuche de Transporte'
+        ]
+      },
+      {
+        id: 'SHF-UAV-RED',
+        sku: 'SHF-UAV-009',
+        title: 'Aeroplano RC Acrobático Dual-Motor Edición Roja',
+        subtitle: 'Fuselaje de espuma EPP ultrarresistente con propulsión eléctrica dual.',
+        category: 'Drones y Aviación',
+        priceUSD: 44.50,
+        oldPriceUSD: 62.00,
+        badge: 'Alta Resistencia',
+        videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4',
+        images: [
+          'https://images.unsplash.com/photo-1559067515-bf7d799b6d42?auto=format&fit=crop&w=1000&q=85',
+          'https://images.unsplash.com/photo-1517976487468-f20514c4b75c?auto=format&fit=crop&w=1000&q=85',
+          'https://images.unsplash.com/photo-1508614999368-9260051292e5?auto=format&fit=crop&w=1000&q=85'
+        ],
+        description: 'Diseñado para ofrecer adrenalina y facilidad de pilotaje desde el primer vuelo. Su estructura de espuma tecnológica EPP absorbe impactos y su sistema eléctrico de doble motor diferencial con giroscopio inteligente estabiliza automáticamente la aeronave frente al viento.',
+        highlights: [
+          'Material EPP flexible, impermeable y altamente resistente a caídas.',
+          'Doble motor eléctrico de alta eficiencia para despegue desde mano o suelo.',
+          'Giroscopio de autoestabilización integrado (ideal para principiantes y expertos).',
+          'Aerodinámica de planeo optimizada con acabado deportivo en color rojo.'
+        ],
+        specs: {
+          'Referencia Oficial': 'SHF-UAV-009 Red Edition',
+          'Material del Fuselaje': 'Espuma de Ingeniería EPP Ultraligera',
+          'Propulsión': 'Doble Motor Eléctrico de Alta Velocidad',
+          'Frecuencia de Control': '2.4GHz Anti-interferencia (multijugador)',
+          'Distancia de Control': 'Hasta 120 metros',
+          'Color': 'Rojo Deportivo de Alta Visibilidad'
+        },
+        packageIncludes: [
+          '1x Aeroplano RC Dual-Motor (Edición Roja)',
+          '1x Control Remoto Inalámbrico 2.4GHz',
+          '1x Batería Recargable de Polímero de Litio',
+          '1x Tren de Aterrizaje Desmontable + Hélices Extra',
+          '1x Cargador USB y Manual en Español'
+        ]
+      },
+            
