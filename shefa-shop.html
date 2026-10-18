@@ -42,7 +42,7 @@ content="Descubre productos y soluciones en Shefa-Shop Global. Explora el catál
   
     body {  
       margin: 0;  
-      min-height: 100vh;  
+      min-height: 100vh;  7
       background:  
         radial-gradient(  
           circle at 80% 0%,  
@@ -2230,3 +2230,584 @@ content="Descubre productos y soluciones en Shefa-Shop Global. Explora el catál
           state.products = normalizedProducts;
         }
 
+        state.page = requestedPage;
+
+        state.hasMore = extractHasMore(
+          payload,
+          requestedPage,
+          rawProducts.length
+        );
+
+        elements.loadMoreButton.hidden = !state.hasMore;
+
+        applyFilters();
+
+        if (state.products.length > 0) {
+          setStatus(
+            `Se encontraron ${state.products.length} productos en el catálogo.`,
+            "success"
+          );
+        } else {
+          setStatus(
+            "El servidor respondió, pero no encontramos productos con el formato esperado.",
+            "warning"
+          );
+        }
+      } catch (error) {
+        console.error("Error al cargar el catálogo:", error);
+
+        if (append && state.products.length > 0) {
+          showToast(
+            "No fue posible cargar más productos. Intenta nuevamente.",
+            "error"
+          );
+        } else {
+          state.products = [];
+          state.filteredProducts = [];
+
+          renderEmpty(
+            "No pudimos cargar el catálogo",
+            "Comprueba tu conexión y que el servidor esté activo. Después, pulsa «Actualizar catálogo»."
+          );
+
+          setStatus(
+            error.message || "Error al consultar el catálogo.",
+            "error"
+          );
+        }
+      } finally {
+        state.loading = false;
+        elements.refreshButton.disabled = false;
+        elements.loadMoreButton.disabled = false;
+      }
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem(
+          STORE_CONFIG.CART_STORAGE_KEY,
+          JSON.stringify(state.cart)
+        );
+      } catch (error) {
+        console.warn(
+          "No fue posible guardar la selección localmente:",
+          error
+        );
+      }
+    }
+
+    function loadCart() {
+      try {
+        const saved = localStorage.getItem(
+          STORE_CONFIG.CART_STORAGE_KEY
+        );
+
+        if (!saved) {
+          state.cart = [];
+          return;
+        }
+
+        const parsed = JSON.parse(saved);
+
+        if (!Array.isArray(parsed)) {
+          state.cart = [];
+          return;
+        }
+
+        state.cart = parsed
+          .filter(item =>
+            item &&
+            typeof item.id === "string" &&
+            typeof item.name === "string"
+          )
+          .slice(0, 100)
+          .map(item => ({
+            id: cleanText(item.id, 150),
+            name: cleanText(item.name, 250),
+            sku: cleanText(item.sku, 100),
+            price: parsePrice(item.price),
+            currency: cleanText(item.currency, 8) || "COP"
+          }));
+      } catch {
+        state.cart = [];
+      }
+    }
+
+    function addToCart(productId) {
+      const product = state.products.find(
+        item => item.id === productId
+      );
+
+      if (!product) {
+        showToast(
+          "No encontramos ese producto en el catálogo actual.",
+          "error"
+        );
+
+        return;
+      }
+
+      const alreadyAdded = state.cart.some(
+        item => item.id === product.id
+      );
+
+      if (alreadyAdded) {
+        showToast(
+          "Ese producto ya está en tu selección."
+        );
+
+        return;
+      }
+
+      if (state.cart.length >= 100) {
+        showToast(
+          "Has alcanzado el límite de productos por selección.",
+          "error"
+        );
+
+        return;
+      }
+
+      state.cart.push({
+        id: product.id,
+        name: product.name,
+        sku: product.sku,
+        price: product.price,
+        currency: product.currency
+      });
+
+      saveCart();
+      renderCart();
+
+      showToast("Producto agregado a tu selección.");
+    }
+
+    function removeFromCart(productId) {
+      state.cart = state.cart.filter(
+        item => item.id !== productId
+      );
+
+      saveCart();
+      renderCart();
+
+      showToast("Producto retirado de tu selección.");
+    }
+
+    function renderCart() {
+      const count = state.cart.length;
+
+      elements.cartCount.textContent = String(count);
+      elements.headerCartCount.textContent = String(count);
+
+      elements.cartFab.setAttribute(
+        "aria-label",
+        `Abrir selección. ${count} productos`
+      );
+
+      elements.cartList.replaceChildren();
+
+      if (count === 0) {
+        elements.cartList.append(
+          createElement(
+            "p",
+            "form-note",
+            "Todavía no has agregado productos. Explora el catálogo y selecciona los que te interesen."
+          )
+        );
+
+        elements.cartSummary.textContent =
+          "Tu selección está vacía.";
+
+        elements.sendInquiryButton.disabled = true;
+        elements.clearCartButton.disabled = true;
+
+        return;
+      }
+
+      elements.sendInquiryButton.disabled = false;
+      elements.clearCartButton.disabled = false;
+
+      const fragment = document.createDocumentFragment();
+
+      for (const item of state.cart) {
+        const row = createElement("div", "cart-item");
+        const details = createElement("div");
+
+        details.append(
+          createElement("h3", "", item.name)
+        );
+
+        if (item.sku) {
+          details.append(
+            createElement(
+              "p",
+              "",
+              `Referencia: ${item.sku}`
+            )
+          );
+        }
+
+        const formattedPrice = formatPrice(
+          item.price,
+          item.currency
+        );
+
+        details.append(
+          createElement(
+            "p",
+            "",
+            formattedPrice
+              ? `Precio informativo: ${formattedPrice}`
+              : "Precio pendiente de cotización"
+          )
+        );
+
+        const removeButton = createElement(
+          "button",
+          "cart-remove",
+          "Eliminar"
+        );
+
+        removeButton.type = "button";
+
+        removeButton.addEventListener("click", () => {
+          removeFromCart(item.id);
+        });
+
+        row.append(details, removeButton);
+        fragment.append(row);
+      }
+
+      elements.cartList.append(fragment);
+
+      elements.cartSummary.textContent =
+        `${count} producto${count === 1 ? "" : "s"} seleccionado${count === 1 ? "" : "s"}. Los precios y la disponibilidad deben confirmarse.`;
+    }
+
+    function openCart() {
+      state.lastFocusedElement = document.activeElement;
+
+      renderCart();
+
+      elements.cartModal.classList.add("open");
+      elements.cartModal.setAttribute("aria-hidden", "false");
+
+      document.body.style.overflow = "hidden";
+
+      elements.closeCartButton.focus();
+    }
+
+    function closeCart() {
+      elements.cartModal.classList.remove("open");
+      elements.cartModal.setAttribute("aria-hidden", "true");
+
+      document.body.style.overflow = "";
+
+      if (
+        state.lastFocusedElement &&
+        typeof state.lastFocusedElement.focus === "function"
+      ) {
+        state.lastFocusedElement.focus();
+      }
+    }
+
+    function buildWhatsAppUrl(message) {
+      const number = STORE_CONFIG.WHATSAPP_NUMBER.replace(
+        /\D/g,
+        ""
+      );
+
+      if (!/^\d{10,15}$/.test(number)) {
+        throw new Error(
+          "El número de WhatsApp configurado no es válido."
+        );
+      }
+
+      return (
+        `https://wa.me/${number}?text=` +
+        encodeURIComponent(message)
+      );
+    }
+
+    function openWhatsAppForProduct(product) {
+      const price = formatPrice(
+        product.price,
+        product.currency
+      );
+
+      const message = [
+        "Hola, equipo de Shefa-Shop Global.",
+        "",
+        "Quiero consultar información sobre este producto:",
+        `Producto: ${product.name}`,
+        product.sku ? `Referencia: ${product.sku}` : "",
+        price
+          ? `Precio mostrado como referencia: ${price}`
+          : "Precio: solicito cotización actualizada.",
+        "",
+        "Por favor, confirmen el precio vigente, la disponibilidad y las condiciones de envío."
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      try {
+        window.open(
+          buildWhatsAppUrl(message),
+          "_blank",
+          "noopener,noreferrer"
+        );
+      } catch (error) {
+        showToast(error.message, "error");
+      }
+    }
+
+    function submitInquiry(event) {
+      event.preventDefault();
+
+      if (state.cart.length === 0) {
+        showToast(
+          "Agrega al menos un producto antes de enviar la consulta.",
+          "error"
+        );
+
+        return;
+      }
+
+      if (!elements.inquiryForm.reportValidity()) {
+        return;
+      }
+
+      if (!elements.privacyConsent.checked) {
+        showToast(
+          "Debes aceptar el envío de la información para continuar.",
+          "error"
+        );
+
+        return;
+      }
+
+      const customerName = cleanText(
+        elements.customerName.value,
+        100
+      );
+
+      const customerCity = cleanText(
+        elements.customerCity.value,
+        100
+      );
+
+      const customerMessage = cleanText(
+        elements.customerMessage.value,
+        1000
+      );
+
+      const inquiryLabels = {
+        precio: "Consultar precio",
+        disponibilidad: "Consultar disponibilidad",
+        envio: "Consultar envío y entrega",
+        general: "Información general"
+      };
+
+      const inquiryType =
+        inquiryLabels[elements.inquiryType.value] ||
+        "Información general";
+
+      const productLines = state.cart.map((item, index) => {
+        const price = formatPrice(
+          item.price,
+          item.currency
+        );
+
+        return [
+          `${index + 1}. ${item.name}`,
+          item.sku ? `   Referencia: ${item.sku}` : "",
+          price
+            ? `   Precio mostrado: ${price} (por confirmar)`
+            : "   Precio: por cotizar"
+        ]
+          .filter(Boolean)
+          .join("\n");
+      });
+
+      const message = [
+        "Hola, Shefa-Shop Global. Quiero realizar una consulta comercial.",
+        "",
+        `Nombre: ${customerName}`,
+        customerCity ? `Ciudad: ${customerCity}` : "",
+        `Tipo de consulta: ${inquiryType}`,
+        "",
+        "PRODUCTOS DE INTERÉS:",
+        ...productLines,
+        "",
+        customerMessage
+          ? `Mensaje adicional: ${customerMessage}`
+          : "",
+        "",
+        "Solicito confirmar precio vigente, disponibilidad, condiciones de envío y demás condiciones aplicables.",
+        "",
+        "Esta es una solicitud de información, no una confirmación de compra."
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      try {
+        const whatsappUrl = buildWhatsAppUrl(message);
+
+        window.open(
+          whatsappUrl,
+          "_blank",
+          "noopener,noreferrer"
+        );
+
+        showToast(
+          "Se preparó tu consulta. Revisa WhatsApp para enviarla."
+        );
+      } catch (error) {
+        showToast(error.message, "error");
+      }
+    }
+
+    function clearCart() {
+      if (state.cart.length === 0) {
+        return;
+      }
+
+      state.cart = [];
+
+      saveCart();
+      renderCart();
+
+      showToast("Tu selección quedó vacía.");
+    }
+
+    function initializeEvents() {
+      elements.searchInput.addEventListener(
+        "input",
+        applyFilters
+      );
+
+      elements.sortSelect.addEventListener(
+        "change",
+        applyFilters
+      );
+
+      elements.refreshButton.addEventListener(
+        "click",
+        () => loadProducts()
+      );
+
+      elements.loadMoreButton.addEventListener(
+        "click",
+        () => loadProducts({ append: true })
+      );
+
+      elements.cartFab.addEventListener(
+        "click",
+        openCart
+      );
+
+      elements.headerCartButton.addEventListener(
+        "click",
+        openCart
+      );
+
+      elements.closeCartButton.addEventListener(
+        "click",
+        closeCart
+      );
+
+      elements.clearCartButton.addEventListener(
+        "click",
+        clearCart
+      );
+
+      elements.inquiryForm.addEventListener(
+        "submit",
+        submitInquiry
+      );
+
+      elements.cartModal.addEventListener(
+        "click",
+        event => {
+          if (event.target === elements.cartModal) {
+            closeCart();
+          }
+        }
+      );
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+          if (elements.cartModal.classList.contains("open")) {
+            closeCart();
+          }
+        }
+
+        if (
+          event.key === "Tab" &&
+          elements.cartModal.classList.contains("open")
+        ) {
+          const focusable = elements.cartModal.querySelectorAll(
+            'button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), a[href]'
+          );
+
+          if (focusable.length === 0) {
+            return;
+          }
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (
+            event.shiftKey &&
+            document.activeElement === first
+          ) {
+            event.preventDefault();
+            last.focus();
+          } else if (
+            !event.shiftKey &&
+            document.activeElement === last
+          ) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      });
+
+      window.addEventListener("online", () => {
+        showToast(
+          "Conexión restablecida. Puedes actualizar el catálogo."
+        );
+      });
+
+      window.addEventListener("offline", () => {
+        showToast(
+          "No hay conexión a internet. Algunas funciones pueden fallar.",
+          "error"
+        );
+      });
+    }
+
+    function initializeStore() {
+      elements.currentYear.textContent =
+        String(new Date().getFullYear());
+
+      loadCart();
+      renderCart();
+      initializeEvents();
+
+      loadProducts();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener(
+        "DOMContentLoaded",
+        initializeStore,
+        { once: true }
+      );
+    } else {
+      initializeStore();
+    }
+  </script>
+</body>
+</html
+  
