@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shefa-plus-global-shop | Catálogo Oficial</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- ================= ENCABEZADO DE LA TIENDA ================= -->
+  <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-slate-900 font-black text-xl shadow">
+          S+
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-tight text-white">Shefa-plus-global-shop</h1>
+          <p class="text-xs text-amber-400">Catálogo Global &bull; Conectado con CJdropshipping</p>
+        </div>
+      </div>
+
+      <!-- Buscador Rápido -->
+      <div class="flex-1 max-w-md mx-4">
+        <div class="relative">
+          <input 
+            id="buscadorInput" 
+            type="text" 
+            onkeyup="filtrarTarjetas()" 
+            placeholder="Buscar producto en el catálogo..." 
+            class="w-full bg-slate-800 text-sm text-white rounded-xl pl-10 pr-4 py-2.5 border border-slate-700 focus:outline-none focus:border-amber-400"
+          />
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+        </div>
+      </div>
+
+      <!-- Botones de API y Carrito -->
+      <div class="flex items-center gap-3">
+        <button 
+          onclick="toggleModalAPI()" 
+          class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold px-3.5 py-2.5 rounded-xl flex items-center gap-2 transition"
+        >
+          <i class="fa-solid fa-plug text-amber-400"></i>
+          <span>Conexión CJ API</span>
+        </button>
+
+        <button 
+          onclick="toggleCarrito()" 
+          class="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow transition"
+        >
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Carrito</span>
+          <span id="contadorCarrito" class="bg-slate-900 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= BANNER PRINCIPAL ================= -->
+  <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-amber-900 text-white py-10 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3 py-1 rounded-full uppercase">
+          Tienda Oficial Internacional
+        </span>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3">Bienvenido a Shefa-plus-global-shop</h2>
+        <p class="text-slate-300 text-sm md:text-base mt-2 max-w-xl">
+          Productos seleccionados de importación directa con garantía y envío global.
+        </p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-xs space-y-1">
+        <div class="font-bold text-amber-300 flex items-center gap-2">
+          <i class="fa-solid fa-circle-check"></i> Estado del Catálogo
+        </div>
+        <p class="text-slate-200">ID Principal Activo: <code class="text-amber-300">1592715415925567488</code></p>
+        <p id="estadoApiTexto" class="text-slate-300">Modo: Catálogo Híbrido (Manual + API)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATÁLOGO DE PRODUCTOS (ZONA DE TARJETAS) ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-10 flex-1 w-full">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-xl font-bold text-slate-800">Nuestros Productos</h3>
+      <span class="text-xs text-slate-500">Agrega nuevas tarjetas manualmente en el código debajo del Producto #1</span>
+    </div>
+
+    <!-- CONTENEDOR DE TARJETAS -->
+    <div id="contenedorProductos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- =====================================================================
+           INICIO TARJETA PRODUCTO #1 (ID CJ: 1592715415925567488)
+           ===================================================================== -->
+      <article 
+        class="tarjeta-producto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition"
+        data-pid="1592715415925567488"
+      >
+        <div>
+          <div class="relative h-64 bg-slate-100 overflow-hidden">
+            <img 
+              id="img-1592715415925567488"
+              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" 
+              alt="Producto Destacado CJ 1592715415925567488" 
+              class="w-full h-full object-cover hover:scale-105 transition duration-300"
+            />
+            <span class="absolute top-3 left-3 bg-slate-900/80 text-amber-400 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+              CJ ID: 1592715415925567488
+            </span>
+          </div>
+
+          <div class="p-5">
+            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">
+              Importación Global
+            </span>
+            <h4 id="titulo-1592715415925567488" class="text-lg font-bold text-slate-900 mt-1 line-clamp-2">
+              Producto Exclusivo Shefa Plus #1 (Edita aquí el nombre)
+            </h4>
+            <p id="desc-1592715415925567488" class="text-sm text-slate-500 mt-2 line-clamp-3">
+              Artículo importado conectado al catálogo de CJdropshipping. Puedes sincronizar sus datos con tu API Key o personalizar este texto manualmente.
+            </p>
+          </div>
+        </div>
+
+        <div class="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+          <div>
+            <span class="text-xs text-slate-400 block">Precio de Venta</span>
+            <span id="precio-1592715415925567488" class="text-2xl font-extrabold text-slate-900">$29.99</span>
+            <span class="text-xs text-slate-500">USD</span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <a 
+              href="https://www.cjdropshipping.com/product/-p-1592715415925567488.html" 
+              target="_blank" 
+              title="Ver referencia en CJdropshipping"
+              class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm transition"
+            >
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <button 
+              onclick="agregarAlCarrito('1592715415925567488', document.getElementById('titulo-1592715415925567488').innerText, 29.99)"
+              class="bg-slate-900 hover:bg-amber-500 hover:text-slate-900 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition flex items-center gap-2"
+            >
+              <i class="fa-solid fa-plus"></i> Agregar
+            </button>
+          </div>
+        </div>
+      </article>
+      <!-- =====================================================================
+           FIN TARJETA PRODUCTO #1
+           ===================================================================== -->
+
+
+      <!-- 👇👇👇 PEGA AQUÍ DEBAJO LAS TARJETAS DE LOS DEMÁS PRODUCTOS 👇👇👇 -->
+
+
+
+      <!-- 👆👆👆 FIN DE LA ZONA DE TARJETAS MANUALES 👆👆👆 -->
+
+    </div>
+  </main>
+
+  <!-- ================= MODAL DE CONEXIÓN API CJDROPSHIPPING ================= -->
+  <div id="modalAPI" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-key text-amber-500"></i> Conectar API Key de CJdropshipping
+        </h3>
+        <button onclick="toggleModalAPI()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-sm">
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">1. Tu API Key o Access Token de CJ:</label>
+          <input 
+            id="cjApiKeyInput" 
+            type="password" 
+            placeholder="Pega aquí tu API Key o Access Token..." 
+            class="w-full border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-amber-500"
+          />
+        </div>
+
+        <div>
+          <label class="font-semibold text-slate-700 block mb-1">2. Enlace o ID del Producto CJ a sincronizar:</label>
+          <input 
+            id="cjProductUrlInput" 
+            type="text" 
+            value="https://www.cjdropshipping.com/product/-p-1592715415925567488.html" 
+            class="w-full border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-amber-500"
+          />
+        </div>
+
+        <button 
+          onclick="sincronizarProductoCJ()" 
+          class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-2.5 rounded-xl shadow transition"
+        >
+          Sincronizar Datos del Producto
+        </button>
+
+        <div id="resultadoAPI" class="bg-slate-100 rounded-xl p-3 text-xs text-slate-600 hidden whitespace-pre-wrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL DEL CARRITO ================= -->
+  <div id="modalCarrito" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="font-bold text-lg">Tu Carrito — Shefa-plus-global-shop</h3>
+        <button onclick="toggleCarrito()" class="text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <div id="listaCarrito" class="space-y-2 max-h-60 overflow-y-auto text-sm text-slate-600">
+        Tu carrito está vacío.
+      </div>
+      <div class="border-t pt-3 flex items-center justify-between font-bold text-base">
+        <span>Total:</span>
+        <span id="totalCarrito">$0.00 USD</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= LÓGICA JAVASCRIPT (API CJ + CARRITO + BUSCADOR) ================= -->
+  <script>
+    let carrito = [];
+
+    // Extrae el PID automáticamente de cualquier enlace de CJdropshipping
+    function extraerPID(texto) {
+      const match = texto.match(/-p-([a-zA-Z0-9-]+)\.html/);
+      return match ? match[1] : texto.trim();
+    }
+
+    // Abre o cierra el panel de API
+    function toggleModalAPI() {
+      const modal = document.getElementById('modalAPI');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    // Abre o cierra el carrito
+    function toggleCarrito() {
+      const modal = document.getElementById('modalCarrito');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    // Filtra tarjetas por nombre o ID
+    function filtrarTarjetas() {
+      const filtro = document.getElementById('buscadorInput').value.toLowerCase();
+      const tarjetas = document.querySelectorAll('.tarjeta-producto');
+      tarjetas.forEach(tarjeta => {
+        const texto = tarjeta.innerText.toLowerCase();
+        tarjeta.style.display = texto.includes(filtro) ? '' : 'none';
+      });
+    }
+
+    // Agrega productos al carrito
+    function agregarAlCarrito(pid, nombre, precio) {
+      carrito.push({ pid, nombre, precio });
+      document.getElementById('contadorCarrito').innerText = carrito.length;
+      renderizarCarrito();
+    }
+
+    function renderizarCarrito() {
+      const contenedor = document.getElementById('listaCarrito');
+      if (carrito.length === 0) {
+        contenedor.innerHTML = 'Tu carrito está vacío.';
+        document.getElementById('totalCarrito').innerText = '$0.00 USD';
+        return;
+      }
+      let total = 0;
+      contenedor.innerHTML = carrito.map((item, index) => {
+        total += item.precio;
+        return `<div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
+                  <div>
+                    <p class="font-semibold text-slate-800">${item.nombre}</p>
+                    <p class="text-xs text-slate-400">ID: ${item.pid}</p>
+                  </div>
+                  <span class="font-bold text-slate-900">$${item.precio.toFixed(2)}</span>
+                </div>`;
+      }).join('');
+      document.getElementById('totalCarrito').innerText = `$${total.toFixed(2)} USD`;
+    }
+
+    // Consulta la API v2.0 de CJdropshipping con el PID extraído
+    async function sincronizarProductoCJ() {
+      const apiKeyOrToken = document.getElementById('cjApiKeyInput').value.trim();
+      const urlOrId = document.getElementById('cjProductUrlInput').value.trim();
+      const pid = extraerPID(urlOrId);
+      const cajaResultado = document.getElementById('resultadoAPI');
+
+      cajaResultado.classList.remove('hidden');
+      cajaResultado.innerText = `Consultando producto PID: ${pid} en CJdropshipping...`;
+
+      if (!apiKeyOrToken) {
+        cajaResultado.innerText = "⚠️ Por favor ingresa tu API Key o Access Token de CJdropshipping.";
+        return;
+      }
+
+      try {
+        // Paso A: Intentar obtener Access Token si el usuario pegó su API Key
+        let token = apiKeyOrToken;
+        if (apiKeyOrToken.includes('@api@')) {
+          const authRes = await fetch('https://developers.cjdropshipping.com/api2.0/v1/authentication/getAccessToken', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ apiKey: apiKeyOrToken })
+          });
+          const authData = await authRes.json();
+          if (authData.result && authData.data && authData.data.accessToken) {
+            token = authData.data.accessToken;
+          }
+        }
+
+        // Paso B: Consultar el producto por su PID
+        const prodRes = await fetch(`https://developers.cjdropshipping.com/api2.0/v1/product/query?pid=${pid}`, {
+          method: 'GET',
+          headers: { 'CJ-Access-Token': token }
+        });
+        const prodData = await prodRes.json();
+
+        if (prodData.result && prodData.data) {
+          const p = prodData.data;
+          // Si existe la tarjeta en el DOM, la actualiza automáticamente
+          if (document.getElementById(`titulo-${pid}`)) {
+            document.getElementById(`titulo-${pid}`).innerText = p.productNameEn || 'Producto CJ';
+            document.getElementById(`img-${pid}`).src = p.productImage || '';
+            document.getElementById(`precio-${pid}`).innerText = `$${p.sellPrice || '29.99'}`;
+          }
+          document.getElementById('estadoApiTexto').innerText = "Modo: Conectado a CJ API ✅";
+          cajaResultado.innerText = `✅ ¡Sincronizado con éxito!\nNombre: ${p.productNameEn}\nCosto CJ: $${p.sellPrice} USD\nImagen URL: ${p.productImage}`;
+        } else {
+          cajaResultado.innerText = `⚠️ Respuesta de CJ API: ${prodData.message || 'Verifica tu token o el ID del producto.'}`;
+        }
+      } catch (error) {
+        cajaResultado.innerText = `ℹ️ Nota técnica: El navegador bloqueó la petición directa por políticas CORS de CJdropshipping o red. ¡No hay problema! Puedes usar la plantilla manual del Paso 4 para pegar los datos de tus tarjetas directamente.`;
+      }
+    }
+  </script>
+</body>
+  </html>
