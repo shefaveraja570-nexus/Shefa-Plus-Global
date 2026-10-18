@@ -781,6 +781,129 @@ function handleCJShipping(url, res) {
      * A real quote must use a supported CJ shipping endpoint and
      * all required product, variant, quantity and destination data.
      */
+// ============================================================================
+// INSTRUCCIONES:
+// En tu archivo server.js de GitHub, borra las últimas 2 líneas (784 y 785):
+//     return jsonResponse(res, 501, {
+//         success: false,
+// Y pega todo este código desde aquí hasta el final.
+// ============================================================================
+
     return jsonResponse(res, 501, {
         success: false,
-        
+        error: {
+            code: 'SHIPPING_QUOTE_NOT_ENABLED',
+            message: 'La cotización de envío en tiempo real requiere configurar el endpoint logístico con pid, vid, cantidad y país.'
+        },
+        request: {
+            country,
+            pid: productId || null,
+            vid: variantId || null,
+            quantity
+        }
+    });
+}
+
+// ============================================================================
+// ARRANQUE SEGURO DEL SERVIDOR WEB Y ARCHIVOS ESTÁTICOS (shefa-shop.html, etc.)
+// ============================================================================
+(function bootstrapShefaServer() {
+    const httpModule = require('http');
+    const fsModule = require('fs');
+    const pathModule = require('path');
+
+    // Verificamos en el siguiente ciclo si el servidor ya fue iniciado arriba en server.js
+    setImmediate(() => {
+        const activeHandles = typeof process._getActiveHandles === 'function'
+            ? process._getActiveHandles()
+            : [];
+
+        const alreadyListening = activeHandles.some(
+            (handle) => handle && handle.constructor && handle.constructor.name === 'Server'
+        );
+
+        if (alreadyListening) {
+            return;
+        }
+
+        const listenPort = Number(process.env.PORT) || 3000;
+        const rootDir = process.cwd();
+
+        const mimeTypes = {
+            '.html': 'text/html; charset=utf-8',
+            '.css': 'text/css; charset=utf-8',
+            '.js': 'application/javascript; charset=utf-8',
+            '.json': 'application/json; charset=utf-8',
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.webp': 'image/webp',
+            '.svg': 'image/svg+xml',
+            '.ico': 'image/x-icon',
+            '.mp4': 'video/mp4'
+        };
+
+        const webServer = httpModule.createServer(async (req, res) => {
+            try {
+                const parsedUrl = new URL(req.url || '/', `http://${req.headers.host || 'localhost'}`);
+                const pathname = decodeURIComponent(parsedUrl.pathname);
+
+                // Endpoint de salud para Render
+                if (pathname === '/health' || pathname === '/api/health') {
+                    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                    return res.end(JSON.stringify({ status: 'ok', service: 'Shefa Plus Global' }));
+                }
+
+                // Rutas de API de catálogo, stock y envíos si existen las funciones en server.js
+                if (pathname === '/api/cj/products' && typeof handleCJProducts === 'function') {
+                    return await handleCJProducts(parsedUrl, res);
+                }
+                if (pathname === '/api/cj/stock' && typeof handleCJStock === 'function') {
+                    return await handleCJStock(parsedUrl, res);
+                }
+                if (pathname === '/api/cj/shipping' && typeof handleCJShipping === 'function') {
+                    return handleCJShipping(parsedUrl, res);
+                }
+
+                // Servir archivos HTML y estáticos (index.html, shefa-shop.html, imágenes, etc.)
+                const relativePath = pathname === '/' ? '/index.html' : pathname;
+                const safePath = pathModule.normalize(relativePath).replace(/^(\.\.[/\\])+/, '');
+                let fullPath = pathModule.join(rootDir, safePath);
+
+                if (!fsModule.existsSync(fullPath) && !pathModule.extname(fullPath)) {
+                    const htmlCandidate = `${fullPath}.html`;
+                    if (fsModule.existsSync(htmlCandidate)) {
+                        fullPath = htmlCandidate;
+                    }
+                }
+
+                if (!fsModule.existsSync(fullPath) || fsModule.statSync(fullPath).isDirectory()) {
+                    const fallbackShop = pathModule.join(rootDir, 'shefa-shop.html');
+                    const fallbackIndex = pathModule.join(rootDir, 'index.html');
+                    if (pathname.includes('shefa-shop') && fsModule.existsSync(fallbackShop)) {
+                        fullPath = fallbackShop;
+                    } else if (fsModule.existsSync(fallbackIndex)) {
+                        fullPath = fallbackIndex;
+                    } else {
+                        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+                        return res.end('404 - Página no encontrada en Shefa Plus Global');
+                    }
+                }
+
+                const ext = pathModule.extname(fullPath).toLowerCase();
+                const contentType = mimeTypes[ext] || 'application/octet-stream';
+                const content = fsModule.readFileSync(fullPath);
+
+                res.writeHead(200, { 'Content-Type': contentType });
+                return res.end(content);
+            } catch (err) {
+                res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+                return res.end(JSON.stringify({ success: false, message: 'Error interno del servidor' }));
+            }
+        });
+
+        webServer.listen(listenPort, '0.0.0.0', () => {
+            console.log(`Servidor Shefa Plus Global activo en el puerto ${listenPort}`);
+        });
+    });
+})();
