@@ -384,4 +384,74 @@
 
             <!-- Contenido Pestaña: Ficha Técnica -->
             <div id="infoContentSpecs" class="hidden mt-4">
-              <div id="modalSpecsTable" class="divide-y 
+              <div id="modalSpecsTable" class="divide-y divide-slate-800/80 border border-slate-800 rounded-xl overflow-hidden text-xs sm:text-sm">
+                <!-- Filas dinámicas -->
+              </div>
+            </div>
+
+            <!-- Contenido Pestaña: ¿Qué Incluye la Caja? -->
+            <div id="infoContentBox" class="hidden mt-4">
+              <ul id="modalPackageList" class="space-y-2 text-sm text-slate-300 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                <!-- Items dinámicos -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Acciones de Compra Directa -->
+          <div class="mt-6 pt-5 border-t border-slate-800 flex flex-col sm:flex-row gap-3">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 sm:w-32">
+              <button onclick="changeModalQty(-1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold">-</button>
+              <span id="modalQty" class="font-bold text-white text-base">1</span>
+              <button onclick="changeModalQty(1)" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold">+</button>
+            </div>
+
+            <button id="modalAddToCartBtn" class="flex-1 gold-btn font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-2 text-sm sm:text-base shadow-xl">
+              <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+              Agregar a Mi Pedido
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- DRAWER DEL CARRITO Y PAGO DIRECTO CON SHEFA PLUS GLOBAL                   -->
+  <!-- ========================================================================= -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+    <div onclick="toggleCart(false)" class="absolute inset-0 bg-black/75 backdrop-blur-sm"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-[#0B1120] border-l border-slate-800 shadow-2xl flex flex-col justify-between">
+      
+      <!-- Cabecera del Carrito -->
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-[#070B14]">
+        <div class="flex items-center gap-2.5">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-amber-400"></i>
+          <h3 class="font-display font-bold text-lg text-white">Tu Pedido en Shefa Shop</h3>
+        </div>
+        <button onclick="toggleCart(false)" class="p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Lista de Productos y Formulario del Cliente -->
+      <div class="flex-1 overflow-y-auto p-5 space-y-6">
+        <div id="cartItemsContainer" class="space-y-3">
+          <!-- Productos agregados -->
+        </div>
+
+        <!-- Datos de Envío para procesar el pedido directamente -->
+        <div id="checkoutFormSection" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <h4 class="font-display font-semibold text-sm text-amber-400 flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-4 h-4"></i> Datos de Entrega del Cliente
+          </h4>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">Nombre Completo *</label>
+            <input id="clientName" type="text" placeholder="Ej: Carlos Andrés Gómez" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+          </div>
+          <div class="grid grid-cols-2 gap-2.5">
+            <div>
+              <label class="text-xs text-slate-400 block mb-1">Ciudad / País *</label>
+              <input id="clientCity" type="text" placeholder="Ej: Bogotá, Colombia" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-white focus:border-amber-500 focus:outline-none" />
+  </div>
+  
