@@ -1333,14 +1333,14 @@
                 alt="${prod.nombre}"
                 onerror="this.src='https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80'"
               />
-
               <div class="media-switcher">
-                <button class="media-btn active" onclick="cambiarMedia(${prod.id}, 'foto', 0, this)">Foto 1</button>
-                ${prod.fotos[1] ? `<button class="media-btn" onclick="cambiarMedia(${prod.id}, 'foto', 1, this)">Foto 2</button>` : ''}
+                ${prod.fotos.map((f, i) => `
+                  <button class="media-btn ${i === 0 ? 'active' : ''}" onclick="cambiarMedia(${prod.id}, 'foto', ${i}, this)">Foto ${i + 1}</button>
+                `).join('')}
                 ${prod.video ? `<button class="media-btn" onclick="cambiarMedia(${prod.id}, 'video', 0, this)">▶ Video</button>` : ''}
                 <button class="media-btn" onclick="cambiarMedia(${prod.id}, '3d', 0, this)">🧊 3D</button>
               </div>
-            </div>
+
 
             <div class="card-body">
               <div class="card-meta-row">
