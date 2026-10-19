@@ -1184,7 +1184,9 @@
     ],
     video: "assets/videos/video-cargador.mp4"
   } 
-            {
+      // <--- Aquí solo cierra la llave del objeto del producto
+];  // <--- Aquí se cierra el corchete del array completo antes de las funciones
+               {
         id: 2,
         nombre: "Mini Dron Plegable 4K con Control Remoto Integrado y Estabilización de Vuelo",
         categoria: "TECNOLOGÍA WEARABLE",
@@ -1205,10 +1207,7 @@
           "assets/img/foto-dron4.png"
         ],
         video: "assets/videos/video-dron.mp4"
-      },
-      // <--- Aquí solo cierra la llave del objeto del producto
-];  // <--- Aquí se cierra el corchete del array completo antes de las funciones
-      
+      },   
       
 
     const formatoCOP = (valor) => "$" + valor.toLocaleString("es-CO");
