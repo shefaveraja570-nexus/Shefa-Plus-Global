@@ -3,244 +3,551 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shefa-plus-global-shop | Catálogo Oficial</title>
+  <title>Shefa Plus Global Shop | Tienda Oficial Colombia</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --phi: 1.618;
+      --navy-deep: #070b14;
+      --navy-card: #0f172a;
+      --titanium: #334155;
+      --gold-primary: #f59e0b;
+      --gold-bright: #fbbf24;
+    }
+
+    /* Escenario de Perspectiva 3D */
+    .scene-3d {
+      perspective: 1200px;
+    }
+
+    /* Botones de Categoría 3D (Acabado Titanio / Azul Marino) */
+    .cat-btn-3d {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+      color: #cbd5e1;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      border-right: 1px solid rgba(15, 23, 42, 0.8);
+      box-shadow: 
+        0 6px 0 #060911,
+        0 10px 20px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .cat-btn-3d:hover {
+      transform: translateY(-3px) rotateX(6deg);
+      color: #ffffff;
+      box-shadow: 
+        0 9px 0 #060911,
+        0 16px 26px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(251, 191, 36, 0.35);
+    }
+
+    .cat-btn-3d:active {
+      transform: translateY(4px);
+      box-shadow: 
+        0 2px 0 #060911,
+        0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Estado Activo 3D (Oro Metálico Elevado) */
+    .cat-btn-3d.active-3d {
+      background: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
+      color: #070b14;
+      font-weight: 800;
+      border-top: 1px solid rgba(255, 255, 255, 0.65);
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 
+        0 7px 0 #92400e,
+        0 14px 28px rgba(245, 158, 11, 0.4),
+        inset 0 2px 2px rgba(255, 255, 255, 0.45);
+    }
+
+    /* Tarjeta de Producto con Elevación 3D */
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      box-shadow: 
+        0 10px 25px -5px rgba(15, 23, 42, 0.08),
+        0 8px 0 -2px #e2e8f0,
+        0 15px 35px -10px rgba(15, 23, 42, 0.12);
+    }
+
+    .card-3d:hover {
+      transform: translateY(-8px) rotateX(2deg);
+      box-shadow: 
+        0 20px 38px -10px rgba(15, 23, 42, 0.22),
+        0 10px 0 -2px #f59e0b,
+        0 25px 50px -12px rgba(245, 158, 11, 0.25);
+    }
+
+    /* Botón de Compra 3D */
+    .cta-3d {
+      background: linear-gradient(145deg, #1e293b 0%, #090d16 100%);
+      box-shadow: 0 5px 0 #020617, 0 8px 15px rgba(0,0,0,0.3);
+      transition: all 0.2s ease;
+    }
+    .cta-3d:hover {
+      background: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
+      color: #070b14;
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #92400e, 0 12px 20px rgba(245, 158, 11, 0.35);
+    }
+    .cta-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #020617;
+    }
+
+    /* Ocultar barra de scroll fea en móviles manteniendo deslizamiento táctil */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
 
   <!-- ================= ENCABEZADO DE LA TIENDA ================= -->
-  <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-lg">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
+  <header class="bg-[#070b14] text-white sticky top-0 z-40 shadow-2xl border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-slate-900 font-black text-xl shadow">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-[0_4px_0_#92400e]">
           S+
         </div>
         <div>
-          <h1 class="text-xl font-extrabold tracking-tight text-white">Shefa-plus-global-shop</h1>
-          <p class="text-xs text-amber-400">Catálogo Global &bull; Conectado con CJdropshipping</p>
+          <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white">Shefa Plus Global</h1>
+          <p class="text-[11px] text-amber-400 font-medium">Tienda Oficial &bull; Garantía y Cobertura en Colombia</p>
         </div>
       </div>
 
       <!-- Buscador Rápido -->
-      <div class="flex-1 max-w-md mx-4">
+      <div class="flex-1 max-w-md mx-2">
         <div class="relative">
           <input 
             id="buscadorInput" 
             type="text" 
-            onkeyup="filtrarTarjetas()" 
-            placeholder="Buscar producto en el catálogo..." 
-            class="w-full bg-slate-800 text-sm text-white rounded-xl pl-10 pr-4 py-2.5 border border-slate-700 focus:outline-none focus:border-amber-400"
+            oninput="filtrarCatalogo()" 
+            placeholder="¿Qué producto estás buscando hoy?..." 
+            class="w-full bg-slate-900/95 text-sm text-white rounded-xl pl-10 pr-4 py-2.5 border border-slate-700/80 shadow-inner focus:outline-none focus:border-amber-400 transition"
           />
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-amber-400 text-sm"></i>
         </div>
       </div>
 
-      <!-- Botones de API y Carrito -->
+      <!-- Botón del Carrito 3D -->
       <div class="flex items-center gap-3">
         <button 
-          onclick="toggleModalAPI()" 
-          class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-semibold px-3.5 py-2.5 rounded-xl flex items-center gap-2 transition"
-        >
-          <i class="fa-solid fa-plug text-amber-400"></i>
-          <span>Conexión CJ API</span>
-        </button>
-
-        <button 
           onclick="toggleCarrito()" 
-          class="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow transition"
+          class="bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-extrabold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-[0_4px_0_#92400e] active:translate-y-1 active:shadow-none transition"
         >
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span>Carrito</span>
-          <span id="contadorCarrito" class="bg-slate-900 text-white text-xs px-2 py-0.5 rounded-full">0</span>
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Mi Pedido</span>
+          <span id="contadorCarrito" class="bg-slate-950 text-amber-400 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
         </button>
       </div>
     </div>
   </header>
 
   <!-- ================= BANNER PRINCIPAL ================= -->
-  <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-amber-900 text-white py-10 px-4">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+  <section class="bg-gradient-to-r from-[#070b14] via-[#0f172a] to-amber-950 text-white pt-9 pb-14 px-4 border-b border-amber-500/20 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
       <div>
-        <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3 py-1 rounded-full uppercase">
-          Tienda Oficial Internacional
+        <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5">
+          <i class="fa-solid fa-cube text-amber-400"></i> Experiencia de Compra 3D
         </span>
-        <h2 class="text-3xl md:text-4xl font-extrabold mt-3">Bienvenido a Shefa-plus-global-shop</h2>
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-3 leading-tight">
+          Tecnología y Tendencia Global en tus Manos
+        </h2>
         <p class="text-slate-300 text-sm md:text-base mt-2 max-w-xl">
-          Productos seleccionados de importación directa con garantía y envío global.
+          Artículos seleccionados bajo control de calidad, precios en pesos colombianos y despacho seguro hasta la puerta de tu casa.
         </p>
       </div>
-      <div class="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-xs space-y-1">
-        <div class="font-bold text-amber-300 flex items-center gap-2">
-          <i class="fa-solid fa-circle-check"></i> Estado del Catálogo
+
+      <!-- Sello de Confianza Neuroventas -->
+      <div class="bg-slate-900/75 backdrop-blur-md border border-amber-400/30 rounded-2xl p-4 text-xs space-y-2 min-w-[265px] shadow-2xl">
+        <div class="font-bold text-amber-400 flex items-center gap-2 text-sm">
+          <i class="fa-solid fa-shield-halved"></i> Compra 100% Protegida
         </div>
-        <p class="text-slate-200">ID Principal Activo: <code class="text-amber-300">1592715415925567488</code></p>
-        <p id="estadoApiTexto" class="text-slate-300">Modo: Catálogo Híbrido (Manual + API)</p>
+        <p class="text-slate-200 flex items-center gap-2">
+          <i class="fa-solid fa-check text-emerald-400"></i> Precios finales en COP sin cobros ocultos
+        </p>
+        <p class="text-slate-200 flex items-center gap-2">
+          <i class="fa-solid fa-truck-fast text-amber-400"></i> Despachos a toda Colombia
+        </p>
+        <p class="text-slate-200 flex items-center gap-2">
+          <i class="fa-brands fa-whatsapp text-emerald-400"></i> Atención y soporte personalizado
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- ================= CATÁLOGO DE PRODUCTOS (ZONA DE TARJETAS) ================= -->
-  <main class="max-w-7xl mx-auto px-4 py-10 flex-1 w-full">
-    <div class="flex items-center justify-between mb-6">
-      <h3 class="text-xl font-bold text-slate-800">Nuestros Productos</h3>
-      <span class="text-xs text-slate-500">Agrega nuevas tarjetas manualmente en el código debajo del Producto #1</span>
+  <!-- ================= BARRA DE CATEGORÍAS 3D (POR ENCIMA DEL CATÁLOGO) ================= -->
+  <section class="max-w-7xl mx-auto px-4 -mt-8 relative z-30 w-full scene-3d">
+    <div class="bg-gradient-to-r from-[#0b1120] via-[#131d31] to-[#0b1120] p-4 md:p-5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/70">
+      <div class="flex items-center justify-between mb-3 px-1">
+        <span class="text-[11px] font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
+          <i class="fa-solid fa-layer-group"></i> Explora por Categoría
+        </span>
+        <span id="contadorProductos" class="text-[11px] font-bold text-slate-300 bg-slate-800/90 px-3 py-1 rounded-full border border-slate-700">
+          Cargando...
+        </span>
+      </div>
+
+      <!-- Contenedor Dinámico de Botones 3D -->
+      <div id="barraCategorias3D" class="flex items-center gap-3.5 overflow-x-auto no-scrollbar py-2.5 px-1">
+        <!-- JavaScript inyecta aquí los botones 3D automáticamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ZONA DE CATÁLOGO DINÁMICO ================= -->
+  <main class="max-w-7xl mx-auto px-4 py-9 flex-1 w-full scene-3d">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+      <div>
+        <h3 id="tituloCategoriaActiva" class="text-2xl font-extrabold text-slate-900">Todos los Productos</h3>
+        <p class="text-xs text-slate-500 mt-0.5">
+          Toca <span class="font-bold text-slate-700">Foto</span> o <span class="font-bold text-amber-600">▶ Video</span> dentro de cada tarjeta para ver el producto en acción
+        </p>
+      </div>
     </div>
 
-    <!-- CONTENEDOR DE TARJETAS -->
-    <div id="contenedorProductos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- =====================================================================
-           INICIO TARJETA PRODUCTO #1 (ID CJ: 1592715415925567488)
-           ===================================================================== -->
-      <article 
-        class="tarjeta-producto bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition"
-        data-pid="1592715415925567488"
-      >
-        <div>
-          <div class="relative h-64 bg-slate-100 overflow-hidden">
-            <img 
-              id="img-1592715415925567488"
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80" 
-              alt="Producto Destacado CJ 1592715415925567488" 
-              class="w-full h-full object-cover hover:scale-105 transition duration-300"
-            />
-            <span class="absolute top-3 left-3 bg-slate-900/80 text-amber-400 text-[11px] font-bold px-2.5 py-1 rounded-lg">
-              CJ ID: 1592715415925567488
-            </span>
-          </div>
-
-          <div class="p-5">
-            <span class="text-xs font-semibold uppercase tracking-wider text-amber-600">
-              Importación Global
-            </span>
-            <h4 id="titulo-1592715415925567488" class="text-lg font-bold text-slate-900 mt-1 line-clamp-2">
-              Producto Exclusivo Shefa Plus #1 (Edita aquí el nombre)
-            </h4>
-            <p id="desc-1592715415925567488" class="text-sm text-slate-500 mt-2 line-clamp-3">
-              Artículo importado conectado al catálogo de CJdropshipping. Puedes sincronizar sus datos con tu API Key o personalizar este texto manualmente.
-            </p>
-          </div>
-        </div>
-
-        <div class="px-5 pb-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-          <div>
-            <span class="text-xs text-slate-400 block">Precio de Venta</span>
-            <span id="precio-1592715415925567488" class="text-2xl font-extrabold text-slate-900">$29.99</span>
-            <span class="text-xs text-slate-500">USD</span>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <a 
-              href="https://www.cjdropshipping.com/product/-p-1592715415925567488.html" 
-              target="_blank" 
-              title="Ver referencia en CJdropshipping"
-              class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm transition"
-            >
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-            <button 
-              onclick="agregarAlCarrito('1592715415925567488', document.getElementById('titulo-1592715415925567488').innerText, 29.99)"
-              class="bg-slate-900 hover:bg-amber-500 hover:text-slate-900 text-white font-bold text-sm px-4 py-2.5 rounded-xl transition flex items-center gap-2"
-            >
-              <i class="fa-solid fa-plus"></i> Agregar
-            </button>
-          </div>
-        </div>
-      </article>
-      <!-- =====================================================================
-           FIN TARJETA PRODUCTO #1
-           ===================================================================== -->
-
-
-      <!-- 👇👇👇 PEGA AQUÍ DEBAJO LAS TARJETAS DE LOS DEMÁS PRODUCTOS 👇👇👇 -->
-
-
-
-      <!-- 👆👆👆 FIN DE LA ZONA DE TARJETAS MANUALES 👆👆👆 -->
-
+    <!-- CONTENEDOR AUTOMÁTICO DE TARJETAS 3D -->
+    <div id="contenedorProductos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- JavaScript genera todas las tarjetas automáticamente aquí -->
     </div>
   </main>
 
-  <!-- ================= MODAL DE CONEXIÓN API CJDROPSHIPPING ================= -->
-  <div id="modalAPI" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+  <!-- ================= MODAL DEL CARRITO EN COP ================= -->
+  <div id="modalCarrito" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
       <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-key text-amber-500"></i> Conectar API Key de CJdropshipping
+        <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-bag-shopping text-amber-500"></i> Resumen de tu Pedido
         </h3>
-        <button onclick="toggleModalAPI()" class="text-slate-400 hover:text-slate-600">
+        <button onclick="toggleCarrito()" class="text-slate-400 hover:text-slate-700">
           <i class="fa-solid fa-xmark text-xl"></i>
         </button>
       </div>
 
-      <div class="space-y-3 text-sm">
-        <div>
-          <label class="font-semibold text-slate-700 block mb-1">1. Tu API Key o Access Token de CJ:</label>
-          <input 
-            id="cjApiKeyInput" 
-            type="password" 
-            placeholder="Pega aquí tu API Key o Access Token..." 
-            class="w-full border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-amber-500"
-          />
-        </div>
+      <div id="listaCarrito" class="space-y-2.5 max-h-64 overflow-y-auto text-sm text-slate-600">
+        Tu carrito está vacío.
+      </div>
 
-        <div>
-          <label class="font-semibold text-slate-700 block mb-1">2. Enlace o ID del Producto CJ a sincronizar:</label>
-          <input 
-            id="cjProductUrlInput" 
-            type="text" 
-            value="https://www.cjdropshipping.com/product/-p-1592715415925567488.html" 
-            class="w-full border border-slate-300 rounded-xl px-3.5 py-2 text-sm focus:outline-none focus:border-amber-500"
-          />
+      <div class="border-t pt-3 space-y-3">
+        <div class="flex items-center justify-between font-extrabold text-lg text-slate-900">
+          <span>Total a Pagar:</span>
+          <span id="totalCarrito" class="text-emerald-700">$ 0 COP</span>
         </div>
 
         <button 
-          onclick="sincronizarProductoCJ()" 
-          class="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-2.5 rounded-xl shadow transition"
+          onclick="finalizarPorWhatsApp()" 
+          class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3.5 rounded-xl shadow-[0_5px_0_#065f46] active:translate-y-1 active:shadow-none transition flex items-center justify-center gap-2 text-sm"
         >
-          Sincronizar Datos del Producto
+          <i class="fa-brands fa-whatsapp text-lg"></i> Confirmar Pedido por WhatsApp
         </button>
-
-        <div id="resultadoAPI" class="bg-slate-100 rounded-xl p-3 text-xs text-slate-600 hidden whitespace-pre-wrap"></div>
       </div>
     </div>
   </div>
 
-  <!-- ================= MODAL DEL CARRITO ================= -->
-  <div id="modalCarrito" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="font-bold text-lg">Tu Carrito — Shefa-plus-global-shop</h3>
-        <button onclick="toggleCarrito()" class="text-slate-400 hover:text-slate-600">
-          <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
-      </div>
-      <div id="listaCarrito" class="space-y-2 max-h-60 overflow-y-auto text-sm text-slate-600">
-        Tu carrito está vacío.
-      </div>
-      <div class="border-t pt-3 flex items-center justify-between font-bold text-base">
-        <span>Total:</span>
-        <span id="totalCarrito">$0.00 USD</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= LÓGICA JAVASCRIPT (API CJ + CARRITO + BUSCADOR) ================= -->
+  <!-- ================= MOTOR DE CATÁLOGO 3D, NEURODISEÑO Y PRECIOS COP ================= -->
   <script>
+    // Formateador oficial de Pesos Colombianos (COP)
+    const formatoCOP = new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      maximumFractionDigits: 0
+    });
+
+    // Íconos automáticos para tus categorías
+    const iconosCategoria = {
+      "Todos": "fa-border-all",
+      "Tecnología Wearable": "fa-clock",
+      "Audio de Alta Fidelidad": "fa-headphones",
+      "Hogar Inteligente": "fa-house-signal",
+      "Accesorios": "fa-bolt"
+    };
+
+    // =========================================================================
+    // 👇 AGREGA AQUÍ TODOS TUS PRODUCTOS (CON IMÁGENES Y VIDEOS) 👇
+    // =========================================================================
+    const catalogoProductos = [
+      {
+        ref: "SP-001",
+        categoria: "Tecnología Wearable",
+        etiquetaNeuro: "🔥 Más Vendido",
+        nombre: "Smartwatch Ultra Series Pro Titanio",
+        beneficioClave: "Monitoreo inteligente de salud 24/7, notificaciones al instante y batería de larga duración con sellado impermeable IP68.",
+        precioAntesCOP: 199900,
+        precioVentaCOP: 129900,
+        calificacion: "4.9",
+        ventasVerificadas: 142,
+        stockDisponible: 5,
+        imagenes: [
+          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80"
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4"
+      },
+      {
+        ref: "SP-002",
+        categoria: "Audio de Alta Fidelidad",
+        etiquetaNeuro: "⚡ Envío Prioritario",
+        nombre: "Auriculares Inalámbricos Pro Cancelación de Ruido",
+        beneficioClave: "Aísla el ruido exterior al instante, bajos profundos con tecnología acústica envolvente y estuche de carga rápida.",
+        precioAntesCOP: 159900,
+        precioVentaCOP: 98900,
+        calificacion: "4.8",
+        ventasVerificadas: 98,
+        stockDisponible: 3,
+        imagenes: [
+          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80"
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4"
+      },
+      {
+        ref: "SP-003",
+        categoria: "Hogar Inteligente",
+        etiquetaNeuro: "💎 Edición Limitada",
+        nombre: "Proyector Portátil Smart Cinema Full HD",
+        beneficioClave: "Transforma cualquier pared en una pantalla de cine de hasta 120 pulgadas con conexión directa desde tu celular.",
+        precioAntesCOP: 380000,
+        precioVentaCOP: 249900,
+        calificacion: "5.0",
+        ventasVerificadas: 64,
+        stockDisponible: 4,
+        imagenes: [
+          "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
+        ],
+        video: ""
+      }
+    ];
+
+    let categoriaSeleccionada = "Todos";
     let carrito = [];
 
-    // Extrae el PID automáticamente de cualquier enlace de CJdropshipping
-    function extraerPID(texto) {
-      const match = texto.match(/-p-([a-zA-Z0-9-]+)\.html/);
-      return match ? match[1] : texto.trim();
+    // Genera automáticamente los botones 3D de Categorías según tus productos
+    function renderizarBarraCategorias3D() {
+      const contenedorCat = document.getElementById('barraCategorias3D');
+      const categoriasUnicas = ["Todos", ...new Set(catalogoProductos.map(p => p.categoria))];
+
+      contenedorCat.innerHTML = categoriasUnicas.map(cat => {
+        const cantidad = cat === "Todos" 
+          ? catalogoProductos.length 
+          : catalogoProductos.filter(p => p.categoria === cat).length;
+
+        const icono = iconosCategoria[cat] || "fa-star";
+        const esActiva = cat === categoriaSeleccionada ? "active-3d" : "";
+
+        return `
+          <button 
+            onclick="seleccionarCategoria3D('${cat}')"
+            class="cat-btn-3d ${esActiva} px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap flex items-center gap-2.5 select-none"
+          >
+            <i class="fa-solid ${icono} text-sm"></i>
+            <span>${cat}</span>
+            <span class="px-2 py-0.5 rounded-full text-[10px] ${cat === categoriaSeleccionada ? 'bg-slate-950 text-amber-400 font-black' : 'bg-slate-950/60 text-amber-400'}">
+              ${cantidad}
+            </span>
+          </button>
+        `;
+      }).join('');
     }
 
-    // Abre o cierra el panel de API
-    function toggleModalAPI() {
-      const modal = document.getElementById('modalAPI');
-      modal.classList.toggle('hidden');
-      modal.classList.toggle('flex');
+    // Cambia la categoría activa con efecto 3D y filtra el catálogo
+    function seleccionarCategoria3D(categoria) {
+      categoriaSeleccionada = categoria;
+      document.getElementById('tituloCategoriaActiva').innerText = 
+        categoria === "Todos" ? "Todos los Productos" : categoria;
+      renderizarBarraCategorias3D();
+      filtrarCatalogo();
+    }
+
+    // Dibuja todas las tarjetas con estructura 3D y Neuroventas
+    function renderizarProductos(lista) {
+      const contenedor = document.getElementById('contenedorProductos');
+      const contador = document.getElementById('contadorProductos');
+      contenedor.innerHTML = '';
+      contador.innerText = `${lista.length} ${lista.length === 1 ? 'producto disponible' : 'productos disponibles'}`;
+
+      if (lista.length === 0) {
+        contenedor.innerHTML = `
+          <div class="col-span-full bg-white rounded-3xl p-10 text-center border border-slate-200 shadow-sm">
+            <i class="fa-solid fa-box-open text-4xl text-amber-500 mb-3"></i>
+            <h4 class="text-lg font-extrabold text-slate-800">No encontramos productos con ese criterio</h4>
+            <p class="text-xs text-slate-500 mt-1">Prueba seleccionando la categoría "Todos" o buscando otra palabra.</p>
+          </div>
+        `;
+        return;
+      }
+
+      lista.forEach((prod, index) => {
+        const ahorroPorcentaje = Math.round(((prod.precioAntesCOP - prod.precioVentaCOP) / prod.precioAntesCOP) * 100);
+        const ahorroDinero = prod.precioAntesCOP - prod.precioVentaCOP;
+
+        // Botones para alternar entre Fotos y Video
+        let controlesMultimedia = '';
+        prod.imagenes.forEach((imgUrl, i) => {
+          controlesMultimedia += `
+            <button 
+              onclick="cambiarMultimedia(${index}, 'img', '${imgUrl}', this)" 
+              class="btn-media-${index} ${i === 0 ? 'bg-amber-400 text-slate-950 font-extrabold shadow' : 'bg-slate-900/80 text-white hover:bg-slate-800'} text-[11px] px-2.5 py-1 rounded-full backdrop-blur-sm transition"
+            >
+              Foto ${i + 1}
+            </button>
+          `;
+        });
+
+        if (prod.video && prod.video.trim() !== '') {
+          controlesMultimedia += `
+            <button 
+              onclick="cambiarMultimedia(${index}, 'video', '${prod.video}', this)" 
+              class="btn-media-${index} bg-slate-900/90 text-amber-400 hover:bg-amber-400 hover:text-slate-950 font-bold text-[11px] px-3 py-1 rounded-full backdrop-blur-sm transition flex items-center gap-1"
+            >
+              <i class="fa-solid fa-play text-[9px]"></i> Video
+            </button>
+          `;
+        }
+
+        const tarjetaHTML = `
+          <article class="card-3d rounded-3xl border border-slate-200/90 overflow-hidden flex flex-col justify-between">
+            
+            <!-- ZONA SUPERIOR: MULTIMEDIA (FOTOS + VIDEO) -->
+            <div>
+              <div class="relative h-72 bg-slate-950 overflow-hidden">
+                <div id="visor-media-${index}" class="w-full h-full">
+                  <img 
+                    src="${prod.imagenes[0]}" 
+                    alt="${prod.nombre}" 
+                    class="w-full h-full object-cover hover:scale-105 transition duration-500"
+                    loading="lazy"
+                  />
+                </div>
+
+                <!-- Etiqueta Neuroventas 3D -->
+                <span class="absolute top-3.5 left-3.5 bg-slate-950/90 text-amber-400 border border-amber-400/40 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
+                  ${prod.etiquetaNeuro}
+                </span>
+
+                <!-- Descuento 3D -->
+                <span class="absolute top-3.5 right-3.5 bg-gradient-to-b from-rose-500 to-rose-700 text-white text-xs font-black px-2.5 py-1 rounded-xl shadow-[0_4px_0_#881337]">
+                  -${ahorroPorcentaje}% HOY
+                </span>
+
+                <!-- Selector Interactivo de Fotos y Video -->
+                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-slate-950/75 p-1.5 rounded-full border border-white/15 shadow-lg">
+                  ${controlesMultimedia}
+                </div>
+              </div>
+
+              <!-- ZONA CENTRAL: PRUEBA SOCIAL Y BENEFICIO -->
+              <div class="p-5">
+                <div class="flex items-center justify-between text-xs mb-1.5">
+                  <span onclick="seleccionarCategoria3D('${prod.categoria}')" class="cursor-pointer font-extrabold uppercase tracking-wider text-amber-600 hover:underline">
+                    ${prod.categoria}
+                  </span>
+                  <span class="text-slate-700 font-bold flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
+                    <i class="fa-solid fa-star text-amber-400"></i> ${prod.calificacion} 
+                    <span class="text-slate-400">(${prod.ventasVerificadas})</span>
+                  </span>
+                </div>
+
+                <h4 class="text-lg font-extrabold text-slate-900 leading-snug line-clamp-2">
+                  ${prod.nombre}
+                </h4>
+
+                <p class="text-sm text-slate-600 mt-2 leading-relaxed line-clamp-3">
+                  ${prod.beneficioClave}
+                </p>
+
+                <!-- Gatillo de Escasez -->
+                <div class="mt-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 rounded-xl px-3 py-2 flex items-center justify-between text-xs shadow-inner">
+                  <span class="text-amber-950 font-bold flex items-center gap-1.5">
+                    <i class="fa-solid fa-fire text-amber-500"></i> ¡Alta demanda!
+                  </span>
+                  <span class="font-extrabold text-rose-600">Quedan ${prod.stockDisponible} und.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ZONA INFERIOR: ANCLAJE DE PRECIO EN COP + BOTÓN 3D -->
+            <div class="px-5 pb-5 pt-3.5 border-t border-slate-200/70 bg-slate-50/70 flex items-center justify-between gap-2">
+              <div>
+                <span class="text-xs text-slate-400 line-through block font-semibold">
+                  Antes: ${formatoCOP.format(prod.precioAntesCOP)}
+                </span>
+                <div class="flex items-baseline gap-1">
+                  <span class="text-2xl font-black text-slate-950">${formatoCOP.format(prod.precioVentaCOP)}</span>
+                  <span class="text-[11px] font-extrabold text-slate-500">COP</span>
+                </div>
+                <span class="text-[11px] text-emerald-600 font-extrabold block">
+                  Ahorras ${formatoCOP.format(ahorroDinero)}
+                </span>
+              </div>
+
+              <button 
+                onclick="agregarAlCarrito('${prod.ref}', '${prod.nombre.replace(/'/g, "\\'")}', ${prod.precioVentaCOP})"
+                class="cta-3d text-amber-400 font-extrabold text-sm px-4 py-3 rounded-xl flex items-center gap-2"
+              >
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Lo Quiero</span>
+              </button>
+            </div>
+
+          </article>
+        `;
+
+        contenedor.insertAdjacentHTML('beforeend', tarjetaHTML);
+      });
+    }
+
+    // Cambia entre Foto y Video dentro de la tarjeta
+    function cambiarMultimedia(index, tipo, url, botonClickeado) {
+      const visor = document.getElementById(`visor-media-${index}`);
+      const botones = document.querySelectorAll(`.btn-media-${index}`);
+
+      botones.forEach(btn => {
+        btn.classList.remove('bg-amber-400', 'text-slate-950', 'font-extrabold', 'shadow');
+        btn.classList.add('bg-slate-900/80', 'text-white');
+      });
+      botonClickeado.classList.remove('bg-slate-900/80', 'text-white');
+      botonClickeado.classList.add('bg-amber-400', 'text-slate-950', 'font-extrabold', 'shadow');
+
+      if (tipo === 'video') {
+        visor.innerHTML = `
+          <video 
+            src="${url}" 
+            controls 
+            autoplay 
+            playsinline 
+            class="w-full h-full object-cover bg-black"
+          ></video>
+        `;
+      } else {
+        visor.innerHTML = `
+          <img 
+            src="${url}" 
+            class="w-full h-full object-cover hover:scale-105 transition duration-500"
+          />
+        `;
+      }
+    }
+
+    // Filtra combinando la Categoría 3D activa + el texto del buscador
+    function filtrarCatalogo() {
+      const texto = document.getElementById('buscadorInput').value.toLowerCase();
+      const filtrados = catalogoProductos.filter(p => {
+        const coincideCategoria = categoriaSeleccionada === "Todos" || p.categoria === categoriaSeleccionada;
+        const coincideTexto = 
+          p.nombre.toLowerCase().includes(texto) ||
+          p.beneficioClave.toLowerCase().includes(texto) ||
+          p.categoria.toLowerCase().includes(texto) ||
+          p.ref.toLowerCase().includes(texto);
+        return coincideCategoria && coincideTexto;
+      });
+      renderizarProductos(filtrados);
     }
 
     // Abre o cierra el carrito
@@ -250,98 +557,71 @@
       modal.classList.toggle('flex');
     }
 
-    // Filtra tarjetas por nombre o ID
-    function filtrarTarjetas() {
-      const filtro = document.getElementById('buscadorInput').value.toLowerCase();
-      const tarjetas = document.querySelectorAll('.tarjeta-producto');
-      tarjetas.forEach(tarjeta => {
-        const texto = tarjeta.innerText.toLowerCase();
-        tarjeta.style.display = texto.includes(filtro) ? '' : 'none';
-      });
-    }
-
     // Agrega productos al carrito
-    function agregarAlCarrito(pid, nombre, precio) {
-      carrito.push({ pid, nombre, precio });
+    function agregarAlCarrito(ref, nombre, precioCOP) {
+      carrito.push({ ref, nombre, precioCOP });
       document.getElementById('contadorCarrito').innerText = carrito.length;
       renderizarCarrito();
     }
 
+    // Elimina un producto del carrito
+    function eliminarDelCarrito(indice) {
+      carrito.splice(indice, 1);
+      document.getElementById('contadorCarrito').innerText = carrito.length;
+      renderizarCarrito();
+    }
+
+    // Muestra el listado en COP dentro del modal
     function renderizarCarrito() {
       const contenedor = document.getElementById('listaCarrito');
       if (carrito.length === 0) {
         contenedor.innerHTML = 'Tu carrito está vacío.';
-        document.getElementById('totalCarrito').innerText = '$0.00 USD';
+        document.getElementById('totalCarrito').innerText = '$ 0 COP';
+        return;
+      }
+
+      let total = 0;
+      contenedor.innerHTML = carrito.map((item, idx) => {
+        total += item.precioCOP;
+        return `
+          <div class="flex justify-between items-center bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl">
+            <div class="pr-2">
+              <p class="font-bold text-slate-900 text-xs">${item.nombre}</p>
+              <p class="text-[11px] text-slate-400">Ref: ${item.ref}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-slate-900 text-xs whitespace-nowrap">${formatoCOP.format(item.precioCOP)}</span>
+              <button onclick="eliminarDelCarrito(${idx})" class="text-rose-500 hover:text-rose-700 text-xs p-1">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('totalCarrito').innerText = `${formatoCOP.format(total)} COP`;
+    }
+
+    // Envía el pedido listo en COP a WhatsApp Business
+    function finalizarPorWhatsApp() {
+      if (carrito.length === 0) {
+        alert("Agrega al menos un producto antes de confirmar tu pedido.");
         return;
       }
       let total = 0;
-      contenedor.innerHTML = carrito.map((item, index) => {
-        total += item.precio;
-        return `<div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
-                  <div>
-                    <p class="font-semibold text-slate-800">${item.nombre}</p>
-                    <p class="text-xs text-slate-400">ID: ${item.pid}</p>
-                  </div>
-                  <span class="font-bold text-slate-900">$${item.precio.toFixed(2)}</span>
-                </div>`;
-      }).join('');
-      document.getElementById('totalCarrito').innerText = `$${total.toFixed(2)} USD`;
+      const lineas = carrito.map(item => {
+        total += item.precioCOP;
+        return `• ${item.nombre} (${item.ref}): ${formatoCOP.format(item.precioCOP)} COP`;
+      }).join('%0A');
+
+      const mensaje = `Hola *Shefa Plus Global*, quiero realizar este pedido:%0A%0A${lineas}%0A%0A*Total a pagar: ${formatoCOP.format(total)} COP*`;
+      // 👇 Reemplaza 573000000000 por tu número de WhatsApp en Colombia
+      window.open(`https://wa.me/573000000000?text=${mensaje}`, '_blank');
     }
 
-    // Consulta la API v2.0 de CJdropshipping con el PID extraído
-    async function sincronizarProductoCJ() {
-      const apiKeyOrToken = document.getElementById('cjApiKeyInput').value.trim();
-      const urlOrId = document.getElementById('cjProductUrlInput').value.trim();
-      const pid = extraerPID(urlOrId);
-      const cajaResultado = document.getElementById('resultadoAPI');
-
-      cajaResultado.classList.remove('hidden');
-      cajaResultado.innerText = `Consultando producto PID: ${pid} en CJdropshipping...`;
-
-      if (!apiKeyOrToken) {
-        cajaResultado.innerText = "⚠️ Por favor ingresa tu API Key o Access Token de CJdropshipping.";
-        return;
-      }
-
-      try {
-        // Paso A: Intentar obtener Access Token si el usuario pegó su API Key
-        let token = apiKeyOrToken;
-        if (apiKeyOrToken.includes('@api@')) {
-          const authRes = await fetch('https://developers.cjdropshipping.com/api2.0/v1/authentication/getAccessToken', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ apiKey: apiKeyOrToken })
-          });
-          const authData = await authRes.json();
-          if (authData.result && authData.data && authData.data.accessToken) {
-            token = authData.data.accessToken;
-          }
-        }
-
-        // Paso B: Consultar el producto por su PID
-        const prodRes = await fetch(`https://developers.cjdropshipping.com/api2.0/v1/product/query?pid=${pid}`, {
-          method: 'GET',
-          headers: { 'CJ-Access-Token': token }
-        });
-        const prodData = await prodRes.json();
-
-        if (prodData.result && prodData.data) {
-          const p = prodData.data;
-          // Si existe la tarjeta en el DOM, la actualiza automáticamente
-          if (document.getElementById(`titulo-${pid}`)) {
-            document.getElementById(`titulo-${pid}`).innerText = p.productNameEn || 'Producto CJ';
-            document.getElementById(`img-${pid}`).src = p.productImage || '';
-            document.getElementById(`precio-${pid}`).innerText = `$${p.sellPrice || '29.99'}`;
-          }
-          document.getElementById('estadoApiTexto').innerText = "Modo: Conectado a CJ API ✅";
-          cajaResultado.innerText = `✅ ¡Sincronizado con éxito!\nNombre: ${p.productNameEn}\nCosto CJ: $${p.sellPrice} USD\nImagen URL: ${p.productImage}`;
-        } else {
-          cajaResultado.innerText = `⚠️ Respuesta de CJ API: ${prodData.message || 'Verifica tu token o el ID del producto.'}`;
-        }
-      } catch (error) {
-        cajaResultado.innerText = `ℹ️ Nota técnica: El navegador bloqueó la petición directa por políticas CORS de CJdropshipping o red. ¡No hay problema! Puedes usar la plantilla manual del Paso 4 para pegar los datos de tus tarjetas directamente.`;
-      }
-    }
+    // Inicializar Barra 3D y Catálogo al cargar la página
+    renderizarBarraCategorias3D();
+    renderizarProductos(catalogoProductos);
   </script>
 </body>
-  </html>
+</html>
