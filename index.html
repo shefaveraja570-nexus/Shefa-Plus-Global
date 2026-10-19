@@ -1177,8 +1177,9 @@
     precio: 129900,
     moneda: "COP",
     stockDisponible: 5,
-    tipoGeometria3D: "smartwatch",
+    tipoGeometria3D: "lampara_g",
     fotos: [
+
       "assets/img/foto-cargador1.png",
       "assets/img/foto-cargador2.png",
       "assets/img/foto-cargador3.png",
@@ -1418,7 +1419,51 @@
         base.position.y = -1.1;
         group.add(body, lensRing, lensGlass, base);
       }
+    if (tipo === 'lampara_g') {
+      // Limpiar geometría por defecto si se creó arriba
+      while (group.children.length > 0) {
+        group.remove(group.children[0]);
+      }
 
+      // 1. Base de carga inalámbrica 15W (blanca perlada con borde dorado)
+      const basePlataforma = new THREE.Mesh(
+        new THREE.CylinderGeometry(1.25, 1.35, 0.22, 40),
+        new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.3, roughness: 0.2 })
+      );
+      basePlataforma.position.y = -1.1;
+
+      const padCarga = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.55, 0.55, 0.24, 32),
+        new THREE.MeshStandardMaterial({ color: 0x071a12, metalness: 0.6, roughness: 0.3 })
+      );
+      padCarga.position.set(0, -1.09, 0.35);
+
+      // 2. Aro exterior de la Lámpara en forma de "G"
+      const arcoExterior = new THREE.Mesh(
+        new THREE.TorusGeometry(1.15, 0.16, 24, 64, Math.PI * 1.78),
+        new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.25, roughness: 0.2 })
+      );
+      arcoExterior.rotation.z = Math.PI * 0.12;
+      arcoExterior.position.y = 0.05;
+
+      // 3. Anillo interior LED RGB / Dorado luminoso
+      const aroLuzLed = new THREE.Mesh(
+        new THREE.TorusGeometry(0.97, 0.06, 16, 64, Math.PI * 1.75),
+        new THREE.MeshBasicMaterial({ color: 0xf3d470 })
+      );
+      aroLuzLed.rotation.z = Math.PI * 0.12;
+      aroLuzLed.position.y = 0.05;
+
+      // 4. Barra horizontal de la "G" (Altavoz Bluetooth + Reloj Digital)
+      const barraG = new THREE.Mesh(
+        new THREE.BoxGeometry(0.95, 0.24, 0.32),
+        new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.5, roughness: 0.3 })
+      );
+      barraG.position.set(0.42, 0.05, 0);
+
+      group.add(basePlataforma, padCarga, arcoExterior, aroLuzLed, barraG);
+          }
+                                        
       // Cargar textura de la foto como holograma flotante sobre el producto
       if (texturaImagenUrl) {
         loader.load(texturaImagenUrl, (tex) => {
