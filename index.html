@@ -1000,6 +1000,26 @@
         height: 44px !important;
       }
       }
+    /* ==========================================================================
+   SELLO OFICIAL AUTOMÁTICO SHEFA PLUS GLOBAL EN TODAS LAS TARJETAS
+   ========================================================================== */
+.media-stage::after {
+  content: '';
+  position: absolute;
+  top: 46px;
+  left: 12px;
+  width: 58px;
+  height: 58px;
+  background-image: url('assets/img/logo-shefa.png');
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  border: 2px solid #e5be53;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75), 0 0 12px rgba(229, 190, 83, 0.65);
+  z-index: 5;
+  pointer-events: none;
+}
+    
   </style>
 </head>
 <body>
@@ -1064,7 +1084,7 @@
         </button>
 
         <a
-          href="https://wa.me/573000000000?text=Hola%20Shefa%20Plus%20Global%20Shop,%20quiero%20asesor%C3%ADa%20sobre%20un%20pedido"
+          href="https://wa.me/573204774096?text=Hola%20Shefa%20Plus%20Global%20Shop,%20quiero%20asesor%C3%ADa%20sobre%20un%20pedido"
           target="_blank"
           rel="noopener noreferrer"
           class="btn-whatsapp-circle"
