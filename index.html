@@ -1775,5 +1775,97 @@
     // Inicializar tienda en 3D
     renderizarProductos(catalogoProductos);
   </script>
+  <!-- MODAL PARA TRANSFERENCIA DIRECTA BBVA -->
+<div id="shefa-bbva-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:9999; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px);">
+  <div style="background:linear-gradient(145deg, #071a12, #0d261c); border:1px solid #d4af37; border-radius:16px; max-width:400px; width:100%; padding:22px; color:#fff; font-family:sans-serif; box-shadow:0 15px 35px rgba(0,0,0,0.6);">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(212,175,55,0.25); padding-bottom:12px; margin-bottom:14px;">
+      <strong style="color:#d4af37; font-size:17px;">🏦 Transferencia Directa BBVA</strong>
+      <button onclick="document.getElementById('shefa-bbva-modal').style.display='none'" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
+    </div>
+
+    <div id="shefa-bbva-details" style="font-size:14px; line-height:1.6; background:rgba(0,0,0,0.35); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
+      <!-- Se llena automáticamente desde server.js -->
+    </div>
+
+    <div style="display:flex; gap:10px; margin-top:16px; flex-direction:column;">
+      <button id="btn-copy-bbva" style="background:linear-gradient(90deg, #d4af37, #f3d470); color:#05140d; border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:14px;">
+        📋 Copiar Número de Cuenta BBVA
+      </button>
+      <a id="btn-wa-bbva" href="#" target="_blank" style="background:#1fa855; color:#fff; text-align:center; text-decoration:none; padding:12px; border-radius:10px; font-weight:bold; font-size:14px;">
+        📲 Enviar Comprobante por WhatsApp
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+async function iniciarPagoShefa(metodo, nombreProducto, precioCOP) {
+  try {
+    const response = await fetch('/api/payments/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        paymentMethod: metodo, // 'mercadopago', 'mastercard', 'bbva' o 'bbva_transfer'
+        items: [{
+          title: nombreProducto,
+          price: Number(precioCOP),
+          quantity: 1
+        }]
+      })
+    });
+
+    const res = await response.json();
+    if (!res.success) {
+      alert(res.error?.message || 'No se pudo iniciar el pago.');
+      return;
+    }
+
+    const data = res.data;
+
+    // 1. Si eligió Transferencia Directa BBVA, mostramos los datos bancarios en pantalla
+    if (metodo === 'bbva_transfer' && data.bankInstructions) {
+      const info = data.bankInstructions;
+      const totalFormateado = Number(data.totalCOP).toLocaleString('es-CO');
+
+      document.getElementById('shefa-bbva-details').innerHTML = `
+        <div><strong>Orden:</strong> <span style="color:#d4af37;">${data.orderReference}</span></div>
+        <div><strong>Producto:</strong> ${nombreProducto}</div>
+        <div><strong>Total a transferir:</strong> <span style="color:#4ade80; font-weight:bold;">$${totalFormateado} COP</span></div>
+        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
+        <div><strong>Banco:</strong> ${info.bank}</div>
+        <div><strong>Tipo de cuenta:</strong> ${info.accountType}</div>
+        <div><strong>Número de cuenta:</strong> <span style="color:#d4af37; font-size:16px; font-weight:bold;">${info.accountNumber}</span></div>
+        <div><strong>Titular:</strong> ${info.holderName}</div>
+        ${info.holderDoc ? `<div><strong>Documento/NIT:</strong> ${info.holderDoc}</div>` : ''}
+      `;
+
+      document.getElementById('btn-copy-bbva').onclick = () => {
+        navigator.clipboard.writeText(info.accountNumber);
+        document.getElementById('btn-copy-bbva').textContent = '✅ ¡Número de cuenta copiado!';
+        setTimeout(() => {
+          document.getElementById('btn-copy-bbva').textContent = '📋 Copiar Número de Cuenta BBVA';
+        }, 2500);
+      };
+
+      const mensajeWA = encodeURIComponent(
+        `Hola Shefa Plus Global, acabo de realizar la transferencia a BBVA por el pedido *${data.orderReference}* (${nombreProducto} - $${totalFormateado} COP). Adjunto el comprobante de pago:`
+      );
+      document.getElementById('btn-wa-bbva').href = `https://wa.me/573000000000?text=${mensajeWA}`;
+      document.getElementById('shefa-bbva-modal').style.display = 'flex';
+      return;
+    }
+
+    // 2. Si eligió Mercado Pago, Mastercard o PSE BBVA, redirige a la pasarela oficial
+    if (data.checkoutUrl) {
+      window.location.href = data.checkoutUrl;
+    } else {
+      alert(data.message || 'Configura MP_ACCESS_TOKEN en Render para activar la pasarela.');
+    }
+  } catch (err) {
+    alert('Error conectando con el servidor de pagos.');
+  }
+}
+</script>
+  
 </body>
 </html>
