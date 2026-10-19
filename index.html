@@ -1444,15 +1444,25 @@
       const anteriorMedia = stage.querySelector('img, video, canvas');
       if (anteriorMedia) anteriorMedia.remove();
 
-      if (tipo === 'video') {
+            if (tipo === 'video') {
         const videoEl = document.createElement('video');
         videoEl.src = producto.video;
+        videoEl.muted = true; // Obligatorio en Android para que arranque sin bloquearse
         videoEl.autoplay = true;
         videoEl.loop = true;
         videoEl.controls = true;
         videoEl.playsInline = true;
+        videoEl.setAttribute('playsinline', '');
+        videoEl.setAttribute('webkit-playsinline', '');
+        videoEl.preload = 'auto';
         stage.insertBefore(videoEl, stage.querySelector('.media-switcher'));
+        videoEl.load();
+        videoEl.play().catch(() => {
+          videoEl.muted = true;
+          videoEl.play();
+        });
       } else if (tipo === '3d') {
+              
         const canvas3D = document.createElement('canvas');
         stage.insertBefore(canvas3D, stage.querySelector('.media-switcher'));
 
