@@ -1782,8 +1782,88 @@
       });
     });
 
+        // Función que inyecta el Precio en Pesos Colombianos (COP) y los Botones de Pago 3D en cada tarjeta
+    function inyectarPreciosYBotones3D(lista) {
+      (lista || catalogoProductos).forEach((prod) => {
+        const stage = document.getElementById(`stage-${prod.id}`);
+        if (!stage) return;
+
+        // Asegurar contenedor de tarjeta alrededor del visor 3D/Video
+        let card = stage.closest('.product-card, .card, article');
+        if (!card) {
+          card = document.createElement('div');
+          card.className = 'product-card';
+          card.style.cssText = 'background:linear-gradient(160deg,#071a12,#0b2419); border:1px solid rgba(212,175,55,0.45); border-radius:18px; overflow:hidden; box-shadow:0 14px 30px rgba(0,0,0,0.45); display:flex; flex-direction:column;';
+          stage.parentNode.insertBefore(card, stage);
+          card.appendChild(stage);
+        }
+
+        // Evitar duplicados si se filtra el catálogo
+        const bloquePrevio = card.querySelector('.shefa-box-pago-3d');
+        if (bloquePrevio) bloquePrevio.remove();
+
+        const precioHoy = prod.precioActual || prod.precio || 129900;
+        const precioAntes = prod.precioAnterior || 199900;
+        const nombreSeguro = prod.nombre.replace(/'/g, "\\'");
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'shefa-box-pago-3d';
+        infoDiv.style.cssText = 'padding:14px; background:linear-gradient(180deg,#071a12,#04100b); color:#fff; border-top:1px solid rgba(212,175,55,0.25); font-family:sans-serif;';
+
+        infoDiv.innerHTML = `
+          <div style="font-size:15px; font-weight:800; color:#f8fafc; line-height:1.35; margin-bottom:6px;">
+            ${prod.nombre}
+          </div>
+          <div style="font-size:12px; color:#cbd5e1; line-height:1.45; margin-bottom:12px;">
+            ${prod.descripcion}
+          </div>
+
+          <!-- PRECIO EN PESOS COLOMBIANOS (COP) -->
+          <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.4); border-radius:12px; padding:10px 12px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
+            <div>
+              <span style="font-size:12px; color:#94a3b8; text-decoration:line-through; display:block;">
+                Antes: $${Number(precioAntes).toLocaleString('es-CO')} COP
+              </span>
+              <span style="font-size:20px; font-weight:900; color:#f3d470; letter-spacing:0.3px;">
+                $${Number(precioHoy).toLocaleString('es-CO')} <small style="font-size:12px; color:#4ade80;">COP</small>
+              </span>
+            </div>
+            <span style="background:#064e3b; color:#6ee7b7; border:1px solid #10b981; font-size:11px; font-weight:bold; padding:4px 8px; border-radius:999px;">
+              🇨🇴 Envío Gratis
+            </span>
+          </div>
+
+          <!-- BOTONES DE PAGO EN RELIEVE 3D -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+            <button onclick="iniciarPagoShefa('mercadopago', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(180deg,#00b4ff,#008ad6); color:#fff; border:1px solid #38bdf8; border-bottom:4px solid #005f99; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(0,158,227,0.35); transform:translateY(0); transition:all 0.15s;">
+              🤝 Mercado Pago
+            </button>
+            <button onclick="iniciarPagoShefa('mastercard', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(180deg,#262d40,#141824); color:#f79e1b; border:1px solid #eb001b; border-bottom:4px solid #990012; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(235,0,27,0.28); transform:translateY(0); transition:all 0.15s;">
+              💳 Mastercard
+            </button>
+            <button onclick="iniciarPagoShefa('bbva', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(180deg,#0059a8,#00386b); color:#fff; border:1px solid #3b82f6; border-bottom:4px solid #002244; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(0,68,129,0.4); transform:translateY(0); transition:all 0.15s;">
+              🏦 BBVA PSE / Tarjeta
+            </button>
+            <button onclick="iniciarPagoShefa('bbva_transfer', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(90deg,#d4af37,#f3d470); color:#05140d; border:1px solid #fef08a; border-bottom:4px solid #9a7b1c; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(212,175,55,0.4); transform:translateY(0); transition:all 0.15s;">
+              ⚡ Transferencia BBVA
+            </button>
+          </div>
+        `;
+
+        card.appendChild(infoDiv);
+      });
+    }
+
+    // Conectar al renderizador original para que siempre pinte el precio COP y los botones 3D
+    const _renderOriginal = renderizarProductos;
+    renderizarProductos = function(lista) {
+      _renderOriginal(lista);
+      inyectarPreciosYBotones3D(lista);
+    };
+
     // Inicializar tienda en 3D
     renderizarProductos(catalogoProductos);
+
   </script>
   <!-- MODAL PARA TRANSFERENCIA DIRECTA BBVA -->
 <div id="shefa-bbva-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:9999; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px);">
