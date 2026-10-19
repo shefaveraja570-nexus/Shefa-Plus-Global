@@ -1702,7 +1702,45 @@
       );
       window.open(`https://wa.me/573000000000?text=${mensaje}`, "_blank");
     };
+   window.pagarConPasarela = async function(metodo, productoOId) {
+    // Busca el producto en catalogoProductos si le pasas el ID, o usa el objeto directo
+    const prod = typeof productoOId === 'object'
+      ? productoOId
+      : catalogoProductos.find(p => p.id === productoOId);
 
+    if (!prod) {
+      alert('Producto no encontrado en el catálogo.');
+      return;
+    }
+
+    // Limpia el precio por si viene con signo $ o puntos (ej: "$149.900" -> 149900)
+    const precioLimpio = Number(String(prod.precio).replace(/[^0-9]/g, '')) || 0;
+
+    try {
+      const res = await fetch('/api/payments/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          paymentMethod: metodo, // 'mercadopago', 'mastercard', 'bbva' o 'bbva_transfer'
+          items: [{
+            id: String(prod.id),
+            title: prod.nombre,
+            price: precioLimpio,
+            quantity: 1
+          }]
+        })
+      });
+      const result = await res.json();
+      if (result.success && result.data.checkoutUrl) {
+        window.location.href = result.data.checkoutUrl; // Redirige a la pasarela oficial
+      } else {
+        alert(result.data?.message || result.error?.message || 'Error al iniciar el pago');
+      }
+    } catch (e) {
+      alert('Error de conexión con el servidor de pagos.');
+    }
+  };
+  
     function filtrarCatalogo() {
       const texto = document.getElementById("searchInput").value.toLowerCase().trim();
       const filtrados = catalogoProductos.filter((p) => {
