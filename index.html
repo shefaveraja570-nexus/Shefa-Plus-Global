@@ -3,624 +3,1678 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shefa Plus Global Shop | Tienda Oficial Colombia</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <title>Shefa Plus Global Shop 3D & VR | Tienda Oficial Colombia</title>
+  <meta name="description" content="Experiencia 3D y Realidad Virtual - Shefa Plus Global Shop. Tienda Oficial con Garantía y Cobertura en toda Colombia." />
+
+  <!-- Tipografías: Cinzel (Oro Imperial 3D) + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Motor 3D Three.js para WebGL y Realidad Virtual WebXR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <style>
     :root {
-      --phi: 1.618;
-      --navy-deep: #070b14;
-      --navy-card: #0f172a;
-      --titanium: #334155;
-      --gold-primary: #f59e0b;
-      --gold-bright: #fbbf24;
+      --emerald-deep: #020d08;
+      --emerald-nebula: #0a3823;
+      --gold-light: #fff3c4;
+      --gold-primary: #e5be53;
+      --gold-dark: #9c7018;
+      --gold-gradient: linear-gradient(135deg, #fbe18c 0%, #d4a73f 45%, #b38422 70%, #f9df87 100%);
+      --gold-text-gradient: linear-gradient(180deg, #fff9de 0%, #f2cb63 45%, #b07e19 85%, #f7da82 100%);
+      --body-bg: #eef2f6;
+      --text-dark: #0f172a;
     }
 
-    /* Escenario de Perspectiva 3D */
-    .scene-3d {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 0%, #dce7e1 0%, #eef2f6 60%);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      perspective: 1400px;
+    }
+
+    /* ==========================================================================
+       1. CINTILLO SUPERIOR 3D (TOP BAR)
+       ========================================================================== */
+    .top-announcement-bar {
+      background: linear-gradient(90deg, #020b07 0%, #082619 50%, #020b07 100%);
+      border-bottom: 1px solid rgba(229, 190, 83, 0.35);
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 9px 16px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      position: relative;
+      z-index: 40;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+    }
+
+    .top-announcement-bar .gold-highlight {
+      color: #f6cd5b;
+      font-weight: 800;
+      text-shadow: 0 0 8px rgba(246, 205, 91, 0.4);
+    }
+
+    .top-announcement-bar .dot-sep {
+      color: #e5be53;
+    }
+
+    /* ==========================================================================
+       2. CABECERA MAESTRA 3D (PROFUNDIDAD ESPACIAL Y NEBULOSA WEBGL)
+       ========================================================================== */
+    .master-header {
+      position: relative;
+      background:
+        radial-gradient(circle at 22% 50%, rgba(22, 122, 72, 0.52) 0%, transparent 55%),
+        radial-gradient(circle at 78% 35%, rgba(18, 105, 63, 0.45) 0%, transparent 50%),
+        linear-gradient(180deg, #020e09 0%, #062417 52%, #02100a 100%);
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(2, 16, 10, 0.65);
+      transform-style: preserve-3d;
+    }
+
+    #header-webgl-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .header-space-container {
+      position: relative;
+      z-index: 5;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 48px 32px 44px;
+      display: grid;
+      grid-template-columns: auto minmax(260px, 480px) auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 26px;
+      transform-style: preserve-3d;
+      transition: transform 0.2s ease-out;
+    }
+
+    /* --- LOGO Y TÍTULO CON EXTRUSIÓN 3D --- */
+    .brand-showcase {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      text-decoration: none;
+      transform-style: preserve-3d;
+    }
+
+    .brand-logo-wrapper {
+      position: relative;
+      width: 102px;
+      height: 102px;
+      border-radius: 50%;
+      padding: 3.5px;
+      background: var(--gold-gradient);
+      box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.75),
+        0 0 32px rgba(229, 190, 83, 0.65),
+        0 0 60px rgba(20, 107, 66, 0.85);
+      flex-shrink: 0;
+      transform: translateZ(45px);
+      transition: transform 0.35s ease;
+    }
+
+    .brand-logo-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: -7px;
+      border-radius: 50%;
+      border: 1.5px dashed rgba(249, 223, 135, 0.55);
+      animation: spinHalo 18s linear infinite;
+    }
+
+    @keyframes spinHalo {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .brand-showcase:hover .brand-logo-wrapper {
+      transform: translateZ(65px) rotateY(12deg) scale(1.05);
+    }
+
+    .brand-logo-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      background: #041b11;
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
+      transform: translateZ(35px);
+    }
+
+    /* Efecto de letras fundidas en lingote de oro 3D */
+    .brand-title-main {
+      font-family: 'Cinzel', serif;
+      font-size: 2.35rem;
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: 0.04em;
+      color: #f8de7e;
+      text-transform: uppercase;
+      text-shadow:
+        0 1px 0 #c99c33,
+        0 2px 0 #b58824,
+        0 3px 0 #9c7116,
+        0 4px 0 #7f5a0d,
+        0 6px 12px rgba(0, 0, 0, 0.9),
+        0 0 22px rgba(229, 190, 83, 0.45);
+    }
+
+    .brand-title-sub {
+      font-family: 'Cinzel', serif;
+      font-size: 1.36rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-top: 3px;
+      color: #f3ce62;
+      text-transform: uppercase;
+      text-shadow:
+        0 1px 0 #b58824,
+        0 2px 0 #8f6710,
+        0 4px 10px rgba(0, 0, 0, 0.9);
+    }
+
+    .brand-tagline {
+      margin-top: 7px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #ebd9a4;
+      letter-spacing: 0.02em;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+    }
+
+    /* --- BUSCADOR CÁPSULA FLOTANTE 3D --- */
+    .header-search-box {
+      position: relative;
+      width: 100%;
+      transform: translateZ(40px);
+    }
+
+    .header-search-input {
+      width: 100%;
+      padding: 15px 52px 15px 24px;
+      border-radius: 999px;
+      background: rgba(5, 29, 18, 0.82);
+      border: 1.8px solid rgba(229, 190, 83, 0.85);
+      color: #ffffff;
+      font-size: 0.96rem;
+      font-family: inherit;
+      outline: none;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 12px 26px rgba(0, 0, 0, 0.6),
+        inset 0 2px 8px rgba(0, 0, 0, 0.65),
+        0 0 20px rgba(229, 190, 83, 0.22);
+      transition: all 0.25s ease;
+    }
+
+    .header-search-input::placeholder {
+      color: rgba(240, 228, 192, 0.78);
+    }
+
+    .header-search-input:focus {
+      border-color: #ffe89e;
+      transform: scale(1.02);
+      box-shadow:
+        0 16px 32px rgba(0, 0, 0, 0.7),
+        0 0 28px rgba(229, 190, 83, 0.55);
+    }
+
+    .header-search-btn {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #f3c857;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    /* --- BOTONES DERECHA: VR 3D + MI PEDIDO + WHATSAPP --- */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateZ(45px);
+    }
+
+    .btn-vr-portal {
+      background: linear-gradient(135deg, #0d4a2e 0%, #052315 100%);
+      color: #ffe48f;
+      border: 1.8px solid #e5be53;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow:
+        0 10px 22px rgba(0, 0, 0, 0.65),
+        0 0 18px rgba(20, 107, 66, 0.9),
+        inset 0 1px 1px rgba(255, 255, 255, 0.35);
+      transition: all 0.25s ease;
+      animation: pulseVR 2.8s infinite ease-in-out;
+    }
+
+    @keyframes pulseVR {
+      0%, 100% { box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 14px rgba(229, 190, 83, 0.35); }
+      50% { box-shadow: 0 12px 28px rgba(0,0,0,0.8), 0 0 26px rgba(229, 190, 83, 0.85); }
+    }
+
+    .btn-vr-portal:hover {
+      transform: translateY(-3px) scale(1.04);
+      background: linear-gradient(135deg, #146b42 0%, #093520 100%);
+    }
+
+    .btn-mi-pedido {
+      background: var(--gold-gradient);
+      color: #07140d;
+      border: 1px solid #fff5c0;
+      border-radius: 999px;
+      padding: 12px 22px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.6),
+        0 4px 0 #8c6412,
+        inset 0 1px 2px rgba(255, 255, 255, 0.85);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-mi-pedido:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 14px 28px rgba(229, 190, 83, 0.55),
+        0 4px 0 #8c6412;
+    }
+
+    .btn-mi-pedido:active {
+      transform: translateY(2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 1px 0 #8c6412;
+    }
+
+    .pedido-badge {
+      background: #06180f;
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 800;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(229, 190, 83, 0.7);
+    }
+
+    .btn-whatsapp-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #2eb86b 0%, #12522d 100%);
+      border: 2px solid #e5be53;
+      color: #fff6d6;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.65),
+        0 3px 0 #0c381f,
+        0 0 16px rgba(229, 190, 83, 0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-whatsapp-circle:hover {
+      transform: translateY(-3px) scale(1.06);
+    }
+
+    /* ==========================================================================
+       3. BARRA DE CATEGORÍAS CON LÍNEA DORADA 3D
+       ========================================================================== */
+    .category-navbar {
+      position: relative;
+      z-index: 10;
+      background: rgba(3, 14, 9, 0.94);
+      border-top: 2px solid #d4a73f;
+      border-bottom: 1px solid rgba(212, 167, 63, 0.4);
+      box-shadow: 0 -4px 20px rgba(229, 190, 83, 0.25);
+    }
+
+    .category-nav-list {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .category-nav-item button {
+      background: none;
+      border: none;
+      color: #f1f5f9;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 4px 2px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .category-nav-item button:hover,
+    .category-nav-item button.active {
+      color: #f6cf65;
+      font-weight: 700;
+      text-shadow: 0 0 12px rgba(246, 207, 101, 0.5);
+    }
+
+    .category-nav-item button.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 2.5px;
+      background: var(--gold-gradient);
+      border-radius: 2px;
+    }
+
+    /* ==========================================================================
+       4. CATÁLOGO DE PRODUCTOS CON TARJETAS 3D (PRESERVE-3D + PARALLAX)
+       ========================================================================== */
+    .catalog-section {
+      max-width: 1260px;
+      margin: 38px auto 70px;
+      padding: 0 18px;
+    }
+
+    .catalog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .catalog-header h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .catalog-header p {
+      font-size: 0.88rem;
+      color: #475569;
+      margin-top: 4px;
+    }
+
+    .catalog-header p span.gold-video-hint {
+      color: #d97706;
+      font-weight: 800;
+    }
+
+    .vr-banner-pill {
+      background: linear-gradient(135deg, #062517 0%, #0d462b 100%);
+      color: #f8de7e;
+      border: 1px solid #d4a73f;
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(6, 37, 23, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 30px;
       perspective: 1200px;
     }
 
-    /* Botones de Categoría 3D (Acabado Titanio / Azul Marino) */
-    .cat-btn-3d {
+    /* Tarjeta 3D con capas flotantes */
+    .product-card-3d {
       position: relative;
-      transform-style: preserve-3d;
-      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
-      background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
-      color: #cbd5e1;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
-      border-left: 1px solid rgba(255, 255, 255, 0.08);
-      border-right: 1px solid rgba(15, 23, 42, 0.8);
-      box-shadow: 
-        0 6px 0 #060911,
-        0 10px 20px rgba(0, 0, 0, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .cat-btn-3d:hover {
-      transform: translateY(-3px) rotateX(6deg);
-      color: #ffffff;
-      box-shadow: 
-        0 9px 0 #060911,
-        0 16px 26px rgba(0, 0, 0, 0.55),
-        inset 0 1px 0 rgba(251, 191, 36, 0.35);
-    }
-
-    .cat-btn-3d:active {
-      transform: translateY(4px);
-      box-shadow: 
-        0 2px 0 #060911,
-        0 4px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Estado Activo 3D (Oro Metálico Elevado) */
-    .cat-btn-3d.active-3d {
-      background: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
-      color: #070b14;
-      font-weight: 800;
-      border-top: 1px solid rgba(255, 255, 255, 0.65);
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 
-        0 7px 0 #92400e,
-        0 14px 28px rgba(245, 158, 11, 0.4),
-        inset 0 2px 2px rgba(255, 255, 255, 0.45);
-    }
-
-    /* Tarjeta de Producto con Elevación 3D */
-    .card-3d {
-      transform-style: preserve-3d;
-      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      box-shadow: 
-        0 10px 25px -5px rgba(15, 23, 42, 0.08),
-        0 8px 0 -2px #e2e8f0,
-        0 15px 35px -10px rgba(15, 23, 42, 0.12);
+      border-radius: 22px;
+      border: 1px solid rgba(212, 167, 63, 0.35);
+      box-shadow:
+        0 20px 40px rgba(15, 23, 42, 0.10),
+        0 4px 0 rgba(212, 167, 63, 0.3);
+      display: flex;
+      flex-direction: column;
+      transform-style: preserve-3d;
+      transition: transform 0.18s ease-out, box-shadow 0.25s ease;
+      will-change: transform;
     }
 
-    .card-3d:hover {
-      transform: translateY(-8px) rotateX(2deg);
-      box-shadow: 
-        0 20px 38px -10px rgba(15, 23, 42, 0.22),
-        0 10px 0 -2px #f59e0b,
-        0 25px 50px -12px rgba(245, 158, 11, 0.25);
+    .product-card-3d:hover {
+      box-shadow:
+        0 30px 60px rgba(6, 36, 22, 0.22),
+        0 0 25px rgba(229, 190, 83, 0.35);
     }
 
-    /* Botón de Compra 3D */
-    .cta-3d {
-      background: linear-gradient(145deg, #1e293b 0%, #090d16 100%);
-      box-shadow: 0 5px 0 #020617, 0 8px 15px rgba(0,0,0,0.3);
+    /* Brillo especular dinámico al inclinar en 3D */
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 243, 196, 0.35), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      z-index: 15;
+    }
+
+    .product-card-3d:hover .card-glare {
+      opacity: 1;
+    }
+
+    .media-stage {
+      position: relative;
+      width: calc(100% - 16px);
+      margin: 8px auto 0;
+      height: 275px;
+      border-radius: 16px;
+      background: radial-gradient(circle at center, #112a1e 0%, #06110b 100%);
+      overflow: hidden;
+      transform: translateZ(28px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+    }
+
+    .media-stage img,
+    .media-stage video,
+    .media-stage canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .badge-top-left {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(6, 22, 14, 0.92);
+      color: #fbbf24;
+      border: 1px solid rgba(251, 191, 36, 0.55);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      z-index: 6;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+    }
+
+    .badge-discount {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+      color: #ffffff;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      z-index: 6;
+      box-shadow: 0 6px 14px rgba(190, 18, 60, 0.45);
+    }
+
+    /* Botonera Foto 1 / Foto 2 / Video / 3D */
+    .media-switcher {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(6, 20, 13, 0.88);
+      backdrop-filter: blur(8px);
+      padding: 4px;
+      border-radius: 999px;
+      display: inline-flex;
+      gap: 4px;
+      z-index: 6;
+      border: 1px solid rgba(229, 190, 83, 0.45);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .media-btn {
+      background: transparent;
+      border: none;
+      color: #f8fafc;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .media-btn.active {
+      background: var(--gold-gradient);
+      color: #06150d;
+      font-weight: 800;
+    }
+
+    .card-body {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      transform: translateZ(22px);
+    }
+
+    .card-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .card-category {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #b45309;
+      letter-spacing: 0.04em;
+    }
+
+    .card-rating {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.83rem;
+      color: #475569;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .scarcity-bar {
+      background: linear-gradient(90deg, #fffbeb 0%, #fef3c7 100%);
+      border: 1px solid #fcd34d;
+      border-radius: 10px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      margin-top: auto;
+      transform: translateZ(30px);
+      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.1);
+    }
+
+    .scarcity-bar .demand-label {
+      color: #92400e;
+    }
+
+    .scarcity-bar .stock-left {
+      color: #dc2626;
+      font-weight: 800;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      transform: translateZ(36px);
+    }
+
+    .price-old {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      text-decoration: line-through;
+    }
+
+    .price-current {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .price-current small {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .price-save {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #16a34a;
+    }
+
+    .btn-lo-quiero {
+      background: linear-gradient(135deg, #072215 0%, #0f172a 100%);
+      color: #fbbf24;
+      border: 1.5px solid #d4a73f;
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 15px rgba(6, 34, 21, 0.35), 0 3px 0 #8c6412;
       transition: all 0.2s ease;
     }
-    .cta-3d:hover {
-      background: linear-gradient(145deg, #fbbf24 0%, #d97706 100%);
-      color: #070b14;
+
+    .btn-lo-quiero:hover {
       transform: translateY(-2px);
-      box-shadow: 0 7px 0 #92400e, 0 12px 20px rgba(245, 158, 11, 0.35);
-    }
-    .cta-3d:active {
-      transform: translateY(3px);
-      box-shadow: 0 2px 0 #020617;
+      background: linear-gradient(135deg, #0d3b24 0%, #1e293b 100%);
     }
 
-    /* Ocultar barra de scroll fea en móviles manteniendo deslizamiento táctil */
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* ==========================================================================
+       5. SALÓN DE REALIDAD VIRTUAL (TIENDA FÍSICA 3D / WEBXR)
+       ========================================================================== */
+    .vr-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: #020c07;
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+    }
+
+    .vr-modal-overlay.active {
+      display: flex;
+    }
+
+    #vr-showroom-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+
+    #vr-showroom-canvas:active {
+      cursor: grabbing;
+    }
+
+    /* HUD Flotante dentro de la Realidad Virtual */
+    .vr-hud-top {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .vr-hud-brand {
+      background: rgba(3, 18, 11, 0.85);
+      border: 1.5px solid #e5be53;
+      backdrop-filter: blur(10px);
+      padding: 10px 18px;
+      border-radius: 999px;
+      color: #f8de7e;
+      font-family: 'Cinzel', serif;
+      font-weight: 800;
+      font-size: 0.9rem;
+      pointer-events: auto;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    }
+
+    .vr-hud-controls {
+      display: flex;
+      gap: 10px;
+      pointer-events: auto;
+    }
+
+    .vr-btn-action {
+      background: var(--gold-gradient);
+      color: #05140c;
+      border: 1px solid #fff3b8;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.84rem;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .vr-btn-close {
+      background: rgba(225, 29, 72, 0.9);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.84rem;
+      cursor: pointer;
+    }
+
+    /* Tarjeta Holográfica de Compra dentro del mundo VR */
+    .vr-product-hud {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(92%, 540px);
+      background: rgba(4, 22, 14, 0.90);
+      border: 1.8px solid #e5be53;
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      padding: 18px 22px;
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(229, 190, 83, 0.3);
+      z-index: 10;
+    }
+
+    .vr-hud-info h4 {
+      color: #f8de7e;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+
+    .vr-hud-info p {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+    }
+
+    .vr-hud-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #4ade80;
+    }
+
+    .vr-pedestal-nav {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .vr-pedestal-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(229, 190, 83, 0.5);
+      color: #fde68a;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .vr-pedestal-btn.active {
+      background: var(--gold-gradient);
+      color: #05140c;
+    }
+
+    /* ==========================================================================
+       6. RESPONSIVE MÓVIL Y TABLET
+       ========================================================================== */
+    @media (max-width: 1080px) {
+      .header-space-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 22px;
+        padding: 32px 18px 28px;
+      }
+
+      .brand-showcase {
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .header-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .category-nav-list {
+        gap: 16px;
+        overflow-x: auto;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        padding: 12px 16px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .brand-title-main { font-size: 1.75rem; }
+      .brand-title-sub { font-size: 1.05rem; }
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .vr-product-hud {
+        flex-direction: column;
+        text-align: center;
+      }
+      .vr-pedestal-nav {
+        justify-content: center;
+      }
+    }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+<body>
 
-  <!-- ================= ENCABEZADO DE LA TIENDA ================= -->
-  <header class="bg-[#070b14] text-white sticky top-0 z-40 shadow-2xl border-b border-slate-800/80">
-    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-4">
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 flex items-center justify-center text-slate-950 font-black text-xl shadow-[0_4px_0_#92400e]">
-          S+
-        </div>
-        <div>
-          <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-white">Shefa Plus Global</h1>
-          <p class="text-[11px] text-amber-400 font-medium">Tienda Oficial &bull; Garantía y Cobertura en Colombia</p>
-        </div>
-      </div>
+  <!-- 1. CINTILLO SUPERIOR DE CONFIANZA -->
+  <div class="top-announcement-bar">
+    <span>🚚 <strong class="gold-highlight">ENVÍOS GRATIS</strong> A TODA COLOMBIA</span>
+    <span class="dot-sep">•</span>
+    <span>🛡️ COMPRA 100% SEGURA</span>
+    <span class="dot-sep">•</span>
+    <span>💬 <strong class="gold-highlight">SOPORTE 24/7</strong> (WhatsApp)</span>
+  </div>
 
-      <!-- Buscador Rápido -->
-      <div class="flex-1 max-w-md mx-2">
-        <div class="relative">
-          <input 
-            id="buscadorInput" 
-            type="text" 
-            oninput="filtrarCatalogo()" 
-            placeholder="¿Qué producto estás buscando hoy?..." 
-            class="w-full bg-slate-900/95 text-sm text-white rounded-xl pl-10 pr-4 py-2.5 border border-slate-700/80 shadow-inner focus:outline-none focus:border-amber-400 transition"
+  <!-- 2. CABECERA MAESTRA 3D: SHEFA PLUS GLOBAL SHOP -->
+  <header class="master-header" id="masterHeader">
+    <!-- Escena WebGL 3D de Nebulosa Esmeralda, Polvo de Oro y Anillos Sagrados -->
+    <canvas id="header-webgl-canvas"></canvas>
+
+    <div class="header-space-container" id="header3DContainer">
+      <!-- Izquierda: Logo Circular 3D + Título en Relieve de Oro -->
+      <a href="#" class="brand-showcase">
+        <div class="brand-logo-wrapper">
+          <img
+            src="assets/img/logo-shefa.png"
+            alt="Logo Shefa Plus Global"
+            onerror="this.outerHTML='<div style=\'width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#146b42,#041b11);display:flex;align-items:center;justify-content:center;color:#f6d365;font-family:Cinzel,serif;font-weight:900;font-size:1.6rem;\'>S+</div>'"
           />
-          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-amber-400 text-sm"></i>
         </div>
-      </div>
+        <div class="brand-titles">
+          <span class="brand-title-main">SHEFA PLUS</span>
+          <span class="brand-title-sub">GLOBAL SHOP</span>
+          <span class="brand-tagline">Tienda Oficial • Garantía y Cobertura en Colombia</span>
+        </div>
+      </a>
 
-      <!-- Botón del Carrito 3D -->
-      <div class="flex items-center gap-3">
-        <button 
-          onclick="toggleCarrito()" 
-          class="bg-gradient-to-b from-amber-400 to-amber-500 text-slate-950 font-extrabold text-sm px-4 py-2.5 rounded-xl flex items-center gap-2 shadow-[0_4px_0_#92400e] active:translate-y-1 active:shadow-none transition"
-        >
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span>Mi Pedido</span>
-          <span id="contadorCarrito" class="bg-slate-950 text-amber-400 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+      <!-- Centro: Buscador Cápsula con Borde Dorado -->
+      <div class="header-search-box">
+        <input
+          type="text"
+          id="searchInput"
+          class="header-search-input"
+          placeholder="¿Qué producto estás buscando hoy?"
+          aria-label="Buscar productos"
+        />
+        <button class="header-search-btn" aria-label="Buscar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
         </button>
       </div>
+
+      <!-- Derecha: Portal Realidad Virtual 3D + Mi Pedido + WhatsApp -->
+      <div class="header-actions">
+        <button class="btn-vr-portal" onclick="abrirTiendaVR(0)" title="Entrar a la tienda en Realidad Virtual 3D">
+          <span>🥽 Tienda VR 3D</span>
+        </button>
+
+        <button class="btn-mi-pedido" id="btnMiPedido">
+          <span>Mi Pedido</span>
+          <span class="pedido-badge" id="cartCount">2</span>
+        </button>
+
+        <a
+          href="https://wa.me/573000000000?text=Hola%20Shefa%20Plus%20Global%20Shop,%20quiero%20asesor%C3%ADa%20sobre%20un%20pedido"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-whatsapp-circle"
+          title="Soporte WhatsApp 24/7"
+        >
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.53 5.86l-1.53 5.586 5.736-1.504c1.693.924 3.633 1.458 5.704 1.458 6.627 0 12-5.373 12-12s-5.373-11.4-11.44-11.4z"/>
+          </svg>
+        </a>
+      </div>
     </div>
+
+    <!-- 3. BARRA DE NAVEGACIÓN DE CATEGORÍAS -->
+    <nav class="category-navbar" aria-label="Categorías principales">
+      <ul class="category-nav-list" id="categoryNav">
+        <li class="category-nav-item"><button class="active" data-cat="TODOS">Inicio</button></li>
+        <li class="category-nav-item"><button data-cat="TECNOLOGÍA WEARABLE">Tecnología Wearable</button></li>
+        <li class="category-nav-item"><button data-cat="HOGAR INTELIGENTE">Hogar Inteligente</button></li>
+        <li class="category-nav-item"><button data-cat="AUDIO DE ALTA FIDELIDAD">Audio de Alta Fidelidad</button></li>
+        <li class="category-nav-item"><button data-cat="MAS_VENDIDO">Lo Más Vendido</button></li>
+        <li class="category-nav-item"><button data-cat="CONTACTO">Contacto</button></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- ================= BANNER PRINCIPAL ================= -->
-  <section class="bg-gradient-to-r from-[#070b14] via-[#0f172a] to-amber-950 text-white pt-9 pb-14 px-4 border-b border-amber-500/20 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 relative z-10">
+  <!-- 4. CATÁLOGO INTERACTIVO DE PRODUCTOS EN 3D -->
+  <main class="catalog-section">
+    <div class="catalog-header">
       <div>
-        <span class="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider inline-flex items-center gap-1.5">
-          <i class="fa-solid fa-cube text-amber-400"></i> Experiencia de Compra 3D
-        </span>
-        <h2 class="text-3xl md:text-4xl font-extrabold mt-3 leading-tight">
-          Tecnología y Tendencia Global en tus Manos
-        </h2>
-        <p class="text-slate-300 text-sm md:text-base mt-2 max-w-xl">
-          Artículos seleccionados bajo control de calidad, precios en pesos colombianos y despacho seguro hasta la puerta de tu casa.
-        </p>
+        <h2>Todos los Productos (Experiencia 3D)</h2>
+        <p>Toca <strong>Foto</strong>, <span class="gold-video-hint">▶ Video</span> o <strong>🧊 3D</strong> en cada tarjeta, o entra al Salón de Realidad Virtual</p>
       </div>
-
-      <!-- Sello de Confianza Neuroventas -->
-      <div class="bg-slate-900/75 backdrop-blur-md border border-amber-400/30 rounded-2xl p-4 text-xs space-y-2 min-w-[265px] shadow-2xl">
-        <div class="font-bold text-amber-400 flex items-center gap-2 text-sm">
-          <i class="fa-solid fa-shield-halved"></i> Compra 100% Protegida
-        </div>
-        <p class="text-slate-200 flex items-center gap-2">
-          <i class="fa-solid fa-check text-emerald-400"></i> Precios finales en COP sin cobros ocultos
-        </p>
-        <p class="text-slate-200 flex items-center gap-2">
-          <i class="fa-solid fa-truck-fast text-amber-400"></i> Despachos a toda Colombia
-        </p>
-        <p class="text-slate-200 flex items-center gap-2">
-          <i class="fa-brands fa-whatsapp text-emerald-400"></i> Atención y soporte personalizado
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= BARRA DE CATEGORÍAS 3D (POR ENCIMA DEL CATÁLOGO) ================= -->
-  <section class="max-w-7xl mx-auto px-4 -mt-8 relative z-30 w-full scene-3d">
-    <div class="bg-gradient-to-r from-[#0b1120] via-[#131d31] to-[#0b1120] p-4 md:p-5 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-slate-700/70">
-      <div class="flex items-center justify-between mb-3 px-1">
-        <span class="text-[11px] font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-2">
-          <i class="fa-solid fa-layer-group"></i> Explora por Categoría
-        </span>
-        <span id="contadorProductos" class="text-[11px] font-bold text-slate-300 bg-slate-800/90 px-3 py-1 rounded-full border border-slate-700">
-          Cargando...
-        </span>
-      </div>
-
-      <!-- Contenedor Dinámico de Botones 3D -->
-      <div id="barraCategorias3D" class="flex items-center gap-3.5 overflow-x-auto no-scrollbar py-2.5 px-1">
-        <!-- JavaScript inyecta aquí los botones 3D automáticamente -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ZONA DE CATÁLOGO DINÁMICO ================= -->
-  <main class="max-w-7xl mx-auto px-4 py-9 flex-1 w-full scene-3d">
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
-      <div>
-        <h3 id="tituloCategoriaActiva" class="text-2xl font-extrabold text-slate-900">Todos los Productos</h3>
-        <p class="text-xs text-slate-500 mt-0.5">
-          Toca <span class="font-bold text-slate-700">Foto</span> o <span class="font-bold text-amber-600">▶ Video</span> dentro de cada tarjeta para ver el producto en acción
-        </p>
-      </div>
+      <button class="vr-banner-pill" onclick="abrirTiendaVR(0)">
+        🥽 Entrar al Showroom en Realidad Virtual (360° / VR)
+      </button>
     </div>
 
-    <!-- CONTENEDOR AUTOMÁTICO DE TARJETAS 3D -->
-    <div id="contenedorProductos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- JavaScript genera todas las tarjetas automáticamente aquí -->
-    </div>
+    <div class="products-grid" id="productsGrid"></div>
   </main>
 
-  <!-- ================= MODAL DEL CARRITO EN COP ================= -->
-  <div id="modalCarrito" class="fixed inset-0 bg-slate-950/75 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 border border-slate-200">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-bag-shopping text-amber-500"></i> Resumen de tu Pedido
-        </h3>
-        <button onclick="toggleCarrito()" class="text-slate-400 hover:text-slate-700">
-          <i class="fa-solid fa-xmark text-xl"></i>
-        </button>
+  <!-- 5. MODAL SALÓN REALIDAD VIRTUAL 3D (SHOWROOM COMPLETO) -->
+  <div class="vr-modal-overlay" id="vrModal">
+    <div class="vr-hud-top">
+      <div class="vr-hud-brand">
+        ✨ SHEFA PLUS GLOBAL • SALÓN REALIDAD VIRTUAL 3D
       </div>
-
-      <div id="listaCarrito" class="space-y-2.5 max-h-64 overflow-y-auto text-sm text-slate-600">
-        Tu carrito está vacío.
+      <div class="vr-hud-controls">
+        <button class="vr-btn-action" id="btnGyroVR" onclick="activarGiroscopioVR()">📱 Vista Giroscopio / Gafas VR</button>
+        <button class="vr-btn-close" onclick="cerrarTiendaVR()">✕ Salir del Salón 3D</button>
       </div>
+    </div>
 
-      <div class="border-t pt-3 space-y-3">
-        <div class="flex items-center justify-between font-extrabold text-lg text-slate-900">
-          <span>Total a Pagar:</span>
-          <span id="totalCarrito" class="text-emerald-700">$ 0 COP</span>
+    <canvas id="vr-showroom-canvas"></canvas>
+
+    <!-- Panel Inferior de Producto en el Showroom VR -->
+    <div class="vr-product-hud">
+      <div class="vr-hud-info">
+        <h4 id="vrProdTitle">Proyector Portátil Smart Cinema Full HD</h4>
+        <p id="vrProdStock">🔥 ¡Alta demanda! • Quedan 4 und. disponibles en Colombia</p>
+        <div class="vr-hud-price" id="vrProdPrice">$249.900 COP</div>
+        <div class="vr-pedestal-nav">
+          <button class="vr-pedestal-btn active" onclick="enfocarPedestalVR(0)">⌚ Smartwatch</button>
+          <button class="vr-pedestal-btn" onclick="enfocarPedestalVR(1)">🎧 Auriculares</button>
+          <button class="vr-pedestal-btn" onclick="enfocarPedestalVR(2)">📽️ Proyector 4K</button>
         </div>
-
-        <button 
-          onclick="finalizarPorWhatsApp()" 
-          class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold py-3.5 rounded-xl shadow-[0_5px_0_#065f46] active:translate-y-1 active:shadow-none transition flex items-center justify-center gap-2 text-sm"
-        >
-          <i class="fa-brands fa-whatsapp text-lg"></i> Confirmar Pedido por WhatsApp
-        </button>
       </div>
+      <button class="btn-lo-quiero" id="vrBtnComprar" onclick="comprarDesdeVR()">
+        🛒 Lo Quiero Ahora
+      </button>
     </div>
   </div>
 
-  <!-- ================= MOTOR DE CATÁLOGO 3D, NEURODISEÑO Y PRECIOS COP ================= -->
   <script>
-    // Formateador oficial de Pesos Colombianos (COP)
-    const formatoCOP = new Intl.NumberFormat('es-CO', {
-      style: 'currency',
-      currency: 'COP',
-      maximumFractionDigits: 0
-    });
-
-    // Íconos automáticos para tus categorías
-    const iconosCategoria = {
-      "Todos": "fa-border-all",
-      "Tecnología Wearable": "fa-clock",
-      "Audio de Alta Fidelidad": "fa-headphones",
-      "Hogar Inteligente": "fa-house-signal",
-      "Accesorios": "fa-bolt"
-    };
-
-    // =========================================================================
-    // 👇 AGREGA AQUÍ TODOS TUS PRODUCTOS (CON IMÁGENES Y VIDEOS) 👇
-    // =========================================================================
+    /* ==========================================================================
+       1. DATOS DEL CATÁLOGO (100% EN TU CÓDIGO FUENTE, SIN RASTRO DE PROVEEDOR)
+       ========================================================================== */
     const catalogoProductos = [
       {
-        ref: "SP-001",
-        categoria: "Tecnología Wearable",
-        etiquetaNeuro: "🔥 Más Vendido",
+        id: 1,
         nombre: "Smartwatch Ultra Series Pro Titanio",
-        beneficioClave: "Monitoreo inteligente de salud 24/7, notificaciones al instante y batería de larga duración con sellado impermeable IP68.",
-        precioAntesCOP: 199900,
-        precioVentaCOP: 129900,
-        calificacion: "4.9",
-        ventasVerificadas: 142,
+        categoria: "TECNOLOGÍA WEARABLE",
+        etiqueta: "🔥 Más Vendido",
+        esMasVendido: true,
+        descuento: "-35% HOY",
+        rating: "4.9",
+        reviews: 142,
+        descripcion: "Monitoreo inteligente de salud 24/7, notificaciones al instante y batería de larga duración con sellado impermeable IP68.",
+        precioAnterior: 199900,
+        precioActual: 129900,
         stockDisponible: 5,
-        imagenes: [
+        tipoGeometria3D: "smartwatch",
+        fotos: [
           "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
           "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=800&q=80"
         ],
-        video: "https://www.w3schools.com/html/mov_bbb.mp4"
+        video: "assets/videos/smartwatch.mp4"
       },
       {
-        ref: "SP-002",
-        categoria: "Audio de Alta Fidelidad",
-        etiquetaNeuro: "⚡ Envío Prioritario",
+        id: 2,
         nombre: "Auriculares Inalámbricos Pro Cancelación de Ruido",
-        beneficioClave: "Aísla el ruido exterior al instante, bajos profundos con tecnología acústica envolvente y estuche de carga rápida.",
-        precioAntesCOP: 159900,
-        precioVentaCOP: 98900,
-        calificacion: "4.8",
-        ventasVerificadas: 98,
+        categoria: "AUDIO DE ALTA FIDELIDAD",
+        etiqueta: "⚡ Envío Prioritario",
+        esMasVendido: true,
+        descuento: "-38% HOY",
+        rating: "4.8",
+        reviews: 98,
+        descripcion: "Aísla el ruido exterior al instante, bajos profundos con tecnología acústica envolvente y estuche de carga rápida.",
+        precioAnterior: 159900,
+        precioActual: 98900,
         stockDisponible: 3,
-        imagenes: [
+        tipoGeometria3D: "headphones",
+        fotos: [
           "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
-          "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80"
+          "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=800&q=80"
         ],
-        video: "https://www.w3schools.com/html/movie.mp4"
+        video: "assets/videos/auriculares.mp4"
       },
       {
-        ref: "SP-003",
-        categoria: "Hogar Inteligente",
-        etiquetaNeuro: "💎 Edición Limitada",
-        nombre: "Proyector Portátil Smart Cinema Full HD",
-        beneficioClave: "Transforma cualquier pared en una pantalla de cine de hasta 120 pulgadas con conexión directa desde tu celular.",
-        precioAntesCOP: 380000,
-        precioVentaCOP: 249900,
-        calificacion: "5.0",
-        ventasVerificadas: 64,
+        id: 3,
+        nombre: "Proyector Portátil Smart Cinema Full HD HCS350 MAX",
+        categoria: "HOGAR INTELIGENTE",
+        etiqueta: "💎 Edición Limitada",
+        esMasVendido: true,
+        descuento: "-34% HOY",
+        rating: "5.0",
+        reviews: 64,
+        descripcion: "Soporta 4K, WiFi 5G + WiFi 6, Bluetooth 5.4 y pantalla gigante de hasta 200 pulgadas con lente de alta calidad.",
+        precioAnterior: 380000,
+        precioActual: 249900,
         stockDisponible: 4,
-        imagenes: [
-          "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
+        tipoGeometria3D: "projector",
+        fotos: [
+          "assets/img/proyector-1.jpg",
+          "assets/img/proyector-2.jpg"
         ],
-        video: ""
+        video: "assets/videos/proyector.mp4"
       }
     ];
 
-    let categoriaSeleccionada = "Todos";
-    let carrito = [];
+    const formatoCOP = (valor) => "$" + valor.toLocaleString("es-CO");
+    let carritoPedidos = 2;
+    let categoriaActiva = "TODOS";
 
-    // Genera automáticamente los botones 3D de Categorías según tus productos
-    function renderizarBarraCategorias3D() {
-      const contenedorCat = document.getElementById('barraCategorias3D');
-      const categoriasUnicas = ["Todos", ...new Set(catalogoProductos.map(p => p.categoria))];
+    /* ==========================================================================
+       2. CABECERA WEBGL 3D (NEBULOSA PROFUNDA Y PARTÍCULAS DE ORO EN 3D)
+       ========================================================================== */
+    (function initHeaderWebGL() {
+      const canvas = document.getElementById('header-webgl-canvas');
+      const headerEl = document.getElementById('masterHeader');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, headerEl.offsetWidth / headerEl.offsetHeight, 0.1, 1000);
+      camera.position.z = 28;
 
-      contenedorCat.innerHTML = categoriasUnicas.map(cat => {
-        const cantidad = cat === "Todos" 
-          ? catalogoProductos.length 
-          : catalogoProductos.filter(p => p.categoria === cat).length;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setSize(headerEl.offsetWidth, headerEl.offsetHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        const icono = iconosCategoria[cat] || "fa-star";
-        const esActiva = cat === categoriaSeleccionada ? "active-3d" : "";
+      // Partículas 3D de Polvo de Oro y Esmeralda
+      const particleCount = 420;
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
 
-        return `
-          <button 
-            onclick="seleccionarCategoria3D('${cat}')"
-            class="cat-btn-3d ${esActiva} px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap flex items-center gap-2.5 select-none"
-          >
-            <i class="fa-solid ${icono} text-sm"></i>
-            <span>${cat}</span>
-            <span class="px-2 py-0.5 rounded-full text-[10px] ${cat === categoriaSeleccionada ? 'bg-slate-950 text-amber-400 font-black' : 'bg-slate-950/60 text-amber-400'}">
-              ${cantidad}
-            </span>
-          </button>
-        `;
-      }).join('');
-    }
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 90;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 35;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
 
-    // Cambia la categoría activa con efecto 3D y filtra el catálogo
-    function seleccionarCategoria3D(categoria) {
-      categoriaSeleccionada = categoria;
-      document.getElementById('tituloCategoriaActiva').innerText = 
-        categoria === "Todos" ? "Todos los Productos" : categoria;
-      renderizarBarraCategorias3D();
-      filtrarCatalogo();
-    }
-
-    // Dibuja todas las tarjetas con estructura 3D y Neuroventas
-    function renderizarProductos(lista) {
-      const contenedor = document.getElementById('contenedorProductos');
-      const contador = document.getElementById('contadorProductos');
-      contenedor.innerHTML = '';
-      contador.innerText = `${lista.length} ${lista.length === 1 ? 'producto disponible' : 'productos disponibles'}`;
-
-      if (lista.length === 0) {
-        contenedor.innerHTML = `
-          <div class="col-span-full bg-white rounded-3xl p-10 text-center border border-slate-200 shadow-sm">
-            <i class="fa-solid fa-box-open text-4xl text-amber-500 mb-3"></i>
-            <h4 class="text-lg font-extrabold text-slate-800">No encontramos productos con ese criterio</h4>
-            <p class="text-xs text-slate-500 mt-1">Prueba seleccionando la categoría "Todos" o buscando otra palabra.</p>
-          </div>
-        `;
-        return;
+        const isGold = Math.random() > 0.3;
+        colors[i * 3] = isGold ? 0.96 : 0.15;
+        colors[i * 3 + 1] = isGold ? 0.82 : 0.85;
+        colors[i * 3 + 2] = isGold ? 0.38 : 0.55;
       }
 
-      lista.forEach((prod, index) => {
-        const ahorroPorcentaje = Math.round(((prod.precioAntesCOP - prod.precioVentaCOP) / prod.precioAntesCOP) * 100);
-        const ahorroDinero = prod.precioAntesCOP - prod.precioVentaCOP;
+      const particleGeo = new THREE.BufferGeometry();
+      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
-        // Botones para alternar entre Fotos y Video
-        let controlesMultimedia = '';
-        prod.imagenes.forEach((imgUrl, i) => {
-          controlesMultimedia += `
-            <button 
-              onclick="cambiarMultimedia(${index}, 'img', '${imgUrl}', this)" 
-              class="btn-media-${index} ${i === 0 ? 'bg-amber-400 text-slate-950 font-extrabold shadow' : 'bg-slate-900/80 text-white hover:bg-slate-800'} text-[11px] px-2.5 py-1 rounded-full backdrop-blur-sm transition"
-            >
-              Foto ${i + 1}
-            </button>
-          `;
-        });
+      const particleMat = new THREE.PointsMaterial({
+        size: 0.45,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.85
+      });
 
-        if (prod.video && prod.video.trim() !== '') {
-          controlesMultimedia += `
-            <button 
-              onclick="cambiarMultimedia(${index}, 'video', '${prod.video}', this)" 
-              class="btn-media-${index} bg-slate-900/90 text-amber-400 hover:bg-amber-400 hover:text-slate-950 font-bold text-[11px] px-3 py-1 rounded-full backdrop-blur-sm transition flex items-center gap-1"
-            >
-              <i class="fa-solid fa-play text-[9px]"></i> Video
-            </button>
-          `;
-        }
+      const starField = new THREE.Points(particleGeo, particleMat);
+      scene.add(starField);
 
-        const tarjetaHTML = `
-          <article class="card-3d rounded-3xl border border-slate-200/90 overflow-hidden flex flex-col justify-between">
-            
-            <!-- ZONA SUPERIOR: MULTIMEDIA (FOTOS + VIDEO) -->
-            <div>
-              <div class="relative h-72 bg-slate-950 overflow-hidden">
-                <div id="visor-media-${index}" class="w-full h-full">
-                  <img 
-                    src="${prod.imagenes[0]}" 
-                    alt="${prod.nombre}" 
-                    class="w-full h-full object-cover hover:scale-105 transition duration-500"
-                    loading="lazy"
-                  />
-                </div>
+      // Anillo Sagrado Dorado 3D sutil al fondo
+      const ringGeo = new THREE.TorusGeometry(11, 0.06, 16, 100);
+      const ringMat = new THREE.MeshBasicMaterial({ color: 0xe5be53, transparent: true, opacity: 0.22 });
+      const goldRing = new THREE.Mesh(ringGeo, ringMat);
+      goldRing.position.set(-18, 0, -8);
+      scene.add(goldRing);
 
-                <!-- Etiqueta Neuroventas 3D -->
-                <span class="absolute top-3.5 left-3.5 bg-slate-950/90 text-amber-400 border border-amber-400/40 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.5)]">
-                  ${prod.etiquetaNeuro}
-                </span>
+      let targetX = 0, targetY = 0;
+      headerEl.addEventListener('mousemove', (e) => {
+        const rect = headerEl.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
+        targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+      });
 
-                <!-- Descuento 3D -->
-                <span class="absolute top-3.5 right-3.5 bg-gradient-to-b from-rose-500 to-rose-700 text-white text-xs font-black px-2.5 py-1 rounded-xl shadow-[0_4px_0_#881337]">
-                  -${ahorroPorcentaje}% HOY
-                </span>
+      function animateHeader3D() {
+        requestAnimationFrame(animateHeader3D);
+        starField.rotation.y += 0.0009;
+        starField.rotation.x += 0.0003;
+        goldRing.rotation.z += 0.002;
+        goldRing.rotation.x = Math.sin(Date.now() * 0.0005) * 0.35;
 
-                <!-- Selector Interactivo de Fotos y Video -->
-                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-slate-950/75 p-1.5 rounded-full border border-white/15 shadow-lg">
-                  ${controlesMultimedia}
-                </div>
-              </div>
+        camera.position.x += (targetX - camera.position.x) * 0.05;
+        camera.position.y += (-targetY - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
 
-              <!-- ZONA CENTRAL: PRUEBA SOCIAL Y BENEFICIO -->
-              <div class="p-5">
-                <div class="flex items-center justify-between text-xs mb-1.5">
-                  <span onclick="seleccionarCategoria3D('${prod.categoria}')" class="cursor-pointer font-extrabold uppercase tracking-wider text-amber-600 hover:underline">
-                    ${prod.categoria}
-                  </span>
-                  <span class="text-slate-700 font-bold flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/60">
-                    <i class="fa-solid fa-star text-amber-400"></i> ${prod.calificacion} 
-                    <span class="text-slate-400">(${prod.ventasVerificadas})</span>
-                  </span>
-                </div>
+        renderer.render(scene, camera);
+      }
 
-                <h4 class="text-lg font-extrabold text-slate-900 leading-snug line-clamp-2">
-                  ${prod.nombre}
-                </h4>
+      window.addEventListener('resize', () => {
+        camera.aspect = headerEl.offsetWidth / headerEl.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(headerEl.offsetWidth, headerEl.offsetHeight);
+      });
 
-                <p class="text-sm text-slate-600 mt-2 leading-relaxed line-clamp-3">
-                  ${prod.beneficioClave}
-                </p>
+      animateHeader3D();
+    })();
 
-                <!-- Gatillo de Escasez -->
-                <div class="mt-4 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 rounded-xl px-3 py-2 flex items-center justify-between text-xs shadow-inner">
-                  <span class="text-amber-950 font-bold flex items-center gap-1.5">
-                    <i class="fa-solid fa-fire text-amber-500"></i> ¡Alta demanda!
-                  </span>
-                  <span class="font-extrabold text-rose-600">Quedan ${prod.stockDisponible} und.</span>
-                </div>
+    /* ==========================================================================
+       3. RENDERIZADO DE TARJETAS 3D E INTERACCIÓN FÍSICA (TILT + VISOR 3D)
+       ========================================================================== */
+    function renderizarProductos(lista) {
+      const grid = document.getElementById("productsGrid");
+      grid.innerHTML = lista.map((prod, idx) => {
+        const ahorro = prod.precioAnterior - prod.precioActual;
+        return `
+          <article class="product-card-3d" data-id="${prod.id}">
+            <div class="card-glare"></div>
+
+            <div class="media-stage" id="stage-${prod.id}">
+              <span class="badge-top-left">${prod.etiqueta}</span>
+              <span class="badge-discount">${prod.descuento}</span>
+
+              <img
+                src="${prod.fotos[0]}"
+                alt="${prod.nombre}"
+                onerror="this.src='https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80'"
+              />
+
+              <div class="media-switcher">
+                <button class="media-btn active" onclick="cambiarMedia(${prod.id}, 'foto', 0, this)">Foto 1</button>
+                ${prod.fotos[1] ? `<button class="media-btn" onclick="cambiarMedia(${prod.id}, 'foto', 1, this)">Foto 2</button>` : ''}
+                ${prod.video ? `<button class="media-btn" onclick="cambiarMedia(${prod.id}, 'video', 0, this)">▶ Video</button>` : ''}
+                <button class="media-btn" onclick="cambiarMedia(${prod.id}, '3d', 0, this)">🧊 3D</button>
               </div>
             </div>
 
-            <!-- ZONA INFERIOR: ANCLAJE DE PRECIO EN COP + BOTÓN 3D -->
-            <div class="px-5 pb-5 pt-3.5 border-t border-slate-200/70 bg-slate-50/70 flex items-center justify-between gap-2">
-              <div>
-                <span class="text-xs text-slate-400 line-through block font-semibold">
-                  Antes: ${formatoCOP.format(prod.precioAntesCOP)}
-                </span>
-                <div class="flex items-baseline gap-1">
-                  <span class="text-2xl font-black text-slate-950">${formatoCOP.format(prod.precioVentaCOP)}</span>
-                  <span class="text-[11px] font-extrabold text-slate-500">COP</span>
-                </div>
-                <span class="text-[11px] text-emerald-600 font-extrabold block">
-                  Ahorras ${formatoCOP.format(ahorroDinero)}
-                </span>
+            <div class="card-body">
+              <div class="card-meta-row">
+                <span class="card-category">${prod.categoria}</span>
+                <span class="card-rating">★ ${prod.rating} (${prod.reviews})</span>
               </div>
 
-              <button 
-                onclick="agregarAlCarrito('${prod.ref}', '${prod.nombre.replace(/'/g, "\\'")}', ${prod.precioVentaCOP})"
-                class="cta-3d text-amber-400 font-extrabold text-sm px-4 py-3 rounded-xl flex items-center gap-2"
-              >
-                <i class="fa-solid fa-cart-plus"></i>
-                <span>Lo Quiero</span>
-              </button>
-            </div>
+              <h3 class="card-title">${prod.nombre}</h3>
+              <p class="card-desc">${prod.descripcion}</p>
 
+              <div class="scarcity-bar">
+                <span class="demand-label">🔥 ¡Alta demanda!</span>
+                <span class="stock-left">Quedan ${prod.stockDisponible} und.</span>
+              </div>
+
+              <div class="card-footer">
+                <div>
+                  <div class="price-old">Antes: ${formatoCOP(prod.precioAnterior)}</div>
+                  <div class="price-current">${formatoCOP(prod.precioActual)} <small>COP</small></div>
+                  <div class="price-save">Ahorras ${formatoCOP(ahorro)}</div>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  <button class="btn-lo-quiero" onclick="abrirTiendaVR(${idx})" title="Ver en Salón Realidad Virtual">
+                    🥽 VR
+                  </button>
+                  <button class="btn-lo-quiero" onclick="agregarAlPedido(${prod.id})">
+                    🛒 Lo Quiero
+                  </button>
+                </div>
+              </div>
+            </div>
           </article>
         `;
+      }).join("");
 
-        contenedor.insertAdjacentHTML('beforeend', tarjetaHTML);
+      activarInclinacion3DTarjetas();
+    }
+
+    // Efecto de inclinación 3D física al pasar el mouse o tocar en el celular
+    function activarInclinacion3DTarjetas() {
+      const cards = document.querySelectorAll('.product-card-3d');
+      cards.forEach((card) => {
+        const glare = card.querySelector('.card-glare');
+
+        function handleMove(clientX, clientY) {
+          const rect = card.getBoundingClientRect();
+          const x = clientX - rect.left;
+          const y = clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -8;
+          const rotateY = ((x - centerX) / centerX) * 8;
+
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          if (glare) {
+            glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255, 243, 196, 0.35), transparent 60%)`;
+          }
+        }
+
+        card.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
       });
     }
 
-    // Cambia entre Foto y Video dentro de la tarjeta
-    function cambiarMultimedia(index, tipo, url, botonClickeado) {
-      const visor = document.getElementById(`visor-media-${index}`);
-      const botones = document.querySelectorAll(`.btn-media-${index}`);
+    /* ==========================================================================
+       4. CONSTRUCTOR DE MODELOS 3D PROCEDURALES (SMARTWATCH, AURICULARES, PROYECTOR)
+       ========================================================================== */
+    function crearModelo3DProducto(tipo, texturaImagenUrl) {
+      const group = new THREE.Group();
+      const loader = new THREE.TextureLoader();
+      loader.setCrossOrigin('anonymous');
 
-      botones.forEach(btn => {
-        btn.classList.remove('bg-amber-400', 'text-slate-950', 'font-extrabold', 'shadow');
-        btn.classList.add('bg-slate-900/80', 'text-white');
-      });
-      botonClickeado.classList.remove('bg-slate-900/80', 'text-white');
-      botonClickeado.classList.add('bg-amber-400', 'text-slate-950', 'font-extrabold', 'shadow');
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xe5be53, metalness: 0.85, roughness: 0.2 });
+      const darkMat = new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.6, roughness: 0.3 });
+      const whiteMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.3, roughness: 0.25 });
+
+      if (tipo === "smartwatch") {
+        // Caja de Titanio + Bisel Dorado + Pantalla luminosa
+        const caseMesh = new THREE.Mesh(new THREE.BoxGeometry(1.7, 2.1, 0.45), goldMat);
+        const screenMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(1.45, 1.85),
+          new THREE.MeshBasicMaterial({ color: 0x10b981 })
+        );
+        screenMesh.position.z = 0.24;
+        const strapTop = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.2, 0.2), darkMat);
+        strapTop.position.y = 1.4;
+        const strapBot = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.2, 0.2), darkMat);
+        strapBot.position.y = -1.4;
+        group.add(caseMesh, screenMesh, strapTop, strapBot);
+      } else if (tipo === "headphones") {
+        // Diadema y copas acústicas en 3D
+        const arc = new THREE.Mesh(new THREE.TorusGeometry(1.25, 0.14, 16, 48, Math.PI), darkMat);
+        const leftCup = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.45, 32), goldMat);
+        leftCup.rotation.z = Math.PI / 2;
+        leftCup.position.set(-1.25, -0.2, 0);
+        const rightCup = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.45, 32), goldMat);
+        rightCup.rotation.z = Math.PI / 2;
+        rightCup.position.set(1.25, -0.2, 0);
+        group.add(arc, leftCup, rightCup);
+      } else {
+        // Proyector HCS350 MAX Blanco/Plata con Lente Recubierto y Base Giratoria
+        const body = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.35, 2.3), whiteMat);
+        body.rotation.x = -0.18;
+        const lensRing = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.25, 32), goldMat);
+        lensRing.rotation.x = Math.PI / 2 - 0.18;
+        lensRing.position.set(0, 0.18, 1.15);
+        const lensGlass = new THREE.Mesh(
+          new THREE.CircleGeometry(0.36, 32),
+          new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
+        );
+        lensGlass.position.set(0, 0.21, 1.29);
+        const base = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.05, 0.15, 32), whiteMat);
+        base.position.y = -1.1;
+        group.add(body, lensRing, lensGlass, base);
+      }
+
+      // Cargar textura de la foto como holograma flotante sobre el producto
+      if (texturaImagenUrl) {
+        loader.load(texturaImagenUrl, (tex) => {
+          const cardPlane = new THREE.Mesh(
+            new THREE.PlaneGeometry(1.6, 1.6),
+            new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide })
+          );
+          cardPlane.position.set(0, 1.95, 0);
+          group.add(cardPlane);
+        });
+      }
+
+      return group;
+    }
+
+    // Cambiar entre Foto 1, Foto 2, Video y Visor 3D interactivo dentro de la tarjeta
+    window.cambiarMedia = function(idProducto, tipo, indice, btnElement) {
+      const producto = catalogoProductos.find(p => p.id === idProducto);
+      const stage = document.getElementById(`stage-${idProducto}`);
+      stage.querySelectorAll('.media-btn').forEach(b => b.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      const anteriorMedia = stage.querySelector('img, video, canvas');
+      if (anteriorMedia) anteriorMedia.remove();
 
       if (tipo === 'video') {
-        visor.innerHTML = `
-          <video 
-            src="${url}" 
-            controls 
-            autoplay 
-            playsinline 
-            class="w-full h-full object-cover bg-black"
-          ></video>
-        `;
+        const videoEl = document.createElement('video');
+        videoEl.src = producto.video;
+        videoEl.autoplay = true;
+        videoEl.loop = true;
+        videoEl.controls = true;
+        videoEl.playsInline = true;
+        stage.insertBefore(videoEl, stage.querySelector('.media-switcher'));
+      } else if (tipo === '3d') {
+        const canvas3D = document.createElement('canvas');
+        stage.insertBefore(canvas3D, stage.querySelector('.media-switcher'));
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, stage.clientWidth / stage.clientHeight, 0.1, 100);
+        camera.position.set(0, 0.4, 5.2);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas3D, antialias: true, alpha: true });
+        renderer.setSize(stage.clientWidth, stage.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+        const dirLight = new THREE.DirectionalLight(0xffe699, 1.4);
+        dirLight.position.set(4, 6, 5);
+        scene.add(dirLight);
+
+        const modelo = crearModelo3DProducto(producto.tipoGeometria3D, null);
+        scene.add(modelo);
+
+        // Plataforma circular dorada debajo del objeto
+        const ped = new THREE.Mesh(
+          new THREE.CylinderGeometry(1.4, 1.6, 0.12, 32),
+          new THREE.MeshStandardMaterial({ color: 0xd4a73f, metalness: 0.8, roughness: 0.2 })
+        );
+        ped.position.y = -1.35;
+        scene.add(ped);
+
+        let isDragging = false, prevX = 0;
+        canvas3D.addEventListener('pointerdown', (e) => { isDragging = true; prevX = e.clientX; });
+        window.addEventListener('pointerup', () => { isDragging = false; });
+        canvas3D.addEventListener('pointermove', (e) => {
+          if (!isDragging) return;
+          modelo.rotation.y += (e.clientX - prevX) * 0.015;
+          prevX = e.clientX;
+        });
+
+        function renderMini3D() {
+          if (!canvas3D.isConnected) return;
+          requestAnimationFrame(renderMini3D);
+          if (!isDragging) modelo.rotation.y += 0.012;
+          renderer.render(scene, camera);
+        }
+        renderMini3D();
       } else {
-        visor.innerHTML = `
-          <img 
-            src="${url}" 
-            class="w-full h-full object-cover hover:scale-105 transition duration-500"
-          />
-        `;
+        const imgEl = document.createElement('img');
+        imgEl.src = producto.fotos[indice];
+        imgEl.alt = producto.nombre;
+        imgEl.onerror = function() {
+          this.src = 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80';
+        };
+        stage.insertBefore(imgEl, stage.querySelector('.media-switcher'));
       }
+    };
+
+    /* ==========================================================================
+       5. SALÓN REALIDAD VIRTUAL COMPLETO (SHOWROOM 3D EN TIEMPO REAL)
+       ========================================================================== */
+    let vrScene, vrCamera, vrRenderer, vrInitialized = false;
+    let vrModels = [];
+    let vrTargetCameraX = 0;
+    let productoVRActual = 0;
+    let gyroEnabled = false;
+
+    window.abrirTiendaVR = function(indiceProducto = 0) {
+      document.getElementById('vrModal').classList.add('active');
+      if (!vrInitialized) {
+        iniciarMundoShowroomVR();
+        vrInitialized = true;
+      }
+      enfocarPedestalVR(indiceProducto);
+    };
+
+    window.cerrarTiendaVR = function() {
+      document.getElementById('vrModal').classList.remove('active');
+    };
+
+    function iniciarMundoShowroomVR() {
+      const canvas = document.getElementById('vr-showroom-canvas');
+      vrScene = new THREE.Scene();
+      vrScene.background = new THREE.Color(0x020c07);
+      vrScene.fog = new THREE.FogExp2(0x020c07, 0.032);
+
+      vrCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
+      vrCamera.position.set(0, 1.8, 7.5);
+
+      vrRenderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+      vrRenderer.setSize(window.innerWidth, window.innerHeight);
+      vrRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      vrRenderer.xr.enabled = true;
+
+      // Iluminación del Salón Imperial Shefa Plus Global
+      vrScene.add(new THREE.AmbientLight(0xd1fae5, 0.75));
+      const spotGold = new THREE.PointLight(0xfbe18c, 1.6, 35);
+      spotGold.position.set(0, 7, 3);
+      vrScene.add(spotGold);
+
+      // Piso de Obsidiana Esmeralda con Cuadrícula Áurea
+      const floorGeo = new THREE.PlaneGeometry(80, 80);
+      const floorMat = new THREE.MeshStandardMaterial({
+        color: 0x041b11,
+        roughness: 0.15,
+        metalness: 0.7
+      });
+      const floor = new THREE.Mesh(floorGeo, floorMat);
+      floor.rotation.x = -Math.PI / 2;
+      vrScene.add(floor);
+
+      const gridHelper = new THREE.GridHelper(60, 40, 0xe5be53, 0x0f5233);
+      gridHelper.position.y = 0.01;
+      vrScene.add(gridHelper);
+
+      // Pantalla de Cine Virtual de 200 Pulgadas al fondo del Salón
+      const cinemaBorder = new THREE.Mesh(
+        new THREE.BoxGeometry(13.6, 6.6, 0.25),
+        new THREE.MeshStandardMaterial({ color: 0xd4a73f, metalness: 0.9, roughness: 0.2 })
+      );
+      cinemaBorder.position.set(0, 4.8, -6.5);
+      vrScene.add(cinemaBorder);
+
+      const cinemaScreen = new THREE.Mesh(
+        new THREE.PlaneGeometry(13, 6),
+        new THREE.MeshBasicMaterial({ color: 0x093521 })
+      );
+      cinemaScreen.position.set(0, 4.8, -6.35);
+      vrScene.add(cinemaScreen);
+
+      // Crear los 3 Pedestales Iluminados para cada producto del catálogo
+      const posicionesX = [-4.8, 0, 4.8];
+      catalogoProductos.forEach((prod, idx) => {
+        const xPos = posicionesX[idx];
+
+        // Columna cilíndrica esmeralda y oro
+        const pedestal = new THREE.Mesh(
+          new THREE.CylinderGeometry(1.15, 1.35, 1.1, 32),
+          new THREE.MeshStandardMaterial({ color: 0x062919, metalness: 0.7, roughness: 0.2 })
+        );
+        pedestal.position.set(xPos, 0.55, 1.5);
+        vrScene.add(pedestal);
+
+        // Aro luminoso dorado en la cima del pedestal
+        const topRing = new THREE.Mesh(
+          new THREE.TorusGeometry(1.16, 0.05, 16, 48),
+          new THREE.MeshBasicMaterial({ color: 0xfbe18c })
+        );
+        topRing.rotation.x = Math.PI / 2;
+        topRing.position.set(xPos, 1.12, 1.5);
+        vrScene.add(topRing);
+
+        // Modelo 3D del producto sobre su pedestal
+        const modeloProd = crearModelo3DProducto(prod.tipoGeometria3D, prod.fotos[0]);
+        modeloProd.position.set(xPos, 2.25, 1.5);
+        modeloProd.scale.set(0.65, 0.65, 0.65);
+        vrScene.add(modeloProd);
+        vrModels.push(modeloProd);
+      });
+
+      // Controles táctiles / mouse 360° para mirar alrededor en el Salón VR
+      let dragging = false, startX = 0, cameraYaw = 0;
+      canvas.addEventListener('pointerdown', (e) => { dragging = true; startX = e.clientX; });
+      window.addEventListener('pointerup', () => { dragging = false; });
+      canvas.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        cameraYaw -= (e.clientX - startX) * 0.004;
+        vrCamera.rotation.y = cameraYaw;
+        startX = e.clientX;
+      });
+
+      window.addEventListener('resize', () => {
+        if (!vrRenderer) return;
+        vrCamera.aspect = window.innerWidth / window.innerHeight;
+        vrCamera.updateProjectionMatrix();
+        vrRenderer.setSize(window.innerWidth, window.innerHeight);
+      });
+
+      function animateVRShowroom() {
+        vrRenderer.setAnimationLoop(() => {
+          vrModels.forEach((m) => {
+            m.rotation.y += 0.01;
+          });
+          vrCamera.position.x += (vrTargetCameraX - vrCamera.position.x) * 0.06;
+          vrRenderer.render(vrScene, vrCamera);
+        });
+      }
+      animateVRShowroom();
     }
 
-    // Filtra combinando la Categoría 3D activa + el texto del buscador
+    window.enfocarPedestalVR = function(indice) {
+      productoVRActual = indice;
+      const posicionesX = [-4.8, 0, 4.8];
+      vrTargetCameraX = posicionesX[indice];
+
+      const prod = catalogoProductos[indice];
+      document.getElementById('vrProdTitle').textContent = prod.nombre;
+      document.getElementById('vrProdStock').textContent = `🔥 ¡Alta demanda! • Quedan ${prod.stockDisponible} und. disponibles en Colombia`;
+      document.getElementById('vrProdPrice').textContent = `${formatoCOP(prod.precioActual)} COP`;
+
+      document.querySelectorAll('.vr-pedestal-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === indice);
+      });
+    };
+
+    window.activarGiroscopioVR = async function() {
+      // Si el navegador tiene gafas WebXR conectadas, lanza sesión inmersiva VR
+      if (navigator.xr && vrRenderer) {
+        const supported = await navigator.xr.isSessionSupported('immersive-vr').catch(() => false);
+        if (supported) {
+          const session = await navigator.xr.requestSession('immersive-vr');
+          vrRenderer.xr.setSession(session);
+          return;
+        }
+      }
+      // Si está en celular, activa el giroscopio para mirar la tienda moviendo el teléfono
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission().then((state) => {
+          if (state === 'granted') conectarEventosGiroscopio();
+        });
+      } else {
+        conectarEventosGiroscopio();
+      }
+    };
+
+    function conectarEventosGiroscopio() {
+      if (gyroEnabled) return;
+      gyroEnabled = true;
+      document.getElementById('btnGyroVR').textContent = '✅ Giroscopio 360° Activo';
+      window.addEventListener('deviceorientation', (e) => {
+        if (!vrCamera || e.gamma === null) return;
+        vrCamera.rotation.y = THREE.MathUtils.degToRad(-e.gamma * 0.8);
+        vrCamera.rotation.x = THREE.MathUtils.degToRad(Math.max(-25, Math.min(25, e.beta - 60)) * 0.4);
+      });
+    }
+
+    window.comprarDesdeVR = function() {
+      const prod = catalogoProductos[productoVRActual];
+      agregarAlPedido(prod.id);
+    };
+
+    /* ==========================================================================
+       6. PEDIDOS POR WHATSAPP Y FILTROS DE BÚSQUEDA / CATEGORÍAS
+       ========================================================================== */
+    window.agregarAlPedido = function(idProducto) {
+      const prod = catalogoProductos.find(p => p.id === idProducto);
+      carritoPedidos++;
+      document.getElementById("cartCount").textContent = carritoPedidos;
+      const mensaje = encodeURIComponent(
+        `¡Hola Shefa Plus Global Shop! Vengo de la Tienda 3D y quiero pedir:\n• *${prod.nombre}*\n• Precio: ${formatoCOP(prod.precioActual)} COP\n¿Me confirmas envío contraentrega?`
+      );
+      window.open(`https://wa.me/573000000000?text=${mensaje}`, "_blank");
+    };
+
     function filtrarCatalogo() {
-      const texto = document.getElementById('buscadorInput').value.toLowerCase();
-      const filtrados = catalogoProductos.filter(p => {
-        const coincideCategoria = categoriaSeleccionada === "Todos" || p.categoria === categoriaSeleccionada;
-        const coincideTexto = 
+      const texto = document.getElementById("searchInput").value.toLowerCase().trim();
+      const filtrados = catalogoProductos.filter((p) => {
+        const coincideTexto =
           p.nombre.toLowerCase().includes(texto) ||
-          p.beneficioClave.toLowerCase().includes(texto) ||
-          p.categoria.toLowerCase().includes(texto) ||
-          p.ref.toLowerCase().includes(texto);
-        return coincideCategoria && coincideTexto;
+          p.descripcion.toLowerCase().includes(texto) ||
+          p.categoria.toLowerCase().includes(texto);
+
+        if (categoriaActiva === "TODOS") return coincideTexto;
+        if (categoriaActiva === "MAS_VENDIDO") return coincideTexto && p.esMasVendido;
+        return coincideTexto && p.categoria === categoriaActiva;
       });
       renderizarProductos(filtrados);
     }
 
-    // Abre o cierra el carrito
-    function toggleCarrito() {
-      const modal = document.getElementById('modalCarrito');
-      modal.classList.toggle('hidden');
-      modal.classList.toggle('flex');
-    }
+    document.getElementById("searchInput").addEventListener("input", filtrarCatalogo);
 
-    // Agrega productos al carrito
-    function agregarAlCarrito(ref, nombre, precioCOP) {
-      carrito.push({ ref, nombre, precioCOP });
-      document.getElementById('contadorCarrito').innerText = carrito.length;
-      renderizarCarrito();
-    }
+    document.querySelectorAll("#categoryNav button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cat = btn.getAttribute("data-cat");
+        if (cat === "CONTACTO") {
+          window.open("https://wa.me/573000000000?text=Hola%20Shefa%20Plus%20Global%20Shop", "_blank");
+          return;
+        }
+        document.querySelectorAll("#categoryNav button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        categoriaActiva = cat;
+        filtrarCatalogo();
+      });
+    });
 
-    // Elimina un producto del carrito
-    function eliminarDelCarrito(indice) {
-      carrito.splice(indice, 1);
-      document.getElementById('contadorCarrito').innerText = carrito.length;
-      renderizarCarrito();
-    }
-
-    // Muestra el listado en COP dentro del modal
-    function renderizarCarrito() {
-      const contenedor = document.getElementById('listaCarrito');
-      if (carrito.length === 0) {
-        contenedor.innerHTML = 'Tu carrito está vacío.';
-        document.getElementById('totalCarrito').innerText = '$ 0 COP';
-        return;
-      }
-
-      let total = 0;
-      contenedor.innerHTML = carrito.map((item, idx) => {
-        total += item.precioCOP;
-        return `
-          <div class="flex justify-between items-center bg-slate-50 border border-slate-200/80 p-2.5 rounded-xl">
-            <div class="pr-2">
-              <p class="font-bold text-slate-900 text-xs">${item.nombre}</p>
-              <p class="text-[11px] text-slate-400">Ref: ${item.ref}</p>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="font-extrabold text-slate-900 text-xs whitespace-nowrap">${formatoCOP.format(item.precioCOP)}</span>
-              <button onclick="eliminarDelCarrito(${idx})" class="text-rose-500 hover:text-rose-700 text-xs p-1">
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById('totalCarrito').innerText = `${formatoCOP.format(total)} COP`;
-    }
-
-    // Envía el pedido listo en COP a WhatsApp Business
-    function finalizarPorWhatsApp() {
-      if (carrito.length === 0) {
-        alert("Agrega al menos un producto antes de confirmar tu pedido.");
-        return;
-      }
-      let total = 0;
-      const lineas = carrito.map(item => {
-        total += item.precioCOP;
-        return `• ${item.nombre} (${item.ref}): ${formatoCOP.format(item.precioCOP)} COP`;
-      }).join('%0A');
-
-      const mensaje = `Hola *Shefa Plus Global*, quiero realizar este pedido:%0A%0A${lineas}%0A%0A*Total a pagar: ${formatoCOP.format(total)} COP*`;
-      // 👇 Reemplaza 573000000000 por tu número de WhatsApp en Colombia
-      window.open(`https://wa.me/573204774096?text=${mensaje}`, '_blank');
-    }
-
-    // Inicializar Barra 3D y Catálogo al cargar la página
-    renderizarBarraCategorias3D();
+    // Inicializar tienda en 3D
     renderizarProductos(catalogoProductos);
   </script>
 </body>
