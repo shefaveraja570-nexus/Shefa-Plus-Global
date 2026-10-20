@@ -1,2006 +1,1043 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shefa Plus Global Shop 3D & VR | Tienda Oficial Colombia</title>
-  <meta name="description" content="Experiencia 3D y Realidad Virtual - Shefa Plus Global Shop. Tienda Oficial con Garantía y Cobertura en toda Colombia." />
-
-  <!-- Tipografías: Cinzel (Oro Imperial 3D) + Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Motor 3D Three.js para WebGL y Realidad Virtual WebXR -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <style>
-    :root {
-      --emerald-deep: #020d08;
-      --emerald-nebula: #0a3823;
-      --gold-light: #fff3c4;
-      --gold-primary: #e5be53;
-      --gold-dark: #9c7018;
-      --gold-gradient: linear-gradient(135deg, #fbe18c 0%, #d4a73f 45%, #b38422 70%, #f9df87 100%);
-      --gold-text-gradient: linear-gradient(180deg, #fff9de 0%, #f2cb63 45%, #b07e19 85%, #f7da82 100%);
-      --body-bg: #eef2f6;
-      --text-dark: #0f172a;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: radial-gradient(circle at 50% 0%, #dce7e1 0%, #eef2f6 60%);
-      color: var(--text-dark);
-      overflow-x: hidden;
-      perspective: 1400px;
-    }
-
-    /* ==========================================================================
-       1. CINTILLO SUPERIOR 3D (TOP BAR)
-       ========================================================================== */
-    .top-announcement-bar {
-      background: linear-gradient(90deg, #020b07 0%, #082619 50%, #020b07 100%);
-      border-bottom: 1px solid rgba(229, 190, 83, 0.35);
-      color: #ffffff;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 9px 16px;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      position: relative;
-      z-index: 40;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    }
-
-    .top-announcement-bar .gold-highlight {
-      color: #f6cd5b;
-      font-weight: 800;
-      text-shadow: 0 0 8px rgba(246, 205, 91, 0.4);
-    }
-
-    .top-announcement-bar .dot-sep {
-      color: #e5be53;
-    }
-
-    /* ==========================================================================
-       2. CABECERA MAESTRA 3D (PROFUNDIDAD ESPACIAL Y NEBULOSA WEBGL)
-       ========================================================================== */
-    .master-header {
-      position: relative;
-      background:
-        radial-gradient(circle at 22% 50%, rgba(22, 122, 72, 0.52) 0%, transparent 55%),
-        radial-gradient(circle at 78% 35%, rgba(18, 105, 63, 0.45) 0%, transparent 50%),
-        linear-gradient(180deg, #020e09 0%, #062417 52%, #02100a 100%);
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(2, 16, 10, 0.65);
-      transform-style: preserve-3d;
-    }
-
-    #header-webgl-canvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .header-space-container {
-      position: relative;
-      z-index: 5;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 48px 32px 44px;
-      display: grid;
-      grid-template-columns: auto minmax(260px, 480px) auto;
-      align-items: center;
-      justify-content: space-between;
-      gap: 26px;
-      transform-style: preserve-3d;
-      transition: transform 0.2s ease-out;
-    }
-
-    /* --- LOGO Y TÍTULO CON EXTRUSIÓN 3D --- */
-    .brand-showcase {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      text-decoration: none;
-      transform-style: preserve-3d;
-    }
-
-    .brand-logo-wrapper {
-      position: relative;
-      width: 102px;
-      height: 102px;
-      border-radius: 50%;
-      padding: 3.5px;
-      background: var(--gold-gradient);
-      box-shadow:
-        0 14px 28px rgba(0, 0, 0, 0.75),
-        0 0 32px rgba(229, 190, 83, 0.65),
-        0 0 60px rgba(20, 107, 66, 0.85);
-      flex-shrink: 0;
-      transform: translateZ(45px);
-      transition: transform 0.35s ease;
-    }
-
-    .brand-logo-wrapper::after {
-      content: '';
-      position: absolute;
-      inset: -7px;
-      border-radius: 50%;
-      border: 1.5px dashed rgba(249, 223, 135, 0.55);
-      animation: spinHalo 18s linear infinite;
-    }
-
-    @keyframes spinHalo {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .brand-showcase:hover .brand-logo-wrapper {
-      transform: translateZ(65px) rotateY(12deg) scale(1.05);
-    }
-
-    .brand-logo-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-      background: #041b11;
-    }
-
-    .brand-titles {
-      display: flex;
-      flex-direction: column;
-      transform: translateZ(35px);
-    }
-
-    /* Efecto de letras fundidas en lingote de oro 3D */
-    .brand-title-main {
-      font-family: 'Cinzel', serif;
-      font-size: 2.35rem;
-      font-weight: 900;
-      line-height: 1.02;
-      letter-spacing: 0.04em;
-      color: #f8de7e;
-      text-transform: uppercase;
-      text-shadow:
-        0 1px 0 #c99c33,
-        0 2px 0 #b58824,
-        0 3px 0 #9c7116,
-        0 4px 0 #7f5a0d,
-        0 6px 12px rgba(0, 0, 0, 0.9),
-        0 0 22px rgba(229, 190, 83, 0.45);
-    }
-
-    .brand-title-sub {
-      font-family: 'Cinzel', serif;
-      font-size: 1.36rem;
-      font-weight: 800;
-      letter-spacing: 0.12em;
-      margin-top: 3px;
-      color: #f3ce62;
-      text-transform: uppercase;
-      text-shadow:
-        0 1px 0 #b58824,
-        0 2px 0 #8f6710,
-        0 4px 10px rgba(0, 0, 0, 0.9);
-    }
-
-    .brand-tagline {
-      margin-top: 7px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #ebd9a4;
-      letter-spacing: 0.02em;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
-    }
-
-    /* --- BUSCADOR CÁPSULA FLOTANTE 3D --- */
-    .header-search-box {
-      position: relative;
-      width: 100%;
-      transform: translateZ(40px);
-    }
-
-    .header-search-input {
-      width: 100%;
-      padding: 15px 52px 15px 24px;
-      border-radius: 999px;
-      background: rgba(5, 29, 18, 0.82);
-      border: 1.8px solid rgba(229, 190, 83, 0.85);
-      color: #ffffff;
-      font-size: 0.96rem;
-      font-family: inherit;
-      outline: none;
-      backdrop-filter: blur(12px);
-      box-shadow:
-        0 12px 26px rgba(0, 0, 0, 0.6),
-        inset 0 2px 8px rgba(0, 0, 0, 0.65),
-        0 0 20px rgba(229, 190, 83, 0.22);
-      transition: all 0.25s ease;
-    }
-
-    .header-search-input::placeholder {
-      color: rgba(240, 228, 192, 0.78);
-    }
-
-    .header-search-input:focus {
-      border-color: #ffe89e;
-      transform: scale(1.02);
-      box-shadow:
-        0 16px 32px rgba(0, 0, 0, 0.7),
-        0 0 28px rgba(229, 190, 83, 0.55);
-    }
-
-    .header-search-btn {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: #f3c857;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-    }
-
-    /* --- BOTONES DERECHA: VR 3D + MI PEDIDO + WHATSAPP --- */
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transform: translateZ(45px);
-    }
-
-    .btn-vr-portal {
-      background: linear-gradient(135deg, #0d4a2e 0%, #052315 100%);
-      color: #ffe48f;
-      border: 1.8px solid #e5be53;
-      border-radius: 999px;
-      padding: 12px 18px;
-      font-size: 0.88rem;
-      font-weight: 800;
-      font-family: inherit;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow:
-        0 10px 22px rgba(0, 0, 0, 0.65),
-        0 0 18px rgba(20, 107, 66, 0.9),
-        inset 0 1px 1px rgba(255, 255, 255, 0.35);
-      transition: all 0.25s ease;
-      animation: pulseVR 2.8s infinite ease-in-out;
-    }
-
-    @keyframes pulseVR {
-      0%, 100% { box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 14px rgba(229, 190, 83, 0.35); }
-      50% { box-shadow: 0 12px 28px rgba(0,0,0,0.8), 0 0 26px rgba(229, 190, 83, 0.85); }
-    }
-
-    .btn-vr-portal:hover {
-      transform: translateY(-3px) scale(1.04);
-      background: linear-gradient(135deg, #146b42 0%, #093520 100%);
-    }
-
-    .btn-mi-pedido {
-      background: var(--gold-gradient);
-      color: #07140d;
-      border: 1px solid #fff5c0;
-      border-radius: 999px;
-      padding: 12px 22px;
-      font-size: 0.95rem;
-      font-weight: 800;
-      font-family: inherit;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow:
-        0 10px 24px rgba(0, 0, 0, 0.6),
-        0 4px 0 #8c6412,
-        inset 0 1px 2px rgba(255, 255, 255, 0.85);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn-mi-pedido:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 14px 28px rgba(229, 190, 83, 0.55),
-        0 4px 0 #8c6412;
-    }
-
-    .btn-mi-pedido:active {
-      transform: translateY(2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 1px 0 #8c6412;
-    }
-
-    .pedido-badge {
-      background: #06180f;
-      color: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 800;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(229, 190, 83, 0.7);
-    }
-
-    .btn-whatsapp-circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #2eb86b 0%, #12522d 100%);
-      border: 2px solid #e5be53;
-      color: #fff6d6;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      box-shadow:
-        0 10px 20px rgba(0, 0, 0, 0.65),
-        0 3px 0 #0c381f,
-        0 0 16px rgba(229, 190, 83, 0.4);
-      transition: transform 0.2s ease;
-    }
-
-    .btn-whatsapp-circle:hover {
-      transform: translateY(-3px) scale(1.06);
-    }
-
-    /* ==========================================================================
-       3. BARRA DE CATEGORÍAS CON LÍNEA DORADA 3D
-       ========================================================================== */
-    .category-navbar {
-      position: relative;
-      z-index: 10;
-      background: rgba(3, 14, 9, 0.94);
-      border-top: 2px solid #d4a73f;
-      border-bottom: 1px solid rgba(212, 167, 63, 0.4);
-      box-shadow: 0 -4px 20px rgba(229, 190, 83, 0.25);
-    }
-
-    .category-nav-list {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 14px 20px;
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 32px;
-    }
-
-    .category-nav-item button {
-      background: none;
-      border: none;
-      color: #f1f5f9;
-      font-family: inherit;
-      font-size: 0.95rem;
-      font-weight: 500;
-      cursor: pointer;
-      padding: 4px 2px;
-      transition: all 0.2s ease;
-      position: relative;
-    }
-
-    .category-nav-item button:hover,
-    .category-nav-item button.active {
-      color: #f6cf65;
-      font-weight: 700;
-      text-shadow: 0 0 12px rgba(246, 207, 101, 0.5);
-    }
-
-    .category-nav-item button.active::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -6px;
-      height: 2.5px;
-      background: var(--gold-gradient);
-      border-radius: 2px;
-    }
-
-    /* ==========================================================================
-       4. CATÁLOGO DE PRODUCTOS CON TARJETAS 3D (PRESERVE-3D + PARALLAX)
-       ========================================================================== */
-    .catalog-section {
-      max-width: 1260px;
-      margin: 38px auto 70px;
-      padding: 0 18px;
-    }
-
-    .catalog-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 26px;
-    }
-
-    .catalog-header h2 {
-      font-size: 1.65rem;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .catalog-header p {
-      font-size: 0.88rem;
-      color: #475569;
-      margin-top: 4px;
-    }
-
-    .catalog-header p span.gold-video-hint {
-      color: #d97706;
-      font-weight: 800;
-    }
-
-    .vr-banner-pill {
-      background: linear-gradient(135deg, #062517 0%, #0d462b 100%);
-      color: #f8de7e;
-      border: 1px solid #d4a73f;
-      padding: 10px 18px;
-      border-radius: 14px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(6, 37, 23, 0.25);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 30px;
-      perspective: 1200px;
-    }
-
-    /* Tarjeta 3D con capas flotantes */
-    .product-card-3d {
-      position: relative;
-      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 22px;
-      border: 1px solid rgba(212, 167, 63, 0.35);
-      box-shadow:
-        0 20px 40px rgba(15, 23, 42, 0.10),
-        0 4px 0 rgba(212, 167, 63, 0.3);
-      display: flex;
-      flex-direction: column;
-      transform-style: preserve-3d;
-      transition: transform 0.18s ease-out, box-shadow 0.25s ease;
-      will-change: transform;
-    }
-
-    .product-card-3d:hover {
-      box-shadow:
-        0 30px 60px rgba(6, 36, 22, 0.22),
-        0 0 25px rgba(229, 190, 83, 0.35);
-    }
-
-    /* Brillo especular dinámico al inclinar en 3D */
-    .card-glare {
-      position: absolute;
-      inset: 0;
-      border-radius: 22px;
-      pointer-events: none;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 243, 196, 0.35), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      z-index: 15;
-    }
-
-    .product-card-3d:hover .card-glare {
-      opacity: 1;
-    }
-
-    .media-stage {
-      position: relative;
-      width: calc(100% - 16px);
-      margin: 8px auto 0;
-      height: 275px;
-      border-radius: 16px;
-      background: radial-gradient(circle at center, #112a1e 0%, #06110b 100%);
-      overflow: hidden;
-      transform: translateZ(28px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
-    }
-
-    .media-stage img,
-    .media-stage video,
-    .media-stage canvas {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .badge-top-left {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(6, 22, 14, 0.92);
-      color: #fbbf24;
-      border: 1px solid rgba(251, 191, 36, 0.55);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 800;
-      z-index: 6;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
-    }
-
-    .badge-discount {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
-      color: #ffffff;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.74rem;
-      font-weight: 800;
-      z-index: 6;
-      box-shadow: 0 6px 14px rgba(190, 18, 60, 0.45);
-    }
-
-    /* Botonera Foto 1 / Foto 2 / Video / 3D */
-    .media-switcher {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(6, 20, 13, 0.88);
-      backdrop-filter: blur(8px);
-      padding: 4px;
-      border-radius: 999px;
-      display: inline-flex;
-      gap: 4px;
-      z-index: 6;
-      border: 1px solid rgba(229, 190, 83, 0.45);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-    }
-
-    .media-btn {
-      background: transparent;
-      border: none;
-      color: #f8fafc;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 6px 11px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .media-btn.active {
-      background: var(--gold-gradient);
-      color: #06150d;
-      font-weight: 800;
-    }
-
-    .card-body {
-      padding: 18px 20px 20px;
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      transform: translateZ(22px);
-    }
-
-    .card-meta-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-
-    .card-category {
-      font-size: 0.72rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      color: #b45309;
-      letter-spacing: 0.04em;
-    }
-
-    .card-rating {
-      background: #fef3c7;
-      color: #92400e;
-      font-size: 0.74rem;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 999px;
-    }
-
-    .card-title {
-      font-size: 1.08rem;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .card-desc {
-      font-size: 0.83rem;
-      color: #475569;
-      line-height: 1.45;
-      margin-bottom: 14px;
-    }
-
-    .scarcity-bar {
-      background: linear-gradient(90deg, #fffbeb 0%, #fef3c7 100%);
-      border: 1px solid #fcd34d;
-      border-radius: 10px;
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      margin-top: auto;
-      transform: translateZ(30px);
-      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.1);
-    }
-
-    .scarcity-bar .demand-label {
-      color: #92400e;
-    }
-
-    .scarcity-bar .stock-left {
-      color: #dc2626;
-      font-weight: 800;
-    }
-
-    .card-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 12px;
-      border-top: 1px solid #e2e8f0;
-      transform: translateZ(36px);
-    }
-
-    .price-old {
-      font-size: 0.76rem;
-      color: #94a3b8;
-      text-decoration: line-through;
-    }
-
-    .price-current {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #0f172a;
-    }
-
-    .price-current small {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #64748b;
-    }
-
-    .price-save {
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: #16a34a;
-    }
-
-    .btn-lo-quiero {
-      background: linear-gradient(135deg, #072215 0%, #0f172a 100%);
-      color: #fbbf24;
-      border: 1.5px solid #d4a73f;
-      padding: 11px 18px;
-      border-radius: 12px;
-      font-size: 0.86rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 6px 15px rgba(6, 34, 21, 0.35), 0 3px 0 #8c6412;
-      transition: all 0.2s ease;
-    }
-
-    .btn-lo-quiero:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #0d3b24 0%, #1e293b 100%);
-    }
-
-    /* ==========================================================================
-       5. SALÓN DE REALIDAD VIRTUAL (TIENDA FÍSICA 3D / WEBXR)
-       ========================================================================== */
-    .vr-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: #020c07;
-      z-index: 9999;
-      display: none;
-      flex-direction: column;
-    }
-
-    .vr-modal-overlay.active {
-      display: flex;
-    }
-
-    #vr-showroom-canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-      cursor: grab;
-    }
-
-    #vr-showroom-canvas:active {
-      cursor: grabbing;
-    }
-
-    /* HUD Flotante dentro de la Realidad Virtual */
-    .vr-hud-top {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      right: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .vr-hud-brand {
-      background: rgba(3, 18, 11, 0.85);
-      border: 1.5px solid #e5be53;
-      backdrop-filter: blur(10px);
-      padding: 10px 18px;
-      border-radius: 999px;
-      color: #f8de7e;
-      font-family: 'Cinzel', serif;
-      font-weight: 800;
-      font-size: 0.9rem;
-      pointer-events: auto;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-    }
-
-    .vr-hud-controls {
-      display: flex;
-      gap: 10px;
-      pointer-events: auto;
-    }
-
-    .vr-btn-action {
-      background: var(--gold-gradient);
-      color: #05140c;
-      border: 1px solid #fff3b8;
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.84rem;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-    }
-
-    .vr-btn-close {
-      background: rgba(225, 29, 72, 0.9);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      padding: 10px 18px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.84rem;
-      cursor: pointer;
-    }
-
-    /* Tarjeta Holográfica de Compra dentro del mundo VR */
-    .vr-product-hud {
-      position: absolute;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(92%, 540px);
-      background: rgba(4, 22, 14, 0.90);
-      border: 1.8px solid #e5be53;
-      backdrop-filter: blur(14px);
-      border-radius: 20px;
-      padding: 18px 22px;
-      color: #ffffff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(229, 190, 83, 0.3);
-      z-index: 10;
-    }
-
-    .vr-hud-info h4 {
-      color: #f8de7e;
-      font-size: 1.05rem;
-      margin-bottom: 4px;
-    }
-
-    .vr-hud-info p {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-      margin-bottom: 6px;
-    }
-
-    .vr-hud-price {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: #4ade80;
-    }
-
-    .vr-pedestal-nav {
-      display: flex;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .vr-pedestal-btn {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(229, 190, 83, 0.5);
-      color: #fde68a;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 0.74rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .vr-pedestal-btn.active {
-      background: var(--gold-gradient);
-      color: #05140c;
-    }
-
-    /* ==========================================================================
-       6. RESPONSIVE MÓVIL Y TABLET
-       ========================================================================== */
-    @media (max-width: 1080px) {
-      .header-space-container {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 22px;
-        padding: 32px 18px 28px;
-      }
-
-      .brand-showcase {
-        justify-content: center;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .header-actions {
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .category-nav-list {
-        gap: 16px;
-        overflow-x: auto;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        white-space: nowrap;
-        padding: 12px 16px;
-      }
-    
-
-    @media (max-width: 520px) {
-      .brand-title-main { font-size: 1.75rem; }
-      .brand-title-sub { font-size: 1.05rem; }
-      .products-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      .vr-product-hud {
-        flex-direction: column;
-        text-align: center;
-      }
-      .vr-pedestal-nav {
-        justify-content: center;
-      }
-    
-        /* ==========================================================================
-       PARCHE DE CALIBRACIÓN MÓVIL ANTI-DESBORDE (SIN PERDER EL 3D)
-       ========================================================================== */
-    html, body {
-      max-width: 100vw;
-      overflow-x: hidden !important;
-    }
-
-    @media (max-width: 768px) {
-      .header-space-container {
-        width: 100% !important;
-        max-width: 100vw !important;
-        padding: 26px 14px 24px !important;
-        gap: 16px !important;
-        box-sizing: border-box !important;
-      }
-
-      /* Reducimos el empuje Z en móvil para que no ensanche la pantalla ni cree la barra blanca */
-      .brand-logo-wrapper {
-        width: 86px !important;
-        height: 86px !important;
-        transform: translateZ(10px) !important;
-      }
-
-      .brand-titles,
-      .header-search-box,
-      .header-actions {
-        transform: translateZ(8px) !important;
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-
-      .brand-title-main {
-        font-size: 1.55rem !important;
-        letter-spacing: 0.02em !important;
-      }
-
-      .brand-title-sub {
-        font-size: 0.98rem !important;
-        letter-spacing: 0.08em !important;
-      }
-
-      .brand-tagline {
-        font-size: 0.75rem !important;
-        padding: 0 8px;
-      }
-
-      /* El buscador entra completo y el texto no se corta */
-      .header-search-input {
-        width: 100% !important;
-        padding: 12px 42px 12px 16px !important;
-        font-size: 0.82rem !important;
-      }
-
-      .header-actions {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        gap: 10px !important;
-      }
-
-      .btn-vr-portal {
-        padding: 10px 16px !important;
-        font-size: 0.82rem !important;
-      }
-
-      .btn-mi-pedido {
-        padding: 10px 18px !important;
-        font-size: 0.88rem !important;
-      }
-
-      .btn-whatsapp-circle {
-        width: 44px !important;
-        height: 44px !important;
-      }
-      }
-    /* ==========================================================================
-   SELLO OFICIAL AUTOMÁTICO SHEFA PLUS GLOBAL EN TODAS LAS TARJETAS
-   ========================================================================== */
-.media-stage::after {
-  content: '';
-  position: absolute;
-  top: 46px;
-  left: 12px;
-  width: 58px;
-  height: 58px;
-  background-image: url('assets/img/logo-shefa.png');
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-  border: 2px solid #e5be53;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.75), 0 0 12px rgba(229, 190, 83, 0.65);
-  z-index: 5;
-  pointer-events: none;
-}
-    
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHEFA PLUS GLOBAL SHOP | Experiencia 3D</title>
+    <style>
+        :root {
+            --emerald-dark: #041f14;
+            --emerald-mid: #0a3d28;
+            --gold-bright: #ffd700;
+            --gold-metallic: #d4af37;
+            --gold-dark: #997a15;
+            --bg-light: #f4f6f8;
+            --text-dark: #111827;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* 1. CINTILLO SUPERIOR (TOP BAR) */
+        .top-bar {
+            background: #060908;
+            color: #e5e7eb;
+            font-size: 0.68rem;
+            padding: 7px 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: 0.3px;
+        }
+        .top-bar span.gold {
+            color: var(--gold-bright);
+            font-weight: 700;
+        }
+
+        /* 2. HEADER HERO ESMERALDA Y ORO */
+        .hero-header {
+            background: radial-gradient(circle at 50% 30%, #114b32 0%, #062619 60%, #03140d 100%);
+            position: relative;
+            padding: 24px 16px 20px 16px;
+            text-align: center;
+            overflow: hidden;
+            border-bottom: 2px solid var(--gold-metallic);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Efecto de partículas doradas en el fondo */
+        .hero-header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(var(--gold-bright) 1px, transparent 1px),
+                radial-gradient(var(--gold-metallic) 1.5px, transparent 1.5px);
+            background-size: 35px 35px;
+            background-position: 0 0, 18px 18px;
+            opacity: 0.22;
+            pointer-events: none;
+        }
+
+        /* Medallón / Logo (Disparador Secreto) */
+        .medallon-container {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 10px auto;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #fff3a1, #d4af37, #7a5c08);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            user-select: none;
+            transition: transform 0.2s;
+        }
+        .medallon-container:active {
+            transform: scale(0.92);
+        }
+        .medallon-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, #0f5238 0%, #03170f 100%);
+            border: 1px dashed var(--gold-bright);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.9rem;
+            color: var(--gold-bright);
+            text-shadow: 0 0 10px var(--gold-bright);
+        }
+
+        .hero-title {
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            background: linear-gradient(to bottom, #fff6b7 0%, #f3c64c 50%, #b88714 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 4px 15px rgba(212, 175, 55, 0.35);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            color: #eab308;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            margin-top: 2px;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tagline {
+            color: #d1fae5;
+            font-size: 0.72rem;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Buscador Dorado */
+        .search-wrapper {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 16px auto;
+            z-index: 2;
+        }
+        .search-wrapper input {
+            width: 100%;
+            padding: 12px 42px 12px 18px;
+            border-radius: 30px;
+            background: rgba(5, 22, 14, 0.85);
+            border: 1.5px solid var(--gold-metallic);
+            color: #fff;
+            font-size: 0.88rem;
+            outline: none;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6), 0 0 12px rgba(212, 175, 55, 0.2);
+        }
+        .search-wrapper input::placeholder {
+            color: #9ca3af;
+        }
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-bright);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        /* Botones de Acción Hero */
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-vr {
+            background: rgba(9, 43, 29, 0.9);
+            color: #fff;
+            border: 1.5px solid var(--gold-metallic);
+            padding: 8px 14px;
+            border-radius: 25px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+        }
+
+        .btn-order {
+            background: linear-gradient(180deg, #ffe680 0%, #d4af37 55%, #9e7810 100%);
+            color: #05160e;
+            border: 1px solid #fff3a1;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.45);
+        }
+
+        .order-badge {
+            background: #091e14;
+            color: var(--gold-bright);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+
+        .btn-wa-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: 1.5px solid var(--gold-bright);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+        }
+
+        /* 3. BARRA DE NAVEGACIÓN DE CATEGORÍAS */
+        .cat-nav {
+            background: #0c1210;
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 12px;
+            border-bottom: 2px solid #1f2937;
+            scrollbar-width: none;
+        }
+        .cat-nav::-webkit-scrollbar {
+            display: none;
+        }
+        .cat-link {
+            color: #d1d5db;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 12px 14px;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .cat-link.active {
+            color: var(--gold-bright);
+            font-weight: 700;
+        }
+        .cat-link.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: var(--gold-bright);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* 4. SECCIÓN DE CATÁLOGO Y ENCABEZADO 3D */
+        .main-content {
+            padding: 18px 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .section-instructions {
+            font-size: 0.75rem;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+        .section-instructions b.orange { color: #d97706; }
+        .section-instructions b.blue { color: #0284c7; }
+
+        .btn-showroom {
+            background: linear-gradient(90deg, #073823 0%, #0d5939 100%);
+            color: #fff;
+            border: 1px solid var(--gold-metallic);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 22px;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(7, 56, 35, 0.25);
+        }
+
+        /* 5. GRILLA Y TARJETAS EN RELIEVE (STACKED 3D EFFECT) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 28px;
+            align-items: start;
+        }
+
+        /* En pantallas móviles se puede ver de a 2 o 1 grande con el relieve */
+        @media (max-width: 520px) {
+            .cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* Contenedor de la tarjeta con las capas traseras en relieve */
+        .card-3d-wrapper {
+            position: relative;
+            border-radius: 18px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.25s ease;
+        }
+
+        /* Capa de relieve intermedia */
+        .card-3d-wrapper::before {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: -5px;
+            bottom: -5px;
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 18px;
+            z-index: 1;
+            box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Capa de relieve profunda + Sombra 3D */
+        .card-3d-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            right: -10px;
+            bottom: -10px;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 18px;
+            z-index: 0;
+            box-shadow: 6px 10px 22px rgba(0, 0, 0, 0.18);
+        }
+
+        .card-3d-wrapper:hover {
+            transform: translateY(-4px);
+        }
+
+        /* Cuerpo principal de la tarjeta */
+        .product-card {
+            position: relative;
+            z-index: 2;
+            background: #111;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1.5px solid #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Visor cuadrado igual a la captura */
+        .card-media-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background: #18181b;
+            overflow: hidden;
+        }
+
+        .card-media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        /* Badges Superiores dentro de la imagen */
+        .badge-bestseller {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(15, 23, 42, 0.78);
+            color: var(--gold-bright);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            backdrop-filter: blur(4px);
+            z-index: 3;
+        }
+
+        .badge-discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #f43f5e, #e11d48);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            box-shadow: 0 2px 8px rgba(225, 29, 72, 0.5);
+            z-index: 3;
+        }
+
+        /* Barra Inferior de Fotos / Video / 3D superpuesta en la imagen */
+        .media-switcher-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 12, 16, 0.82);
+            backdrop-filter: blur(6px);
+            padding: 7px 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            z-index: 3;
+        }
+        .media-switcher-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .media-pill {
+            background: transparent;
+            color: #e2e8f0;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .media-pill.active {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Información del producto debajo o desplegable */
+        .card-info-footer {
+            background: #ffffff;
+            padding: 12px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .card-ref-tag {
+            font-size: 0.65rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-prod-title {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 3px 0 6px 0;
+            line-height: 1.25;
+        }
+
+        .card-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .card-price-val {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #065f46;
+        }
+
+        .btn-card-pedir {
+            background: linear-gradient(135deg, #0a3d28, #041f14);
+            color: var(--gold-bright);
+            border: 1px solid var(--gold-metallic);
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-card-delete {
+            display: none;
+            width: 100%;
+            margin-top: 8px;
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        body.admin-mode .btn-card-delete {
+            display: block;
+        }
+
+        /* 6. MODALES DEL COMANDO SECRETO */
+        .modal-backdrop {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 15, 10, 0.88);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 16px;
+        }
+
+        .modal-window {
+            background: #082217;
+            border: 2px solid var(--gold-metallic);
+            border-radius: 20px;
+            padding: 22px;
+            width: 100%;
+            max-width: 420px;
+            color: #fff;
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-window h3 {
+            color: var(--gold-bright);
+            text-align: center;
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.78rem;
+            color: #a7f3d0;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--gold-metallic);
+            background: #04140d;
+            color: #fff;
+            font-size: 0.88rem;
+            outline: none;
+        }
+
+        .modal-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .btn-gold-full {
+            flex: 1;
+            background: linear-gradient(180deg, #ffe680 0%, #d4af37 100%);
+            color: #041f14;
+            border: none;
+            padding: 11px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-dark-cancel {
+            flex: 1;
+            background: #1f2937;
+            color: #e5e7eb;
+            border: 1px solid #374151;
+            padding: 11px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* BARRA FLOTANTE INFERIOR CUANDO EL MODO SECRETO ESTÁ ACTIVO */
+        .admin-floating-bar {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: #041f14;
+            border-top: 2px solid var(--gold-bright);
+            padding: 10px 16px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1500;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+        }
+        body.admin-mode .admin-floating-bar {
+            display: flex;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- 1. CINTILLO SUPERIOR DE CONFIANZA -->
-  <div class="top-announcement-bar">
-    <span>🚚 <strong class="gold-highlight">ENVÍOS GRATIS</strong> A TODA COLOMBIA</span>
-    <span class="dot-sep">•</span>
-    <span>🛡️ COMPRA 100% SEGURA</span>
-    <span class="dot-sep">•</span>
-    <span>💬 <strong class="gold-highlight">SOPORTE 24/7</strong> (WhatsApp)</span>
-  </div>
-
-  <!-- 2. CABECERA MAESTRA 3D: SHEFA PLUS GLOBAL SHOP -->
-  <header class="master-header" id="masterHeader">
-    <!-- Escena WebGL 3D de Nebulosa Esmeralda, Polvo de Oro y Anillos Sagrados -->
-    <canvas id="header-webgl-canvas"></canvas>
-
-    <div class="header-space-container" id="header3DContainer">
-      <!-- Izquierda: Logo Circular 3D + Título en Relieve de Oro -->
-      <a href="#" class="brand-showcase">
-        <div class="brand-logo-wrapper">
-          <img
-            src="assets/img/logo-shefa.png"
-            alt="Logo Shefa Plus Global"
-            onerror="this.outerHTML='<div style=\'width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#146b42,#041b11);display:flex;align-items:center;justify-content:center;color:#f6d365;font-family:Cinzel,serif;font-weight:900;font-size:1.6rem;\'>S+</div>'"
-          />
-        </div>
-        <div class="brand-titles">
-          <span class="brand-title-main">SHEFA PLUS</span>
-          <span class="brand-title-sub">GLOBAL SHOP</span>
-          <span class="brand-tagline">Tienda Oficial • Garantía y Cobertura en Colombia</span>
-        </div>
-      </a>
-
-      <!-- Centro: Buscador Cápsula con Borde Dorado -->
-      <div class="header-search-box">
-        <input
-          type="text"
-          id="searchInput"
-          class="header-search-input"
-          placeholder="¿Qué producto estás buscando hoy?"
-          aria-label="Buscar productos"
-        />
-        <button class="header-search-btn" aria-label="Buscar">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </button>
-      </div>
-
-      <!-- Derecha: Portal Realidad Virtual 3D + Mi Pedido + WhatsApp -->
-      <div class="header-actions">
-        <button class="btn-vr-portal" onclick="abrirTiendaVR(0)" title="Entrar a la tienda en Realidad Virtual 3D">
-          <span>🥽 Tienda VR 3D</span>
-        </button>
-
-        <button class="btn-mi-pedido" id="btnMiPedido">
-          <span>Mi Pedido</span>
-          <span class="pedido-badge" id="cartCount">2</span>
-        </button>
-
-        <a
-          href="https://wa.me/573204774096?text=Hola%20Shefa%20Plus%20Global%20Shop,%20quiero%20asesor%C3%ADa%20sobre%20un%20pedido"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-whatsapp-circle"
-          title="Soporte WhatsApp 24/7"
-        >
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824zm-3.423-14.416c-6.627 0-12 5.373-12 12 0 2.126.556 4.124 1.53 5.86l-1.53 5.586 5.736-1.504c1.693.924 3.633 1.458 5.704 1.458 6.627 0 12-5.373 12-12s-5.373-11.4-11.44-11.4z"/>
-          </svg>
-        </a>
-      </div>
+    <!-- 1. CINTILLO SUPERIOR -->
+    <div class="top-bar">
+        🚚 <span class="gold">ENVÍOS GRATIS</span> A TODA COLOMBIA &nbsp;•&nbsp; 🛡️ <span class="gold">COMPRA 100% SEGURA</span> &nbsp;•&nbsp; 💬 <span class="gold">SOPORTE 24/7</span> (WhatsApp)
     </div>
 
-    <!-- 3. BARRA DE NAVEGACIÓN DE CATEGORÍAS -->
-    <nav class="category-navbar" aria-label="Categorías principales">
-      <ul class="category-nav-list" id="categoryNav">
-        <li class="category-nav-item"><button class="active" data-cat="TODOS">Inicio</button></li>
-        <li class="category-nav-item"><button data-cat="TECNOLOGÍA WEARABLE">Tecnología Wearable</button></li>
-        <li class="category-nav-item"><button data-cat="HOGAR INTELIGENTE">Hogar Inteligente</button></li>
-        <li class="category-nav-item"><button data-cat="AUDIO DE ALTA FIDELIDAD">Audio de Alta Fidelidad</button></li>
-        <li class="category-nav-item"><button data-cat="MAS_VENDIDO">Lo Más Vendido</button></li>
-        <li class="category-nav-item"><button data-cat="CONTACTO">Contacto</button></li>
-      </ul>
+    <!-- 2. HERO HEADER -->
+    <header class="hero-header">
+        <!-- 5 TOQUES RÁPIDOS AQUÍ ABREN EL COMANDO SECRETO -->
+        <div class="medallon-container" id="secret-medallon" title="Toca 5 veces para Acceso Maestro">
+            <div class="medallon-inner">۞</div>
+        </div>
+
+        <h1 class="hero-title">SHEFA PLUS</h1>
+        <div class="hero-subtitle">GLOBAL SHOP</div>
+        <p class="hero-tagline">Tienda Oficial • Garantía y Cobertura en Colombia</p>
+
+        <!-- BUSCADOR (Escribir :boveda también activa el comando secreto) -->
+        <div class="search-wrapper">
+            <input type="text" id="main-search" placeholder="¿Qué producto estás buscando hoy?">
+            <span class="search-icon">🔍</span>
+        </div>
+
+        <div class="hero-actions">
+            <button class="btn-vr" onclick="alert('Abriendo Entorno VR 360°...')">
+                🥽 Tienda VR 3D
+            </button>
+            <button class="btn-order" onclick="contactWhatsAppGeneral()">
+                Mi Pedido <span class="order-badge" id="cart-count">2</span>
+            </button>
+            <button class="btn-wa-circle" onclick="contactWhatsAppGeneral()">
+                💬
+            </button>
+        </div>
+    </header>
+
+    <!-- 3. CATEGORÍAS -->
+    <nav class="cat-nav" id="category-bar">
+        <div class="cat-link active" onclick="filterCategory('Todos', this)">Inicio</div>
+        <div class="cat-link" onclick="filterCategory('Tecnología Wearable', this)">Tecnología Wearable</div>
+        <div class="cat-link" onclick="filterCategory('Hogar Inteligente', this)">Hogar Inteligente</div>
+        <div class="cat-link" onclick="filterCategory('Audio de Alta Fidelidad', this)">Audio de Alta Fidelidad</div>
+        <div class="cat-link" onclick="filterCategory('Lo Más Vendido', this)">Lo Más Vendido</div>
+        <div class="cat-link" onclick="contactWhatsAppGeneral()">Contacto</div>
     </nav>
-  </header>
 
-  <!-- 4. CATÁLOGO INTERACTIVO DE PRODUCTOS EN 3D -->
-  <main class="catalog-section">
-    <div class="catalog-header">
-      <div>
-        <h2>Todos los Productos (Experiencia 3D)</h2>
-        <p>Toca <strong>Foto</strong>, <span class="gold-video-hint">▶ Video</span> o <strong>🧊 3D</strong> en cada tarjeta, o entra al Salón de Realidad Virtual</p>
-      </div>
-      <button class="vr-banner-pill" onclick="abrirTiendaVR(0)">
-        🥽 Entrar al Showroom en Realidad Virtual (360° / VR)
-      </button>
-    </div>
+    <!-- 4. CONTENIDO PRINCIPAL Y TARJETAS EN RELIEVE -->
+    <main class="main-content">
+        <h2 class="section-title">Todos los Productos (Experiencia 3D)</h2>
+        <p class="section-instructions">
+            Toca <b>Foto</b>, <b class="orange">▶ Video</b> o <b class="blue">🧊 3D</b> en cada tarjeta, o entra al Salón de Realidad Virtual
+        </p>
 
-    <div class="products-grid" id="productsGrid"></div>
-  </main>
+        <button class="btn-showroom" onclick="alert('Cargando Showroom de Realidad Virtual 360°...')">
+            🥽 Entrar al Showroom en Realidad Virtual (360° / VR)
+        </button>
 
-  <!-- 5. MODAL SALÓN REALIDAD VIRTUAL 3D (SHOWROOM COMPLETO) -->
-  <div class="vr-modal-overlay" id="vrModal">
-    <div class="vr-hud-top">
-      <div class="vr-hud-brand">
-        ✨ SHEFA PLUS GLOBAL • SALÓN REALIDAD VIRTUAL 3D
-      </div>
-      <div class="vr-hud-controls">
-        <button class="vr-btn-action" id="btnGyroVR" onclick="activarGiroscopioVR()">📱 Vista Giroscopio / Gafas VR</button>
-        <button class="vr-btn-close" onclick="cerrarTiendaVR()">✕ Salir del Salón 3D</button>
-      </div>
-    </div>
-
-    <canvas id="vr-showroom-canvas"></canvas>
-
-    <!-- Panel Inferior de Producto en el Showroom VR -->
-    <div class="vr-product-hud">
-      <div class="vr-hud-info">
-        <h4 id="vrProdTitle">Proyector Portátil Smart Cinema Full HD</h4>
-        <p id="vrProdStock">🔥 ¡Alta demanda! • Quedan 4 und. disponibles en Colombia</p>
-        <div class="vr-hud-price" id="vrProdPrice">$249.900 COP</div>
-        <div class="vr-pedestal-nav">
-          <button class="vr-pedestal-btn active" onclick="enfocarPedestalVR(0)">⌚ Smartwatch</button>
-          <button class="vr-pedestal-btn" onclick="enfocarPedestalVR(1)">🎧 Auriculares</button>
-          <button class="vr-pedestal-btn" onclick="enfocarPedestalVR(2)">📽️ Proyector 4K</button>
+        <!-- GRILLA DE TARJETAS EN RELIEVE -->
+        <div class="cards-grid" id="products-grid">
+            <!-- Se inyectan dinámicamente por JavaScript -->
         </div>
-      </div>
-      <button class="btn-lo-quiero" id="vrBtnComprar" onclick="comprarDesdeVR()">
-        🛒 Lo Quiero Ahora
-      </button>
-    </div>
-  </div>
+    </main>
 
-  <script>
-    /* ==========================================================================
-       1. DATOS DEL CATÁLOGO (100% EN TU CÓDIGO FUENTE, SIN RASTRO DE PROVEEDOR)
-       ========================================================================== */
-      const catalogoProductos = [
-  {
-    id: 1,
-    nombre: "Lámpara Inteligente G-Pro 6 en 1: Cargador Inalámbrico 15W + Altavoz Bluetooth",
-    categoria: "HOGAR INTELIGENTE",
-    etiqueta: "🔥 Más Vendido",
-    esMasVendido: true,
-    descuento: "-35% HOY",
-    rating: "4.9",
-    reviews: 142,
-    descripcion: "Carga rápida inalámbrica de 15W, parlante Bluetooth Hi-Fi, reloj despertador con modo amanecer y 10 efectos de luz LED RGB controlados desde tu celular (App) para descanso profundo.",
-    precioAnterior: 199900,
-    precioActual: 129900,
-    precio: 129900,
-    moneda: "COP",
-    stockDisponible: 5,
-    tipoGeometria3D: "lampara_g",
-    fotos: [
-
-      "assets/img/foto-cargador1.png",
-      "assets/img/foto-cargador2.png",
-      "assets/img/foto-cargador3.png",
-      "assets/img/foto-cargador4.png"
-    ],
-    video: "assets/videos/video-cargador.mp4"
-  }
-];
-
-  const formatoCOP = (valor) => "$" + Number(valor).toLocaleString("es-CO") + " COP";
-    let carritoPedidos = 2;
-    let categoriaActiva = "TODOS";
-
-    /* ==========================================================================
-       2. CABECERA WEBGL 3D (NEBULOSA PROFUNDA Y PARTÍCULAS DE ORO EN 3D)
-       ========================================================================== */
-    (function initHeaderWebGL() {
-      const canvas = document.getElementById('header-webgl-canvas');
-      const headerEl = document.getElementById('masterHeader');
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, headerEl.offsetWidth / headerEl.offsetHeight, 0.1, 1000);
-      camera.position.z = 28;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      renderer.setSize(headerEl.offsetWidth, headerEl.offsetHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      // Partículas 3D de Polvo de Oro y Esmeralda
-      const particleCount = 420;
-      const positions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
-
-      for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 90;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 35;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
-
-        const isGold = Math.random() > 0.3;
-        colors[i * 3] = isGold ? 0.96 : 0.15;
-        colors[i * 3 + 1] = isGold ? 0.82 : 0.85;
-        colors[i * 3 + 2] = isGold ? 0.38 : 0.55;
-      }
-
-      const particleGeo = new THREE.BufferGeometry();
-      particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      particleGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-      const particleMat = new THREE.PointsMaterial({
-        size: 0.45,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.85
-      });
-
-      const starField = new THREE.Points(particleGeo, particleMat);
-      scene.add(starField);
-
-      // Anillo Sagrado Dorado 3D sutil al fondo
-      const ringGeo = new THREE.TorusGeometry(11, 0.06, 16, 100);
-      const ringMat = new THREE.MeshBasicMaterial({ color: 0xe5be53, transparent: true, opacity: 0.22 });
-      const goldRing = new THREE.Mesh(ringGeo, ringMat);
-      goldRing.position.set(-18, 0, -8);
-      scene.add(goldRing);
-
-      let targetX = 0, targetY = 0;
-      headerEl.addEventListener('mousemove', (e) => {
-        const rect = headerEl.getBoundingClientRect();
-        targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 4;
-        targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-      });
-
-      function animateHeader3D() {
-        requestAnimationFrame(animateHeader3D);
-        starField.rotation.y += 0.0009;
-        starField.rotation.x += 0.0003;
-        goldRing.rotation.z += 0.002;
-        goldRing.rotation.x = Math.sin(Date.now() * 0.0005) * 0.35;
-
-        camera.position.x += (targetX - camera.position.x) * 0.05;
-        camera.position.y += (-targetY - camera.position.y) * 0.05;
-        camera.lookAt(scene.position);
-
-        renderer.render(scene, camera);
-      }
-
-      window.addEventListener('resize', () => {
-        camera.aspect = headerEl.offsetWidth / headerEl.offsetHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(headerEl.offsetWidth, headerEl.offsetHeight);
-      });
-
-      animateHeader3D();
-    })();
-
-    /* ==========================================================================
-       3. RENDERIZADO DE TARJETAS 3D E INTERACCIÓN FÍSICA (TILT + VISOR 3D)
-       ========================================================================== */
-    function renderizarProductos(lista) {
-      const grid = document.getElementById("productsGrid");
-      grid.innerHTML = lista.map((prod, idx) => {
-        const ahorro = prod.precioAnterior - prod.precioActual;
-        return `
-          <article class="product-card-3d" data-id="${prod.id}">
-            <div class="card-glare"></div>
-
-            <div class="media-stage" id="stage-${prod.id}">
-              <span class="badge-top-left">${prod.etiqueta}</span>
-              <span class="badge-discount">${prod.descuento}</span>
-
-              <img
-                src="${prod.fotos[0]}"
-                alt="${prod.nombre}"
-                onerror="this.src='https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80'"
-              />
-              <div class="media-switcher">
-                ${prod.fotos.map((f, i) => `
-                  <button class="media-btn ${i === 0 ? 'active' : ''}" onclick="cambiarMedia(${prod.id}, 'foto', ${i}, this)">Foto ${i + 1}</button>
-                `).join('')}
-                ${prod.video ? `<button class="media-btn" onclick="cambiarMedia(${prod.id}, 'video', 0, this)">▶ Video</button>` : ''}
-                <button class="media-btn" onclick="cambiarMedia(${prod.id}, '3d', 0, this)">🧊 3D</button>
-              </div>
-
-
-            <div class="card-body">
-              <div class="card-meta-row">
-                <span class="card-category">${prod.categoria}</span>
-                <span class="card-rating">★ ${prod.rating} (${prod.reviews})</span>
-              </div>
-
-              <h3 class="card-title">${prod.nombre}</h3>
-              <p class="card-desc">${prod.descripcion}</p>
-
-              <div class="scarcity-bar">
-                <span class="demand-label">🔥 ¡Alta demanda!</span>
-                <span class="stock-left">Quedan ${prod.stockDisponible} und.</span>
-              </div>
-
-              <div class="card-footer">
-                <div>
-                  <div class="price-old">Antes: ${formatoCOP(prod.precioAnterior)}</div>
-                  <div class="price-current">${formatoCOP(prod.precioActual)} <small>COP</small></div>
-                  <div class="price-save">Ahorras ${formatoCOP(ahorro)}</div>
-                </div>
-                <div style="display:flex; gap:6px;">
-                  <button class="btn-lo-quiero" onclick="abrirTiendaVR(${idx})" title="Ver en Salón Realidad Virtual">
-                    🥽 VR
-                  </button>
-                  <button class="btn-lo-quiero" onclick="agregarAlPedido(${prod.id})">
-                    🛒 Lo Quiero
-                  </button>
-                </div>
-              </div>
+    <!-- MODAL 1: AUTENTICACIÓN DE CLAVE SECRETA -->
+    <div class="modal-backdrop" id="modal-login">
+        <div class="modal-window">
+            <h3>🔐 Bóveda Shefa Plus</h3>
+            <div class="input-group">
+                <label>Ingresa tu Clave Maestra:</label>
+                <input type="password" id="input-master-key" placeholder="••••••••">
             </div>
-          </article>
-        `;
-      }).join("");
-
-      activarInclinacion3DTarjetas();
-    }
-
-    // Efecto de inclinación 3D física al pasar el mouse o tocar en el celular
-    function activarInclinacion3DTarjetas() {
-      const cards = document.querySelectorAll('.product-card-3d');
-      cards.forEach((card) => {
-        const glare = card.querySelector('.card-glare');
-
-        function handleMove(clientX, clientY) {
-          const rect = card.getBoundingClientRect();
-          const x = clientX - rect.left;
-          const y = clientY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          const rotateX = ((y - centerY) / centerY) * -8;
-          const rotateY = ((x - centerX) / centerX) * 8;
-
-          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-          if (glare) {
-            glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255, 243, 196, 0.35), transparent 60%)`;
-          }
-        }
-
-        card.addEventListener('mousemove', (e) => handleMove(e.clientX, e.clientY));
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        });
-      });
-    }
-
-    /* ==========================================================================
-       4. CONSTRUCTOR DE MODELOS 3D PROCEDURALES (SMARTWATCH, AURICULARES, PROYECTOR)
-       ========================================================================== */
-    function crearModelo3DProducto(tipo, texturaImagenUrl) {
-      const group = new THREE.Group();
-      const loader = new THREE.TextureLoader();
-      loader.setCrossOrigin('anonymous');
-
-      const goldMat = new THREE.MeshStandardMaterial({ color: 0xe5be53, metalness: 0.85, roughness: 0.2 });
-      const darkMat = new THREE.MeshStandardMaterial({ color: 0x111827, metalness: 0.6, roughness: 0.3 });
-      const whiteMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.3, roughness: 0.25 });
-
-      if (tipo === "smartwatch") {
-        // Caja de Titanio + Bisel Dorado + Pantalla luminosa
-        const caseMesh = new THREE.Mesh(new THREE.BoxGeometry(1.7, 2.1, 0.45), goldMat);
-        const screenMesh = new THREE.Mesh(
-          new THREE.PlaneGeometry(1.45, 1.85),
-          new THREE.MeshBasicMaterial({ color: 0x10b981 })
-        );
-        screenMesh.position.z = 0.24;
-        const strapTop = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.2, 0.2), darkMat);
-        strapTop.position.y = 1.4;
-        const strapBot = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.2, 0.2), darkMat);
-        strapBot.position.y = -1.4;
-        group.add(caseMesh, screenMesh, strapTop, strapBot);
-      } else if (tipo === "headphones") {
-        // Diadema y copas acústicas en 3D
-        const arc = new THREE.Mesh(new THREE.TorusGeometry(1.25, 0.14, 16, 48, Math.PI), darkMat);
-        const leftCup = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.45, 32), goldMat);
-        leftCup.rotation.z = Math.PI / 2;
-        leftCup.position.set(-1.25, -0.2, 0);
-        const rightCup = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.45, 32), goldMat);
-        rightCup.rotation.z = Math.PI / 2;
-        rightCup.position.set(1.25, -0.2, 0);
-        group.add(arc, leftCup, rightCup);
-      } else {
-        // Proyector HCS350 MAX Blanco/Plata con Lente Recubierto y Base Giratoria
-        const body = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.35, 2.3), whiteMat);
-        body.rotation.x = -0.18;
-        const lensRing = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.25, 32), goldMat);
-        lensRing.rotation.x = Math.PI / 2 - 0.18;
-        lensRing.position.set(0, 0.18, 1.15);
-        const lensGlass = new THREE.Mesh(
-          new THREE.CircleGeometry(0.36, 32),
-          new THREE.MeshBasicMaterial({ color: 0x38bdf8 })
-        );
-        lensGlass.position.set(0, 0.21, 1.29);
-        const base = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.05, 0.15, 32), whiteMat);
-        base.position.y = -1.1;
-        group.add(body, lensRing, lensGlass, base);
-      }
-    if (tipo === 'lampara_g') {
-      // Limpiar geometría por defecto si se creó arriba
-      while (group.children.length > 0) {
-        group.remove(group.children[0]);
-      }
-
-      // 1. Base de carga inalámbrica 15W (blanca perlada con borde dorado)
-      const basePlataforma = new THREE.Mesh(
-        new THREE.CylinderGeometry(1.25, 1.35, 0.22, 40),
-        new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.3, roughness: 0.2 })
-      );
-      basePlataforma.position.y = -1.1;
-
-      const padCarga = new THREE.Mesh(
-        new THREE.CylinderGeometry(0.55, 0.55, 0.24, 32),
-        new THREE.MeshStandardMaterial({ color: 0x071a12, metalness: 0.6, roughness: 0.3 })
-      );
-      padCarga.position.set(0, -1.09, 0.35);
-
-      // 2. Aro exterior de la Lámpara en forma de "G"
-      const arcoExterior = new THREE.Mesh(
-        new THREE.TorusGeometry(1.15, 0.16, 24, 64, Math.PI * 1.78),
-        new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.25, roughness: 0.2 })
-      );
-      arcoExterior.rotation.z = Math.PI * 0.12;
-      arcoExterior.position.y = 0.05;
-
-      // 3. Anillo interior LED RGB / Dorado luminoso
-      const aroLuzLed = new THREE.Mesh(
-        new THREE.TorusGeometry(0.97, 0.06, 16, 64, Math.PI * 1.75),
-        new THREE.MeshBasicMaterial({ color: 0xf3d470 })
-      );
-      aroLuzLed.rotation.z = Math.PI * 0.12;
-      aroLuzLed.position.y = 0.05;
-
-      // 4. Barra horizontal de la "G" (Altavoz Bluetooth + Reloj Digital)
-      const barraG = new THREE.Mesh(
-        new THREE.BoxGeometry(0.95, 0.24, 0.32),
-        new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.5, roughness: 0.3 })
-      );
-      barraG.position.set(0.42, 0.05, 0);
-
-      group.add(basePlataforma, padCarga, arcoExterior, aroLuzLed, barraG);
-          }
-                                        
-      // Cargar textura de la foto como holograma flotante sobre el producto
-      if (texturaImagenUrl) {
-        loader.load(texturaImagenUrl, (tex) => {
-          const cardPlane = new THREE.Mesh(
-            new THREE.PlaneGeometry(1.6, 1.6),
-            new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide })
-          );
-          cardPlane.position.set(0, 1.95, 0);
-          group.add(cardPlane);
-        });
-      }
-
-      return group;
-    }
-
-    // Cambiar entre Foto 1, Foto 2, Video y Visor 3D interactivo dentro de la tarjeta
-    window.cambiarMedia = function(idProducto, tipo, indice, btnElement) {
-      const producto = catalogoProductos.find(p => p.id === idProducto);
-      const stage = document.getElementById(`stage-${idProducto}`);
-      stage.querySelectorAll('.media-btn').forEach(b => b.classList.remove('active'));
-      btnElement.classList.add('active');
-
-      const anteriorMedia = stage.querySelector('img, video, canvas');
-      if (anteriorMedia) anteriorMedia.remove();
-
-            if (tipo === 'video') {
-        const videoEl = document.createElement('video');
-        videoEl.src = producto.video;
-        videoEl.muted = true; // Obligatorio en Android para que arranque sin bloquearse
-        videoEl.autoplay = true;
-        videoEl.loop = true;
-        videoEl.controls = true;
-        videoEl.playsInline = true;
-        videoEl.setAttribute('playsinline', '');
-        videoEl.setAttribute('webkit-playsinline', '');
-        videoEl.preload = 'auto';
-        stage.insertBefore(videoEl, stage.querySelector('.media-switcher'));
-        videoEl.load();
-        videoEl.play().catch(() => {
-          videoEl.muted = true;
-          videoEl.play();
-        });
-      } else if (tipo === '3d') {
-              
-        const canvas3D = document.createElement('canvas');
-        stage.insertBefore(canvas3D, stage.querySelector('.media-switcher'));
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, stage.clientWidth / stage.clientHeight, 0.1, 100);
-        camera.position.set(0, 0.4, 5.2);
-
-        const renderer = new THREE.WebGLRenderer({ canvas: canvas3D, antialias: true, alpha: true });
-        renderer.setSize(stage.clientWidth, stage.clientHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        scene.add(new THREE.AmbientLight(0xffffff, 0.9));
-        const dirLight = new THREE.DirectionalLight(0xffe699, 1.4);
-        dirLight.position.set(4, 6, 5);
-        scene.add(dirLight);
-
-        const modelo = crearModelo3DProducto(producto.tipoGeometria3D, null);
-        scene.add(modelo);
-
-        // Plataforma circular dorada debajo del objeto
-        const ped = new THREE.Mesh(
-          new THREE.CylinderGeometry(1.4, 1.6, 0.12, 32),
-          new THREE.MeshStandardMaterial({ color: 0xd4a73f, metalness: 0.8, roughness: 0.2 })
-        );
-        ped.position.y = -1.35;
-        scene.add(ped);
-
-        let isDragging = false, prevX = 0;
-        canvas3D.addEventListener('pointerdown', (e) => { isDragging = true; prevX = e.clientX; });
-        window.addEventListener('pointerup', () => { isDragging = false; });
-        canvas3D.addEventListener('pointermove', (e) => {
-          if (!isDragging) return;
-          modelo.rotation.y += (e.clientX - prevX) * 0.015;
-          prevX = e.clientX;
-        });
-
-        function renderMini3D() {
-          if (!canvas3D.isConnected) return;
-          requestAnimationFrame(renderMini3D);
-          if (!isDragging) modelo.rotation.y += 0.012;
-          renderer.render(scene, camera);
-        }
-        renderMini3D();
-      } else {
-        const imgEl = document.createElement('img');
-        imgEl.src = producto.fotos[indice];
-        imgEl.alt = producto.nombre;
-        imgEl.onerror = function() {
-          this.src = 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80';
-        };
-        stage.insertBefore(imgEl, stage.querySelector('.media-switcher'));
-      }
-    };
-
-    /* ==========================================================================
-       5. SALÓN REALIDAD VIRTUAL COMPLETO (SHOWROOM 3D EN TIEMPO REAL)
-       ========================================================================== */
-    let vrScene, vrCamera, vrRenderer, vrInitialized = false;
-    let vrModels = [];
-    let vrTargetCameraX = 0;
-    let productoVRActual = 0;
-    let gyroEnabled = false;
-
-    window.abrirTiendaVR = function(indiceProducto = 0) {
-      document.getElementById('vrModal').classList.add('active');
-      if (!vrInitialized) {
-        iniciarMundoShowroomVR();
-        vrInitialized = true;
-      }
-      enfocarPedestalVR(indiceProducto);
-    };
-
-    window.cerrarTiendaVR = function() {
-      document.getElementById('vrModal').classList.remove('active');
-    };
-
-    function iniciarMundoShowroomVR() {
-      const canvas = document.getElementById('vr-showroom-canvas');
-      vrScene = new THREE.Scene();
-      vrScene.background = new THREE.Color(0x020c07);
-      vrScene.fog = new THREE.FogExp2(0x020c07, 0.032);
-
-      vrCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 200);
-      vrCamera.position.set(0, 1.8, 7.5);
-
-      vrRenderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-      vrRenderer.setSize(window.innerWidth, window.innerHeight);
-      vrRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      vrRenderer.xr.enabled = true;
-
-      // Iluminación del Salón Imperial Shefa Plus Global
-      vrScene.add(new THREE.AmbientLight(0xd1fae5, 0.75));
-      const spotGold = new THREE.PointLight(0xfbe18c, 1.6, 35);
-      spotGold.position.set(0, 7, 3);
-      vrScene.add(spotGold);
-
-      // Piso de Obsidiana Esmeralda con Cuadrícula Áurea
-      const floorGeo = new THREE.PlaneGeometry(80, 80);
-      const floorMat = new THREE.MeshStandardMaterial({
-        color: 0x041b11,
-        roughness: 0.15,
-        metalness: 0.7
-      });
-      const floor = new THREE.Mesh(floorGeo, floorMat);
-      floor.rotation.x = -Math.PI / 2;
-      vrScene.add(floor);
-
-      const gridHelper = new THREE.GridHelper(60, 40, 0xe5be53, 0x0f5233);
-      gridHelper.position.y = 0.01;
-      vrScene.add(gridHelper);
-
-      // Pantalla de Cine Virtual de 200 Pulgadas al fondo del Salón
-      const cinemaBorder = new THREE.Mesh(
-        new THREE.BoxGeometry(13.6, 6.6, 0.25),
-        new THREE.MeshStandardMaterial({ color: 0xd4a73f, metalness: 0.9, roughness: 0.2 })
-      );
-      cinemaBorder.position.set(0, 4.8, -6.5);
-      vrScene.add(cinemaBorder);
-
-      const cinemaScreen = new THREE.Mesh(
-        new THREE.PlaneGeometry(13, 6),
-        new THREE.MeshBasicMaterial({ color: 0x093521 })
-      );
-      cinemaScreen.position.set(0, 4.8, -6.35);
-      vrScene.add(cinemaScreen);
-
-      // Crear los 3 Pedestales Iluminados para cada producto del catálogo
-      const posicionesX = [-4.8, 0, 4.8];
-      catalogoProductos.forEach((prod, idx) => {
-        const xPos = posicionesX[idx];
-
-        // Columna cilíndrica esmeralda y oro
-        const pedestal = new THREE.Mesh(
-          new THREE.CylinderGeometry(1.15, 1.35, 1.1, 32),
-          new THREE.MeshStandardMaterial({ color: 0x062919, metalness: 0.7, roughness: 0.2 })
-        );
-        pedestal.position.set(xPos, 0.55, 1.5);
-        vrScene.add(pedestal);
-
-        // Aro luminoso dorado en la cima del pedestal
-        const topRing = new THREE.Mesh(
-          new THREE.TorusGeometry(1.16, 0.05, 16, 48),
-          new THREE.MeshBasicMaterial({ color: 0xfbe18c })
-        );
-        topRing.rotation.x = Math.PI / 2;
-        topRing.position.set(xPos, 1.12, 1.5);
-        vrScene.add(topRing);
-
-        // Modelo 3D del producto sobre su pedestal
-        const modeloProd = crearModelo3DProducto(prod.tipoGeometria3D, prod.fotos[0]);
-        modeloProd.position.set(xPos, 2.25, 1.5);
-        modeloProd.scale.set(0.65, 0.65, 0.65);
-        vrScene.add(modeloProd);
-        vrModels.push(modeloProd);
-      });
-
-      // Controles táctiles / mouse 360° para mirar alrededor en el Salón VR
-      let dragging = false, startX = 0, cameraYaw = 0;
-      canvas.addEventListener('pointerdown', (e) => { dragging = true; startX = e.clientX; });
-      window.addEventListener('pointerup', () => { dragging = false; });
-      canvas.addEventListener('pointermove', (e) => {
-        if (!dragging) return;
-        cameraYaw -= (e.clientX - startX) * 0.004;
-        vrCamera.rotation.y = cameraYaw;
-        startX = e.clientX;
-      });
-
-      window.addEventListener('resize', () => {
-        if (!vrRenderer) return;
-        vrCamera.aspect = window.innerWidth / window.innerHeight;
-        vrCamera.updateProjectionMatrix();
-        vrRenderer.setSize(window.innerWidth, window.innerHeight);
-      });
-
-      function animateVRShowroom() {
-        vrRenderer.setAnimationLoop(() => {
-          vrModels.forEach((m) => {
-            m.rotation.y += 0.01;
-          });
-          vrCamera.position.x += (vrTargetCameraX - vrCamera.position.x) * 0.06;
-          vrRenderer.render(vrScene, vrCamera);
-        });
-      }
-      animateVRShowroom();
-    }
-
-    window.enfocarPedestalVR = function(indice) {
-      productoVRActual = indice;
-      const posicionesX = [-4.8, 0, 4.8];
-      vrTargetCameraX = posicionesX[indice];
-
-      const prod = catalogoProductos[indice];
-      document.getElementById('vrProdTitle').textContent = prod.nombre;
-      document.getElementById('vrProdStock').textContent = `🔥 ¡Alta demanda! • Quedan ${prod.stockDisponible} und. disponibles en Colombia`;
-      document.getElementById('vrProdPrice').textContent = `${formatoCOP(prod.precioActual)} COP`;
-
-      document.querySelectorAll('.vr-pedestal-btn').forEach((btn, idx) => {
-        btn.classList.toggle('active', idx === indice);
-      });
-    };
-
-    window.activarGiroscopioVR = async function() {
-      // Si el navegador tiene gafas WebXR conectadas, lanza sesión inmersiva VR
-      if (navigator.xr && vrRenderer) {
-        const supported = await navigator.xr.isSessionSupported('immersive-vr').catch(() => false);
-        if (supported) {
-          const session = await navigator.xr.requestSession('immersive-vr');
-          vrRenderer.xr.setSession(session);
-          return;
-        }
-      }
-      // Si está en celular, activa el giroscopio para mirar la tienda moviendo el teléfono
-      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-        DeviceOrientationEvent.requestPermission().then((state) => {
-          if (state === 'granted') conectarEventosGiroscopio();
-        });
-      } else {
-        conectarEventosGiroscopio();
-      }
-    };
-
-    function conectarEventosGiroscopio() {
-      if (gyroEnabled) return;
-      gyroEnabled = true;
-      document.getElementById('btnGyroVR').textContent = '✅ Giroscopio 360° Activo';
-      window.addEventListener('deviceorientation', (e) => {
-        if (!vrCamera || e.gamma === null) return;
-        vrCamera.rotation.y = THREE.MathUtils.degToRad(-e.gamma * 0.8);
-        vrCamera.rotation.x = THREE.MathUtils.degToRad(Math.max(-25, Math.min(25, e.beta - 60)) * 0.4);
-      });
-    }
-
-    window.comprarDesdeVR = function() {
-      const prod = catalogoProductos[productoVRActual];
-      agregarAlPedido(prod.id);
-    };
-
-    /* ==========================================================================
-       6. PEDIDOS POR WHATSAPP Y FILTROS DE BÚSQUEDA / CATEGORÍAS
-       ========================================================================== */
-    window.agregarAlPedido = function(idProducto) {
-      const prod = catalogoProductos.find(p => p.id === idProducto);
-      carritoPedidos++;
-      document.getElementById("cartCount").textContent = carritoPedidos;
-      const mensaje = encodeURIComponent(
-        `¡Hola Shefa Plus Global Shop! Vengo de la Tienda 3D y quiero pedir:\n• *${prod.nombre}*\n• Precio: ${formatoCOP(prod.precioActual)} COP\n¿Me confirmas envío contraentrega?`
-      );
-      window.open(`https://wa.me/573000000000?text=${mensaje}`, "_blank");
-    };
-   window.pagarConPasarela = async function(metodo, productoOId) {
-    // Busca el producto en catalogoProductos si le pasas el ID, o usa el objeto directo
-    const prod = typeof productoOId === 'object'
-      ? productoOId
-      : catalogoProductos.find(p => p.id === productoOId);
-
-    if (!prod) {
-      alert('Producto no encontrado en el catálogo.');
-      return;
-    }
-
-    // Limpia el precio por si viene con signo $ o puntos (ej: "$149.900" -> 149900)
-    const precioLimpio = Number(String(prod.precio).replace(/[^0-9]/g, '')) || 0;
-
-    try {
-      const res = await fetch('/api/payments/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          paymentMethod: metodo, // 'mercadopago', 'mastercard', 'bbva' o 'bbva_transfer'
-          items: [{
-            id: String(prod.id),
-            title: prod.nombre,
-            price: precioLimpio,
-            quantity: 1
-          }]
-        })
-      });
-      const result = await res.json();
-      if (result.success && result.data.checkoutUrl) {
-        window.location.href = result.data.checkoutUrl; // Redirige a la pasarela oficial
-      } else {
-        alert(result.data?.message || result.error?.message || 'Error al iniciar el pago');
-      }
-    } catch (e) {
-      alert('Error de conexión con el servidor de pagos.');
-    }
-  };
-  
-    function filtrarCatalogo() {
-      const texto = document.getElementById("searchInput").value.toLowerCase().trim();
-      const filtrados = catalogoProductos.filter((p) => {
-        const coincideTexto =
-          p.nombre.toLowerCase().includes(texto) ||
-          p.descripcion.toLowerCase().includes(texto) ||
-          p.categoria.toLowerCase().includes(texto);
-
-        if (categoriaActiva === "TODOS") return coincideTexto;
-        if (categoriaActiva === "MAS_VENDIDO") return coincideTexto && p.esMasVendido;
-        return coincideTexto && p.categoria === categoriaActiva;
-      });
-      renderizarProductos(filtrados);
-    }
-
-    document.getElementById("searchInput").addEventListener("input", filtrarCatalogo);
-
-    document.querySelectorAll("#categoryNav button").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const cat = btn.getAttribute("data-cat");
-        if (cat === "CONTACTO") {
-          window.open("https://wa.me/573000000000?text=Hola%20Shefa%20Plus%20Global%20Shop", "_blank");
-          return;
-        }
-        document.querySelectorAll("#categoryNav button").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        categoriaActiva = cat;
-        filtrarCatalogo();
-      });
-    });
-
-        // Función que inyecta el Precio en Pesos Colombianos (COP) y los Botones de Pago 3D en cada tarjeta
-    function inyectarPreciosYBotones3D(lista) {
-      (lista || catalogoProductos).forEach((prod) => {
-        const stage = document.getElementById(`stage-${prod.id}`);
-        if (!stage) return;
-
-        // Asegurar contenedor de tarjeta alrededor del visor 3D/Video
-        let card = stage.closest('.product-card, .card, article');
-        if (!card) {
-          card = document.createElement('div');
-          card.className = 'product-card';
-          card.style.cssText = 'background:linear-gradient(160deg,#071a12,#0b2419); border:1px solid rgba(212,175,55,0.45); border-radius:18px; overflow:hidden; box-shadow:0 14px 30px rgba(0,0,0,0.45); display:flex; flex-direction:column;';
-          stage.parentNode.insertBefore(card, stage);
-          card.appendChild(stage);
-        }
-
-        // Evitar duplicados si se filtra el catálogo
-        const bloquePrevio = card.querySelector('.shefa-box-pago-3d');
-        if (bloquePrevio) bloquePrevio.remove();
-
-        const precioHoy = prod.precioActual || prod.precio || 129900;
-        const precioAntes = prod.precioAnterior || 199900;
-        const nombreSeguro = prod.nombre.replace(/'/g, "\\'");
-
-        const infoDiv = document.createElement('div');
-        infoDiv.className = 'shefa-box-pago-3d';
-        infoDiv.style.cssText = 'padding:14px; background:linear-gradient(180deg,#071a12,#04100b); color:#fff; border-top:1px solid rgba(212,175,55,0.25); font-family:sans-serif;';
-
-        infoDiv.innerHTML = `
-          <div style="font-size:15px; font-weight:800; color:#f8fafc; line-height:1.35; margin-bottom:6px;">
-            ${prod.nombre}
-          </div>
-          <div style="font-size:12px; color:#cbd5e1; line-height:1.45; margin-bottom:12px;">
-            ${prod.descripcion}
-          </div>
-
-          <!-- PRECIO EN PESOS COLOMBIANOS (COP) -->
-          <div style="background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.4); border-radius:12px; padding:10px 12px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px;">
-            <div>
-              <span style="font-size:12px; color:#94a3b8; text-decoration:line-through; display:block;">
-                Antes: $${Number(precioAntes).toLocaleString('es-CO')} COP
-              </span>
-              <span style="font-size:20px; font-weight:900; color:#f3d470; letter-spacing:0.3px;">
-                $${Number(precioHoy).toLocaleString('es-CO')} <small style="font-size:12px; color:#4ade80;">COP</small>
-              </span>
+            <div class="modal-btns">
+                <button class="btn-dark-cancel" onclick="closeAllModals()">Cancelar</button>
+                <button class="btn-gold-full" onclick="checkMasterKey()">Entrar</button>
             </div>
-            <span style="background:#064e3b; color:#6ee7b7; border:1px solid #10b981; font-size:11px; font-weight:bold; padding:4px 8px; border-radius:999px;">
-              🇨🇴 Envío Gratis
-            </span>
-          </div>
-
-          <!-- BOTONES DE PAGO EN RELIEVE 3D -->
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
-            <button onclick="iniciarPagoShefa('mercadopago', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(180deg,#00b4ff,#008ad6); color:#fff; border:1px solid #38bdf8; border-bottom:4px solid #005f99; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(0,158,227,0.35); transform:translateY(0); transition:all 0.15s;">
-              🤝 Mercado Pago
-            </button>
-            <button onclick="iniciarPagoShefa('mastercard', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(180deg,#262d40,#141824); color:#f79e1b; border:1px solid #eb001b; border-bottom:4px solid #990012; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(235,0,27,0.28); transform:translateY(0); transition:all 0.15s;">
-              💳 Mastercard
-            </button>
-            <button onclick="iniciarPagoShefa('bbva', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(180deg,#0059a8,#00386b); color:#fff; border:1px solid #3b82f6; border-bottom:4px solid #002244; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(0,68,129,0.4); transform:translateY(0); transition:all 0.15s;">
-              🏦 BBVA PSE / Tarjeta
-            </button>
-            <button onclick="iniciarPagoShefa('bbva_transfer', '${nombreSeguro}', ${precioHoy})" style="background:linear-gradient(90deg,#d4af37,#f3d470); color:#05140d; border:1px solid #fef08a; border-bottom:4px solid #9a7b1c; padding:10px 8px; border-radius:10px; font-weight:800; font-size:12px; cursor:pointer; box-shadow:0 6px 12px rgba(212,175,55,0.4); transform:translateY(0); transition:all 0.15s;">
-              ⚡ Transferencia BBVA
-            </button>
-          </div>
-        `;
-
-        card.appendChild(infoDiv);
-      });
-    }
-
-    // Conectar al renderizador original para que siempre pinte el precio COP y los botones 3D
-    const _renderOriginal = renderizarProductos;
-    renderizarProductos = function(lista) {
-      _renderOriginal(lista);
-      inyectarPreciosYBotones3D(lista);
-    };
-
-    // Inicializar tienda en 3D
-    renderizarProductos(catalogoProductos);
-
-  </script>
-  <!-- MODAL PARA TRANSFERENCIA DIRECTA BBVA -->
-<div id="shefa-bbva-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.82); z-index:9999; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(6px);">
-  <div style="background:linear-gradient(145deg, #071a12, #0d261c); border:1px solid #d4af37; border-radius:16px; max-width:400px; width:100%; padding:22px; color:#fff; font-family:sans-serif; box-shadow:0 15px 35px rgba(0,0,0,0.6);">
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(212,175,55,0.25); padding-bottom:12px; margin-bottom:14px;">
-      <strong style="color:#d4af37; font-size:17px;">🏦 Transferencia Directa BBVA</strong>
-      <button onclick="document.getElementById('shefa-bbva-modal').style.display='none'" style="background:none; border:none; color:#fff; font-size:20px; cursor:pointer;">✕</button>
+        </div>
     </div>
 
-    <div id="shefa-bbva-details" style="font-size:14px; line-height:1.6; background:rgba(0,0,0,0.35); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.08);">
-      <!-- Se llena automáticamente desde server.js -->
+    <!-- MODAL 2: SUBIR NUEVA TARJETA AUTOMÁTICA -->
+    <div class="modal-backdrop" id="modal-upload">
+        <div class="modal-window">
+            <h3>⚡ Subir Nuevo Artículo 3D</h3>
+            
+            <div class="input-group">
+                <label>Nombre del Artículo:</label>
+                <input type="text" id="item-name" placeholder="Ej. Lámpara Parlante G Smart RGB">
+            </div>
+
+            <div class="input-group">
+                <label>Precio (COP):</label>
+                <input type="number" id="item-price" placeholder="Ej. 89900">
+            </div>
+
+            <div class="input-group">
+                <label>Referencia (SKU):</label>
+                <input type="text" id="item-ref" placeholder="Ej. SHF-G01">
+            </div>
+
+            <div class="input-group">
+                <label>Etiqueta de Descuento (Esquina Roja):</label>
+                <input type="text" id="item-discount" value="-35% HOY">
+            </div>
+
+            <div class="input-group">
+                <label>Categoría:</label>
+                <select id="item-category">
+                    <option value="Hogar Inteligente">Hogar Inteligente</option>
+                    <option value="Tecnología Wearable">Tecnología Wearable</option>
+                    <option value="Audio de Alta Fidelidad">Audio de Alta Fidelidad</option>
+                    <option value="Lo Más Vendido">Lo Más Vendido</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Seleccionar Foto de tu Galería:</label>
+                <input type="file" id="item-file" accept="image/*">
+            </div>
+
+            <div class="input-group">
+                <label>O pegar Link de Foto (Opcional):</label>
+                <input type="url" id="item-url" placeholder="https://...">
+            </div>
+
+            <div class="modal-btns">
+                <button class="btn-dark-cancel" onclick="closeAllModals()">Cerrar</button>
+                <button class="btn-gold-full" onclick="publishNewItem()">Publicar Tarjeta</button>
+            </div>
+        </div>
     </div>
 
-    <div style="display:flex; gap:10px; margin-top:16px; flex-direction:column;">
-      <button id="btn-copy-bbva" style="background:linear-gradient(90deg, #d4af37, #f3d470); color:#05140d; border:none; padding:12px; border-radius:10px; font-weight:bold; cursor:pointer; font-size:14px;">
-        📋 Copiar Número de Cuenta BBVA
-      </button>
-      <a id="btn-wa-bbva" href="#" target="_blank" style="background:#1fa855; color:#fff; text-align:center; text-decoration:none; padding:12px; border-radius:10px; font-weight:bold; font-size:14px;">
-        📲 Enviar Comprobante por WhatsApp
-      </a>
+    <!-- BARRA FLOTANTE DE ADMINISTRADOR -->
+    <div class="admin-floating-bar">
+        <span style="color: var(--gold-bright); font-size: 0.82rem; font-weight: 800;">
+            ⚡ MODO MAGNÉTICO ACTIVO
+        </span>
+        <div style="display: flex; gap: 8px;">
+            <button class="btn-gold-full" style="padding: 7px 14px; font-size: 0.78rem;" onclick="openUploadModal()">
+                + Subir Artículo
+            </button>
+            <button class="btn-dark-cancel" style="padding: 7px 12px; font-size: 0.78rem;" onclick="exitAdminMode()">
+                Salir
+            </button>
+        </div>
     </div>
-  </div>
-</div>
 
-<script>
-async function iniciarPagoShefa(metodo, nombreProducto, precioCOP) {
-  try {
-    const response = await fetch('/api/payments/checkout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        paymentMethod: metodo, // 'mercadopago', 'mastercard', 'bbva' o 'bbva_transfer'
-        items: [{
-          title: nombreProducto,
-          price: Number(precioCOP),
-          quantity: 1
-        }]
-      })
-    });
+    <script>
+        // =====================================================
+        // CONFIGURACIÓN DE COMANDO SECRETO Y CLAVE DE ACCESO
+        // =====================================================
+        const CLAVE_SECRETA = "Shefa2026*"; // <-- Cámbiala cuando quieras
+        const COMANDO_BUSCADOR = ":boveda"; // <-- Escribe esto en el buscador o toca 5 veces el logo
+        const WHATSAPP_NUMBER = "573000000000"; // <-- Tu número de WhatsApp
 
-    const res = await response.json();
-    if (!res.success) {
-      alert(res.error?.message || 'No se pudo iniciar el pago.');
-      return;
-    }
+        let adminActivo = false;
+        let categoriaActual = "Todos";
 
-    const data = res.data;
+        // Producto inicial idéntico al de tu captura (Lámpara G RGB)
+        const initialCatalog = [
+            {
+                id: 101,
+                name: "Lámpara G Smart RGB + Reloj Despertador & Carga Inalámbrica",
+                price: 95000,
+                ref: "SHF-LAMP-G",
+                discount: "-35% HOY",
+                category: "Hogar Inteligente",
+                img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80"
+            }
+        ];
 
-    // 1. Si eligió Transferencia Directa BBVA, mostramos los datos bancarios en pantalla
-    if (metodo === 'bbva_transfer' && data.bankInstructions) {
-      const info = data.bankInstructions;
-      const totalFormateado = Number(data.totalCOP).toLocaleString('es-CO');
+        let catalogData = JSON.parse(localStorage.getItem('shefa_plus_3d_db')) || initialCatalog;
 
-      document.getElementById('shefa-bbva-details').innerHTML = `
-        <div><strong>Orden:</strong> <span style="color:#d4af37;">${data.orderReference}</span></div>
-        <div><strong>Producto:</strong> ${nombreProducto}</div>
-        <div><strong>Total a transferir:</strong> <span style="color:#4ade80; font-weight:bold;">$${totalFormateado} COP</span></div>
-        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:10px 0;">
-        <div><strong>Banco:</strong> ${info.bank}</div>
-        <div><strong>Tipo de cuenta:</strong> ${info.accountType}</div>
-        <div><strong>Número de cuenta:</strong> <span style="color:#d4af37; font-size:16px; font-weight:bold;">${info.accountNumber}</span></div>
-        <div><strong>Titular:</strong> ${info.holderName}</div>
-        ${info.holderDoc ? `<div><strong>Documento/NIT:</strong> ${info.holderDoc}</div>` : ''}
-      `;
+        // =====================================================
+        // RENDERIZADO DE TARJETAS CON RELIEVE Y BARRA DE FOTOS
+        // =====================================================
+        function renderCards(searchQuery = "") {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = "";
 
-      document.getElementById('btn-copy-bbva').onclick = () => {
-        navigator.clipboard.writeText(info.accountNumber);
-        document.getElementById('btn-copy-bbva').textContent = '✅ ¡Número de cuenta copiado!';
-        setTimeout(() => {
-          document.getElementById('btn-copy-bbva').textContent = '📋 Copiar Número de Cuenta BBVA';
-        }, 2500);
-      };
+            const filtered = catalogData.filter(item => {
+                const matchCategory = (categoriaActual === "Todos") || (item.category === categoriaActual);
+                const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    item.ref.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchCategory && matchSearch;
+            });
 
-      const mensajeWA = encodeURIComponent(
-        `Hola Shefa Plus Global, acabo de realizar la transferencia a BBVA por el pedido *${data.orderReference}* (${nombreProducto} - $${totalFormateado} COP). Adjunto el comprobante de pago:`
-      );
-      document.getElementById('btn-wa-bbva').href = `https://wa.me/573000000000?text=${mensajeWA}`;
-      document.getElementById('shefa-bbva-modal').style.display = 'flex';
-      return;
-    }
+            filtered.forEach(item => {
+                const formattedPrice = new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    maximumFractionDigits: 0
+                }).format(item.price);
 
-    // 2. Si eligió Mercado Pago, Mastercard o PSE BBVA, redirige a la pasarela oficial
-    if (data.checkoutUrl) {
-      window.location.href = data.checkoutUrl;
-    } else {
-      alert(data.message || 'Configura MP_ACCESS_TOKEN en Render para activar la pasarela.');
-    }
-  } catch (err) {
-    alert('Error conectando con el servidor de pagos.');
-  }
-}
-</script>
-  
+                const wrapper = document.createElement('div');
+                wrapper.className = 'card-3d-wrapper';
+
+                wrapper.innerHTML = `
+                    <article class="product-card">
+                        <div class="card-media-box">
+                            <span class="badge-bestseller">🔥 Más Vendido</span>
+                            <span class="badge-discount">${item.discount || '-35% HOY'}</span>
+                            
+                            <img src="${item.img}" alt="${item.name}" id="img-${item.id}">
+
+                            <div class="media-switcher-bar">
+                                <button class="media-pill active" onclick="switchPill(this)">Foto 1</button>
+                                <button class="media-pill" onclick="switchPill(this)">Foto 2</button>
+                                <button class="media-pill" onclick="switchPill(this)">Foto 3</button>
+                                <button class="media-pill" onclick="switchPill(this)">Foto 4</button>
+                                <button class="media-pill" onclick="switchPill(this)">▶ Video</button>
+                                <button class="media-pill" onclick="switchPill(this)">🧊 3D</button>
+                            </div>
+                        </div>
+
+                        <div class="card-info-footer">
+                            <div class="card-ref-tag">REF: ${item.ref}</div>
+                            <h3 class="card-prod-title">${item.name}</h3>
+                            <div class="card-price-row">
+                                <span class="card-price-val">${formattedPrice}</span>
+                                <button class="btn-card-pedir" onclick="pedirProducto('${item.name}', '${item.ref}', '${formattedPrice}')">
+                                    Pedir Ahora
+                                </button>
+                            </div>
+                            <button class="btn-card-delete" onclick="borrarArticulo(${item.id})">
+                                🗑️ Eliminar Artículo
+                            </button>
+                        </div>
+                    </article>
+                `;
+
+                grid.appendChild(wrapper);
+            });
+        }
+
+        // Interacción de los botones Foto 1, Foto 2, Video, 3D
+        function switchPill(btn) {
+            const bar = btn.parentElement;
+            bar.querySelectorAll('.media-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        // Filtro por pestañas de categoría
+        function filterCategory(cat, el) {
+            categoriaActual = cat;
+            document.querySelectorAll('.cat-link').forEach(link => link.classList.remove('active'));
+            el.classList.add('active');
+            renderCards(document.getElementById('main-search').value.trim());
+        }
+
+        // =====================================================
+        // ACTIVACIÓN DEL COMANDO SECRETO
+        // =====================================================
+        // 1. Escribiendo ":boveda" en el buscador
+        document.getElementById('main-search').addEventListener('input', function(e) {
+            const texto = e.target.value.trim();
+            if (texto.toLowerCase() === COMANDO_BUSCADOR) {
+                e.target.value = "";
+                abrirAccesoSecreto();
+            } else {
+                renderCards(texto);
+            }
+        });
+
+        // 2. Tocando 5 veces el medallón dorado superior
+        let toques = 0;
+        let timerToques;
+        document.getElementById('secret-medallon').addEventListener('click', function() {
+            toques++;
+            clearTimeout(timerToques);
+            if (toques === 5) {
+                toques = 0;
+                abrirAccesoSecreto();
+            }
+            timerToques = setTimeout(() => { toques = 0; }, 1300);
+        });
+
+        function abrirAccesoSecreto() {
+            if (adminActivo) {
+                openUploadModal();
+            } else {
+                document.getElementById('input-master-key').value = "";
+                document.getElementById('modal-login').style.display = 'flex';
+                document.getElementById('input-master-key').focus();
+            }
+        }
+
+        function checkMasterKey() {
+            const pass = document.getElementById('input-master-key').value;
+            if (pass === CLAVE_SECRETA) {
+                adminActivo = true;
+                document.body.classList.add('admin-mode');
+                closeAllModals();
+                openUploadModal();
+            } else {
+                alert("⛔ Clave de acceso incorrecta.");
+            }
+        }
+
+        function openUploadModal() {
+            document.getElementById('modal-upload').style.display = 'flex';
+        }
+
+        function closeAllModals() {
+            document.getElementById('modal-login').style.display = 'none';
+            document.getElementById('modal-upload').style.display = 'none';
+        }
+
+        function exitAdminMode() {
+            adminActivo = false;
+            document.body.classList.remove('admin-mode');
+            closeAllModals();
+        }
+
+        // =====================================================
+        // SUBIDA Y COMPRESIÓN AUTOMÁTICA DE ARTÍCULOS
+        // =====================================================
+        function publishNewItem() {
+            const name = document.getElementById('item-name').value.trim();
+            const price = parseFloat(document.getElementById('item-price').value);
+            const ref = document.getElementById('item-ref').value.trim();
+            const discount = document.getElementById('item-discount').value.trim() || "-35% HOY";
+            const category = document.getElementById('item-category').value;
+            const fileInput = document.getElementById('item-file');
+            const urlInput = document.getElementById('item-url').value.trim();
+
+            if (!name || !price || !ref) {
+                alert("Completa el Nombre, Precio y Referencia del artículo.");
+                return;
+            }
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const MAX_SIZE = 700;
+                        const scale = MAX_SIZE / img.width;
+                        canvas.width = MAX_SIZE;
+                        canvas.height = img.height * scale;
+
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+
+                        saveToDatabase(name, price, ref, discount, category, dataUrl);
+                    };
+                    img.src = evt.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (urlInput) {
+                saveToDatabase(name, price, ref, discount, category, urlInput);
+            } else {
+                alert("Selecciona una foto de tu galería o pega un link de imagen.");
+            }
+        }
+
+        function saveToDatabase(name, price, ref, discount, category, imgSource) {
+            const nuevo = {
+                id: Date.now(),
+                name: name,
+                price: price,
+                ref: ref.toUpperCase(),
+                discount: discount,
+                category: category,
+                img: imgSource
+            };
+
+            catalogData.unshift(nuevo);
+            localStorage.setItem('shefa_plus_3d_db', JSON.stringify(catalogData));
+
+            // Limpiar campos
+            document.getElementById('item-name').value = "";
+            document.getElementById('item-price').value = "";
+            document.getElementById('item-ref').value = "";
+            document.getElementById('item-file').value = "";
+            document.getElementById('item-url').value = "";
+
+            closeAllModals();
+            renderCards();
+        }
+
+        function borrarArticulo(id) {
+            if (confirm("¿Deseas eliminar esta tarjeta del catálogo?")) {
+                catalogData = catalogData.filter(item => item.id !== id);
+                localStorage.setItem('shefa_plus_3d_db', JSON.stringify(catalogData));
+                renderCards();
+            }
+        }
+
+        // =====================================================
+        // PEDIDOS POR WHATSAPP
+        // =====================================================
+        function pedirProducto(name, ref, price) {
+            const text = `¡Hola *SHEFA PLUS GLOBAL SHOP*! Quiero pedir este artículo:\n\n• *Producto:* ${name}\n• *Referencia:* ${ref}\n• *Precio:* ${price}`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function contactWhatsAppGeneral() {
+            const text = `¡Hola *SHEFA PLUS GLOBAL SHOP*! Quisiera recibir atención personalizada sobre mi pedido.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Inicializar tienda
+        renderCards();
+    </script>
 </body>
 </html>
