@@ -393,7 +393,6 @@
             transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Animación cuando el usuario activa la vista 3D en la tarjeta */
         .spin-3d-active {
             animation: float3DCard 3.5s ease-in-out infinite;
         }
@@ -485,7 +484,7 @@
             justify-content: space-between;
             align-items: center;
             gap: 4px;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             flex-wrap: wrap;
         }
 
@@ -502,10 +501,27 @@
             font-weight: 800;
             padding: 2px 7px;
             border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
         }
-        .stock-ok { background: #dcfce7; color: #166534; }
-        .stock-low { background: #fef3c7; color: #92400e; }
-        .stock-out { background: #fee2e2; color: #991b1b; }
+        .stock-ok { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .stock-hot { background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; }
+        .stock-low { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+        .stock-out { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+
+        /* Etiqueta de Unidades Numéricas Reales */
+        .units-counter-badge {
+            display: inline-block;
+            background: #041f14;
+            color: var(--gold-bright);
+            border: 1px solid var(--gold-metallic);
+            font-size: 0.61rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
 
         .card-prod-title {
             font-size: 0.88rem;
@@ -603,7 +619,7 @@
             border-radius: 20px;
             padding: 20px;
             width: 100%;
-            max-width: 450px;
+            max-width: 455px;
             color: #fff;
             box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
             max-height: 90vh;
@@ -653,6 +669,28 @@
         .input-group textarea {
             resize: vertical;
             min-height: 62px;
+        }
+
+        /* Botones rápidos para unidades de stock */
+        .quick-units-bar {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+        .btn-quick-unit {
+            background: #04140d;
+            color: var(--gold-bright);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 8px;
+            padding: 3px 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .btn-quick-unit:active {
+            background: var(--gold-metallic);
+            color: #04140d;
         }
 
         .grid-2-cols {
@@ -885,13 +923,12 @@
     </div>
 
     <!-- =====================================================
-         MODAL 2: SUBIR NUEVA TARJETA 3D (CON TODAS LAS MEJORAS)
+         MODAL 2: SUBIR NUEVA TARJETA 3D (CON DISPONIBILIDAD EN NÚMEROS + OPCIONES CLÁSICAS)
          ===================================================== -->
     <div class="modal-backdrop" id="modal-upload">
         <div class="modal-window">
             <h3>⚡ Subir Nuevo Artículo 3D</h3>
             
-            <!-- Campos originales conservados -->
             <div class="input-group">
                 <label>Nombre del Artículo:</label>
                 <input type="text" id="item-name" placeholder="Ej. Altavoz de Cristal Black Gold">
@@ -914,9 +951,10 @@
                     <input type="text" id="item-discount" value="-35% HOY">
                 </div>
                 <div class="input-group">
-                    <label>Disponibilidad de Producto:</label>
+                    <label>Estado de Disponibilidad:</label>
                     <select id="item-stock">
                         <option value="✅ En Stock">✅ En Stock</option>
+                        <option value="🔥 Lo Más Vendido">🔥 Lo Más Vendido</option>
                         <option value="🔥 Últimas Unidades">🔥 Últimas Unidades</option>
                         <option value="📦 Bajo Pedido">📦 Bajo Pedido</option>
                         <option value="❌ Agotado">❌ Agotado</option>
@@ -924,26 +962,36 @@
                 </div>
             </div>
 
+            <!-- NUEVO: DISPONIBILIDAD EXACTA EN NÚMEROS / UNIDADES -->
+            <div class="input-group">
+                <label>Disponibilidad en Números (Unidades Exactas):</label>
+                <input type="text" id="item-units" placeholder="Ej: 500 Unidades Limitadas / 100 Unidades / 1.000 Unidades">
+                <div class="quick-units-bar">
+                    <button type="button" class="btn-quick-unit" onclick="setQuickUnits('100 Unidades')">+ 100 Unidades</button>
+                    <button type="button" class="btn-quick-unit" onclick="setQuickUnits('500 Unidades Limitadas')">+ 500 Unidades Limitadas</button>
+                    <button type="button" class="btn-quick-unit" onclick="setQuickUnits('1.000 Unidades')">+ 1.000 Unidades</button>
+                </div>
+            </div>
+
             <div class="input-group">
                 <label>Categoría:</label>
                 <select id="item-category">
-                    <option value="Lo Más Vendido">Lo Más Vendido</option>
+                    <option value="Lo Más Vendido">Lo Más Vendido 🔥</option>
                     <option value="Hogar Inteligente">Hogar Inteligente</option>
                     <option value="Tecnología Wearable">Tecnología Wearable</option>
                     <option value="Audio de Alta Fidelidad">Audio de Alta Fidelidad</option>
                 </select>
             </div>
 
-            <!-- NUEVO: Descripción del Producto -->
+            <!-- Descripción del Producto -->
             <div class="input-group">
                 <label>Descripción del Producto:</label>
                 <textarea id="item-desc" placeholder="Ej. Sonido envolvente 360°, interconexión doble, múltiples efectos de luz y botones multifunción..."></textarea>
             </div>
 
-            <!-- NUEVO: Foto 1, Foto 2, Foto 3, Foto 4 y Video.mp4 -->
+            <!-- Multimedia: Foto 1, Foto 2, Foto 3, Foto 4 y Video.mp4 -->
             <div class="modal-divider">📸 Multimedia de la Tarjeta (Fotos 1-4 y Video.mp4)</div>
 
-            <!-- FOTO 1 (Conserva compatibilidad con el formato original) -->
             <div class="media-slot-card">
                 <label>📷 Foto 1 (Principal - Galería o Link):</label>
                 <input type="file" id="item-file" accept="image/*">
@@ -976,7 +1024,7 @@
                 </div>
             </div>
 
-            <!-- NUEVO: Opción de Registro y Autorización de Métodos de Pago en el Formato de Subir Tarjeta -->
+            <!-- Opción de Registro y Autorización de Métodos de Pago -->
             <div class="modal-divider">🛡️ Registro y Métodos de Pago de la Tarjeta</div>
 
             <label class="check-label" style="margin-bottom: 10px;">
@@ -1010,7 +1058,7 @@
     </div>
 
     <!-- =====================================================
-         MODAL 3: CENTRO DE CONTROL MAESTRO (AUTORIZAR PAGOS Y VER REGISTROS)
+         MODAL 3: CENTRO DE CONTROL MAESTRO
          ===================================================== -->
     <div class="modal-backdrop" id="modal-control-center">
         <div class="modal-window">
@@ -1158,7 +1206,7 @@
         let controlSettings = JSON.parse(localStorage.getItem('shefa_control_center_cfg')) || defaultControlSettings;
         let registeredOrders = JSON.parse(localStorage.getItem('shefa_registered_orders')) || [];
 
-        // Catálogo inicial con tus artículos de referencia
+        // Catálogo inicial con disponibilidad en números y etiquetas clásicas
         const initialCatalog = [
             {
                 id: 103,
@@ -1167,6 +1215,7 @@
                 ref: "SHF-003",
                 discount: "-35% HOY",
                 stock: "✅ En Stock",
+                units: "500 Unidades Limitadas",
                 category: "Lo Más Vendido",
                 desc: "Sonido Envolvente 360°, Interconexión Doble, Múltiples Efectos de Luz y Botones Multifunción.",
                 img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=700&q=80",
@@ -1186,7 +1235,8 @@
                 price: 95000,
                 ref: "SHF-LAMP-G",
                 discount: "-35% HOY",
-                stock: "✅ En Stock",
+                stock: "🔥 Lo Más Vendido",
+                units: "100 Unidades",
                 category: "Hogar Inteligente",
                 desc: "Lámpara inteligente multifuncional con parlante Bluetooth, carga inalámbrica rápida y luces rítmicas RGB.",
                 img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",
@@ -1204,8 +1254,13 @@
 
         let catalogData = JSON.parse(localStorage.getItem('shefa_plus_3d_db')) || initialCatalog;
 
+        // Auxiliar para botones rápidos de unidades (100, 500, 1.000)
+        function setQuickUnits(textoUnidades) {
+            document.getElementById('item-units').value = textoUnidades;
+        }
+
         // =====================================================
-        // RENDERIZADO DE TARJETAS CON FOTOS 1-4, VIDEO, STOCK Y DESCRIPCIÓN
+        // RENDERIZADO DE TARJETAS CON STOCK + UNIDADES EN NÚMEROS
         // =====================================================
         function renderCards(searchQuery = "") {
             const grid = document.getElementById('products-grid');
@@ -1228,8 +1283,16 @@
 
                 const stockText = item.stock || "✅ En Stock";
                 let stockClass = "stock-ok";
+                if (stockText.includes("Más Vendido")) stockClass = "stock-hot";
                 if (stockText.includes("Últimas") || stockText.includes("Pedido")) stockClass = "stock-low";
                 if (stockText.includes("Agotado")) stockClass = "stock-out";
+
+                // Unidades numéricas (si sólo escribió un número como "500", le agrega "Unidades" automáticamente)
+                let unitsDisplay = "";
+                if (item.units && item.units.toString().trim() !== "") {
+                    const rawUnits = item.units.toString().trim();
+                    unitsDisplay = /^\d+$/.test(rawUnits) ? `${rawUnits} Unidades` : rawUnits;
+                }
 
                 const mainPhoto = (item.photos && item.photos[0]) ? item.photos[0] : item.img;
                 const activePayments = getAuthorizedPaymentsForItem(item);
@@ -1262,6 +1325,7 @@
                                 <span class="card-ref-tag">REF: ${item.ref}</span>
                                 <span class="stock-pill ${stockClass}">${stockText}</span>
                             </div>
+                            ${unitsDisplay ? `<div class="units-counter-badge">📦 Disponibilidad: ${unitsDisplay}</div>` : ''}
                             <h3 class="card-prod-title">${item.name}</h3>
                             <p class="card-prod-desc">${item.desc || 'Calidad garantizada Shefa Plus Global.'}</p>
                             <div class="card-methods-mini">
@@ -1284,7 +1348,6 @@
             });
         }
 
-        // Cruza los métodos del artículo con los autorizados en el Centro de Control
         function getAuthorizedPaymentsForItem(item) {
             const itemList = item.allowedPayments || ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"];
             return itemList.filter(method => {
@@ -1296,7 +1359,6 @@
             });
         }
 
-        // Cambia entre Foto 1, Foto 2, Foto 3, Foto 4, Video.mp4 y Vista 3D
         function changeCardMedia(itemId, type, index, btn) {
             const bar = btn.parentElement;
             bar.querySelectorAll('.media-pill').forEach(p => p.classList.remove('active'));
@@ -1326,7 +1388,6 @@
             }
         }
 
-        // Filtro por pestañas de categoría
         function filterCategory(cat, el) {
             categoriaActual = cat;
             document.querySelectorAll('.cat-link').forEach(link => link.classList.remove('active'));
@@ -1445,7 +1506,7 @@
         }
 
         // =====================================================
-        // SUBIDA Y COMPRESIÓN DE FOTOS 1-4 + VIDEO.MP4
+        // SUBIDA Y COMPRESIÓN DE FOTOS 1-4 + VIDEO.MP4 + UNIDADES
         // =====================================================
         function compressAndReadImage(fileInputId, urlInputId, fallbackImage = "") {
             return new Promise((resolve) => {
@@ -1487,7 +1548,6 @@
                     resolve(urlVal);
                 } else if (fileInput && fileInput.files && fileInput.files[0]) {
                     const file = fileInput.files[0];
-                    // Si es un video corto permite guardarlo o crear ObjectURL
                     if (file.size <= 3500000) {
                         const reader = new FileReader();
                         reader.onload = (e) => resolve(e.target.result);
@@ -1507,6 +1567,7 @@
             const ref = document.getElementById('item-ref').value.trim();
             const discount = document.getElementById('item-discount').value.trim() || "-35% HOY";
             const stock = document.getElementById('item-stock').value;
+            const units = document.getElementById('item-units').value.trim();
             const category = document.getElementById('item-category').value;
             const desc = document.getElementById('item-desc').value.trim();
             const requireRegister = document.getElementById('item-req-register').checked;
@@ -1540,6 +1601,7 @@
                 ref: ref.toUpperCase(),
                 discount: discount,
                 stock: stock,
+                units: units,
                 category: category,
                 desc: desc || "Artículo exclusivo Shefa Plus Global con garantía en Colombia.",
                 img: foto1,
@@ -1557,7 +1619,7 @@
             }
 
             // Limpiar formulario de subida
-            ['item-name', 'item-price', 'item-ref', 'item-desc',
+            ['item-name', 'item-price', 'item-ref', 'item-units', 'item-desc',
              'item-file', 'item-url', 'item-file-2', 'item-url-2',
              'item-file-3', 'item-url-3', 'item-file-4', 'item-url-4',
              'item-video-file', 'item-video-url'].forEach(id => {
@@ -1603,9 +1665,11 @@
                 maximumFractionDigits: 0
             }).format(item.price);
 
+            const unitsText = item.units ? ` • 📦 ${item.units}` : '';
+
             document.getElementById('checkout-item-summary').innerHTML = `
                 <div style="color:var(--gold-bright); font-weight:800;">${item.name}</div>
-                <div style="font-size:0.74rem; color:#d1fae5;">REF: ${item.ref} • ${item.stock || '✅ En Stock'}</div>
+                <div style="font-size:0.74rem; color:#d1fae5;">REF: ${item.ref} • ${item.stock || '✅ En Stock'}${unitsText}</div>
                 <div style="font-size:1.05rem; font-weight:900; color:#fff; margin-top:4px;">${formattedPrice}</div>
             `;
 
@@ -1636,7 +1700,7 @@
                 return;
             }
 
-            // Generar Código Único ligado al correo del cliente y la referencia
+            // Generar Código Único ligado al correo del cliente
             const emailPrefix = clientEmail.replace(/[^a-zA-Z0-9]/g, '').slice(0, 3).toUpperCase() || "CLI";
             const randomDigits = Date.now().toString().slice(-5);
             const uniqueCode = `SHF-${emailPrefix}-${randomDigits}`;
@@ -1647,7 +1711,6 @@
                 maximumFractionDigits: 0
             }).format(currentCheckoutItem.price);
 
-            // Mostrar Código Único e instrucciones según el método autorizado
             const codeBox = document.getElementById('unique-code-container');
             const codeText = document.getElementById('generated-code-text');
             const instructions = document.getElementById('payment-custom-instructions');
@@ -1674,7 +1737,6 @@
                 `;
             }
 
-            // Guardar en el historial del Centro de Control
             const newOrderRecord = {
                 code: uniqueCode,
                 clientName: clientName,
@@ -1690,17 +1752,16 @@
             registeredOrders.unshift(newOrderRecord);
             localStorage.setItem('shefa_registered_orders', JSON.stringify(registeredOrders));
 
-            // Actualizar contador del carrito superior
             const badge = document.getElementById('cart-count');
             badge.textContent = parseInt(badge.textContent || "0") + 1;
 
-            // Enviar orden completa con Código Único a WhatsApp (y abrir link de Mercado Pago si está configurado)
             const waText =
                 `¡Hola *SHEFA PLUS GLOBAL SHOP*! 🛍️\n` +
                 `He registrado mi pedido con Código Único:\n\n` +
                 `🔑 *Código Único:* ${uniqueCode}\n` +
                 `📦 *Producto:* ${currentCheckoutItem.name}\n` +
                 `🏷️ *Referencia:* ${currentCheckoutItem.ref}\n` +
+                `📊 *Disponibilidad:* ${currentCheckoutItem.stock || 'En Stock'} ${currentCheckoutItem.units ? '(' + currentCheckoutItem.units + ')' : ''}\n` +
                 `💰 *Valor:* ${formattedPrice}\n` +
                 `💳 *Método Autorizado:* ${paymentMethod}\n\n` +
                 `👤 *Cliente:* ${clientName}\n` +
