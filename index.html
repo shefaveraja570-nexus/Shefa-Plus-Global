@@ -27,7 +27,7 @@
             background-color: var(--bg-light);
             color: var(--text-dark);
             overflow-x: hidden;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         /* 1. CINTILLO SUPERIOR (TOP BAR) */
@@ -59,7 +59,6 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.4);
         }
 
-        /* Efecto de partículas doradas en el fondo */
         .hero-header::before {
             content: "";
             position: absolute;
@@ -319,15 +318,13 @@
             align-items: start;
         }
 
-        /* En pantallas móviles se puede ver de a 2 o 1 grande con el relieve */
         @media (max-width: 520px) {
             .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-                gap: 20px;
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 18px;
             }
         }
 
-        /* Contenedor de la tarjeta con las capas traseras en relieve */
         .card-3d-wrapper {
             position: relative;
             border-radius: 18px;
@@ -336,7 +333,6 @@
             transition: transform 0.25s ease;
         }
 
-        /* Capa de relieve intermedia */
         .card-3d-wrapper::before {
             content: "";
             position: absolute;
@@ -351,7 +347,6 @@
             box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.08);
         }
 
-        /* Capa de relieve profunda + Sombra 3D */
         .card-3d-wrapper::after {
             content: "";
             position: absolute;
@@ -370,7 +365,6 @@
             transform: translateY(-4px);
         }
 
-        /* Cuerpo principal de la tarjeta */
         .product-card {
             position: relative;
             z-index: 2;
@@ -382,23 +376,35 @@
             flex-direction: column;
         }
 
-        /* Visor cuadrado igual a la captura */
         .card-media-box {
             position: relative;
             width: 100%;
             aspect-ratio: 1 / 1;
             background: #18181b;
             overflow: hidden;
+            perspective: 800px;
         }
 
-        .card-media-box img {
+        .card-media-box img,
+        .card-media-box video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.4s ease;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* Badges Superiores dentro de la imagen */
+        /* Animación cuando el usuario activa la vista 3D en la tarjeta */
+        .spin-3d-active {
+            animation: float3DCard 3.5s ease-in-out infinite;
+        }
+        @keyframes float3DCard {
+            0%   { transform: rotateY(0deg) scale(1); }
+            25%  { transform: rotateY(18deg) rotateX(6deg) scale(1.06); }
+            50%  { transform: rotateY(0deg) scale(1.08); }
+            75%  { transform: rotateY(-18deg) rotateX(-6deg) scale(1.06); }
+            100% { transform: rotateY(0deg) scale(1); }
+        }
+
         .badge-bestseller {
             position: absolute;
             top: 10px;
@@ -408,7 +414,7 @@
             border: 1px solid rgba(212, 175, 55, 0.6);
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 700;
             backdrop-filter: blur(4px);
             z-index: 3;
@@ -422,19 +428,18 @@
             color: #fff;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             font-weight: 800;
             box-shadow: 0 2px 8px rgba(225, 29, 72, 0.5);
             z-index: 3;
         }
 
-        /* Barra Inferior de Fotos / Video / 3D superpuesta en la imagen */
         .media-switcher-bar {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: rgba(10, 12, 16, 0.82);
+            background: rgba(10, 12, 16, 0.85);
             backdrop-filter: blur(6px);
             padding: 7px 6px;
             display: flex;
@@ -455,7 +460,7 @@
             border: none;
             padding: 4px 8px;
             border-radius: 12px;
-            font-size: 0.65rem;
+            font-size: 0.64rem;
             font-weight: 700;
             cursor: pointer;
             white-space: nowrap;
@@ -468,38 +473,78 @@
             box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
         }
 
-        /* Información del producto debajo o desplegable */
+        /* Información del producto en la tarjeta */
         .card-info-footer {
             background: #ffffff;
-            padding: 12px;
+            padding: 11px;
             border-top: 1px solid #f1f5f9;
         }
 
+        .card-top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+        }
+
         .card-ref-tag {
-            font-size: 0.65rem;
+            font-size: 0.62rem;
             color: #64748b;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
 
+        .stock-pill {
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 10px;
+        }
+        .stock-ok { background: #dcfce7; color: #166534; }
+        .stock-low { background: #fef3c7; color: #92400e; }
+        .stock-out { background: #fee2e2; color: #991b1b; }
+
         .card-prod-title {
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 800;
             color: #0f172a;
-            margin: 3px 0 6px 0;
-            line-height: 1.25;
+            margin: 2px 0 4px 0;
+            line-height: 1.22;
+        }
+
+        .card-prod-desc {
+            font-size: 0.72rem;
+            color: #475569;
+            line-height: 1.3;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-methods-mini {
+            font-size: 0.6rem;
+            color: #047857;
+            font-weight: 700;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-price-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         .card-price-val {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 900;
             color: #065f46;
         }
@@ -508,11 +553,17 @@
             background: linear-gradient(135deg, #0a3d28, #041f14);
             color: var(--gold-bright);
             border: 1px solid var(--gold-metallic);
-            padding: 6px 12px;
+            padding: 6px 11px;
             border-radius: 14px;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 700;
             cursor: pointer;
+        }
+        .btn-card-pedir:disabled {
+            background: #9ca3af;
+            color: #f3f4f6;
+            border-color: #6b7280;
+            cursor: not-allowed;
         }
 
         .btn-card-delete {
@@ -533,7 +584,7 @@
             display: block;
         }
 
-        /* 6. MODALES DEL COMANDO SECRETO */
+        /* 6. MODALES DEL COMANDO SECRETO Y CHECKOUT */
         .modal-backdrop {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -543,16 +594,16 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            padding: 16px;
+            padding: 14px;
         }
 
         .modal-window {
             background: #082217;
             border: 2px solid var(--gold-metallic);
             border-radius: 20px;
-            padding: 22px;
+            padding: 20px;
             width: 100%;
-            max-width: 420px;
+            max-width: 450px;
             color: #fff;
             box-shadow: 0 0 35px rgba(212, 175, 55, 0.35);
             max-height: 90vh;
@@ -562,35 +613,118 @@
         .modal-window h3 {
             color: var(--gold-bright);
             text-align: center;
-            margin-bottom: 16px;
-            font-size: 1.25rem;
+            margin-bottom: 14px;
+            font-size: 1.2rem;
+        }
+
+        .modal-divider {
+            border-top: 1px dashed rgba(212, 175, 55, 0.45);
+            margin: 14px 0 10px 0;
+            padding-top: 10px;
+            color: var(--gold-bright);
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
         }
 
         .input-group {
-            margin-bottom: 12px;
+            margin-bottom: 11px;
         }
         .input-group label {
             display: block;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             color: #a7f3d0;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             font-weight: 600;
         }
-        .input-group input, .input-group select {
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 9px 11px;
             border-radius: 10px;
             border: 1px solid var(--gold-metallic);
             background: #04140d;
             color: #fff;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             outline: none;
+        }
+        .input-group textarea {
+            resize: vertical;
+            min-height: 62px;
+        }
+
+        .grid-2-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .media-slot-card {
+            background: rgba(4, 20, 13, 0.75);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 8px;
+        }
+        .media-slot-card label {
+            font-size: 0.73rem;
+            color: var(--gold-bright);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .media-slot-card input[type="file"] {
+            font-size: 0.72rem;
+            padding: 5px;
+            margin-bottom: 5px;
+            width: 100%;
+            background: #03100a;
+            border: 1px solid #2d4f3e;
+            border-radius: 6px;
+            color: #d1fae5;
+        }
+        .media-slot-card input[type="url"] {
+            width: 100%;
+            padding: 6px 9px;
+            font-size: 0.76rem;
+            border-radius: 6px;
+            border: 1px solid #2d4f3e;
+            background: #03100a;
+            color: #fff;
+        }
+
+        .checks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: #04140d;
+            border: 1px solid var(--gold-metallic);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        .check-label {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.78rem;
+            color: #ecfdf5;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .check-label input {
+            accent-color: var(--gold-bright);
+            width: 16px;
+            height: 16px;
         }
 
         .modal-btns {
             display: flex;
             gap: 10px;
-            margin-top: 18px;
+            margin-top: 16px;
         }
 
         .btn-gold-full {
@@ -615,16 +749,52 @@
             cursor: pointer;
         }
 
+        /* Caja de Código Único en Checkout */
+        .unique-code-box {
+            display: none;
+            background: #03120b;
+            border: 1.5px dashed var(--gold-bright);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 12px;
+        }
+        .unique-code-val {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: var(--gold-bright);
+            letter-spacing: 2px;
+            margin: 6px 0;
+        }
+
+        /* Tabla de registros en Centro de Control */
+        .orders-log-box {
+            max-height: 160px;
+            overflow-y: auto;
+            background: #03120b;
+            border: 1px solid #2d4f3e;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 0.72rem;
+            margin-top: 6px;
+        }
+        .order-log-item {
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 6px 0;
+        }
+
         /* BARRA FLOTANTE INFERIOR CUANDO EL MODO SECRETO ESTÁ ACTIVO */
         .admin-floating-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
             background: #041f14;
             border-top: 2px solid var(--gold-bright);
-            padding: 10px 16px;
+            padding: 10px 12px;
             display: none;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
             z-index: 1500;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
         }
@@ -658,7 +828,7 @@
         </div>
 
         <div class="hero-actions">
-            <button class="btn-vr" onclick="alert('Abriendo Entorno VR 360°...')">
+            <button class="btn-vr" onclick="alert('Abriendo Entorno VR 360° de Shefa Plus Global...')">
                 🥽 Tienda VR 3D
             </button>
             <button class="btn-order" onclick="contactWhatsAppGeneral()">
@@ -684,10 +854,10 @@
     <main class="main-content">
         <h2 class="section-title">Todos los Productos (Experiencia 3D)</h2>
         <p class="section-instructions">
-            Toca <b>Foto</b>, <b class="orange">▶ Video</b> o <b class="blue">🧊 3D</b> en cada tarjeta, o entra al Salón de Realidad Virtual
+            Toca <b>Foto 1-4</b>, <b class="orange">▶ Video</b> o <b class="blue">🧊 3D</b> en cada tarjeta, o entra al Salón de Realidad Virtual
         </p>
 
-        <button class="btn-showroom" onclick="alert('Cargando Showroom de Realidad Virtual 360°...')">
+        <button class="btn-showroom" onclick="alert('Cargando Showroom en Realidad Virtual 360°...')">
             🥽 Entrar al Showroom en Realidad Virtual (360° / VR)
         </button>
 
@@ -697,7 +867,9 @@
         </div>
     </main>
 
-    <!-- MODAL 1: AUTENTICACIÓN DE CLAVE SECRETA -->
+    <!-- =====================================================
+         MODAL 1: AUTENTICACIÓN DE CLAVE SECRETA
+         ===================================================== -->
     <div class="modal-backdrop" id="modal-login">
         <div class="modal-window">
             <h3>🔐 Bóveda Shefa Plus</h3>
@@ -712,49 +884,122 @@
         </div>
     </div>
 
-    <!-- MODAL 2: SUBIR NUEVA TARJETA AUTOMÁTICA -->
+    <!-- =====================================================
+         MODAL 2: SUBIR NUEVA TARJETA 3D (CON TODAS LAS MEJORAS)
+         ===================================================== -->
     <div class="modal-backdrop" id="modal-upload">
         <div class="modal-window">
             <h3>⚡ Subir Nuevo Artículo 3D</h3>
             
+            <!-- Campos originales conservados -->
             <div class="input-group">
                 <label>Nombre del Artículo:</label>
-                <input type="text" id="item-name" placeholder="Ej. Lámpara Parlante G Smart RGB">
+                <input type="text" id="item-name" placeholder="Ej. Altavoz de Cristal Black Gold">
             </div>
 
-            <div class="input-group">
-                <label>Precio (COP):</label>
-                <input type="number" id="item-price" placeholder="Ej. 89900">
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label>Precio (COP):</label>
+                    <input type="number" id="item-price" placeholder="Ej. 100000">
+                </div>
+                <div class="input-group">
+                    <label>Referencia (SKU):</label>
+                    <input type="text" id="item-ref" placeholder="Ej. SHF-003">
+                </div>
             </div>
 
-            <div class="input-group">
-                <label>Referencia (SKU):</label>
-                <input type="text" id="item-ref" placeholder="Ej. SHF-G01">
-            </div>
-
-            <div class="input-group">
-                <label>Etiqueta de Descuento (Esquina Roja):</label>
-                <input type="text" id="item-discount" value="-35% HOY">
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label>Etiqueta de Descuento (Esquina Roja):</label>
+                    <input type="text" id="item-discount" value="-35% HOY">
+                </div>
+                <div class="input-group">
+                    <label>Disponibilidad de Producto:</label>
+                    <select id="item-stock">
+                        <option value="✅ En Stock">✅ En Stock</option>
+                        <option value="🔥 Últimas Unidades">🔥 Últimas Unidades</option>
+                        <option value="📦 Bajo Pedido">📦 Bajo Pedido</option>
+                        <option value="❌ Agotado">❌ Agotado</option>
+                    </select>
+                </div>
             </div>
 
             <div class="input-group">
                 <label>Categoría:</label>
                 <select id="item-category">
+                    <option value="Lo Más Vendido">Lo Más Vendido</option>
                     <option value="Hogar Inteligente">Hogar Inteligente</option>
                     <option value="Tecnología Wearable">Tecnología Wearable</option>
                     <option value="Audio de Alta Fidelidad">Audio de Alta Fidelidad</option>
-                    <option value="Lo Más Vendido">Lo Más Vendido</option>
                 </select>
             </div>
 
+            <!-- NUEVO: Descripción del Producto -->
             <div class="input-group">
-                <label>Seleccionar Foto de tu Galería:</label>
-                <input type="file" id="item-file" accept="image/*">
+                <label>Descripción del Producto:</label>
+                <textarea id="item-desc" placeholder="Ej. Sonido envolvente 360°, interconexión doble, múltiples efectos de luz y botones multifunción..."></textarea>
             </div>
 
+            <!-- NUEVO: Foto 1, Foto 2, Foto 3, Foto 4 y Video.mp4 -->
+            <div class="modal-divider">📸 Multimedia de la Tarjeta (Fotos 1-4 y Video.mp4)</div>
+
+            <!-- FOTO 1 (Conserva compatibilidad con el formato original) -->
+            <div class="media-slot-card">
+                <label>📷 Foto 1 (Principal - Galería o Link):</label>
+                <input type="file" id="item-file" accept="image/*">
+                <input type="url" id="item-url" placeholder="O pegar Link de Foto 1 (https://...)">
+            </div>
+
+            <div class="grid-2-cols">
+                <div class="media-slot-card">
+                    <label>📷 Foto 2:</label>
+                    <input type="file" id="item-file-2" accept="image/*">
+                    <input type="url" id="item-url-2" placeholder="Link Foto 2 (Opcional)">
+                </div>
+                <div class="media-slot-card">
+                    <label>📷 Foto 3:</label>
+                    <input type="file" id="item-file-3" accept="image/*">
+                    <input type="url" id="item-url-3" placeholder="Link Foto 3 (Opcional)">
+                </div>
+            </div>
+
+            <div class="grid-2-cols">
+                <div class="media-slot-card">
+                    <label>📷 Foto 4:</label>
+                    <input type="file" id="item-file-4" accept="image/*">
+                    <input type="url" id="item-url-4" placeholder="Link Foto 4 (Opcional)">
+                </div>
+                <div class="media-slot-card">
+                    <label>🎥 Video (.mp4):</label>
+                    <input type="file" id="item-video-file" accept="video/mp4,video/*">
+                    <input type="url" id="item-video-url" placeholder="Link Video.mp4 (https://...)">
+                </div>
+            </div>
+
+            <!-- NUEVO: Opción de Registro y Autorización de Métodos de Pago en el Formato de Subir Tarjeta -->
+            <div class="modal-divider">🛡️ Registro y Métodos de Pago de la Tarjeta</div>
+
+            <label class="check-label" style="margin-bottom: 10px;">
+                <input type="checkbox" id="item-req-register" checked>
+                <span>Activar Registro de Cliente + Código Único en esta tarjeta</span>
+            </label>
+
             <div class="input-group">
-                <label>O pegar Link de Foto (Opcional):</label>
-                <input type="url" id="item-url" placeholder="https://...">
+                <label>Autorizar Métodos de Pago para este Artículo:</label>
+                <div class="checks-grid">
+                    <label class="check-label">
+                        <input type="checkbox" id="item-pay-mp" value="Mercado Pago" checked> 💳 Mercado Pago
+                    </label>
+                    <label class="check-label">
+                        <input type="checkbox" id="item-pay-mc" value="Mastercard" checked> 💳 Mastercard
+                    </label>
+                    <label class="check-label">
+                        <input type="checkbox" id="item-pay-bbva" value="BBVA" checked> 🏦 BBVA
+                    </label>
+                    <label class="check-label">
+                        <input type="checkbox" id="item-pay-efecty" value="Convenio Efecty" checked> 🟡 Convenio Efecty
+                    </label>
+                </div>
             </div>
 
             <div class="modal-btns">
@@ -764,16 +1009,124 @@
         </div>
     </div>
 
+    <!-- =====================================================
+         MODAL 3: CENTRO DE CONTROL MAESTRO (AUTORIZAR PAGOS Y VER REGISTROS)
+         ===================================================== -->
+    <div class="modal-backdrop" id="modal-control-center">
+        <div class="modal-window">
+            <h3>🛡️ Centro de Control Shefa Plus</h3>
+            <p style="font-size:0.75rem; color:#d1fae5; text-align:center; margin-bottom:12px;">
+                Autoriza o desactiva métodos de pago en toda la tienda y administra los códigos únicos de clientes.
+            </p>
+
+            <div class="modal-divider">💳 Autorización Global de Métodos de Pago</div>
+            <div class="checks-grid" style="margin-bottom: 12px;">
+                <label class="check-label">
+                    <input type="checkbox" id="cc-mp" checked> Mercado Pago
+                </label>
+                <label class="check-label">
+                    <input type="checkbox" id="cc-mc" checked> Mastercard
+                </label>
+                <label class="check-label">
+                    <input type="checkbox" id="cc-bbva" checked> Banco BBVA
+                </label>
+                <label class="check-label">
+                    <input type="checkbox" id="cc-efecty" checked> Convenio Efecty
+                </label>
+            </div>
+
+            <div class="input-group">
+                <label>Link de Cobro Mercado Pago / Mastercard (Opcional):</label>
+                <input type="url" id="cc-link-mp" placeholder="https://mpago.li/...">
+            </div>
+
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label>Datos Cuenta BBVA:</label>
+                    <input type="text" id="cc-info-bbva" placeholder="Ahorros BBVA #...">
+                </div>
+                <div class="input-group">
+                    <label>Número Convenio Efecty:</label>
+                    <input type="text" id="cc-info-efecty" placeholder="Convenio / Cédula">
+                </div>
+            </div>
+
+            <button class="btn-gold-full" style="width:100%; margin-bottom:10px;" onclick="saveControlCenterSettings()">
+                💾 Guardar Autorizaciones de Pago
+            </button>
+
+            <div class="modal-divider">📋 Clientes Registrados y Códigos Únicos</div>
+            <div class="orders-log-box" id="cc-orders-list">
+                Sin registros aún.
+            </div>
+
+            <div class="modal-btns">
+                <button class="btn-dark-cancel" onclick="closeAllModals()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL 4: REGISTRO DE CLIENTE + CÓDIGO ÚNICO + PAGO
+         ===================================================== -->
+    <div class="modal-backdrop" id="modal-checkout">
+        <div class="modal-window">
+            <h3>🛍️ Registro de Pedido y Pago</h3>
+            <div id="checkout-item-summary" style="background:#04140d; border:1px solid var(--gold-metallic); border-radius:10px; padding:10px; text-align:center; font-size:0.82rem; margin-bottom:12px;"></div>
+
+            <div class="input-group">
+                <label>Nombre Completo del Cliente:</label>
+                <input type="text" id="reg-client-name" placeholder="Escribe tu nombre y apellido">
+            </div>
+
+            <div class="input-group">
+                <label>Correo Electrónico (Genera tu Código Único):</label>
+                <input type="email" id="reg-client-email" placeholder="tucorreo@ejemplo.com">
+            </div>
+
+            <div class="grid-2-cols">
+                <div class="input-group">
+                    <label>WhatsApp / Teléfono:</label>
+                    <input type="tel" id="reg-client-phone" placeholder="300 000 0000">
+                </div>
+                <div class="input-group">
+                    <label>Ciudad y Dirección:</label>
+                    <input type="text" id="reg-client-address" placeholder="Ciudad, Barrio, Calle...">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Método de Pago Autorizado:</label>
+                <select id="reg-payment-method"></select>
+            </div>
+
+            <!-- Visor del Código Único Generado -->
+            <div class="unique-code-box" id="unique-code-container">
+                <div style="font-size:0.72rem; color:#a7f3d0;">CÓDIGO ÚNICO ASIGNADO A TU CORREO:</div>
+                <div class="unique-code-val" id="generated-code-text">SHF-0000</div>
+                <div id="payment-custom-instructions" style="font-size:0.75rem; color:#e5e7eb; line-height:1.35;"></div>
+            </div>
+
+            <div class="modal-btns">
+                <button class="btn-dark-cancel" onclick="closeAllModals()">Cancelar</button>
+                <button class="btn-gold-full" onclick="confirmClientRegistrationAndPay()">Generar Código y Continuar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- BARRA FLOTANTE DE ADMINISTRADOR -->
     <div class="admin-floating-bar">
-        <span style="color: var(--gold-bright); font-size: 0.82rem; font-weight: 800;">
+        <span style="color: var(--gold-bright); font-size: 0.78rem; font-weight: 800;">
             ⚡ MODO MAGNÉTICO ACTIVO
         </span>
-        <div style="display: flex; gap: 8px;">
-            <button class="btn-gold-full" style="padding: 7px 14px; font-size: 0.78rem;" onclick="openUploadModal()">
-                + Subir Artículo
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            <button class="btn-gold-full" style="padding: 7px 12px; font-size: 0.74rem;" onclick="openUploadModal()">
+                + Subir Tarjeta
             </button>
-            <button class="btn-dark-cancel" style="padding: 7px 12px; font-size: 0.78rem;" onclick="exitAdminMode()">
+            <button class="btn-gold-full" style="padding: 7px 12px; font-size: 0.74rem; background: linear-gradient(180deg, #6ee7b7 0%, #10b981 100%);" onclick="openControlCenterModal()">
+                🛡️ Centro de Control
+            </button>
+            <button class="btn-dark-cancel" style="padding: 7px 11px; font-size: 0.74rem;" onclick="exitAdminMode()">
                 Salir
             </button>
         </div>
@@ -789,24 +1142,70 @@
 
         let adminActivo = false;
         let categoriaActual = "Todos";
+        let currentCheckoutItem = null;
 
-        // Producto inicial idéntico al de tu captura (Lámpara G RGB)
+        // Configuración Global del Centro de Control (Métodos Autorizados)
+        const defaultControlSettings = {
+            MercadoPago: true,
+            Mastercard: true,
+            BBVA: true,
+            Efecty: true,
+            linkMP: "",
+            infoBBVA: "Cuenta BBVA Autorizada Shefa Plus",
+            infoEfecty: "Convenio Efecty Autorizado con Código Único"
+        };
+
+        let controlSettings = JSON.parse(localStorage.getItem('shefa_control_center_cfg')) || defaultControlSettings;
+        let registeredOrders = JSON.parse(localStorage.getItem('shefa_registered_orders')) || [];
+
+        // Catálogo inicial con tus artículos de referencia
         const initialCatalog = [
+            {
+                id: 103,
+                name: "Parlante con Bluetooth Colección Black Gold - Altavoz de Cristal",
+                price: 100000,
+                ref: "SHF-003",
+                discount: "-35% HOY",
+                stock: "✅ En Stock",
+                category: "Lo Más Vendido",
+                desc: "Sonido Envolvente 360°, Interconexión Doble, Múltiples Efectos de Luz y Botones Multifunción.",
+                img: "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=700&q=80",
+                photos: [
+                    "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=700&q=80",
+                    "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=700&q=80",
+                    "https://images.unsplash.com/photo-1589003077984-894e133dabab?auto=format&fit=crop&w=700&q=80",
+                    "https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=700&q=80"
+                ],
+                video: "",
+                requireRegister: true,
+                allowedPayments: ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"]
+            },
             {
                 id: 101,
                 name: "Lámpara G Smart RGB + Reloj Despertador & Carga Inalámbrica",
                 price: 95000,
                 ref: "SHF-LAMP-G",
                 discount: "-35% HOY",
+                stock: "✅ En Stock",
                 category: "Hogar Inteligente",
-                img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80"
+                desc: "Lámpara inteligente multifuncional con parlante Bluetooth, carga inalámbrica rápida y luces rítmicas RGB.",
+                img: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",
+                photos: [
+                    "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",
+                    "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=700&q=80",
+                    "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=700&q=80",
+                    "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=700&q=80"
+                ],
+                video: "",
+                requireRegister: true,
+                allowedPayments: ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"]
             }
         ];
 
         let catalogData = JSON.parse(localStorage.getItem('shefa_plus_3d_db')) || initialCatalog;
 
         // =====================================================
-        // RENDERIZADO DE TARJETAS CON RELIEVE Y BARRA DE FOTOS
+        // RENDERIZADO DE TARJETAS CON FOTOS 1-4, VIDEO, STOCK Y DESCRIPCIÓN
         // =====================================================
         function renderCards(searchQuery = "") {
             const grid = document.getElementById('products-grid');
@@ -815,7 +1214,8 @@
             const filtered = catalogData.filter(item => {
                 const matchCategory = (categoriaActual === "Todos") || (item.category === categoriaActual);
                 const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                                    item.ref.toLowerCase().includes(searchQuery.toLowerCase());
+                                    item.ref.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    (item.desc && item.desc.toLowerCase().includes(searchQuery.toLowerCase()));
                 return matchCategory && matchSearch;
             });
 
@@ -826,34 +1226,51 @@
                     maximumFractionDigits: 0
                 }).format(item.price);
 
+                const stockText = item.stock || "✅ En Stock";
+                let stockClass = "stock-ok";
+                if (stockText.includes("Últimas") || stockText.includes("Pedido")) stockClass = "stock-low";
+                if (stockText.includes("Agotado")) stockClass = "stock-out";
+
+                const mainPhoto = (item.photos && item.photos[0]) ? item.photos[0] : item.img;
+                const activePayments = getAuthorizedPaymentsForItem(item);
+
                 const wrapper = document.createElement('div');
                 wrapper.className = 'card-3d-wrapper';
 
                 wrapper.innerHTML = `
                     <article class="product-card">
-                        <div class="card-media-box">
+                        <div class="card-media-box" id="media-box-${item.id}">
                             <span class="badge-bestseller">🔥 Más Vendido</span>
                             <span class="badge-discount">${item.discount || '-35% HOY'}</span>
                             
-                            <img src="${item.img}" alt="${item.name}" id="img-${item.id}">
+                            <div id="media-stage-${item.id}" style="width:100%; height:100%;">
+                                <img src="${mainPhoto}" alt="${item.name}" id="img-${item.id}">
+                            </div>
 
                             <div class="media-switcher-bar">
-                                <button class="media-pill active" onclick="switchPill(this)">Foto 1</button>
-                                <button class="media-pill" onclick="switchPill(this)">Foto 2</button>
-                                <button class="media-pill" onclick="switchPill(this)">Foto 3</button>
-                                <button class="media-pill" onclick="switchPill(this)">Foto 4</button>
-                                <button class="media-pill" onclick="switchPill(this)">▶ Video</button>
-                                <button class="media-pill" onclick="switchPill(this)">🧊 3D</button>
+                                <button class="media-pill active" onclick="changeCardMedia(${item.id}, 'photo', 0, this)">Foto 1</button>
+                                <button class="media-pill" onclick="changeCardMedia(${item.id}, 'photo', 1, this)">Foto 2</button>
+                                <button class="media-pill" onclick="changeCardMedia(${item.id}, 'photo', 2, this)">Foto 3</button>
+                                <button class="media-pill" onclick="changeCardMedia(${item.id}, 'photo', 3, this)">Foto 4</button>
+                                <button class="media-pill" onclick="changeCardMedia(${item.id}, 'video', 0, this)">▶ Video</button>
+                                <button class="media-pill" onclick="changeCardMedia(${item.id}, '3d', 0, this)">🧊 3D</button>
                             </div>
                         </div>
 
                         <div class="card-info-footer">
-                            <div class="card-ref-tag">REF: ${item.ref}</div>
+                            <div class="card-top-meta">
+                                <span class="card-ref-tag">REF: ${item.ref}</span>
+                                <span class="stock-pill ${stockClass}">${stockText}</span>
+                            </div>
                             <h3 class="card-prod-title">${item.name}</h3>
+                            <p class="card-prod-desc">${item.desc || 'Calidad garantizada Shefa Plus Global.'}</p>
+                            <div class="card-methods-mini">
+                                🛡️ ${activePayments.join(' • ') || 'Consultar pago'}
+                            </div>
                             <div class="card-price-row">
                                 <span class="card-price-val">${formattedPrice}</span>
-                                <button class="btn-card-pedir" onclick="pedirProducto('${item.name}', '${item.ref}', '${formattedPrice}')">
-                                    Pedir Ahora
+                                <button class="btn-card-pedir" ${stockText.includes('Agotado') ? 'disabled' : ''} onclick="iniciarCompraProducto(${item.id})">
+                                    ${stockText.includes('Agotado') ? 'Agotado' : 'Pedir Ahora'}
                                 </button>
                             </div>
                             <button class="btn-card-delete" onclick="borrarArticulo(${item.id})">
@@ -867,11 +1284,46 @@
             });
         }
 
-        // Interacción de los botones Foto 1, Foto 2, Video, 3D
-        function switchPill(btn) {
+        // Cruza los métodos del artículo con los autorizados en el Centro de Control
+        function getAuthorizedPaymentsForItem(item) {
+            const itemList = item.allowedPayments || ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"];
+            return itemList.filter(method => {
+                if (method === "Mercado Pago" && !controlSettings.MercadoPago) return false;
+                if (method === "Mastercard" && !controlSettings.Mastercard) return false;
+                if (method === "BBVA" && !controlSettings.BBVA) return false;
+                if (method === "Convenio Efecty" && !controlSettings.Efecty) return false;
+                return true;
+            });
+        }
+
+        // Cambia entre Foto 1, Foto 2, Foto 3, Foto 4, Video.mp4 y Vista 3D
+        function changeCardMedia(itemId, type, index, btn) {
             const bar = btn.parentElement;
             bar.querySelectorAll('.media-pill').forEach(p => p.classList.remove('active'));
             btn.classList.add('active');
+
+            const item = catalogData.find(x => x.id === itemId);
+            if (!item) return;
+
+            const stage = document.getElementById(`media-stage-${itemId}`);
+            const photos = (item.photos && item.photos.length) ? item.photos : [item.img];
+
+            if (type === 'photo') {
+                const chosenPhoto = photos[index] || photos[0] || item.img;
+                stage.innerHTML = `<img src="${chosenPhoto}" alt="${item.name}">`;
+            } else if (type === 'video') {
+                if (item.video && item.video.trim() !== "") {
+                    stage.innerHTML = `
+                        <video src="${item.video}" controls autoplay loop playsinline style="width:100%; height:100%; object-fit:cover;"></video>
+                    `;
+                } else {
+                    alert("🎥 Este artículo no tiene un archivo Video.mp4 cargado aún.");
+                    stage.innerHTML = `<img src="${photos[0]}" alt="${item.name}">`;
+                }
+            } else if (type === '3d') {
+                const chosenPhoto = photos[0] || item.img;
+                stage.innerHTML = `<img src="${chosenPhoto}" alt="${item.name}" class="spin-3d-active">`;
+            }
         }
 
         // Filtro por pestañas de categoría
@@ -885,7 +1337,6 @@
         // =====================================================
         // ACTIVACIÓN DEL COMANDO SECRETO
         // =====================================================
-        // 1. Escribiendo ":boveda" en el buscador
         document.getElementById('main-search').addEventListener('input', function(e) {
             const texto = e.target.value.trim();
             if (texto.toLowerCase() === COMANDO_BUSCADOR) {
@@ -896,7 +1347,6 @@
             }
         });
 
-        // 2. Tocando 5 veces el medallón dorado superior
         let toques = 0;
         let timerToques;
         document.getElementById('secret-medallon').addEventListener('click', function() {
@@ -932,12 +1382,28 @@
         }
 
         function openUploadModal() {
+            closeAllModals();
             document.getElementById('modal-upload').style.display = 'flex';
+        }
+
+        function openControlCenterModal() {
+            closeAllModals();
+            document.getElementById('cc-mp').checked = controlSettings.MercadoPago;
+            document.getElementById('cc-mc').checked = controlSettings.Mastercard;
+            document.getElementById('cc-bbva').checked = controlSettings.BBVA;
+            document.getElementById('cc-efecty').checked = controlSettings.Efecty;
+            document.getElementById('cc-link-mp').value = controlSettings.linkMP || "";
+            document.getElementById('cc-info-bbva').value = controlSettings.infoBBVA || "";
+            document.getElementById('cc-info-efecty').value = controlSettings.infoEfecty || "";
+            renderControlCenterOrders();
+            document.getElementById('modal-control-center').style.display = 'flex';
         }
 
         function closeAllModals() {
             document.getElementById('modal-login').style.display = 'none';
             document.getElementById('modal-upload').style.display = 'none';
+            document.getElementById('modal-control-center').style.display = 'none';
+            document.getElementById('modal-checkout').style.display = 'none';
         }
 
         function exitAdminMode() {
@@ -947,69 +1413,157 @@
         }
 
         // =====================================================
-        // SUBIDA Y COMPRESIÓN AUTOMÁTICA DE ARTÍCULOS
+        // CENTRO DE CONTROL: GUARDAR AUTORIZACIONES Y VER REGISTROS
         // =====================================================
-        function publishNewItem() {
+        function saveControlCenterSettings() {
+            controlSettings = {
+                MercadoPago: document.getElementById('cc-mp').checked,
+                Mastercard: document.getElementById('cc-mc').checked,
+                BBVA: document.getElementById('cc-bbva').checked,
+                Efecty: document.getElementById('cc-efecty').checked,
+                linkMP: document.getElementById('cc-link-mp').value.trim(),
+                infoBBVA: document.getElementById('cc-info-bbva').value.trim(),
+                infoEfecty: document.getElementById('cc-info-efecty').value.trim()
+            };
+            localStorage.setItem('shefa_control_center_cfg', JSON.stringify(controlSettings));
+            renderCards();
+            alert("✅ Autorizaciones de métodos de pago actualizadas en toda la tienda.");
+        }
+
+        function renderControlCenterOrders() {
+            const box = document.getElementById('cc-orders-list');
+            if (!registeredOrders.length) {
+                box.innerHTML = "Sin clientes registrados aún.";
+                return;
+            }
+            box.innerHTML = registeredOrders.map(o => `
+                <div class="order-log-item">
+                    <b style="color:var(--gold-bright);">${o.code}</b> — ${o.clientName} (${o.email})<br>
+                    <span>📦 ${o.itemName} | 💳 ${o.paymentMethod} | 📅 ${o.date}</span>
+                </div>
+            `).join('');
+        }
+
+        // =====================================================
+        // SUBIDA Y COMPRESIÓN DE FOTOS 1-4 + VIDEO.MP4
+        // =====================================================
+        function compressAndReadImage(fileInputId, urlInputId, fallbackImage = "") {
+            return new Promise((resolve) => {
+                const fileInput = document.getElementById(fileInputId);
+                const urlVal = document.getElementById(urlInputId).value.trim();
+
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            const MAX_SIZE = 700;
+                            const scale = MAX_SIZE / img.width;
+                            canvas.width = MAX_SIZE;
+                            canvas.height = img.height * scale;
+
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                            resolve(canvas.toDataURL('image/jpeg', 0.80));
+                        };
+                        img.src = evt.target.result;
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else if (urlVal !== "") {
+                    resolve(urlVal);
+                } else {
+                    resolve(fallbackImage);
+                }
+            });
+        }
+
+        function readVideoSource(fileInputId, urlInputId) {
+            return new Promise((resolve) => {
+                const fileInput = document.getElementById(fileInputId);
+                const urlVal = document.getElementById(urlInputId).value.trim();
+
+                if (urlVal !== "") {
+                    resolve(urlVal);
+                } else if (fileInput && fileInput.files && fileInput.files[0]) {
+                    const file = fileInput.files[0];
+                    // Si es un video corto permite guardarlo o crear ObjectURL
+                    if (file.size <= 3500000) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.readAsDataURL(file);
+                    } else {
+                        resolve(URL.createObjectURL(file));
+                    }
+                } else {
+                    resolve("");
+                }
+            });
+        }
+
+        async function publishNewItem() {
             const name = document.getElementById('item-name').value.trim();
             const price = parseFloat(document.getElementById('item-price').value);
             const ref = document.getElementById('item-ref').value.trim();
             const discount = document.getElementById('item-discount').value.trim() || "-35% HOY";
+            const stock = document.getElementById('item-stock').value;
             const category = document.getElementById('item-category').value;
-            const fileInput = document.getElementById('item-file');
-            const urlInput = document.getElementById('item-url').value.trim();
+            const desc = document.getElementById('item-desc').value.trim();
+            const requireRegister = document.getElementById('item-req-register').checked;
 
             if (!name || !price || !ref) {
-                alert("Completa el Nombre, Precio y Referencia del artículo.");
+                alert("Completa el Nombre, Precio y Referencia (SKU) del artículo.");
                 return;
             }
 
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        const MAX_SIZE = 700;
-                        const scale = MAX_SIZE / img.width;
-                        canvas.width = MAX_SIZE;
-                        canvas.height = img.height * scale;
-
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-
-                        saveToDatabase(name, price, ref, discount, category, dataUrl);
-                    };
-                    img.src = evt.target.result;
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else if (urlInput) {
-                saveToDatabase(name, price, ref, discount, category, urlInput);
-            } else {
-                alert("Selecciona una foto de tu galería o pega un link de imagen.");
+            const foto1 = await compressAndReadImage('item-file', 'item-url', '');
+            if (!foto1) {
+                alert("Selecciona la Foto 1 de tu galería o pega un link de imagen.");
+                return;
             }
-        }
 
-        function saveToDatabase(name, price, ref, discount, category, imgSource) {
+            const foto2 = await compressAndReadImage('item-file-2', 'item-url-2', foto1);
+            const foto3 = await compressAndReadImage('item-file-3', 'item-url-3', foto1);
+            const foto4 = await compressAndReadImage('item-file-4', 'item-url-4', foto1);
+            const videoMp4 = await readVideoSource('item-video-file', 'item-video-url');
+
+            const allowedPayments = [];
+            if (document.getElementById('item-pay-mp').checked) allowedPayments.push("Mercado Pago");
+            if (document.getElementById('item-pay-mc').checked) allowedPayments.push("Mastercard");
+            if (document.getElementById('item-pay-bbva').checked) allowedPayments.push("BBVA");
+            if (document.getElementById('item-pay-efecty').checked) allowedPayments.push("Convenio Efecty");
+
             const nuevo = {
                 id: Date.now(),
                 name: name,
                 price: price,
                 ref: ref.toUpperCase(),
                 discount: discount,
+                stock: stock,
                 category: category,
-                img: imgSource
+                desc: desc || "Artículo exclusivo Shefa Plus Global con garantía en Colombia.",
+                img: foto1,
+                photos: [foto1, foto2, foto3, foto4],
+                video: videoMp4,
+                requireRegister: requireRegister,
+                allowedPayments: allowedPayments
             };
 
             catalogData.unshift(nuevo);
-            localStorage.setItem('shefa_plus_3d_db', JSON.stringify(catalogData));
+            try {
+                localStorage.setItem('shefa_plus_3d_db', JSON.stringify(catalogData));
+            } catch (err) {
+                console.warn("Almacenamiento local lleno para archivos pesados, manteniendo en sesión actual.");
+            }
 
-            // Limpiar campos
-            document.getElementById('item-name').value = "";
-            document.getElementById('item-price').value = "";
-            document.getElementById('item-ref').value = "";
-            document.getElementById('item-file').value = "";
-            document.getElementById('item-url').value = "";
+            // Limpiar formulario de subida
+            ['item-name', 'item-price', 'item-ref', 'item-desc',
+             'item-file', 'item-url', 'item-file-2', 'item-url-2',
+             'item-file-3', 'item-url-3', 'item-file-4', 'item-url-4',
+             'item-video-file', 'item-video-url'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
 
             closeAllModals();
             renderCards();
@@ -1024,11 +1578,142 @@
         }
 
         // =====================================================
-        // PEDIDOS POR WHATSAPP
+        // FLUJO DE REGISTRO DE CLIENTE, CÓDIGO ÚNICO Y PAGOS AUTORIZADOS
         // =====================================================
-        function pedirProducto(name, ref, price) {
-            const text = `¡Hola *SHEFA PLUS GLOBAL SHOP*! Quiero pedir este artículo:\n\n• *Producto:* ${name}\n• *Referencia:* ${ref}\n• *Precio:* ${price}`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+        function iniciarCompraProducto(itemId) {
+            const item = catalogData.find(x => x.id === itemId);
+            if (!item) return;
+
+            if (item.stock && item.stock.includes("Agotado")) {
+                alert("Este artículo se encuentra agotado en este momento.");
+                return;
+            }
+
+            const authorizedMethods = getAuthorizedPaymentsForItem(item);
+            if (authorizedMethods.length === 0) {
+                alert("No hay métodos de pago autorizados actualmente para este artículo. Consulta por WhatsApp.");
+                return;
+            }
+
+            currentCheckoutItem = item;
+
+            const formattedPrice = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                maximumFractionDigits: 0
+            }).format(item.price);
+
+            document.getElementById('checkout-item-summary').innerHTML = `
+                <div style="color:var(--gold-bright); font-weight:800;">${item.name}</div>
+                <div style="font-size:0.74rem; color:#d1fae5;">REF: ${item.ref} • ${item.stock || '✅ En Stock'}</div>
+                <div style="font-size:1.05rem; font-weight:900; color:#fff; margin-top:4px;">${formattedPrice}</div>
+            `;
+
+            const selectMethod = document.getElementById('reg-payment-method');
+            selectMethod.innerHTML = "";
+            authorizedMethods.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                selectMethod.appendChild(opt);
+            });
+
+            document.getElementById('unique-code-container').style.display = 'none';
+            document.getElementById('modal-checkout').style.display = 'flex';
+        }
+
+        function confirmClientRegistrationAndPay() {
+            if (!currentCheckoutItem) return;
+
+            const clientName = document.getElementById('reg-client-name').value.trim();
+            const clientEmail = document.getElementById('reg-client-email').value.trim().toLowerCase();
+            const clientPhone = document.getElementById('reg-client-phone').value.trim();
+            const clientAddress = document.getElementById('reg-client-address').value.trim();
+            const paymentMethod = document.getElementById('reg-payment-method').value;
+
+            if (!clientName || !clientEmail.includes('@') || !clientPhone) {
+                alert("Por favor completa tu Nombre, Correo Electrónico válido y WhatsApp para generar tu Código Único.");
+                return;
+            }
+
+            // Generar Código Único ligado al correo del cliente y la referencia
+            const emailPrefix = clientEmail.replace(/[^a-zA-Z0-9]/g, '').slice(0, 3).toUpperCase() || "CLI";
+            const randomDigits = Date.now().toString().slice(-5);
+            const uniqueCode = `SHF-${emailPrefix}-${randomDigits}`;
+
+            const formattedPrice = new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                maximumFractionDigits: 0
+            }).format(currentCheckoutItem.price);
+
+            // Mostrar Código Único e instrucciones según el método autorizado
+            const codeBox = document.getElementById('unique-code-container');
+            const codeText = document.getElementById('generated-code-text');
+            const instructions = document.getElementById('payment-custom-instructions');
+
+            codeText.textContent = uniqueCode;
+            codeBox.style.display = 'block';
+
+            if (paymentMethod === "Convenio Efecty") {
+                instructions.innerHTML = `
+                    🟡 <b>CONVENIO EFECTY AUTORIZADO:</b><br>
+                    Presenta este Código Único <b>${uniqueCode}</b> junto a tu correo (<b>${clientEmail}</b>).<br>
+                    ${controlSettings.infoEfecty || ''}
+                `;
+            } else if (paymentMethod === "BBVA") {
+                instructions.innerHTML = `
+                    🏦 <b>TRANSFERENCIA / PAGO BBVA:</b><br>
+                    Usa tu Código Único <b>${uniqueCode}</b> como referencia de pago.<br>
+                    ${controlSettings.infoBBVA || ''}
+                `;
+            } else {
+                instructions.innerHTML = `
+                    💳 <b>PAGO AUTORIZADO CON ${paymentMethod.toUpperCase()}:</b><br>
+                    Tu pedido quedó blindado con el Código Único <b>${uniqueCode}</b>.
+                `;
+            }
+
+            // Guardar en el historial del Centro de Control
+            const newOrderRecord = {
+                code: uniqueCode,
+                clientName: clientName,
+                email: clientEmail,
+                phone: clientPhone,
+                address: clientAddress,
+                itemName: currentCheckoutItem.name,
+                itemRef: currentCheckoutItem.ref,
+                price: formattedPrice,
+                paymentMethod: paymentMethod,
+                date: new Date().toLocaleDateString('es-CO')
+            };
+            registeredOrders.unshift(newOrderRecord);
+            localStorage.setItem('shefa_registered_orders', JSON.stringify(registeredOrders));
+
+            // Actualizar contador del carrito superior
+            const badge = document.getElementById('cart-count');
+            badge.textContent = parseInt(badge.textContent || "0") + 1;
+
+            // Enviar orden completa con Código Único a WhatsApp (y abrir link de Mercado Pago si está configurado)
+            const waText =
+                `¡Hola *SHEFA PLUS GLOBAL SHOP*! 🛍️\n` +
+                `He registrado mi pedido con Código Único:\n\n` +
+                `🔑 *Código Único:* ${uniqueCode}\n` +
+                `📦 *Producto:* ${currentCheckoutItem.name}\n` +
+                `🏷️ *Referencia:* ${currentCheckoutItem.ref}\n` +
+                `💰 *Valor:* ${formattedPrice}\n` +
+                `💳 *Método Autorizado:* ${paymentMethod}\n\n` +
+                `👤 *Cliente:* ${clientName}\n` +
+                `📧 *Correo:* ${clientEmail}\n` +
+                `📱 *WhatsApp:* ${clientPhone}\n` +
+                `📍 *Entrega:* ${clientAddress || 'Por confirmar'}`;
+
+            setTimeout(() => {
+                if ((paymentMethod === "Mercado Pago" || paymentMethod === "Mastercard") && controlSettings.linkMP) {
+                    window.open(controlSettings.linkMP, '_blank');
+                }
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`, '_blank');
+            }, 1400);
         }
 
         function contactWhatsAppGeneral() {
