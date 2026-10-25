@@ -1721,8 +1721,55 @@
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-        // Inicializar tienda
-        renderCards();
+                // =====================================================
+        // CONEXIÓN AUTOMÁTICA CON INVENTARIO ASIÁTICO (DROPSHIPPING CIEGO)
+        // =====================================================
+        async function cargarCatalogoCJ() {
+            try {
+                // 1. Llama a tu propia API en el servidor Node.js
+                const respuesta = await fetch('/api/cj/products?limit=20');
+                const json = await respuesta.json();
+
+                if (json.success && json.data && json.data.products) {
+                    const productosCJ = json.data.products;
+                    const TRM = 4000; // Tasa de cambio Dólar a Peso Colombiano
+
+                    // 2. Transforma los datos crudos a tarjetas premium Shefa
+                    const catalogoTransformado = productosCJ.map(cjItem => {
+                        // MÁRGEN DEL 1000%: (Costo en USD * TRM) * 10
+                        let costoCOP = parseFloat(cjItem.sellPrice || 0) * TRM;
+                        let precioVenta = costoCOP * 10; 
+
+                        return {
+                            id: cjItem.id || cjItem.sku, 
+                            name: cjItem.nameEn || "Producto Exclusivo Shefa",
+                            price: precioVenta,
+                            ref: (cjItem.sku || "CJ-PROD").substring(0, 15),
+                            discount: "🔥 IMPORTACIÓN DIRECTA",
+                            stock: "✅ En Stock",
+                            category: "Lo Más Vendido",
+                            desc: "Tecnología de importación con garantía oficial en Colombia.",
+                            img: cjItem.bigImage || "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+                            photos: [cjItem.bigImage],
+                            video: "", 
+                            requireRegister: true,
+                            allowedPayments: ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"]
+                        };
+                    });
+
+                    // 3. Fusiona tus productos manuales con los productos automáticos
+                    catalogData = [...catalogData, ...catalogoTransformado];
+                }
+            } catch (error) {
+                console.error("Error conectando con la matriz de inventario:", error);
+            } finally {
+                // 4. Renderiza la vitrina, ya sea con los datos de CJ o solo los locales si falla la red
+                renderCards();
+            }
+        }
+
+        // Inicializar tienda conectada al backend
+        cargarCatalogoCJ();
     </script>
 </body>
 </html>
