@@ -1721,49 +1721,61 @@
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
         }
 
-                // =====================================================
+        // =====================================================
         // CONEXIÓN AUTOMÁTICA CON INVENTARIO ASIÁTICO (DROPSHIPPING CIEGO)
         // =====================================================
         async function cargarCatalogoCJ() {
             try {
-                // 1. Llama a tu propia API en el servidor Node.js
                 const respuesta = await fetch('/api/cj/products?limit=20');
                 const json = await respuesta.json();
 
                 if (json.success && json.data && json.data.products) {
-                    const productosCJ = json.data.products;
-                    const TRM = 4000; // Tasa de cambio Dólar a Peso Colombiano
+                    const TRM = 4000; // Dólar a COP
+                    const catalogoTransformado = [];
 
-                    // 2. Transforma los datos crudos a tarjetas premium Shefa
-                    const catalogoTransformado = productosCJ.map(cjItem => {
-                        // MÁRGEN DEL 1000%: (Costo en USD * TRM) * 10
-                        let costoCOP = parseFloat(cjItem.sellPrice || 0) * TRM;
-                        let precioVenta = costoCOP * 10; 
+                    // Extractor inteligente para romper arrays anidados de CJ
+                    const extraerProductos = (item) => {
+                        if (!item) return;
+                        if (Array.isArray(item)) {
+                            item.forEach(extraerProductos);
+                        } else if (typeof item === 'object') {
+                            if (item.nameEn && item.sellPrice) {
+                                let costoCOP = parseFloat(item.sellPrice) * TRM;
+                                let precioVenta = costoCOP * 10; // Margen 1000%
+                                let sku = item.sku || item.id || "CJ-PROD";
+                                let imagen = item.bigImage || "https://images.unsplash.com/photo-1505740420928-5e560c06d30e";
 
-                        return {
-                            id: cjItem.id || cjItem.sku, 
-                            name: cjItem.nameEn || "Producto Exclusivo Shefa",
-                            price: precioVenta,
-                            ref: (cjItem.sku || "CJ-PROD").substring(0, 15),
-                            discount: "🔥 IMPORTACIÓN DIRECTA",
-                            stock: "✅ En Stock",
-                            category: "Lo Más Vendido",
-                            desc: "Tecnología de importación con garantía oficial en Colombia.",
-                            img: cjItem.bigImage || "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
-                            photos: [cjItem.bigImage],
-                            video: "", 
-                            requireRegister: true,
-                            allowedPayments: ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"]
-                        };
-                    });
+                                catalogoTransformado.push({
+                                    id: sku, 
+                                    name: item.nameEn,
+                                    price: precioVenta,
+                                    ref: sku.substring(0, 15),
+                                    discount: "🔥 IMPORTACIÓN",
+                                    stock: "✅ En Stock",
+                                    category: "Lo Más Vendido",
+                                    desc: "Tecnología de importación con garantía oficial en Colombia.",
+                                    img: imagen,
+                                    photos: [imagen],
+                                    video: "", 
+                                    requireRegister: true,
+                                    allowedPayments: ["Mercado Pago", "Mastercard", "BBVA", "Convenio Efecty"]
+                                });
+                            } else if (item.productList) {
+                                extraerProductos(item.productList);
+                            }
+                        }
+                    };
 
-                    // 3. Fusiona tus productos manuales con los productos automáticos
-                    catalogData = [...catalogData, ...catalogoTransformado];
+                    extraerProductos(json.data.products);
+
+                    // Filtrar duplicados antes de inyectar
+                    const idsLocales = new Set(catalogData.map(p => p.id));
+                    const nuevos = catalogoTransformado.filter(p => !idsLocales.has(p.id));
+                    catalogData = [...catalogData, ...nuevos];
                 }
             } catch (error) {
                 console.error("Error conectando con la matriz de inventario:", error);
             } finally {
-                // 4. Renderiza la vitrina, ya sea con los datos de CJ o solo los locales si falla la red
                 renderCards();
             }
         }
