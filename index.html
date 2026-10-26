@@ -33,7 +33,7 @@
 
         /* 1. CINTILLO SUPERIOR (TOP BAR) */
         .top-bar {
-            background: #060908;
+            background: #060908; un 8
             color: #e5e7eb;
             font-size: 0.68rem;
             padding: 7px 10px;
@@ -1945,6 +1945,225 @@
         // CORRECCIÓN: MOTOR DE DROPSHIPPING (3 FOTOS Y 1 VIDEO)
         // =====================================================
         async function cargarCatalogoCJ() {
+        // =====================================================
+        // RENDERIZADO DE TARJETAS (SOLUCIÓN DE BOTONES Y 3 FOTOS)
+        // =====================================================
+        function renderCards(searchQuery = "") {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = "";
+
+            const filtered = catalogData.filter(item => {
+                const matchCategory = (categoriaActual === "Todos") || (item.category === categoriaActual);
+                const matchSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    item.ref.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    (item.desc && item.desc.toLowerCase().includes(searchQuery.toLowerCase()));
+                return matchCategory && matchSearch;
+            });
+
+            filtered.forEach(item => {
+                const formattedPrice = new Intl.NumberFormat('es-CO', {
+                    style: 'currency',
+                    currency: 'COP',
+                    maximumFractionDigits: 0
+                }).format(item.price);
+
+                const stockText = item.stock || "✅ En Stock";
+                let stockClass = "stock-ok";
+                if (stockText.includes("Últimas") || stockText.includes("Pedido")) stockClass = "stock-low";
+                if (stockText.includes("Agotado")) stockClass = "stock-out";
+
+                const mainPhoto = (item.photos && item.photos[0]) ? item.photos[0] : item.img;
+                const activePayments = getAuthorizedPaymentsForItem(item);
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'card-3d-wrapper';
+
+                // IMPORTANTE: Comillas simples ('${item.id}') añadidas para soportar IDs con letras
+                wrapper.innerHTML = `
+                    <article class="product-card">
+                        <div class="card-media-box" id="media-box-${item.id}">
+                            <span class="badge-bestseller">🔥 Más Vendido</span>
+                            <span class="badge-discount">${item.discount || '-35% HOY'}</span>
+                            
+                            <div id="media-stage-${item.id}" style="width:100%; height:100%;">
+                                <img src="${mainPhoto}" alt="${item.name}" id="img-${item.id}">
+                            </div>
+
+                            <div class="media-switcher-bar">
+                                <button class="media-pill active" onclick="changeCardMedia('${item.id}', 'photo', 0, this)">Foto 1</button>
+                                <button class="media-pill" onclick="changeCardMedia('${item.id}', 'photo', 1, this)">Foto 2</button>
+                                <button class="media-pill" onclick="changeCardMedia('${item.id}', 'photo', 2, this)">Foto 3</button>
+                                <button class="media-pill" onclick="changeCardMedia('${item.id}', 'video', 0, this)">▶ Video</button>
+                                <button class="media-pill" onclick="changeCardMedia('${item.id}', '3d', 0, this)">🧊 3D</button>
+                            </div>
+                        </div>
+
+                        <div class="card-info-footer">
+                            <div class="card-top-meta">
+                                <span class="card-ref-tag">REF: ${item.ref}</span>
+                                <span class="stock-pill ${stockClass}">${stockText}</span>
+                            </div>
+                            <h3 class="card-prod-title">${item.name}</h3>
+                            <p class="card-prod-desc">${item.desc || 'Calidad garantizada Shefa Plus Global.'}</p>
+                            <div class="card-methods-mini">
+                                🛡️ ${activePayments.join(' • ') || 'Consultar pago'}
+                            </div>
+                            <div class="card-price-row">
+                                <span class="card-price-val">${formattedPrice}</span>
+                                <button class="btn-card-pedir" ${stockText.includes('Agotado') ? 'disabled' : ''} onclick="iniciarCompraProducto('${item.id}')">
+                                    ${stockText.includes('Agotado') ? 'Agotado' : 'Pedir Ahora'}
+                                </button>
+                            </div>
+                            <button class="btn-card-delete" onclick="borrarArticulo('${item.id}')">
+                                🗑️ Eliminar
+                            </button>
+                        </div>
+                    </article>
+                `;
+                grid.appendChild(wrapper);
+            });
+        }
+
+        function changeCardMedia(itemId, type, index, btn) {
+            const bar = btn.parentElement;
+            bar.querySelectorAll('.media-pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+
+            const item = catalogData.find(x => String(x.id) === String(itemId));
+            if (!item) return;
+
+            const stage = document.getElementById(`media-stage-${itemId}`);
+            const photos = (item.photos && item.photos.length) ? item.photos : [item.img];
+
+            if (type === 'photo') {
+                const chosenPhoto = photos[index] || photos[0] || item.img;
+                stage.innerHTML = `<img src="${chosenPhoto}" alt="${item.name}">`;
+            } else if (type === 'video') {
+                if (item.video && item.video.trim() !== "") {
+                    stage.innerHTML = `<video src="${item.video}" controls autoplay loop playsinline style="width:100%; height:100%; object-fit:cover;"></video>`;
+                } else {
+                    alert("🎥 Este artículo no tiene video disponible.");
+                    stage.innerHTML = `<img src="${photos[0]}" alt="${item.name}">`;
+                }
+            } else if (type === '3d') {
+                stage.innerHTML = `<img src="${photos[0] || item.img}" alt="${item.name}" class="spin-3d-active">`;
+            }
+        }
+
+        // =====================================================
+        // CORRECCIÓN: SUBIDA DE TARJETAS (SOLO 3 FOTOS Y 1 VIDEO)
+        // =====================================================
+        async function publishNewItem() {
+            const name = document.getElementById('item-name').value.trim();
+            const price = parseFloat(document.getElementById('item-price').value);
+            const ref = document.getElementById('item-ref').value.trim();
+            const discount = document.getElementById('item-discount').value.trim() || "-35% HOY";
+            const stock = document.getElementById('item-stock').value;
+            const category = document.getElementById('item-category').value;
+            const desc = document.getElementById('item-desc').value.trim();
+            const requireRegister = document.getElementById('item-req-register').checked;
+
+            if (!name || !price || !ref) {
+                alert("Completa el Nombre, Precio y Referencia (SKU).");
+                return;
+            }
+
+            const foto1 = await compressAndReadImage('item-file', 'item-url', '');
+            if (!foto1) {
+                alert("Selecciona la Foto 1.");
+                return;
+            }
+
+            const foto2 = await compressAndReadImage('item-file-2', 'item-url-2', foto1);
+            const foto3 = await compressAndReadImage('item-file-3', 'item-url-3', foto1);
+            const videoMp4 = await readVideoSource('item-video-file', 'item-video-url');
+
+            const allowedPayments = [];
+            if (document.getElementById('item-pay-mp').checked) allowedPayments.push("Mercado Pago");
+            if (document.getElementById('item-pay-mc').checked) allowedPayments.push("Mastercard");
+            if (document.getElementById('item-pay-bbva').checked) allowedPayments.push("BBVA");
+            if (document.getElementById('item-pay-efecty').checked) allowedPayments.push("Convenio Efecty");
+
+            const nuevo = {
+                id: Date.now().toString(), // Guardado como String
+                name: name,
+                price: price,
+                ref: ref.toUpperCase(),
+                discount: discount,
+                stock: stock,
+                category: category,
+                desc: desc || "Artículo exclusivo Shefa Plus Global con garantía.",
+                img: foto1,
+                photos: [foto1, foto2, foto3], // Forzado a 3 fotos exactas
+                video: videoMp4,
+                requireRegister: requireRegister,
+                allowedPayments: allowedPayments
+            };
+
+            catalogData.unshift(nuevo);
+            try { localStorage.setItem('shefa_plus_3d_db', JSON.stringify(catalogData)); } catch (err) {}
+            
+            ['item-name', 'item-price', 'item-ref', 'item-desc', 'item-file', 'item-url', 'item-file-2', 'item-url-2', 'item-file-3', 'item-url-3', 'item-video-file', 'item-video-url'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = "";
+            });
+
+            closeAllModals();
+            renderCards();
+        }
+
+        // =====================================================
+        // CORRECCIÓN: CÓDIGO DE COMPRA Y BORRADO
+        // =====================================================
+        function iniciarCompraProducto(itemId) {
+            const item = catalogData.find(x => String(x.id) === String(itemId));
+            if (!item) return;
+
+            if (item.stock && item.stock.includes("Agotado")) {
+                alert("Este artículo se encuentra agotado en este momento.");
+                return;
+            }
+
+            const authorizedMethods = getAuthorizedPaymentsForItem(item);
+            if (authorizedMethods.length === 0) {
+                alert("No hay métodos de pago autorizados.");
+                return;
+            }
+
+            currentCheckoutItem = item;
+            const formattedPrice = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(item.price);
+
+            document.getElementById('checkout-item-summary').innerHTML = `
+                <div style="color:var(--gold-bright); font-weight:800;">${item.name}</div>
+                <div style="font-size:0.74rem; color:#d1fae5;">REF: ${item.ref} • ${item.stock || '✅ En Stock'}</div>
+                <div style="font-size:1.05rem; font-weight:900; color:#fff; margin-top:4px;">${formattedPrice}</div>
+            `;
+
+            const selectMethod = document.getElementById('reg-payment-method');
+            selectMethod.innerHTML = "";
+            authorizedMethods.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                selectMethod.appendChild(opt);
+            });
+
+            document.getElementById('unique-code-container').style.display = 'none';
+            document.getElementById('modal-checkout').style.display = 'flex';
+        }
+
+        function borrarArticulo(id) {
+            if (confirm("¿Deseas eliminar esta tarjeta?")) {
+                catalogData = catalogData.filter(item => String(item.id) !== String(id));
+                localStorage.setItem('shefa_plus_3d_db', JSON.stringify(catalogData));
+                renderCards();
+            }
+        }
+
+        // =====================================================
+        // CORRECCIÓN: MOTOR DE DROPSHIPPING (3 FOTOS Y 1 VIDEO)
+        // =====================================================
+        async function cargarCatalogoCJ() {
             try {
                 const respuesta = await fetch('/api/cj/products?limit=20');
                 const json = await respuesta.json();
@@ -2004,7 +2223,7 @@
             } finally {
                 renderCards();
             }
-    }
+        }
     </script>
 </body>
 </html>
